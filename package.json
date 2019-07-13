@@ -1,0 +1,24 @@
+{
+    "name": "slack-flightcheck",
+    "version": "0.0.2",
+    "description": "FlightStats integration with Slack",
+    "author": "Timothy Miller miller.tim108@gmail.com",
+    "repository": {
+        "type": "git",
+        "url": "github.com/tangoyankee/slack-flightcheck.git"
+    },
+    "license": "MIT",
+    "main": "main/main.js",
+    "scripts": {
+        "start": "node main/main.js"
+    },
+    "dependencies": {
+        "body-parser": "^1.18.3",
+        "express": "^4.16.4",
+        "request": "^2.88.0"
+    },
+    "devDependencies": {
+        "eslint": "^5.16.0",
+        "nodemon": "^1.19.1"
+    }
+}

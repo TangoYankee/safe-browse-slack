@@ -1,0 +1,12 @@
+{
+    "AWSEBDockerrunVersion": "1",
+    "Image": { 
+        "Name": "tangoyankee/slack-flightcheck",
+        "Update": true
+    },
+    "Ports":[
+        {
+            "ContainerPort": 4390
+        }
+    ]
+}
