@@ -1,27 +1,31 @@
-const slack_oauth = require('./apps/slack/oauth.js');
-const markdownlinks = require('./apps/markdownlinks/methods.js');
-var config = require('./config.js');
-
-var express = require('express');
+'use strict';
+const express = require('express');
 const bodyParser = require('body-parser');
 
-var app = express();
-var path = require('path');
-var __dirname;
-const PORT = config.port;
+const slack_oauth = require('./apps/slack/oauth.js');
+const markdownlinks = require('./apps/markdownlinks/methods.js');
+
+const app = express();
+app.set('view engine', 'pug');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
-app.listen(PORT);
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname + '/templates/index.html'))
+    res.render('index');
 });
+
 
 app.get('/oauth', (req, res) => {
     slack_oauth(req, res);
 });
 
+
 app.post('/publish', (req, res) => {
     markdownlinks.data.publish(req.body, res);
 });
+
+
+const port = 4390;
+app.listen(port);

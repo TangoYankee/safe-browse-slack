@@ -1,0 +1,25 @@
+html {
+    position: relative;
+    min-height: 100%;
+  }
+
+body {
+  padding-bottom: 3rem;
+}
+  
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+footer a {
+  color: black;
+  padding: 0.5rem 0.5rem 0.75rem;
+}
