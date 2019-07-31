@@ -2,7 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const slack_oauth = require('./apps/slack/oauth.js');
+const { oauth, encrypt, decrypt}  = require('./apps/slack/oauth.js');
 const { signature } = require('./apps/slack/signature.js');
 const markdownlinks = require('./apps/markdownlinks/methods.js');
 
@@ -20,8 +20,8 @@ app.get('/', (req, res) => {
 
 
 app.get('/oauth', (req, res) => {
-    /*OAuth with Slack*/
-    slack_oauth(req, res);
+    /*oAuth with Slack*/
+    oauth(req, res);
 });
 
 
