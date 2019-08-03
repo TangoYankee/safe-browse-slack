@@ -23,14 +23,47 @@ header h1 {
   margin: auto 1rem;
 }
 
+div.message {
+  font-size: 1.25rem;
+  color:white;
+  text-align: center;
+  margin: auto;
+  max-width: max-content;
+}
+
+.alert {
+  padding: 1rem;
+  opacity: 0.7;
+  transition: opacity 0.6s;
+}
+
+.alert.success {background-color: #4CAF50;}
+.alert.error {background-color: #b71c1c;}
+.alert.warning {background-color: orange;}
+
+.closebtn a {
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.closebtn a:hover {
+  color: black;
+}
+
 div.content {
   display: flex;
   flex-direction: column;
   text-align: center;
+  margin: auto;
+  max-width: max-content;
 }
 
 img#demo {
   object-fit: contain;
+  border-style: solid;
+  border-radius: 0.25rem;
+  border-width: 0.15rem;
 }
   
 footer {
