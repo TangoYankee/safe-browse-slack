@@ -1,38 +1,31 @@
-var close = document.getElementsByClassName("closebtn");
-var i;
-
-for (i = 0; i < close.length; i++) {
-  close[i].onclick = function(){
-    var div = this.parentElement;
-    div.style.opacity = "0";
-    setTimeout(function(){ div.style.display = "none"; }, 600);
-  }
+footerAlign = () => {
+  /* create bottom padding on the body to accommodate footer */
+  $('footer').css('height', 'auto');
+  var footerHeight = $('footer').outerHeight();
+  $('body').css('padding-bottom', footerHeight);
+  $('footer').css('height', footerHeight);
 }
 
-
-function footerAlign(){
-    $('footer').css('height', 'auto');
-    var footerHeight = $('footer').outerHeight();
-    $('body').css('padding-bottom', footerHeight);
-    $('footer').css('height', footerHeight);
+headerAlign = () => {
+  /* create top padding on the body to accommodate header */
+  $('header').css('height', 'auto');
+  var headerHeight = $('header').outerHeight();
+  $('body').css('padding-top', headerHeight);
+  $('header').css('height', headerHeight);
 }
 
-
-function headerAlign(){
-    $('header').css('height', 'auto');
-    var headerHeight = $('header').outerHeight();
-    $('body').css('padding-top', headerHeight);
-    $('header').css('height', headerHeight);
-}
-
-
-$(document).ready(()=>{
-    footerAlign();
-    headerAlign();
+$().ready( () => {
+  footerAlign();
 })
 
+$().ready( () => {
+  headerAlign();
+})
 
-$(window).resize(()=>{
-    footerAlign();
-    headerAlign();
+$(window).resize( () => {
+  footerAlign();
+})
+
+$(window).resize( () => {
+  headerAlign();
 })
