@@ -15,7 +15,7 @@ const setThreatEntries = (links) => {
   /* pair urls with key for safe browse threat entries */
   var threatEntries = []
   for (var link of links) {
-    threatEntries.push({ url: link.cacheKeyFromUrl })
+    threatEntries.push({ url: link.urlDomainKey })
   }
   return threatEntries
 }
@@ -40,7 +40,7 @@ const setThreatTypes = (messageData, threatMatches) => {
   /* add threat type to the original message */
   for (var threatMatch of threatMatches.matches) {
     for (var link of messageData.links) {
-      if (link.cacheKeyFromUrl === threatMatch.threat.url) {
+      if (link.urlDomainKey === threatMatch.threat.url) {
         link.threatMatch = threatMatch.threatType
         link.cacheDuration = threatMatch.cacheDuration
         messageData.threatTypes.push(threatMatch.threatType)

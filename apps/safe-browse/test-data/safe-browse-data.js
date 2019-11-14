@@ -6,7 +6,7 @@ const threatEntries = [
 
 const urlDomainKeys = [
   {
-    cacheKeyFromUrl: 'testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/',
+    urlDomainKey: 'testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/',
     cacheDuration: '300s',
     markdownLink: '[Social Engineering Site](https://testsafebrowsing.appspot.com/apiv4/OSX/SOCIAL_ENGINEERING/URL/)',
     messageLink: '<https://testsafebrowsing.appspot.com/apiv4/osx/sociakl_engineering/url/|Social Engineering Site>',
@@ -14,7 +14,7 @@ const urlDomainKeys = [
     threatMatch: 'SOCIAL_ENGINEERING'
   },
   {
-    cacheKeyFromUrl: 'testsafebrowsing.appspot.com/s/malware.html',
+    urlDomainKey: 'testsafebrowsing.appspot.com/s/malware.html',
     cacheDuration: '300s',
     markdownLink: '[Malware Site](testsafebrowsing.appspot.com/s/malware.html)',
     messageLink: '<https://testsafebrowsing.appspot.com/s/malware.html|Malware Site>',
@@ -22,7 +22,7 @@ const urlDomainKeys = [
     threatMatch: 'MALWARE'
   },
   {
-    cacheKeyFromUrl: 'nasa.gov',
+    urlDomainKey: 'nasa.gov',
     cacheDuration: '',
     markdownLink: '[Nasa](nasa.gov)',
     messageLink: '<https://nasa.gov|Nasa>',
@@ -62,7 +62,7 @@ const inputMessageData = {
   threatTypes: [],
   links: [
     {
-      cacheKeyFromUrl: 'testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/',
+      urlDomainKey: 'testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/',
       cacheDuration: '',
       markdownLink: '[Social Engineering Site](https://testsafebrowsing.appspot.com/apiv4/OSX/SOCIAL_ENGINEERING/URL/)',
       messageLink: '<https://testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/|Social Engineering Site>',
@@ -70,7 +70,7 @@ const inputMessageData = {
       threatMatch: ''
     },
     {
-      cacheKeyFromUrl: 'testsafebrowsing.appspot.com/s/malware.html',
+      urlDomainKey: 'testsafebrowsing.appspot.com/s/malware.html',
       cacheDuration: '300s',
       markdownLink: '[Malware Site](testsafebrowsing.appspot.com/s/malware.html)',
       messageLink: '<https://testsafebrowsing.appspot.com/s/malware.html|Malware Site>',
@@ -78,7 +78,7 @@ const inputMessageData = {
       threatMatch: ''
     },
     {
-      cacheKeyFromUrl: 'nasa.gov',
+      urlDomainKey: 'nasa.gov',
       cacheDuration: '',
       markdownLink: '[Nasa](nasa.gov)',
       messageLink: '<https://nasa.gov|Nasa>',
@@ -98,7 +98,7 @@ const outputMessageData = {
   ],
   links: [
     {
-      cacheKeyFromUrl: 'testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/',
+      urlDomainKey: 'testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/',
       cacheDuration: '',
       markdownLink: '[Social Engineering Site](https://testsafebrowsing.appspot.com/apiv4/OSX/SOCIAL_ENGINEERING/URL/)',
       messageLink: '<https://testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/|Social Engineering Site>',
@@ -106,7 +106,7 @@ const outputMessageData = {
       threatMatch: ''
     },
     {
-      cacheKeyFromUrl: 'testsafebrowsing.appspot.com/s/malware.html',
+      urlDomainKey: 'testsafebrowsing.appspot.com/s/malware.html',
       cacheDuration: '300s',
       markdownLink: '[Malware Site](testsafebrowsing.appspot.com/s/malware.html)',
       messageLink: '<https://testsafebrowsing.appspot.com/s/malware.html|Malware Site>',
@@ -114,7 +114,7 @@ const outputMessageData = {
       threatMatch: 'MALWARE'
     },
     {
-      cacheKeyFromUrl: 'nasa.gov',
+      urlDomainKey: 'nasa.gov',
       cacheDuration: '',
       markdownLink: '[Nasa](nasa.gov)',
       messageLink: '<https://nasa.gov|Nasa>',
