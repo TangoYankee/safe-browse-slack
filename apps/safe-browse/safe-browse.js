@@ -3,7 +3,8 @@ const postThreatMatches = require('./post-threat-matches')
 
 const safeBrowse = (messageData, cacheThreats) => {
   /* scan urls for threats using Google safe browse 'lookup' API */
-  var threatEntries = setThreatEntries(messageData.links)
+  var notInCache = setNotInCache(messageData.links, cacheThreats)
+  var threatEntries = setThreatEntries(notInCache)
   var requestBody = setRequestBody(threatEntries)
   var threatMatches = postThreatMatches(requestBody)
   messageData.safeBrowseSuccess = true
@@ -13,7 +14,14 @@ const safeBrowse = (messageData, cacheThreats) => {
 
 // Function to determine which links were not found in the cache
 const setNotInCache = (links, cacheThreats) => {
-  var notInCache
+  /* threats not previously saved in cached */
+  var notInCache = []
+  for (link of links){
+    var inCache = (cacheThreats.findIndex(cacheThreat => cacheThreat.key === link.urlDomainKey))
+    if(inCache === -1){
+      notInCache.push(link.urlDomainKey)
+    }
+  }
   return notInCache
 }
 
@@ -63,5 +71,6 @@ module.exports = {
   safeBrowse,
   setRequestBody,
   setThreatEntries,
-  setThreatTypes
+  setThreatTypes,
+  setNotInCache
 }

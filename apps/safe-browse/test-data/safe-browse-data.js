@@ -88,6 +88,19 @@ const inputMessageData = {
   ]
 }
 
+const cacheThreats = [
+  {
+    key: 'testsafebrowsing.appspot.com/s/malware.html',
+    val: { threatMatch: 'MALWARE' },
+    ttl: 300
+  }
+]
+
+const notInCache = [
+  'testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/',
+  'nasa.gov'
+]
+
 const outputMessageData = {
   message: '[Social Engineering Site](https://testsafebrowsing.appspot.com/apiv4/OSX/SOCIAL_ENGINEERING/URL/), [Malware Site](testsafebrowsing.appspot.com/s/malware.html), and [Nasa](nasa.gov)',
   sharedBy: 'TangoYankee',
@@ -126,6 +139,7 @@ const outputMessageData = {
 
 module.exports = {
   threatEntries,
+  cacheThreats,
   urlDomainKeys,
   requestBody,
   inputMessageData,
