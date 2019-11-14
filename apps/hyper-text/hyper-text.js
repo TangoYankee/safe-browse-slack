@@ -4,6 +4,7 @@ const {
   setDestUrl, setDisplayText, getMarkdownHyperText, setAllSharedAsHttpSecure,
   setHttpDestUrl, setUrlDomainKey, setSharedAsHttpSecure
 } = require('./content')
+const { getCacheThreats } = require('../cache/threats')
 const { safeBrowse } = require('../safe-browse/safe-browse')
 
 const hyperText = (text) => {
@@ -47,12 +48,16 @@ const devFormat = (text, userId) => {
           var markdownHyperText = getMarkdownHyperText(hyperTextPosition, text)
           var hyperTextData = setHyperTextData(markdownHyperText, slackHyperText, urlDomainKey, sharedAsHttpSecure)
           messageData.links.push(hyperTextData)
-          message = message.replace(markdownHyperText, slackHyperText, message)
+          message = message.replace(markdownHyperText, slackHyperText, message) // Don't replace the original text until the link is checked for threats
         }
       }
     }
     messageData = setAllSharedAsHttpSecure(messageData)
-    messageData = safeBrowse(messageData)
+    // Check cache
+    cacheThreats = getCacheThreats(messageData.links)
+    // send cache Threats and messageData to safebrowse, to parse through data
+    // Check safe browse for links not found in cache
+    messageData = safeBrowse(messageData, cacheThreats)
     return messageData
   } else {
     return messageData

@@ -1,7 +1,7 @@
 const process = require('process')
 const postThreatMatches = require('./post-threat-matches')
 
-const safeBrowse = (messageData) => {
+const safeBrowse = (messageData, cacheThreats) => {
   /* scan urls for threats using Google safe browse 'lookup' API */
   var threatEntries = setThreatEntries(messageData.links)
   var requestBody = setRequestBody(threatEntries)
@@ -11,6 +11,13 @@ const safeBrowse = (messageData) => {
   return messageData
 }
 
+// Function to determine which links were not found in the cache
+const setNotInCache = (links, cacheThreats) => {
+  var notInCache
+  return notInCache
+}
+
+// Change to only set links that are not in the cache already
 const setThreatEntries = (links) => {
   /* pair urls with key for safe browse threat entries */
   var threatEntries = []
@@ -36,6 +43,8 @@ const setRequestBody = (threatEntries) => {
   }
 }
 
+
+// Move from "safebrowse" to "hyper-text"
 const setThreatTypes = (messageData, threatMatches) => {
   /* add threat type to the original message */
   for (var threatMatch of threatMatches.matches) {
