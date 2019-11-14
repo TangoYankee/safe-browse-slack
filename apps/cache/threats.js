@@ -22,7 +22,6 @@ const postCacheThreats = (hyperTexts) => {
   /* remember threats */
   var cacheThreats = setCacheThreats(hyperTexts)
   return cache.mset(cacheThreats)
-  
 }
 
 const setCacheDuration = (cacheDurationUnits) => {
@@ -45,7 +44,7 @@ const setCacheThreats = (hyperTexts) => {
           key: hyperText.urlDomainKey,
           val: {
             threatMatch: hyperText.threatMatch
-           },
+          },
           ttl: setCacheDuration(hyperText.cacheDuration)
         }
       )

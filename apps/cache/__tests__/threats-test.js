@@ -1,4 +1,4 @@
-const { 
+const {
   setUrlDomainKeys, postCacheThreats,
   setCacheThreats, setCacheDuration,
   getCacheThreats
@@ -19,10 +19,10 @@ test(
 
 test(
   'getCacheThreats() /* previously encountered threats */',
-  () => { 
+  () => {
     return expect(getCacheThreats(hyperTexts)).toEqual(cacheThreatsResponse)
   }
-  )
+)
 
 test(
   'setUrlDomainKeys() /* list of urls to look for in cache */',
