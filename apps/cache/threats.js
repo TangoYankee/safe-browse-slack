@@ -3,16 +3,20 @@ const { cacheStart, cacheInstance } = require('./cache')
 cacheStart()
 const cache = cacheInstance()
 
-// TODO: 'inCache' Boolean value
+// TODO: expand to multiple responses from the cache
 const setCacheThreatTypes = (messageData, threatMatches) => {
   /* save threat matches to message object */
-  // Look for every instance of the url
-  // console.log(`threatMatches ${threatMatches}`)
-  for (urlDomainKey in threatMatches) {
-    console.log(`urlDomainKey: ${urlDomainKey}\n threat Match: ${threatMatches[urlDomainKey].threatMatch}`)
-
+  for (var urlDomainKey in threatMatches) {
+    var threatMatch = threatMatches[urlDomainKey].threatMatch
+    for (var link of messageData.links) {
+      if (link.urlDomainKey === urlDomainKey) {
+        link.threatMatch = threatMatch
+        link.inCache = true
+        messageData.threatTypes.push(threatMatch)
+      } 
+    }
   }
-  return false
+  return messageData
 }
 
 const getCacheThreats = (hyperTexts) => {

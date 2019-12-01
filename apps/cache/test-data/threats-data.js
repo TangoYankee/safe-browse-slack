@@ -126,16 +126,16 @@ var messageThreatData = {
   ],
   links: [
     {
-      cacheKeyFromUrl: 'testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/',
+      urlDomainKey: 'testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/',
       cacheDuration: '',
       inCache: false, // default value
       markdownLink: '[Social Engineering Site](https://testsafebrowsing.appspot.com/apiv4/OSX/SOCIAL_ENGINEERING/URL/)',
-      messageLink: '<https://testsafebrowsing.appspot.com/apiv4/osx/sociakl_engineering/url/|Social Engineering Site>',
+      messageLink: '<https://testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/|Social Engineering Site>',
       sharedAsHttpSecure: true,
       threatMatch: ''
     },
     {
-      cacheKeyFromUrl: 'testsafebrowsing.appspot.com/s/malware.html',
+      urlDomainKey: 'testsafebrowsing.appspot.com/s/malware.html',
       cacheDuration: '', // no value recieved when already in cache
       inCache: true,
       markdownLink: '[Malware Site](testsafebrowsing.appspot.com/s/malware.html)',
@@ -144,7 +144,7 @@ var messageThreatData = {
       threatMatch: 'MALWARE'
     },
     {
-      cacheKeyFromUrl: 'nasa.gov',
+      urlDomainKey: 'nasa.gov',
       cacheDuration: '',
       inCache: false, // default value
       markdownLink: '[Nasa](nasa.gov)',
