@@ -81,7 +81,6 @@ var markdownMessage = {
   ]
 }
 
-// TODO: 'inCache' Boolean value
 var messageData = {
   message: '[Social Engineering Site](https://testsafebrowsing.appspot.com/apiv4/OSX/SOCIAL_ENGINEERING/URL/), [Malware Site](testsafebrowsing.appspot.com/s/malware.html), and [Nasa](nasa.gov)',
   sharedBy: 'TangoYankee',
@@ -95,6 +94,7 @@ var messageData = {
     {
       cacheKeyFromUrl: 'testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/',
       cacheDuration: '300s',
+      inCache: false,
       markdownLink: '[Social Engineering Site](https://testsafebrowsing.appspot.com/apiv4/OSX/SOCIAL_ENGINEERING/URL/)',
       messageLink: '<https://testsafebrowsing.appspot.com/apiv4/osx/sociakl_engineering/url/|Social Engineering Site>',
       sharedAsHttpSecure: true,
@@ -103,6 +103,7 @@ var messageData = {
     {
       cacheKeyFromUrl: 'testsafebrowsing.appspot.com/s/malware.html',
       cacheDuration: '300s',
+      inCache: false,
       markdownLink: '[Malware Site](testsafebrowsing.appspot.com/s/malware.html)',
       messageLink: '<https://testsafebrowsing.appspot.com/s/malware.html|Malware Site>',
       sharedAsHttpSecure: false,
@@ -111,6 +112,7 @@ var messageData = {
     {
       cacheKeyFromUrl: 'nasa.gov',
       cacheDuration: '',
+      inCache: false,
       markdownLink: '[Nasa](nasa.gov)',
       messageLink: '<https://nasa.gov|Nasa>',
       sharedAsHttpSecure: false,

@@ -1,8 +1,8 @@
-// TODO: 'inCache' Boolean value
 const hyperTexts = [
   {
     urlDomainKey: 'testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/',
     cacheDuration: '',
+    inCache: false, // default value
     markdownLink: '[Social Engineering Site](https://testsafebrowsing.appspot.com/apiv4/OSX/SOCIAL_ENGINEERING/URL/)',
     messageLink: '<https://testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/|Social Engineering Site>',
     sharedAsHttpSecure: true,
@@ -11,6 +11,7 @@ const hyperTexts = [
   {
     urlDomainKey: 'testsafebrowsing.appspot.com/s/malware.html',
     cacheDuration: '',
+    inCache: false, // default value
     markdownLink: '[Malware Site](testsafebrowsing.appspot.com/s/malware.html)',
     messageLink: '<https://testsafebrowsing.appspot.com/s/malware.html|Malware Site>',
     sharedAsHttpSecure: false,
@@ -19,6 +20,7 @@ const hyperTexts = [
   {
     urlDomainKey: 'nasa.gov',
     cacheDuration: '',
+    inCache: false, // default value
     markdownLink: '[Nasa](nasa.gov)',
     messageLink: '<https://nasa.gov|Nasa>',
     sharedAsHttpSecure: false,
@@ -32,11 +34,11 @@ const urlDomainKeys = [
   'nasa.gov'
 ]
 
-// TODO: 'inCache' Boolean value
 const hyperTextThreats = [
   {
     urlDomainKey: 'testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/',
     cacheDuration: '',
+    inCache: false,
     markdownLink: '[Social Engineering Site](https://testsafebrowsing.appspot.com/apiv4/OSX/SOCIAL_ENGINEERING/URL/)',
     messageLink: '<https://testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/|Social Engineering Site>',
     sharedAsHttpSecure: true,
@@ -45,6 +47,7 @@ const hyperTextThreats = [
   {
     urlDomainKey: 'testsafebrowsing.appspot.com/s/malware.html',
     cacheDuration: '300s',
+    inCache: false,
     markdownLink: '[Malware Site](testsafebrowsing.appspot.com/s/malware.html)',
     messageLink: '<https://testsafebrowsing.appspot.com/s/malware.html|Malware Site>',
     sharedAsHttpSecure: false,
@@ -53,6 +56,7 @@ const hyperTextThreats = [
   {
     urlDomainKey: 'nasa.gov',
     cacheDuration: '',
+    inCache: false,
     markdownLink: '[Nasa](nasa.gov)',
     messageLink: '<https://nasa.gov|Nasa>',
     sharedAsHttpSecure: false,
@@ -75,7 +79,6 @@ const cacheThreatsResponse = {
 const cacheDurationUnits = '300s'
 const cacheDuration = 300
 
-// TODO: 'inCache' Boolean value
 const inputMessageData = {
   message: '[Social Engineering Site](https://testsafebrowsing.appspot.com/apiv4/OSX/SOCIAL_ENGINEERING/URL/), [Malware Site](testsafebrowsing.appspot.com/s/malware.html), and [Nasa](nasa.gov)',
   sharedBy: 'TangoYankee',
@@ -86,6 +89,7 @@ const inputMessageData = {
     {
       urlDomainKey: 'testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/',
       cacheDuration: '',
+      inCache: false, // default value
       markdownLink: '[Social Engineering Site](https://testsafebrowsing.appspot.com/apiv4/OSX/SOCIAL_ENGINEERING/URL/)',
       messageLink: '<https://testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/|Social Engineering Site>',
       sharedAsHttpSecure: true,
@@ -93,7 +97,8 @@ const inputMessageData = {
     },
     {
       urlDomainKey: 'testsafebrowsing.appspot.com/s/malware.html',
-      cacheDuration: '300s',
+      cacheDuration: '',
+      inCache: false, // default value
       markdownLink: '[Malware Site](testsafebrowsing.appspot.com/s/malware.html)',
       messageLink: '<https://testsafebrowsing.appspot.com/s/malware.html|Malware Site>',
       sharedAsHttpSecure: false,
@@ -102,6 +107,7 @@ const inputMessageData = {
     {
       urlDomainKey: 'nasa.gov',
       cacheDuration: '',
+      inCache: false, // default value
       markdownLink: '[Nasa](nasa.gov)',
       messageLink: '<https://nasa.gov|Nasa>',
       sharedAsHttpSecure: false,
@@ -110,28 +116,28 @@ const inputMessageData = {
   ]
 }
 
-// TODO: 'inCache' Boolean value
 var messageThreatData = {
   message: '[Social Engineering Site](https://testsafebrowsing.appspot.com/apiv4/OSX/SOCIAL_ENGINEERING/URL/), [Malware Site](testsafebrowsing.appspot.com/s/malware.html), and [Nasa](nasa.gov)',
   sharedBy: 'TangoYankee',
   safeBrowseSuccess: true,
   allSharedAsHttpSecure: false,
   threatTypes: [
-    'SOCIAL_ENGINEERING',
     'MALWARE'
   ],
   links: [
     {
       cacheKeyFromUrl: 'testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/',
-      cacheDuration: '300s',
+      cacheDuration: '',
+      inCache: false, // default value
       markdownLink: '[Social Engineering Site](https://testsafebrowsing.appspot.com/apiv4/OSX/SOCIAL_ENGINEERING/URL/)',
       messageLink: '<https://testsafebrowsing.appspot.com/apiv4/osx/sociakl_engineering/url/|Social Engineering Site>',
       sharedAsHttpSecure: true,
-      threatMatch: 'SOCIAL_ENGINEERING'
+      threatMatch: ''
     },
     {
       cacheKeyFromUrl: 'testsafebrowsing.appspot.com/s/malware.html',
-      cacheDuration: '300s',
+      cacheDuration: '', // no value recieved when already in cache
+      inCache: true,
       markdownLink: '[Malware Site](testsafebrowsing.appspot.com/s/malware.html)',
       messageLink: '<https://testsafebrowsing.appspot.com/s/malware.html|Malware Site>',
       sharedAsHttpSecure: false,
@@ -140,6 +146,7 @@ var messageThreatData = {
     {
       cacheKeyFromUrl: 'nasa.gov',
       cacheDuration: '',
+      inCache: false, // default value
       markdownLink: '[Nasa](nasa.gov)',
       messageLink: '<https://nasa.gov|Nasa>',
       sharedAsHttpSecure: false,

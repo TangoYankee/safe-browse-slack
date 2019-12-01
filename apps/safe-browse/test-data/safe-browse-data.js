@@ -4,11 +4,11 @@ const threatEntries = [
   { url: 'nasa.gov' }
 ]
 
-// TODO: 'inCache' Boolean value (default to false)
 const urlDomainKeys = [
   {
     urlDomainKey: 'testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/',
     cacheDuration: '300s',
+    inCache: false,
     markdownLink: '[Social Engineering Site](https://testsafebrowsing.appspot.com/apiv4/OSX/SOCIAL_ENGINEERING/URL/)',
     messageLink: '<https://testsafebrowsing.appspot.com/apiv4/osx/sociakl_engineering/url/|Social Engineering Site>',
     sharedAsHttpSecure: true,
@@ -17,6 +17,7 @@ const urlDomainKeys = [
   {
     urlDomainKey: 'testsafebrowsing.appspot.com/s/malware.html',
     cacheDuration: '300s',
+    inCache: false,
     markdownLink: '[Malware Site](testsafebrowsing.appspot.com/s/malware.html)',
     messageLink: '<https://testsafebrowsing.appspot.com/s/malware.html|Malware Site>',
     sharedAsHttpSecure: false,
@@ -25,6 +26,7 @@ const urlDomainKeys = [
   {
     urlDomainKey: 'nasa.gov',
     cacheDuration: '',
+    inCache: false,
     markdownLink: '[Nasa](nasa.gov)',
     messageLink: '<https://nasa.gov|Nasa>',
     sharedAsHttpSecure: false,
@@ -55,7 +57,6 @@ const requestBody = {
   }
 }
 
-// TODO: 'inCache' Boolean value (default to false)
 const inputMessageData = {
   message: '[Social Engineering Site](https://testsafebrowsing.appspot.com/apiv4/OSX/SOCIAL_ENGINEERING/URL/), [Malware Site](testsafebrowsing.appspot.com/s/malware.html), and [Nasa](nasa.gov)',
   sharedBy: 'TangoYankee',
@@ -66,6 +67,7 @@ const inputMessageData = {
     {
       urlDomainKey: 'testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/',
       cacheDuration: '',
+      inCache: false,
       markdownLink: '[Social Engineering Site](https://testsafebrowsing.appspot.com/apiv4/OSX/SOCIAL_ENGINEERING/URL/)',
       messageLink: '<https://testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/|Social Engineering Site>',
       sharedAsHttpSecure: true,
@@ -74,6 +76,7 @@ const inputMessageData = {
     {
       urlDomainKey: 'testsafebrowsing.appspot.com/s/malware.html',
       cacheDuration: '300s',
+      inCache: false,
       markdownLink: '[Malware Site](testsafebrowsing.appspot.com/s/malware.html)',
       messageLink: '<https://testsafebrowsing.appspot.com/s/malware.html|Malware Site>',
       sharedAsHttpSecure: false,
@@ -82,6 +85,7 @@ const inputMessageData = {
     {
       urlDomainKey: 'nasa.gov',
       cacheDuration: '',
+      inCache: false,
       markdownLink: '[Nasa](nasa.gov)',
       messageLink: '<https://nasa.gov|Nasa>',
       sharedAsHttpSecure: false,
@@ -98,12 +102,11 @@ const cacheThreats = [
   }
 ]
 
-const notInCache = [
-  'testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/',
-  'nasa.gov'
-]
+// const notInCache = [
+//   'testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/',
+//   'nasa.gov'
+// ]
 
-// TODO: 'inCache' Boolean value (default to false)
 const outputMessageData = {
   message: '[Social Engineering Site](https://testsafebrowsing.appspot.com/apiv4/OSX/SOCIAL_ENGINEERING/URL/), [Malware Site](testsafebrowsing.appspot.com/s/malware.html), and [Nasa](nasa.gov)',
   sharedBy: 'TangoYankee',
@@ -116,6 +119,7 @@ const outputMessageData = {
     {
       urlDomainKey: 'testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/',
       cacheDuration: '',
+      inCache: false,
       markdownLink: '[Social Engineering Site](https://testsafebrowsing.appspot.com/apiv4/OSX/SOCIAL_ENGINEERING/URL/)',
       messageLink: '<https://testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/|Social Engineering Site>',
       sharedAsHttpSecure: true,
@@ -124,6 +128,7 @@ const outputMessageData = {
     {
       urlDomainKey: 'testsafebrowsing.appspot.com/s/malware.html',
       cacheDuration: '300s',
+      inCache: false,
       markdownLink: '[Malware Site](testsafebrowsing.appspot.com/s/malware.html)',
       messageLink: '<https://testsafebrowsing.appspot.com/s/malware.html|Malware Site>',
       sharedAsHttpSecure: false,
@@ -132,6 +137,7 @@ const outputMessageData = {
     {
       urlDomainKey: 'nasa.gov',
       cacheDuration: '',
+      inCache: false,
       markdownLink: '[Nasa](nasa.gov)',
       messageLink: '<https://nasa.gov|Nasa>',
       sharedAsHttpSecure: false,

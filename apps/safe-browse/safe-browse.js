@@ -1,9 +1,10 @@
 const process = require('process')
 const postThreatMatches = require('./post-threat-matches')
 
+// TODO: remove 'cacheThreats value'
 const safeBrowse = (messageData, cacheThreats) => {
   /* scan urls for threats using Google safe browse 'lookup' API */
-  var notInCache = setNotInCache(messageData.links, cacheThreats)
+  var notInCache = setNotInCache(messageData.links, cacheThreats) // TODO: Remove. Logic is now based on 'inCache' field
   var threatEntries = setThreatEntries(notInCache)
   var requestBody = setRequestBody(threatEntries)
   var threatMatches = postThreatMatches(requestBody)
@@ -12,12 +13,13 @@ const safeBrowse = (messageData, cacheThreats) => {
   return messageData
 }
 
+// TODO: Remove
 // Function to determine which links were not found in the cache
 const setNotInCache = (links, cacheThreats) => {
   /* threats not previously saved in cached */
   var notInCache = []
   for (link of links){
-    var inCache = (cacheThreats.findIndex(cacheThreat => cacheThreat.key === link.urlDomainKey))
+    var inCache = (cacheThreats.findIndex(cacheThreat => cacheThreat.key === link.urlDomainKey)) // May be useful for finding all instances of a urlDomainKey
     if(inCache === -1){
       notInCache.push(link.urlDomainKey)
     }
@@ -30,6 +32,7 @@ const setThreatEntries = (links) => {
   /* pair urls with key for safe browse threat entries */
   var threatEntries = []
   for (var link of links) {
+    // TODO: Insert condition that it is not already in the cache
     threatEntries.push({ url: link.urlDomainKey })
   }
   return threatEntries

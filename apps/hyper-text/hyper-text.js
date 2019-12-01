@@ -30,7 +30,7 @@ const hyperText = (text) => {
   }
 }
 
-// Refactor to 'link-object'
+// TODO: Refactor to 'link-object'
 const devFormat = (text, userId) => {
   var allHyperTextPositions = setAllHyperTextPositions(text)
   let messageData = setMessageData(text, userId)
@@ -75,11 +75,11 @@ const setMessageData = (text, userId) => {
   }
 }
 
-// TODO: 'inCache' Boolean value (default to false)
 const setHyperTextData = (markdownHyperText, slackHyperText, urlDomainKey, sharedAsHttpSecure) => {
   return {
     urlDomainKey: urlDomainKey,
     cacheDuration: '',
+    inCache: false,
     markdownLink: markdownHyperText,
     messageLink: slackHyperText,
     sharedAsHttpSecure: sharedAsHttpSecure,

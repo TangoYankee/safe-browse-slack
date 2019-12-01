@@ -14,7 +14,7 @@ const {
 test(
   'setCacheThreatTypes() /* save threat matches to message object */',
   () => {
-    expect(setCacheThreatTypes(inputMessageData, cacheThreatsResponse)).toBe(messageThreatData)
+    expect(setCacheThreatTypes(inputMessageData, cacheThreatsResponse)).toEqual(messageThreatData)
   }
 )
 
