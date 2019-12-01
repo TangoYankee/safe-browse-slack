@@ -48,13 +48,13 @@ const devFormat = (text, userId) => {
           var markdownHyperText = getMarkdownHyperText(hyperTextPosition, text)
           var hyperTextData = setHyperTextData(markdownHyperText, slackHyperText, urlDomainKey, sharedAsHttpSecure)
           messageData.links.push(hyperTextData)
-          message = message.replace(markdownHyperText, slackHyperText, message) // Don't replace the original text until the link is checked for threats
+          // message = message.replace(markdownHyperText, slackHyperText, message) // Don't replace the original text until the link is checked for threats
         }
       }
     }
     messageData = setAllSharedAsHttpSecure(messageData)
-    // Check cache
     cacheThreats = getCacheThreats(messageData.links)
+    messageData = setThreatTypes(messageData, cacheThreats)
     // send cache Threats and messageData to safebrowse, to parse through data
     // Check safe browse for links not found in cache
     messageData = safeBrowse(messageData, cacheThreats)
@@ -75,6 +75,7 @@ const setMessageData = (text, userId) => {
   }
 }
 
+// TODO: 'inCache' Boolean value (default to false)
 const setHyperTextData = (markdownHyperText, slackHyperText, urlDomainKey, sharedAsHttpSecure) => {
   return {
     urlDomainKey: urlDomainKey,

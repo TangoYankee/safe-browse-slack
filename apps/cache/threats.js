@@ -3,6 +3,16 @@ const { cacheStart, cacheInstance } = require('./cache')
 cacheStart()
 const cache = cacheInstance()
 
+// TODO: 'inCache' Boolean value
+const setCacheThreatTypes = (messageData, threatMatches) => {
+  /* save threat matches to message object */
+  for (threatMatch in threatMatches) {
+    for (var link of messageData.links) {
+      if ()
+    }
+  }
+}
+
 const getCacheThreats = (hyperTexts) => {
   /* previously encountered threats */
   var urlDomainKeys = setUrlDomainKeys(hyperTexts)
@@ -54,6 +64,7 @@ const setCacheThreats = (hyperTexts) => {
 }
 
 module.exports = {
+  setCacheThreatTypes,
   getCacheThreats,
   setUrlDomainKeys,
   postCacheThreats,

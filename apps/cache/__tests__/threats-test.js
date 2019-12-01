@@ -1,5 +1,5 @@
 const {
-  setUrlDomainKeys, postCacheThreats,
+  setCacheThreatTypes, setUrlDomainKeys, postCacheThreats,
   setCacheThreats, setCacheDuration,
   getCacheThreats
 } = require('../threats')
@@ -7,8 +7,16 @@ const {
   hyperTexts, urlDomainKeys,
   hyperTextThreats, cacheThreats,
   cacheDurationUnits, cacheDuration,
-  cacheThreatsResponse
+  cacheThreatsResponse, inputMessageData,
+  messageThreatData
 } = require('../test-data/threats-data')
+
+test(
+  'setCacheThreatTypes() /* save threat matches to message object */',
+  () => {
+    expect(setCacheThreatTypes(inputMessageData, cacheThreatsResponse)).toBe(messageThreatData)
+  }
+)
 
 test(
   'postCacheThreats() /* remember threats */',

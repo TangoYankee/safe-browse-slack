@@ -4,6 +4,7 @@ const threatEntries = [
   { url: 'nasa.gov' }
 ]
 
+// TODO: 'inCache' Boolean value (default to false)
 const urlDomainKeys = [
   {
     urlDomainKey: 'testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/',
@@ -54,6 +55,7 @@ const requestBody = {
   }
 }
 
+// TODO: 'inCache' Boolean value (default to false)
 const inputMessageData = {
   message: '[Social Engineering Site](https://testsafebrowsing.appspot.com/apiv4/OSX/SOCIAL_ENGINEERING/URL/), [Malware Site](testsafebrowsing.appspot.com/s/malware.html), and [Nasa](nasa.gov)',
   sharedBy: 'TangoYankee',
@@ -101,6 +103,7 @@ const notInCache = [
   'nasa.gov'
 ]
 
+// TODO: 'inCache' Boolean value (default to false)
 const outputMessageData = {
   message: '[Social Engineering Site](https://testsafebrowsing.appspot.com/apiv4/OSX/SOCIAL_ENGINEERING/URL/), [Malware Site](testsafebrowsing.appspot.com/s/malware.html), and [Nasa](nasa.gov)',
   sharedBy: 'TangoYankee',

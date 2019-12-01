@@ -51,8 +51,6 @@ const setRequestBody = (threatEntries) => {
   }
 }
 
-
-// Move from "safebrowse" to "hyper-text"
 const setThreatTypes = (messageData, threatMatches) => {
   /* add threat type to the original message */
   for (var threatMatch of threatMatches.matches) {

@@ -81,6 +81,7 @@ var markdownMessage = {
   ]
 }
 
+// TODO: 'inCache' Boolean value
 var messageData = {
   message: '[Social Engineering Site](https://testsafebrowsing.appspot.com/apiv4/OSX/SOCIAL_ENGINEERING/URL/), [Malware Site](testsafebrowsing.appspot.com/s/malware.html), and [Nasa](nasa.gov)',
   sharedBy: 'TangoYankee',
