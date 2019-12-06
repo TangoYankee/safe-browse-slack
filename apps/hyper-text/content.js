@@ -1,7 +1,8 @@
-const validateDestUrl = (linkAddress) => {
+const validateDestUrl = (destUrl) => {
   /* must fit the correct format of a url */
-  var domainRegex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/
-  if (linkAddress.match(domainRegex)) {
+  var destUrlLower = destUrl.toLowerCase()
+  var domainRegex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm
+  if (destUrlLower.match(domainRegex)) {
     return true
   } else {
     return false
@@ -18,16 +19,15 @@ const validateDisplayText = (displayText) => {
   }
 }
 
-const setSlackHyperText = (linkAddress, displayText) => {
+const setSlackHyperText = (destUrl, displayText) => {
   /* slack hypertext syntax for urls and text */
-  return `<${linkAddress}|${displayText}>`
+  return `<${destUrl}|${displayText}>`
 }
 
 const setDestUrl = (linkPositions, text) => {
-  /* identify url portion of link from message string, lowercase and without padding spaces */
+  /* identify url portion of link from message string, without padding spaces */
   let destUrl = text.slice(linkPositions[1] + 2, linkPositions[2])
   destUrl = destUrl.trim()
-  destUrl = destUrl.toLowerCase()
   return destUrl
 }
 
@@ -41,12 +41,13 @@ const getMarkdownHyperText = (linkPositions, text) => {
   return text.slice(linkPositions[0], linkPositions[2] + 1)
 }
 
-const setHttpDestUrl = (linkAddress) => {
+const setHttpDestUrl = (destUrl) => {
   /* each link has http or https in the url */
-  if (linkAddress.startsWith('http://') || linkAddress.startsWith('https://')) {
-    return linkAddress
+  var destUrlLower = destUrl.toLowerCase()
+  if (destUrlLower.startsWith('http://') || destUrlLower.startsWith('https://')) {
+    return destUrl
   } else {
-    return `https://${linkAddress}`
+    return `https://${destUrl}`
   }
 }
 
@@ -58,7 +59,8 @@ const setUrlDomainKey = (unhttpedLinkAddress) => {
 
 const setSharedAsHttpSecure = (unhttpedLinkAddress) => {
   /* url was originally prefaced with 'https' */
-  return unhttpedLinkAddress.startsWith('https://')
+  var unhttpedLinkAddressLower = unhttpedLinkAddress.toLowerCase()
+  return unhttpedLinkAddressLower.startsWith('https://')
 }
 
 const setAllSharedAsHttpSecure = (messageData) => {
