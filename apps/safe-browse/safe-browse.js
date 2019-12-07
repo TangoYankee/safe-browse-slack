@@ -1,44 +1,29 @@
 const process = require('process')
 const postThreatMatches = require('./post-threat-matches')
 
-// TODO: remove 'cacheThreats value'
-const safeBrowse = (messageData, cacheThreats) => {
+const safeBrowse = (messageData) => {
   /* scan urls for threats using Google safe browse 'lookup' API */
-  var notInCache = setNotInCache(messageData.links, cacheThreats) // TODO: Remove. Logic is now based on 'inCache' field
-  var threatEntries = setThreatEntries(notInCache)
-  var requestBody = setRequestBody(threatEntries)
+  var uncachedThreatEntries = setUncachedThreatEntries(messageData.links)
+  var requestBody = setRequestBody(uncachedThreatEntries)
+  // TODO: try-catch
   var threatMatches = postThreatMatches(requestBody)
   messageData.safeBrowseSuccess = true
   messageData = setThreatTypes(messageData, threatMatches)
   return messageData
 }
 
-// TODO: Remove
-// Function to determine which links were not found in the cache
-const setNotInCache = (links, cacheThreats) => {
-  /* threats not previously saved in cached */
-  var notInCache = []
-  for (link of links){
-    var inCache = (cacheThreats.findIndex(cacheThreat => cacheThreat.key === link.urlDomainKey)) // May be useful for finding all instances of a urlDomainKey
-    if(inCache === -1){
-      notInCache.push(link.urlDomainKey)
+const setUncachedThreatEntries = (links) => {
+  /* pair urls with key for safe browse threat entries */
+  var uncachedThreatEntries = []
+  for (var link of links) {
+    if (!link.inCache) {
+      uncachedThreatEntries.push({ url: link.urlDomainKey })
     }
   }
-  return notInCache
+  return uncachedThreatEntries
 }
 
-// Change to only set links that are not in the cache already
-const setThreatEntries = (links) => {
-  /* pair urls with key for safe browse threat entries */
-  var threatEntries = []
-  for (var link of links) {
-    // TODO: Insert condition that it is not already in the cache
-    threatEntries.push({ url: link.urlDomainKey })
-  }
-  return threatEntries
-}
-
-const setRequestBody = (threatEntries) => {
+const setRequestBody = (uncachedThreatEntries) => {
   /* pair threat entries urls with threat types to check */
   return {
     client: {
@@ -49,7 +34,7 @@ const setRequestBody = (threatEntries) => {
       threatTypes: ['THREAT_TYPE_UNSPECIFIED', 'MALWARE', 'SOCIAL_ENGINEERING', 'UNWANTED_SOFTWARE', 'POTENTIALLY_HARMFUL_APPLICATION'],
       platformTypes: ['ANY_PLATFORM'],
       threatEntryTypes: ['URL'],
-      threatEntries: threatEntries
+      threatEntries: uncachedThreatEntries
     }
   }
 }
@@ -61,6 +46,7 @@ const setThreatTypes = (messageData, threatMatches) => {
       if (link.urlDomainKey === threatMatch.threat.url) {
         link.threatMatch = threatMatch.threatType
         link.cacheDuration = threatMatch.cacheDuration
+        link.inCache = false
         messageData.threatTypes.push(threatMatch.threatType)
       }
     }
@@ -71,7 +57,6 @@ const setThreatTypes = (messageData, threatMatches) => {
 module.exports = {
   safeBrowse,
   setRequestBody,
-  setThreatEntries,
-  setThreatTypes,
-  setNotInCache
+  setUncachedThreatEntries,
+  setThreatTypes
 }

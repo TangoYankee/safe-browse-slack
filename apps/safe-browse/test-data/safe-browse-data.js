@@ -75,7 +75,7 @@ const inputMessageData = {
     },
     {
       urlDomainKey: 'testsafebrowsing.appspot.com/s/malware.html',
-      cacheDuration: '300s',
+      cacheDuration: '',
       inCache: false,
       markdownLink: '[Malware Site](testsafebrowsing.appspot.com/s/malware.html)',
       messageLink: '<https://testsafebrowsing.appspot.com/s/malware.html|Malware Site>',

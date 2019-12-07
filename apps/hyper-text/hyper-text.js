@@ -4,7 +4,7 @@ const {
   setDestUrl, setDisplayText, getMarkdownHyperText, setAllSharedAsHttpSecure,
   setHttpDestUrl, setUrlDomainKey, setSharedAsHttpSecure
 } = require('./content')
-const { getCacheThreats } = require('../cache/threats')
+const { getCacheThreats, setCacheThreatTypes } = require('../cache/threats')
 const { safeBrowse } = require('../safe-browse/safe-browse')
 
 const hyperText = (text) => {
@@ -35,7 +35,7 @@ const devFormat = (text, userId) => {
   var allHyperTextPositions = setAllHyperTextPositions(text)
   let messageData = setMessageData(text, userId)
   if (allHyperTextPositions) {
-    let message = text
+    // let message = text
     for (var hyperTextPosition of allHyperTextPositions) {
       if (validHyperTextPositions(hyperTextPosition)) {
         var displayText = setDisplayText(hyperTextPosition, text)
@@ -52,12 +52,10 @@ const devFormat = (text, userId) => {
         }
       }
     }
-    messageData = setAllSharedAsHttpSecure(messageData)
+    messageData = setAllSharedAsHttpSecure(messageData) //TODO: format so that is an object with a function
     cacheThreats = getCacheThreats(messageData.links)
-    messageData = setThreatTypes(messageData, cacheThreats)
-    // send cache Threats and messageData to safebrowse, to parse through data
-    // Check safe browse for links not found in cache
-    messageData = safeBrowse(messageData, cacheThreats)
+    messageData = setCacheThreatTypes(messageData, cacheThreats)
+    messageData = safeBrowse(messageData, cacheThreats) // TODO: Should only need the message data
     return messageData
   } else {
     return messageData

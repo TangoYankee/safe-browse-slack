@@ -1,24 +1,16 @@
 jest.mock('../post-threat-matches')
 const { postThreatMatches } = require('../post-threat-matches')
-const { setRequestBody, setThreatEntries, setThreatTypes } = require('../safe-browse')
+const { setRequestBody, setUncachedThreatEntries, setThreatTypes } = require('../safe-browse')
 const {
   urlDomainKeys, threatEntries, requestBody,
-  notInCache, inputMessageData, outputMessageData,
-  setNotInCache, cacheThreats
+  notInCache, inputMessageData, outputMessageData
 } = require('../test-data/safe-browse-data')
 const { threatMatches } = require('../test-data/post-threat-matches-data')
 
 test(
-  'setNotInCache() /* threats not previously saved in cached */',
+  'setUncachedThreatEntries() /* urls have a specific format when placed into Lookup API body */',
   () => {
-    expect(setNotInCache(inputMessage.links, cacheThreats)).toEqual(notInCache)
-  }
-)
-
-test(
-  'setThreatEntries() /* urls have a specific format when placed into Lookup API body */',
-  () => {
-    expect(setThreatEntries(inputMessageData.links)).toEqual(threatEntries)
+    expect(setUncachedThreatEntries(inputMessageData.links)).toEqual(threatEntries)
   })
 
 test(
