@@ -1,7 +1,7 @@
 const request = require('request')
-const { hyperText } = require('../hyper-text/hyper-text.js')
+const { hyperText, setMessage } = require('../hyper-text/hyper-text.js')
 
-const { setHelpMessage, setMarkdownMessage, setErrorMessage } = require('./messages.js')
+const { setHelpMessage, setMarkdownMessage, setDevMarkdownMessage, setErrorMessage } = require('./messages.js')
 
 const publish = (requestBody, res) => {
   /* respond to a slash command */
@@ -12,9 +12,9 @@ const publish = (requestBody, res) => {
     res.json(setHelpMessage(userId))
   } else if (text) {
     res.send()
-    var formattedText = hyperText(text)
-    var markdownMessage = setMarkdownMessage(formattedText, userId)
-    postMessage(responseUrl, markdownMessage)
+    var message = setMessage(text, userId)
+    var devMarkDownMessage = setDevMarkDownMessage(message)
+    postMessage(responseUrl, devMarkDownMessage)
   } else {
     res.json(setErrorMessage(':warning:please provide input'))
   }

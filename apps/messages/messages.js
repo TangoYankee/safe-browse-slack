@@ -58,7 +58,7 @@ const setMarkdownMessage = (markdownFormat, userId) => {
   return responseHeadTemplate('in_channel', blocks)
 }
 
-const devMarkdownMessage = (messageData) => {
+const setDevMarkdownMessage = (messageData) => {
   /* compose markdown message */
   var blocks = []
 
@@ -99,5 +99,5 @@ module.exports = {
   setHelpMessage,
   setErrorMessage,
   setMarkdownMessage,
-  devMarkdownMessage
+  setDevMarkdownMessage
 }

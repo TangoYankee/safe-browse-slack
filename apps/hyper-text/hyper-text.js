@@ -30,12 +30,10 @@ const hyperText = (text) => {
   }
 }
 
-// TODO: Refactor to 'link-object'
-const devFormat = (text, userId) => {
+const setMessage = (text, userId) => {
   var allHyperTextPositions = setAllHyperTextPositions(text)
   let messageData = setMessageData(text, userId)
   if (allHyperTextPositions) {
-    // let message = text
     for (var hyperTextPosition of allHyperTextPositions) {
       if (validHyperTextPositions(hyperTextPosition)) {
         var displayText = setDisplayText(hyperTextPosition, text)
@@ -48,14 +46,13 @@ const devFormat = (text, userId) => {
           var markdownHyperText = getMarkdownHyperText(hyperTextPosition, text)
           var hyperTextData = setHyperTextData(markdownHyperText, slackHyperText, urlDomainKey, sharedAsHttpSecure)
           messageData.links.push(hyperTextData)
-          // message = message.replace(markdownHyperText, slackHyperText, message) // Don't replace the original text until the link is checked for threats
         }
       }
     }
     messageData = setAllSharedAsHttpSecure(messageData)
     var cacheThreats = getCacheThreats(messageData.links)
     messageData = setCacheThreatTypes(messageData, cacheThreats)
-    messageData = safeBrowse(messageData) // TODO: Should only need the message data
+    messageData = safeBrowse(messageData)
     return messageData
   } else {
     return messageData
@@ -87,5 +84,5 @@ const setHyperTextData = (markdownHyperText, slackHyperText, urlDomainKey, share
 
 module.exports = {
   hyperText,
-  devFormat
+  setMessage
 }
