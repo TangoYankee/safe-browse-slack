@@ -52,10 +52,10 @@ const devFormat = (text, userId) => {
         }
       }
     }
-    messageData = setAllSharedAsHttpSecure(messageData) //TODO: format so that is an object with a function
-    cacheThreats = getCacheThreats(messageData.links)
+    messageData = setAllSharedAsHttpSecure(messageData)
+    var cacheThreats = getCacheThreats(messageData.links)
     messageData = setCacheThreatTypes(messageData, cacheThreats)
-    messageData = safeBrowse(messageData, cacheThreats) // TODO: Should only need the message data
+    messageData = safeBrowse(messageData) // TODO: Should only need the message data
     return messageData
   } else {
     return messageData

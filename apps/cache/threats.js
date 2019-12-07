@@ -13,7 +13,7 @@ const setCacheThreatTypes = (messageData, threatMatches) => {
         link.threatMatch = threatMatch
         link.inCache = true
         messageData.threatTypes.push(threatMatch)
-      } 
+      }
     }
   }
   return messageData

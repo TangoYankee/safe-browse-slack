@@ -2,8 +2,8 @@ jest.mock('../post-threat-matches')
 const { postThreatMatches } = require('../post-threat-matches')
 const { setRequestBody, setUncachedThreatEntries, setThreatTypes } = require('../safe-browse')
 const {
-  urlDomainKeys, threatEntries, requestBody,
-  notInCache, inputMessageData, outputMessageData
+  threatEntries, requestBody,
+  inputMessageData, outputMessageData
 } = require('../test-data/safe-browse-data')
 const { threatMatches } = require('../test-data/post-threat-matches-data')
 
