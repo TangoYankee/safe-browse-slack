@@ -1,15 +1,32 @@
 const response = {
   body: {
-    matches: [
-      {
-        cacheDuration: '300s',
-        platformType: 'ANY_PLATFORM',
-        threat: {
-          url: 'testsafebrowsing.appspot.com/s/malware.html'
-        },
-        threatEntryType: 'URL',
-        threatType: 'MALWARE'
-      }
+    matches: [{
+      threatType: 'SOCIAL_ENGINEERING',
+      platformType: 'ANY_PLATFORM',
+      threat: {
+        url: 'testsafebrowsing.appspot.com/s/phishing.html'
+      },
+      cacheDuration: '300s',
+      threatEntryType: 'URL'
+    },
+    {
+      threatType: 'UNWANTED_SOFTWARE',
+      platformType: 'ANY_PLATFORM',
+      threat: {
+        url: 'testsafebrowsing.appspot.com/s/unwanted.html'
+      },
+      cacheDuration: '300s',
+      threatEntryType: 'URL'
+    },
+    {
+      cacheDuration: '300s',
+      platformType: 'ANY_PLATFORM',
+      threat: {
+        url: 'testsafebrowsing.appspot.com/s/malware.html'
+      },
+      threatEntryType: 'URL',
+      threatType: 'MALWARE'
+    }
     ]
   },
   headers: {
@@ -50,41 +67,26 @@ const response = {
   statusCode: 200
 }
 
-/*
-{
-  "matches": [
-    {
-      "threatType": "SOCIAL_ENGINEERING",
-      "platformType": "ANY_PLATFORM",
-      "threat": {
-        "url": "https://testsafebrowsing.appspot.com/s/phishing.html"
-      },
-      "cacheDuration": "300s",
-      "threatEntryType": "URL"
-    },
-    {
-      "threatType": "UNWANTED_SOFTWARE",
-      "platformType": "ANY_PLATFORM",
-      "threat": {
-        "url": "https://testsafebrowsing.appspot.com/s/unwanted.html"
-      },
-      "cacheDuration": "300s",
-      "threatEntryType": "URL"
-    },
-    {
-      "threatType": "MALWARE",
-      "platformType": "ANY_PLATFORM",
-      "threat": {
-        "url": "testsafebrowsing.appspot.com/s/malware.html"
-      },
-      "cacheDuration": "300s",
-      "threatEntryType": "URL"
-    }
-  ]
-}
-*/
 const threatMatches = {
   matches: [
+    {
+      threatType: 'SOCIAL_ENGINEERING',
+      platformType: 'ANY_PLATFORM',
+      threat: {
+        url: 'testsafebrowsing.appspot.com/s/phishing.html'
+      },
+      cacheDuration: '300s',
+      threatEntryType: 'URL'
+    },
+    {
+      threatType: 'UNWANTED_SOFTWARE',
+      platformType: 'ANY_PLATFORM',
+      threat: {
+        url: 'testsafebrowsing.appspot.com/s/unwanted.html'
+      },
+      cacheDuration: '300s',
+      threatEntryType: 'URL'
+    },
     {
       threatType: 'MALWARE',
       platformType: 'ANY_PLATFORM',
