@@ -82,24 +82,14 @@ var markdownMessage = {
 }
 
 var messageData = {
-  message: '[Social Engineering Site](https://testsafebrowsing.appspot.com/apiv4/OSX/SOCIAL_ENGINEERING/URL/), [Malware Site](testsafebrowsing.appspot.com/s/malware.html), and [Nasa](nasa.gov)',
+  message: '[Malware Site](testsafebrowsing.appspot.com/s/malware.html) and [Nasa](nasa.gov)',
   sharedBy: 'TangoYankee',
   safeBrowseSuccess: true,
   allSharedAsHttpSecure: false,
   threatTypes: [
-    'SOCIAL_ENGINEERING',
     'MALWARE'
   ],
   links: [
-    {
-      cacheKeyFromUrl: 'testsafebrowsing.appspot.com/apiv4/osx/social_engineering/url/',
-      cacheDuration: '300s',
-      inCache: false,
-      markdownLink: '[Social Engineering Site](https://testsafebrowsing.appspot.com/apiv4/OSX/SOCIAL_ENGINEERING/URL/)',
-      messageLink: '<https://testsafebrowsing.appspot.com/apiv4/osx/sociakl_engineering/url/|Social Engineering Site>',
-      sharedAsHttpSecure: true,
-      threatMatch: 'SOCIAL_ENGINEERING'
-    },
     {
       cacheKeyFromUrl: 'testsafebrowsing.appspot.com/s/malware.html',
       cacheDuration: '300s',
@@ -128,7 +118,7 @@ var messageFormat = {
       type: 'section',
       text: {
         type: 'mrkdwn',
-        text: '[Social Engineering Site](https://testsafebrowsing.appspot.com/apiv4/OSX/SOCIAL_ENGINEERING/URL/):biohazard_sign:, [Malware Site](testsafebrowsing.appspot.com/s/malware.html):beetle::eyes:, and <https://nasa.gov|Nasa>:eyes:'
+        text: '[Malware Site](testsafebrowsing.appspot.com/s/malware.html):beetle::eyes: and <https://nasa.gov|Nasa>:eyes:'
       }
     },
     {
@@ -158,11 +148,7 @@ var messageFormat = {
     },
     {
       type: 'context',
-      elements: [
-        {
-          type: 'mrkdwn',
-          text: ':biohazard_sign: <https://googleonlinesecurity.blogspot.com/2015/11/safe-browsing-protection-from-even-more.html|social engineering>'
-        }, {
+      elements: [{
           type: 'mrkdwn',
           text: ':beetle: <https://www.stopbadware.org/|malware> '
         }
