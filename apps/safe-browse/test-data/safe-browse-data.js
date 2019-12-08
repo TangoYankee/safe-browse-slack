@@ -24,6 +24,9 @@ const urlDomainKeys = [
   }
 ]
 
+/*
+'{ "client": {"clientId": "markdownlinks", "clientVersion": "1.5.2" }, "threatInfo": { "platformTypes": ["ANY_PLATFORM"], "threatEntries": [ { "url": "https://testsafebrowsing.appspot.com/s/phishing.html" },{"url": "https://testsafebrowsing.appspot.com/s/unwanted.html"}, { "url": "testsafebrowsing.appspot.com/s/malware.html" }, { "url": "nasa.gov" }], "threatEntryTypes": ["URL"], "threatTypes": [ "THREAT_TYPE_UNSPECIFIED", "MALWARE", "SOCIAL_ENGINEERING", "UNWANTED_SOFTWARE", "POTENTIALLY_HARMFUL_APPLICATION" ] } }' -H "Content-Type: application/json" -X POST https://safebrowsing.googleapis.com/v4/threatMatches:find?key="
+*/
 const requestBody = {
   client: {
     clientId: process.env.GOOGLE_SAFE_BROWSING_CLIENT_ID,
