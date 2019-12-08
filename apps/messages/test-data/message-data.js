@@ -82,14 +82,34 @@ var markdownMessage = {
 }
 
 var messageData = {
-  message: '[Malware Site](testsafebrowsing.appspot.com/s/malware.html) and [Nasa](nasa.gov)',
+  message: '[Phishing Site](testsafebrowsing.appspot.com/s/phishing.html), [Unwanted Software](testsafebrowsing.appspot.com/s/unwanted.html), [Malware Site](testsafebrowsing.appspot.com/s/malware.html), and [Nasa](nasa.gov)',
   sharedBy: 'TangoYankee',
   safeBrowseSuccess: true,
   allSharedAsHttpSecure: false,
   threatTypes: [
+    'SOCIAL_ENGINEERING',
+    'UNWANTED_SOFTWARE',
     'MALWARE'
   ],
   links: [
+    {
+      urlDomainKey: 'testsafebrowsing.appspot.com/s/phishing.html',
+      cacheDuration: '300s',
+      inCache: false,
+      markdownLink: '[Phishing Site](testsafebrowsing.appspot.com/s/phishing.html)',
+      messageLink: '<https://testsafebrowsing.appspot.com/s/phishing.html|Phishing Site>',
+      sharedAsHttpSecure: false,
+      threatMatch: 'SOCIAL_ENGINEERING'
+    },
+    {
+      urlDomainKey: 'testsafebrowsing.appspot.com/s/unwanted.html',
+      cacheDuration: '300s',
+      inCache: false,
+      markdownLink: '[Unwanted Software](testsafebrowsing.appspot.com/s/unwanted.html)',
+      messageLink: '<https://testsafebrowsing.appspot.com/s/unwanted.html|Unwanted Software>',
+      sharedAsHttpSecure: false,
+      threatMatch: 'UNWANTED_SOFTWARE'
+    },
     {
       cacheKeyFromUrl: 'testsafebrowsing.appspot.com/s/malware.html',
       cacheDuration: '300s',
@@ -118,7 +138,7 @@ var messageFormat = {
       type: 'section',
       text: {
         type: 'mrkdwn',
-        text: '[Malware Site](testsafebrowsing.appspot.com/s/malware.html):beetle::eyes: and <https://nasa.gov|Nasa>:eyes:'
+        text: '[Phishing Site](testsafebrowsing.appspot.com/s/phishing.html):biohazard_sign::eyes:, [Unwanted Software](testsafebrowsing.appspot.com/s/unwanted.html):no_entry_sign::eyes:, [Malware Site](testsafebrowsing.appspot.com/s/malware.html):beetle::eyes:, and <https://nasa.gov|Nasa>:eyes:'
       }
     },
     {
@@ -148,7 +168,16 @@ var messageFormat = {
     },
     {
       type: 'context',
-      elements: [{
+      elements: [
+        {
+          type: 'mrkdwn',
+          text: ':biohazard_sign: <https://googleonlinesecurity.blogspot.com/2015/11/safe-browsing-protection-from-even-more.html|social engineering> '
+        },
+        {
+          type: 'mrkdwn',
+          text: ':no_entry_sign: <https://www.google.com/about/unwanted-software-policy.html|unwanted software> '
+        },
+        {
           type: 'mrkdwn',
           text: ':beetle: <https://www.stopbadware.org/|malware> '
         }
