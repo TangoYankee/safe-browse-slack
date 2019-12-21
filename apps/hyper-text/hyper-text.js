@@ -30,9 +30,6 @@ const hyperText = (text) => {
   }
 }
 
-const masterFunction = (text, userId, threatMatchResponse)
-
-
 // TODO: Refactor into smaller functions
 const setMessage = (text, userId) => {
   /* receive markdown hypertext syntax, return slack hypertext syntax and threat data */
@@ -57,12 +54,12 @@ const setMessage = (text, userId) => {
     messageData = setAllSharedAsHttpSecure(messageData)
     var cacheThreats = getCacheThreats(messageData.links)
     messageData = setCacheThreatTypes(messageData, cacheThreats)
+
     var safeBrowseThreats = setSafeBrowseThreats(messageData.links)
     if (safeBrowseThreats){
       messageData.safeBrowseSuccess = true
     }
     messageData = setSafeBrowseThreatTypes(messageData, safeBrowseThreats)
-    // messageData = safeBrowse(messageData) // Mpve threatMatchResponse up a level
     return messageData
   } else {
     return messageData

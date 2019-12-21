@@ -22,8 +22,9 @@ const {
   threatMatchThree, threatMatchFour
 } = require('../test-data/threat-matches-data')
 
-test.each(
-  [inputMessageOne, threatMatchOne]
+test.each([
+  [inputMessageThree, threatMatchThree]
+]
 )(
   'setSafeBrowseThreats() /* find suspected threats in safe browse API */',
   (inputMessage, threatMatch) => {

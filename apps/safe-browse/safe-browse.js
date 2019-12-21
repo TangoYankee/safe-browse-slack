@@ -10,18 +10,6 @@ const setSafeBrowseThreats = (messageLinks) => {
   return threatMatches
 }
 
-// Refactor to initially return threathMatches
-const safeBrowse = (messageData) => {
-  /* scan urls for threats using Google safe browse 'lookup' API */
-  var uncachedThreatEntries = setUncachedThreatEntries(messageData.links)
-  var requestBody = setRequestBody(uncachedThreatEntries)
-  // TODO: try-catch
-  var threatMatches = postThreatMatches(requestBody)
-  messageData.safeBrowseSuccess = true
-  messageData = setThreatTypes(messageData, threatMatches)
-  return messageData
-}
-
 const setUncachedThreatEntries = (links) => {
   /* pair urls with key for safe browse threat entries */
   var uncachedThreatEntries = []
@@ -90,7 +78,6 @@ const setThreatTypes = (messageData, threatMatches) => {
 
 module.exports = {
   setSafeBrowseThreats,
-  safeBrowse,
   setRequestBody,
   setUncachedThreatEntries,
   setThreatTypes,
