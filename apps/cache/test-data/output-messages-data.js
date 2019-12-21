@@ -95,7 +95,80 @@ const outputMessageNone = {
   ]
 }
 
+const outputMessageRepeat = {
+  message: '[Phishing Site](testsafebrowsing.appspot.com/s/phishing.html), \
+  [Phishing Site HTTP](http://testsafebrowsing.appspot.com/s/phishing.html), \
+  [Unwanted Software](https://testsafebrowsing.appspot.com/s/unwanted.html), \
+  [Unwanted Software Repeat](https://testsafebrowsing.appspot.com/s/unwanted.html), \
+  [Malware Site](testsafebrowsing.appspot.com/s/malware.html), and [Nasa](nasa.gov)',
+  sharedBy: 'TangoYankee',
+  safeBrowseSuccess: true,
+  allSharedAsHttpSecure: false,
+  threatTypes: [
+    'SOCIAL_ENGINEERING',
+    'UNWANTED_SOFTWARE',
+    'MALWARE'
+  ],
+  links: [
+    {
+      urlDomainKey: 'testsafebrowsing.appspot.com/s/phishing.html',
+      cacheDuration: '',
+      inCache: true,
+      markdownLink: '[Phishing Site](testsafebrowsing.appspot.com/s/phishing.html)',
+      messageLink: '<https://testsafebrowsing.appspot.com/s/phishing.html|Phishing Site>',
+      sharedAsHttpSecure: false,
+      threatMatch: 'SOCIAL_ENGINEERING'
+    },
+    {
+      urlDomainKey: 'testsafebrowsing.appspot.com/s/phishing.html',
+      cacheDuration: '',
+      inCache: true,
+      markdownLink: '[Phishing Site HTTP](http://testsafebrowsing.appspot.com/s/phishing.html)',
+      messageLink: '<http://testsafebrowsing.appspot.com/s/phishing.html|Phishing Site>',
+      sharedAsHttpSecure: false,
+      threatMatch: 'SOCIAL_ENGINEERING'
+    },
+    {
+      urlDomainKey: 'testsafebrowsing.appspot.com/s/unwanted.html',
+      cacheDuration: '',
+      inCache: true,
+      markdownLink: '[Unwanted Software](https://testsafebrowsing.appspot.com/s/unwanted.html)',
+      messageLink: '<https://testsafebrowsing.appspot.com/s/unwanted.html|Unwanted Software>',
+      sharedAsHttpSecure: true,
+      threatMatch: 'UNWANTED_SOFTWARE'
+    },
+    {
+      urlDomainKey: 'testsafebrowsing.appspot.com/s/unwanted.html',
+      cacheDuration: '',
+      inCache: true,
+      markdownLink: '[Unwanted Software Repeat](https://testsafebrowsing.appspot.com/s/unwanted.html)',
+      messageLink: '<https://testsafebrowsing.appspot.com/s/unwanted.html|Unwanted Software>',
+      sharedAsHttpSecure: true,
+      threatMatch: 'UNWANTED_SOFTWARE'
+    },
+    {
+      urlDomainKey: 'testsafebrowsing.appspot.com/s/malware.html',
+      cacheDuration: '',
+      inCache: true,
+      markdownLink: '[Malware Site](testsafebrowsing.appspot.com/s/malware.html)',
+      messageLink: '<https://testsafebrowsing.appspot.com/s/malware.html|Malware Site>',
+      sharedAsHttpSecure: false,
+      threatMatch: 'MALWARE'
+    },
+    {
+      urlDomainKey: 'nasa.gov',
+      cacheDuration: '',
+      inCache: false,
+      markdownLink: '[Nasa](nasa.gov)',
+      messageLink: '<https://nasa.gov|Nasa>',
+      sharedAsHttpSecure: false,
+      threatMatch: ''
+    }
+  ]
+}
+
 module.exports = {
   outputMessage,
-  outputMessageNone
+  outputMessageNone,
+  outputMessageRepeat
 }
