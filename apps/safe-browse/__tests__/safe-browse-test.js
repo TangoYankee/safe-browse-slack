@@ -1,16 +1,32 @@
 jest.mock('../post-threat-matches')
 const { postThreatMatches } = require('../post-threat-matches')
 const { setRequestBody, setUncachedThreatEntries, setThreatTypes } = require('../safe-browse')
-const { inputMessageOne, inputMessageTwo, inputMessageThree } = require('../test-data/input-message-data')
-const { outputMessageOne, outputMessageTwo, outputMessageThree } = require('../test-data/output-message-data')
-const { requestBodyOne, requestBodyTwo, requestBodyThree } = require('../test-data/request-body-data')
-const { threatEntryOne, threatEntryTwo, threatEntryThree } = require('../test-data/threat-entries-data')
-const { threatMatchOne, threatMatchTwo, threatMatchThree } = require('../test-data/threat-matches-data')
+const {
+  inputMessageOne, inputMessageTwo,
+  inputMessageThree, inputMessageFour
+} = require('../test-data/input-message-data')
+const {
+  outputMessageOne, outputMessageTwo,
+  outputMessageThree, outputMessageFour
+} = require('../test-data/output-message-data')
+const {
+  requestBodyOne, requestBodyTwo,
+  requestBodyThree, requestBodyFour
+} = require('../test-data/request-body-data')
+const {
+  threatEntryOne, threatEntryTwo,
+  threatEntryThree, threatEntryFour
+} = require('../test-data/threat-entries-data')
+const {
+  threatMatchOne, threatMatchTwo,
+  threatMatchThree, threatMatchFour
+} = require('../test-data/threat-matches-data')
 
 test.each([
   [inputMessageOne, threatEntryOne],
   [inputMessageTwo, threatEntryTwo],
-  [inputMessageThree, threatEntryThree]
+  [inputMessageThree, threatEntryThree],
+  [inputMessageFour, threatEntryFour]
 ])(
   'setUncachedThreatEntries() /* urls have a specific format when placed into Lookup API body */',
   (inputMessage, threatEntry) => {
@@ -20,7 +36,8 @@ test.each([
 test.each([
   [threatEntryOne, requestBodyOne],
   [threatEntryTwo, requestBodyTwo],
-  [threatEntryThree, requestBodyThree]
+  [threatEntryThree, requestBodyThree],
+  [threatEntryFour, requestBodyFour]
 ])(
   'setRequestBody() /* place urls with uncached threats into a json template for the Safe Browse API */',
   (threatEntry, requestBody) => {
@@ -30,7 +47,8 @@ test.each([
 test.each([
   [inputMessageOne, threatMatchOne, outputMessageOne],
   [inputMessageTwo, threatMatchTwo, outputMessageTwo],
-  [inputMessageThree, threatMatchThree, outputMessageThree]
+  [inputMessageThree, threatMatchThree, outputMessageThree],
+  [inputMessageFour, threatMatchFour, outputMessageFour]
 ])(
   'setThreatTypes() /* add threat type to the original message */',
   (inputMessage, threatMatch, outputMessage) => {

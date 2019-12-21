@@ -17,7 +17,10 @@ const setUncachedThreatEntries = (links) => {
   var uncachedThreatEntries = []
   for (var link of links) {
     if (!link.inCache) {
-      uncachedThreatEntries.push({ url: link.urlDomainKey })
+      var threatEntryInArray = uncachedThreatEntries.find(threatEntry => threatEntry.url === link.urlDomainKey)
+      if (threatEntryInArray === undefined) {
+        uncachedThreatEntries.push({ url: link.urlDomainKey })
+      }
     }
   }
   return uncachedThreatEntries
@@ -47,7 +50,10 @@ const setThreatTypes = (messageData, threatMatches) => {
         link.threatMatch = threatMatch.threatType
         link.cacheDuration = threatMatch.cacheDuration
         link.inCache = false
-        messageData.threatTypes.push(threatMatch.threatType)
+        var threatMatchInThreatTypes = messageData.threatTypes.includes(threatMatch.threatType)
+        if (!threatMatchInThreatTypes) {
+          messageData.threatTypes.push(threatMatch.threatType)
+        }
       }
     }
   }

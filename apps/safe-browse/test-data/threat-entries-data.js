@@ -15,8 +15,15 @@ const threatEntryThree = [
   { url: 'nasa.gov' }
 ]
 
+const threatEntryFour = [
+  { url: 'testsafebrowsing.appspot.com/s/unwanted.html' },
+  { url: 'testsafebrowsing.appspot.com/s/malware.html' },
+  { url: 'nasa.gov' }
+]
+
 module.exports = {
   threatEntryOne,
   threatEntryTwo,
-  threatEntryThree
+  threatEntryThree,
+  threatEntryFour
 }
