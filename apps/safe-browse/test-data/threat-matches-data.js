@@ -53,7 +53,12 @@ const threatMatchTwo = {
   ]
 }
 
+const threatMatchThree = {
+  matches: []
+}
+
 module.exports = {
   threatMatchOne,
-  threatMatchTwo
+  threatMatchTwo,
+  threatMatchThree
 }

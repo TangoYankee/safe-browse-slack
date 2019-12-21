@@ -11,7 +11,12 @@ const threatEntryTwo = [
   { url: 'nasa.gov' }
 ]
 
+const threatEntryThree = [
+  { url: 'nasa.gov' }
+]
+
 module.exports = {
   threatEntryOne,
-  threatEntryTwo
+  threatEntryTwo,
+  threatEntryThree
 }

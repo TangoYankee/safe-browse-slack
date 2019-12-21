@@ -92,7 +92,28 @@ const inputMessageTwo = {
   ]
 }
 
+const inputMessageThree = {
+  message: 'Takeoff with [Nasa](https://nasa.gov)',
+  sharedBy: 'TangoYankee',
+  safeBrowseSuccess: true,
+  allSharedAsHttpSecure: true,
+  threatTypes: [
+  ],
+  links: [
+    {
+      urlDomainKey: 'nasa.gov',
+      cacheDuration: '',
+      inCache: false,
+      markdownLink: '[Nasa](https://nasa.gov)',
+      messageLink: '<https://nasa.gov|Nasa>',
+      sharedAsHttpSecure: true,
+      threatMatch: ''
+    }
+  ]
+}
+
 module.exports = {
   inputMessageOne,
-  inputMessageTwo
+  inputMessageTwo,
+  inputMessageThree
 }
