@@ -40,8 +40,8 @@ test.each([
 
 /* threats are now stored in cache */
 test.each([
-[inputMessage, threatsInCache, outputMessage],
-[inputMessageRepeat, threatsInCacheRepeat, outputMessageRepeat]
+  [inputMessage, threatsInCache, outputMessage],
+  [inputMessageRepeat, threatsInCacheRepeat, outputMessageRepeat]
 ])(
   'setCacheThreatTypes() /* save threat matches to message object */',
   (inputMessage, threatsInCache, outputMessage) => {
@@ -62,7 +62,7 @@ test.each([
 
 test.each([
   [links, urlDomainKeys],
-  [linksRepeat, urlDomainKeysRepeat ]
+  [linksRepeat, urlDomainKeysRepeat]
 ])(
   'setUrlDomainKeys() /* list of urls to look for in cache */',
   (links, urlDomainKeys) => {

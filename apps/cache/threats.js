@@ -13,8 +13,8 @@ const setCacheThreatTypes = (messageData, threatMatches) => {
         link.threatMatch = threatMatch
         link.inCache = true
         var threatMatchInThreatTypes = messageData.threatTypes.includes(threatMatch)
-        if (!threatMatchInThreatTypes){
-        messageData.threatTypes.push(threatMatch)
+        if (!threatMatchInThreatTypes) {
+          messageData.threatTypes.push(threatMatch)
         }
       }
     }
@@ -33,8 +33,8 @@ const setUrlDomainKeys = (hyperTexts) => {
   var urlDomainKeys = []
   for (var hyperText of hyperTexts) {
     var urlDomainKeyInUrlDomainKeys = urlDomainKeys.includes(hyperText.urlDomainKey)
-    if (!urlDomainKeyInUrlDomainKeys){
-    urlDomainKeys.push(hyperText.urlDomainKey)
+    if (!urlDomainKeyInUrlDomainKeys) {
+      urlDomainKeys.push(hyperText.urlDomainKey)
     }
   }
   return urlDomainKeys
@@ -61,18 +61,18 @@ const setCacheThreats = (hyperTexts) => {
   for (var hyperText of hyperTexts) {
     var threatMatch = hyperText.threatMatch
     if (threatMatch) {
-      var urlDomainKeyInCacheThreats = cacheThreats.find(cacheThreat => cacheThreat.key=== hyperText.urlDomainKey )
-      if (urlDomainKeyInCacheThreats === undefined){
-      cacheThreats.push(
-        {
-          key: hyperText.urlDomainKey,
-          val: {
-            threatMatch: hyperText.threatMatch
-          },
-          ttl: setCacheDuration(hyperText.cacheDuration)
-        }
-      )
-    }
+      var urlDomainKeyInCacheThreats = cacheThreats.find(cacheThreat => cacheThreat.key === hyperText.urlDomainKey)
+      if (urlDomainKeyInCacheThreats === undefined) {
+        cacheThreats.push(
+          {
+            key: hyperText.urlDomainKey,
+            val: {
+              threatMatch: hyperText.threatMatch
+            },
+            ttl: setCacheDuration(hyperText.cacheDuration)
+          }
+        )
+      }
     }
   }
   return cacheThreats
