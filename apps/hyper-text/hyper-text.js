@@ -30,7 +30,9 @@ const hyperText = (text) => {
   }
 }
 
+// TODO: Refactor into smaller functions
 const setMessage = (text, userId) => {
+  /* receive markdown hypertext syntax, return slack hypertext syntax and threat data */
   var allHyperTextPositions = setAllHyperTextPositions(text)
   let messageData = setMessageData(text, userId)
   if (allHyperTextPositions) {
