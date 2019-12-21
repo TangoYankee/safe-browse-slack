@@ -1,6 +1,8 @@
+const process = require('process')
+
 const requestBodyOne = {
   client: {
-    clientId: 'markdownlinks',
+    clientId: process.env.GOOGLE_SAFE_BROWSING_CLIENT_ID,
     clientVersion: '1.5.2'
   },
   threatInfo: {
@@ -24,7 +26,7 @@ const requestBodyOne = {
 
 const requestBodyTwo = {
   client: {
-    clientId: 'markdownlinks',
+    clientId: process.env.GOOGLE_SAFE_BROWSING_CLIENT_ID,
     clientVersion: '1.5.2'
   },
   threatInfo: {
@@ -47,7 +49,7 @@ const requestBodyTwo = {
 
 const requestBodyThree = {
   client: {
-    clientId: 'markdownlinks',
+    clientId: process.env.GOOGLE_SAFE_BROWSING_CLIENT_ID,
     clientVersion: '1.5.2'
   },
   threatInfo: {
@@ -68,7 +70,7 @@ const requestBodyThree = {
 
 const requestBodyFour = {
   client: {
-    clientId: 'markdownlinks',
+    clientId: process.env.GOOGLE_SAFE_BROWSING_CLIENT_ID,
     clientVersion: '1.5.2'
   },
   threatInfo: {
