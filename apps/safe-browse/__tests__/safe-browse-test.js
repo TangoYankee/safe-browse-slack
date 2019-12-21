@@ -1,6 +1,6 @@
 jest.mock('../post-threat-matches')
 const { postThreatMatches } = require('../post-threat-matches')
-const { setRequestBody, setUncachedThreatEntries, setThreatTypes } = require('../safe-browse')
+const { setSafeBrowseThreats, setRequestBody, setUncachedThreatEntries, setSafeBrowseThreatTypes } = require('../safe-browse')
 const {
   inputMessageOne, inputMessageTwo,
   inputMessageThree, inputMessageFour
@@ -21,6 +21,14 @@ const {
   threatMatchOne, threatMatchTwo,
   threatMatchThree, threatMatchFour
 } = require('../test-data/threat-matches-data')
+
+test.each(
+  [inputMessageOne, threatMatchOne]
+)(
+  'setSafeBrowseThreats() /* find suspected threats in safe browse API */',
+  (inputMessage, threatMatch) => {
+    expect(setSafeBrowseThreats(inputMessage.links)).toEqual(threatMatch)
+  })
 
 test.each([
   [inputMessageOne, threatEntryOne],
@@ -50,9 +58,9 @@ test.each([
   [inputMessageThree, threatMatchThree, outputMessageThree],
   [inputMessageFour, threatMatchFour, outputMessageFour]
 ])(
-  'setThreatTypes() /* add threat type to the original message */',
+  'setSafeBrowseThreatTypes() /* add threat type to the original message */',
   (inputMessage, threatMatch, outputMessage) => {
-    expect(setThreatTypes(inputMessage, threatMatch)).toEqual(outputMessage)
+    expect(setSafeBrowseThreatTypes(inputMessage, threatMatch)).toEqual(outputMessage)
   })
 
 it(

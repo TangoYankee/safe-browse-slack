@@ -1,6 +1,16 @@
 const process = require('process')
 const postThreatMatches = require('./post-threat-matches')
 
+
+const setSafeBrowseThreats = (messageLinks) => {
+  /* find suspected threats in safe browse API */
+  var uncachedThreatEntries = setUncachedThreatEntries(messageLinks)
+  var requestBody = setRequestBody(uncachedThreatEntries)
+  var threatMatches = postThreatMatches(requestBody)
+  return threatMatches
+}
+
+// Refactor to initially return threathMatches
 const safeBrowse = (messageData) => {
   /* scan urls for threats using Google safe browse 'lookup' API */
   var uncachedThreatEntries = setUncachedThreatEntries(messageData.links)
@@ -42,6 +52,24 @@ const setRequestBody = (uncachedThreatEntries) => {
   }
 }
 
+const setSafeBrowseThreatTypes = (messageData, threatMatches) => {
+  /* add threat type to the original message */
+  for (var threatMatch of threatMatches.matches) {
+    for (var link of messageData.links) {
+      if (link.urlDomainKey === threatMatch.threat.url) {
+        link.threatMatch = threatMatch.threatType
+        link.cacheDuration = threatMatch.cacheDuration
+        link.inCache = false
+        var threatMatchInThreatTypes = messageData.threatTypes.includes(threatMatch.threatType)
+        if (!threatMatchInThreatTypes) {
+          messageData.threatTypes.push(threatMatch.threatType)
+        }
+      }
+    }
+  }
+  return messageData
+}
+
 const setThreatTypes = (messageData, threatMatches) => {
   /* add threat type to the original message */
   for (var threatMatch of threatMatches.matches) {
@@ -61,8 +89,10 @@ const setThreatTypes = (messageData, threatMatches) => {
 }
 
 module.exports = {
+  setSafeBrowseThreats,
   safeBrowse,
   setRequestBody,
   setUncachedThreatEntries,
-  setThreatTypes
+  setThreatTypes,
+  setSafeBrowseThreatTypes
 }

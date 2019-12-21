@@ -5,7 +5,7 @@ const {
   setHttpDestUrl, setUrlDomainKey, setSharedAsHttpSecure
 } = require('./content')
 const { getCacheThreats, setCacheThreatTypes } = require('../cache/threats')
-const { safeBrowse } = require('../safe-browse/safe-browse')
+const { safeBrowse, setSafeBrowseThreats, setSafeBrowseThreatTypes } = require('../safe-browse/safe-browse')
 
 const hyperText = (text) => {
   /* receive markdown hypertext syntax, return slack hypertext syntax */
@@ -30,11 +30,14 @@ const hyperText = (text) => {
   }
 }
 
+const masterFunction = (text, userId, threatMatchResponse)
+
+
 // TODO: Refactor into smaller functions
 const setMessage = (text, userId) => {
   /* receive markdown hypertext syntax, return slack hypertext syntax and threat data */
   var allHyperTextPositions = setAllHyperTextPositions(text)
-  let messageData = setMessageData(text, userId)
+  let messageData = setMessageData(text, userId) //Move out to const
   if (allHyperTextPositions) {
     for (var hyperTextPosition of allHyperTextPositions) {
       if (validHyperTextPositions(hyperTextPosition)) {
@@ -54,13 +57,18 @@ const setMessage = (text, userId) => {
     messageData = setAllSharedAsHttpSecure(messageData)
     var cacheThreats = getCacheThreats(messageData.links)
     messageData = setCacheThreatTypes(messageData, cacheThreats)
-    messageData = safeBrowse(messageData)
+    var safeBrowseThreats = setSafeBrowseThreats(messageData.links)
+    if (safeBrowseThreats){
+      messageData.safeBrowseSuccess = true
+    }
+    messageData = setSafeBrowseThreatTypes(messageData, safeBrowseThreats)
+    // messageData = safeBrowse(messageData) // Mpve threatMatchResponse up a level
     return messageData
   } else {
     return messageData
   }
 }
-
+// Separate File
 const setMessageData = (text, userId) => {
   return {
     message: text,
