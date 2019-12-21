@@ -25,18 +25,18 @@ test(
   }
 )
 
+test(
+  'postCacheThreats() /* remember threats */',
+  () => {
+    expect(postCacheThreats(hyperTextThreats)).toBe(true)
+  }
+)
+
 /* threats are now stored in cache */
 test(
   'setCacheThreatTypes() /* save threat matches to message object */',
   () => {
     expect(setCacheThreatTypes(inputMessageData, cacheThreatsResponse)).toEqual(messageThreatData)
-  }
-)
-
-test(
-  'postCacheThreats() /* remember threats */',
-  () => {
-    expect(postCacheThreats(hyperTextThreats)).toBe(true)
   }
 )
 
