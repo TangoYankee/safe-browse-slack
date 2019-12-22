@@ -1,5 +1,5 @@
-userIdOne = 'TangoYankee'
+const userIdOne = 'TangoYankee'
 
 module.exports = {
-    userIdOne
+  userIdOne
 }
