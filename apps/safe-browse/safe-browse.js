@@ -1,12 +1,11 @@
 const process = require('process')
-const postThreatMatches = require('./post-threat-matches')
+const { postThreatMatches } = require('./post-threat-matches')
 
-
-const setSafeBrowseThreats = (messageLinks) => {
+const setSafeBrowseThreats = async (messageLinks) => {
   /* find suspected threats in safe browse API */
   var uncachedThreatEntries = setUncachedThreatEntries(messageLinks)
   var requestBody = setRequestBody(uncachedThreatEntries)
-  var threatMatches = postThreatMatches(requestBody)
+  var threatMatches = await postThreatMatches(requestBody)
   return threatMatches
 }
 

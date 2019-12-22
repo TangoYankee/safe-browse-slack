@@ -1,5 +1,6 @@
-jest.mock('../post-threat-matches')
 const { postThreatMatches } = require('../post-threat-matches')
+jest.mock('../post-threat-matches')
+
 const { setSafeBrowseThreats, setRequestBody, setUncachedThreatEntries, setSafeBrowseThreatTypes } = require('../safe-browse')
 const {
   inputMessageOne, inputMessageTwo,
@@ -22,14 +23,14 @@ const {
   threatMatchThree, threatMatchFour
 } = require('../test-data/threat-matches-data')
 
-test.each([
-  [inputMessageThree, threatMatchThree]
-]
-)(
-  'setSafeBrowseThreats() /* find suspected threats in safe browse API */',
-  (inputMessage, threatMatch) => {
-    expect(setSafeBrowseThreats(inputMessage.links)).toEqual(threatMatch)
-  })
+it(
+  'setSafeBrowseThreats() /* find suspected threats in safe browse API */', 
+  async () => {
+    expect.assertions(1)
+    var threatMatchesResponse = await setSafeBrowseThreats(inputMessageOne.links)
+    return expect(threatMatchesResponse).toEqual(threatMatchOne)
+  }
+)
 
 test.each([
   [inputMessageOne, threatEntryOne],
