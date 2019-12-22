@@ -24,7 +24,7 @@ const {
 } = require('../test-data/threat-matches-data')
 
 it(
-  'setSafeBrowseThreats() /* find suspected threats in safe browse API */', 
+  'setSafeBrowseThreats() /* find suspected threats in safe browse API */',
   async () => {
     expect.assertions(1)
     var threatMatchesResponse = await setSafeBrowseThreats(inputMessageOne.links)

@@ -5,7 +5,7 @@ const {
   setHttpDestUrl, setUrlDomainKey, setSharedAsHttpSecure
 } = require('./content')
 const { getCacheThreats, setCacheThreatTypes } = require('../cache/threats')
-const { safeBrowse, setSafeBrowseThreats, setSafeBrowseThreatTypes } = require('../safe-browse/safe-browse')
+const { setSafeBrowseThreats, setSafeBrowseThreatTypes } = require('../safe-browse/safe-browse')
 
 const hyperText = (text) => {
   /* receive markdown hypertext syntax, return slack hypertext syntax */
@@ -31,10 +31,10 @@ const hyperText = (text) => {
 }
 
 // TODO: Refactor into smaller functions
-const setMessage = (text, userId) => {
+const setMessage = async (text, userId) => {
   /* receive markdown hypertext syntax, return slack hypertext syntax and threat data */
   var allHyperTextPositions = setAllHyperTextPositions(text)
-  let messageData = setMessageData(text, userId) //Move out to const
+  let messageData = setMessageData(text, userId) // Move out to const
   if (allHyperTextPositions) {
     for (var hyperTextPosition of allHyperTextPositions) {
       if (validHyperTextPositions(hyperTextPosition)) {
@@ -55,8 +55,8 @@ const setMessage = (text, userId) => {
     var cacheThreats = getCacheThreats(messageData.links)
     messageData = setCacheThreatTypes(messageData, cacheThreats)
 
-    var safeBrowseThreats = setSafeBrowseThreats(messageData.links)
-    if (safeBrowseThreats){
+    var safeBrowseThreats = await setSafeBrowseThreats(messageData.links)
+    if (safeBrowseThreats) {
       messageData.safeBrowseSuccess = true
     }
     messageData = setSafeBrowseThreatTypes(messageData, safeBrowseThreats)
@@ -65,7 +65,8 @@ const setMessage = (text, userId) => {
     return messageData
   }
 }
-// Separate File
+
+// Separate File?
 const setMessageData = (text, userId) => {
   return {
     message: text,
