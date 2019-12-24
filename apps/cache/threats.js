@@ -3,7 +3,6 @@ const { cacheStart, cacheInstance } = require('./cache')
 cacheStart()
 const cache = cacheInstance()
 
-// TODO: expand to multiple responses from the cache
 const setCacheThreatTypes = (messageData, threatMatches) => {
   /* save threat matches to message object */
   for (var urlDomainKey in threatMatches) {

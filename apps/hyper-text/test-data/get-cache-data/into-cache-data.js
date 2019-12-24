@@ -40,18 +40,16 @@ const messageDataIntoCacheTwo = {
   sharedBy: 'TangoYankee',
   safeBrowseSuccess: true,
   allSharedAsHttpSecure: false,
-  threatTypes: [
-    'SOCIAL_ENGINEERING'
-  ],
+  threatTypes: [],
   links: [
     {
       urlDomainKey: 'testsafebrowsing.appspot.com/s/phishing.html',
       cacheDuration: '',
-      inCache: true,
+      inCache: false,
       markdownLink: '[Phishing Site](testsafebrowsing.appspot.com/s/phishing.html)',
       messageLink: '<https://testsafebrowsing.appspot.com/s/phishing.html|Phishing Site>',
       sharedAsHttpSecure: false,
-      threatMatch: 'SOCIAL_ENGINEERING'
+      threatMatch: ''
     },
     {
       urlDomainKey: 'testsafebrowsing.appspot.com/s/unwanted.html',
