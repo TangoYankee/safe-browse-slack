@@ -55,12 +55,13 @@ const setCacheDuration = (cacheDurationUnits) => {
   return cacheDuration
 }
 
+// TODO: Check whether the url exists in the cache, before posting to the cache
 const setCacheThreats = (hyperTexts) => {
   /* cache-friendly threat format */
   var cacheThreats = []
   for (var hyperText of hyperTexts) {
     var threatMatch = hyperText.threatMatch
-    if (threatMatch) {
+    if (threatMatch && !hyperText.inCache) {
       var urlDomainKeyInCacheThreats = cacheThreats.find(cacheThreat => cacheThreat.key === hyperText.urlDomainKey)
       if (urlDomainKeyInCacheThreats === undefined) {
         cacheThreats.push(

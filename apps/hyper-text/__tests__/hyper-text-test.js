@@ -7,11 +7,11 @@ const { postCacheThreats, clearCache } = require('../../cache/threats')
 const { inputTextOne } = require('../test-data/set-message-data/input-text-data')
 const { outputMessageOne } = require('../test-data/set-message-data/output-message-data')
 const { userIdOne } = require('../test-data/set-message-data/user-id-data')
-const { inCacheBeforeOne } = require('../test-data/set-message-data/in-cache-before-data')
-const { messageDataIntoCacheOne } = require('../test-data/set-message-data/into-cache-data')
-const { messageDataOutOfCacheOne } = require('../test-data/set-message-data/out-of-cache-data')
-const { messageDataIntoSafeBrowseFull, messageDataIntoSafeBrowseEmpty } = require('../test-data/set-message-data/into-safe-browse-data')
-const { messageDataOutOfSafeBrowseFull, messageDataOutOfSafeBrowseEmpty } = require('../test-data/set-message-data/out-of-safe-browse-data')
+const { postToCacheOne, postToCacheTwo, postToCacheThree } = require('../test-data/get-cache-data/post-to-cache-data')
+const { messageDataIntoCacheOne, messageDataIntoCacheTwo, messageDataIntoCacheThree } = require('../test-data/get-cache-data/into-cache-data')
+const { messageDataOutOfCacheOne, messageDataOutOfCacheTwo, messageDataOutOfCacheThree } = require('../test-data/get-cache-data/out-of-cache-data')
+const { messageDataIntoSafeBrowseFull, messageDataIntoSafeBrowseEmpty } = require('../test-data/set-safe-browse-data/into-safe-browse-data')
+const { messageDataOutOfSafeBrowseFull, messageDataOutOfSafeBrowseEmpty } = require('../test-data/set-safe-browse-data/out-of-safe-browse-data')
 
 // Insert into a 'describe' block
 // Within 'describe' also include the 'getCache' function to test the 'postCache' functionality
@@ -35,11 +35,13 @@ const { messageDataOutOfSafeBrowseFull, messageDataOutOfSafeBrowseEmpty } = requ
 // )
 
 describe.each([
-  [inCacheBeforeOne, messageDataIntoCacheOne, messageDataOutOfCacheOne]
+  [postToCacheOne, messageDataIntoCacheOne, messageDataOutOfCacheOne],
+  [postToCacheTwo, messageDataIntoCacheTwo, messageDataOutOfCacheTwo],
+  [postToCacheThree, messageDataIntoCacheThree, messageDataOutOfCacheThree]
 ])(
   'getCache() suite /* reference threat urls that are already saved locally */',
-  (inCacheBefore, messageDataIntoCache, messageDataOutOfCache) => {
-    postCacheThreats(inCacheBefore)
+  (postToCache, messageDataIntoCache, messageDataOutOfCache) => {
+    postCacheThreats(postToCache)
     afterAll(() => { clearCache() })
     test(
       'getCache()',
