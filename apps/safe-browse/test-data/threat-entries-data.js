@@ -29,6 +29,10 @@ const threatEntryFour = [
 
 const threatEntryExistFour = true
 
+const threatEntryFive = []
+
+const threatEntryExistFive = false
+
 module.exports = {
   threatEntryOne,
   threatEntryExistOne,
@@ -37,5 +41,7 @@ module.exports = {
   threatEntryThree,
   threatEntryExistThree,
   threatEntryFour,
-  threatEntryExistFour
+  threatEntryExistFour,
+  threatEntryFive,
+  threatEntryExistFive
 }

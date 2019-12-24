@@ -58,9 +58,8 @@ const setMessage = async (text, userId) => {
     var safeBrowseThreats = await setSafeBrowseThreats(messageData.links)
     if (safeBrowseThreats) {
       messageData.safeBrowseSuccess = true
+      messageData = setSafeBrowseThreatTypes(messageData, safeBrowseThreats)
     }
-    // TODO: move into conditional
-    messageData = setSafeBrowseThreatTypes(messageData, safeBrowseThreats)
     return messageData
   } else {
     return messageData

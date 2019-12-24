@@ -178,9 +178,29 @@ const inputMessageFour = {
   ]
 }
 
+const inputMessageFive = {
+  message: '[Phishing Site](testsafebrowsing.appspot.com/s/phishing.html)',
+  sharedBy: 'TangoYankee',
+  safeBrowseSuccess: true,
+  allSharedAsHttpSecure: false,
+  threatTypes: [
+    'SOCIAL_ENGINEERING'
+  ],
+  links: [{
+    urlDomainKey: 'testsafebrowsing.appspot.com/s/phishing.html',
+    cacheDuration: '',
+    inCache: true,
+    markdownLink: '[Phishing Site](testsafebrowsing.appspot.com/s/phishing.html)',
+    messageLink: '<https://testsafebrowsing.appspot.com/s/phishing.html|Phishing Site>',
+    sharedAsHttpSecure: false,
+    threatMatch: 'SOCIAL_ENGINEERING'
+  }]
+}
+
 module.exports = {
   inputMessageOne,
   inputMessageTwo,
   inputMessageThree,
-  inputMessageFour
+  inputMessageFour,
+  inputMessageFive
 }

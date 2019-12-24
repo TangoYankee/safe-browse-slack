@@ -80,9 +80,12 @@ const threatMatchFour = {
   ]
 }
 
+const threatMatchFive = undefined
+
 module.exports = {
   threatMatchOne,
   threatMatchTwo,
   threatMatchThree,
-  threatMatchFour
+  threatMatchFour,
+  threatMatchFive
 }

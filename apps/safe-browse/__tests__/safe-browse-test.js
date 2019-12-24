@@ -5,9 +5,10 @@ const {
   setSafeBrowseThreats, setRequestBody, setUncachedThreatEntries,
   setUncachedThreatEntriesExist, setSafeBrowseThreatTypes
 } = require('../safe-browse')
+
 const {
-  inputMessageOne, inputMessageTwo,
-  inputMessageThree, inputMessageFour
+  inputMessageOne, inputMessageTwo, inputMessageThree,
+  inputMessageFour, inputMessageFive
 } = require('../test-data/input-message-data')
 const {
   outputMessageOne, outputMessageTwo,
@@ -20,7 +21,8 @@ const {
 const {
   threatEntryOne, threatEntryExistOne, threatEntryTwo,
   threatEntryExistTwo, threatEntryThree, threatEntryExistThree,
-  threatEntryFour, threatEntryExistFour
+  threatEntryFour, threatEntryExistFour, threatEntryFive,
+  threatEntryExistFive
 } = require('../test-data/threat-entries-data')
 const {
   threatMatchOne, threatMatchTwo,
@@ -40,7 +42,8 @@ test.each([
   [inputMessageOne, threatEntryOne],
   [inputMessageTwo, threatEntryTwo],
   [inputMessageThree, threatEntryThree],
-  [inputMessageFour, threatEntryFour]
+  [inputMessageFour, threatEntryFour],
+  [inputMessageFive, threatEntryFive]
 ])(
   'setUncachedThreatEntries() /* urls have a specific format when placed into Lookup API body */',
   (inputMessage, threatEntry) => {
@@ -51,7 +54,8 @@ test.each([
   [threatEntryOne, threatEntryExistOne],
   [threatEntryTwo, threatEntryExistTwo],
   [threatEntryThree, threatEntryExistThree],
-  [threatEntryFour, threatEntryExistFour]
+  [threatEntryFour, threatEntryExistFour],
+  [threatEntryExistFive, threatEntryExistFive]
 ])(
   'setUncachedThreatEntriesExist() /* prevent unnecessary calls to the SafeBrowse API, where there are no uncached threat urls */',
   (threatEntry, threatEntryExists) => {
