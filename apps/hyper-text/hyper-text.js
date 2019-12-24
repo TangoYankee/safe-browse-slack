@@ -7,7 +7,7 @@ const {
 const { getCacheThreats, setCacheThreatTypes } = require('../cache/threats')
 const { setSafeBrowseThreats, setSafeBrowseThreatTypes } = require('../safe-browse/safe-browse')
 
-const setMessage = async(text, userId) => {
+const setMessage = async (text, userId) => {
   var allHyperTextPositions = setAllHyperTextPositions(text)
   let messageData = setMessageData(text, userId)
   if (allHyperTextPositions) {
@@ -15,27 +15,27 @@ const setMessage = async(text, userId) => {
     messageData = setAllSharedAsHttpSecure(messageData)
     messageData = setCache(messageData)
     messageData = setSafeBrowse(messageData)
-}
+  }
   return messageData
 }
 
 const setHyperText = (messageData, allHyperTextPositions, text) => {
-    for (var hyperTextPosition of allHyperTextPositions) {
-      if (validHyperTextPositions(hyperTextPosition)) {
-        var displayText = setDisplayText(hyperTextPosition, text)
-        var destUrl = setDestUrl(hyperTextPosition, text)
-        if (validateDisplayText(displayText) && validateDestUrl(destUrl)) {
-          var urlDomainKey = setUrlDomainKey(destUrl)
-          var sharedAsHttpSecure = setSharedAsHttpSecure(destUrl)
-          var httpDestUrl = setHttpDestUrl(destUrl)
-          var slackHyperText = setSlackHyperText(httpDestUrl, displayText)
-          var markdownHyperText = getMarkdownHyperText(hyperTextPosition, text)
-          var hyperTextData = setHyperTextData(markdownHyperText, slackHyperText, urlDomainKey, sharedAsHttpSecure)
-          messageData.links.push(hyperTextData)
-        }
+  for (var hyperTextPosition of allHyperTextPositions) {
+    if (validHyperTextPositions(hyperTextPosition)) {
+      var displayText = setDisplayText(hyperTextPosition, text)
+      var destUrl = setDestUrl(hyperTextPosition, text)
+      if (validateDisplayText(displayText) && validateDestUrl(destUrl)) {
+        var urlDomainKey = setUrlDomainKey(destUrl)
+        var sharedAsHttpSecure = setSharedAsHttpSecure(destUrl)
+        var httpDestUrl = setHttpDestUrl(destUrl)
+        var slackHyperText = setSlackHyperText(httpDestUrl, displayText)
+        var markdownHyperText = getMarkdownHyperText(hyperTextPosition, text)
+        var hyperTextData = setHyperTextData(markdownHyperText, slackHyperText, urlDomainKey, sharedAsHttpSecure)
+        messageData.links.push(hyperTextData)
       }
     }
-    return messageData
+  }
+  return messageData
 }
 
 const setCache = (messageData) => {
