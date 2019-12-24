@@ -52,6 +52,7 @@ const setSafeBrowse = async (messageData) => {
   /* check whether url is a suspected threat by google safe browse api */
   var safeBrowseThreats = await setSafeBrowseThreats(messageData.links)
   if (safeBrowseThreats) {
+    console.log('call setSafeBrowseThreatTypes')
     messageData.safeBrowseSuccess = true
     messageData = setSafeBrowseThreatTypes(messageData, safeBrowseThreats)
   }
@@ -60,7 +61,7 @@ const setSafeBrowse = async (messageData) => {
 
 // Separate File
 const setMessageData = (text, userId) => {
-  /* message with meta data stored in an object*/
+  /* message with meta data stored in an object */
   return {
     message: text,
     sharedBy: userId,
@@ -73,7 +74,7 @@ const setMessageData = (text, userId) => {
 
 // Separate File
 const setHyperTextData = (markdownHyperText, slackHyperText, urlDomainKey, sharedAsHttpSecure) => {
-  /* each link and its meta data stored in an object*/
+  /* each link and its meta data stored in an object */
   return {
     urlDomainKey: urlDomainKey,
     cacheDuration: '',

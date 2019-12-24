@@ -78,11 +78,16 @@ const setCacheThreats = (hyperTexts) => {
   return cacheThreats
 }
 
+const clearCache = () => {
+  cache.flushAll()
+}
+
 module.exports = {
   setCacheThreatTypes,
   getCacheThreats,
   setUrlDomainKeys,
   postCacheThreats,
   setCacheDuration,
-  setCacheThreats
+  setCacheThreats,
+  clearCache
 }
