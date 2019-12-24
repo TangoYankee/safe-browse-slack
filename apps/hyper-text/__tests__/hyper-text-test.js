@@ -7,6 +7,11 @@ const { inputTextOne } = require('../test-data/set-message-data/input-text-data'
 const { outputMessageOne } = require('../test-data/set-message-data/output-message-data')
 const { userIdOne } = require('../test-data/set-message-data/user-id-data')
 
+
+// Insert into a 'describe' block
+// Within 'describe' also include the 'getCache' function to test the 'postCache' functionality
+// Start block with 'before all' to seed the cache with data
+// End block with 'after all' to clear the cache of data 
 test(
   'setMessage() /* receive markdown hypertext syntax, return slack hypertext syntax and threat data */',
   async () => {
@@ -26,6 +31,10 @@ test.each([
 
 test.each([
 
+
+// Place into 'describe' block
+// Start with 'beforeAll' to seed cache data
+// End with 'afterAll' to clear cache  
 ])(
   'getCache() /* reference threat urls that are already saved locally */',
   (messageDataIntoCache, messageDataOutOfCache) => {
@@ -35,6 +44,7 @@ test.each([
 
 test.each([
 
+// Import mock 'postThreatMatches'  
 ])(
   'setSafeBrowse() * check whether url is a suspected threat by google safe browse api */',
   (messageDataIntoSafeBrowse, messageDataOutOfSafeBrowse) => {

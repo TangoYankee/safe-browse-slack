@@ -86,7 +86,8 @@ const setHyperTextData = (markdownHyperText, slackHyperText, urlDomainKey, share
 }
 
 module.exports = {
-  // hyperText,
-  setMessage
-  // setMasterMessage
+  setMessage,
+  setHyperText,
+  getCache,
+  setSafeBrowse
 }
