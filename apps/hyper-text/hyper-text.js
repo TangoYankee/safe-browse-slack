@@ -52,7 +52,6 @@ const setSafeBrowse = async (messageData) => {
   /* check whether url is a suspected threat by google safe browse api */
   var safeBrowseThreats = await setSafeBrowseThreats(messageData.links)
   if (safeBrowseThreats) {
-    console.log('call setSafeBrowseThreatTypes')
     messageData.safeBrowseSuccess = true
     messageData = setSafeBrowseThreatTypes(messageData, safeBrowseThreats)
   }

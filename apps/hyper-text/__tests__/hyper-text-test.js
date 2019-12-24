@@ -41,8 +41,12 @@ describe.each([
 ])(
   'getCache() suite /* reference threat urls that are already saved locally */',
   (postToCache, messageDataIntoCache, messageDataOutOfCache) => {
-    postCacheThreats(postToCache)
-    afterAll(() => { clearCache() })
+    beforeAll(() => {
+      postCacheThreats(postToCache)
+    })
+    afterAll(() => { 
+      clearCache() 
+    })
     test(
       'getCache()',
       () => {
