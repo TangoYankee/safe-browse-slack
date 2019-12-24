@@ -1,7 +1,10 @@
 const { postThreatMatches } = require('../post-threat-matches')
 jest.mock('../post-threat-matches')
 
-const { setSafeBrowseThreats, setRequestBody, setUncachedThreatEntries, setSafeBrowseThreatTypes } = require('../safe-browse')
+const {
+  setSafeBrowseThreats, setRequestBody, setUncachedThreatEntries,
+  setUncachedThreatEntriesExist, setSafeBrowseThreatTypes
+} = require('../safe-browse')
 const {
   inputMessageOne, inputMessageTwo,
   inputMessageThree, inputMessageFour
@@ -15,8 +18,9 @@ const {
   requestBodyThree, requestBodyFour
 } = require('../test-data/request-body-data')
 const {
-  threatEntryOne, threatEntryTwo,
-  threatEntryThree, threatEntryFour
+  threatEntryOne, threatEntryExistOne, threatEntryTwo,
+  threatEntryExistTwo, threatEntryThree, threatEntryExistThree,
+  threatEntryFour, threatEntryExistFour
 } = require('../test-data/threat-entries-data')
 const {
   threatMatchOne, threatMatchTwo,
@@ -42,6 +46,18 @@ test.each([
   (inputMessage, threatEntry) => {
     expect(setUncachedThreatEntries(inputMessage.links)).toEqual(threatEntry)
   })
+
+test.each([
+  [threatEntryOne, threatEntryExistOne],
+  [threatEntryTwo, threatEntryExistTwo],
+  [threatEntryThree, threatEntryExistThree],
+  [threatEntryFour, threatEntryExistFour]
+])(
+  'setUncachedThreatEntriesExist() /* prevent unnecessary calls to the SafeBrowse API, where there are no uncached threat urls */',
+  (threatEntry, threatEntryExists) => {
+    expect(setUncachedThreatEntriesExist(threatEntry)).toEqual(threatEntryExists)
+  }
+)
 
 test.each([
   [threatEntryOne, requestBodyOne],

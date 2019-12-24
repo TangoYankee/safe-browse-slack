@@ -5,15 +5,21 @@ const threatEntryOne = [
   { url: 'nasa.gov' }
 ]
 
+const threatEntryExistOne = true
+
 const threatEntryTwo = [
   { url: 'testsafebrowsing.appspot.com/s/unwanted.html' },
   { url: 'testsafebrowsing.appspot.com/s/malware.html' },
   { url: 'nasa.gov' }
 ]
 
+const threatEntryExistTwo = true
+
 const threatEntryThree = [
   { url: 'nasa.gov' }
 ]
+
+const threatEntryExistThree = true
 
 const threatEntryFour = [
   { url: 'testsafebrowsing.appspot.com/s/unwanted.html' },
@@ -21,9 +27,15 @@ const threatEntryFour = [
   { url: 'nasa.gov' }
 ]
 
+const threatEntryExistFour = true
+
 module.exports = {
   threatEntryOne,
+  threatEntryExistOne,
   threatEntryTwo,
+  threatEntryExistTwo,
   threatEntryThree,
-  threatEntryFour
+  threatEntryExistThree,
+  threatEntryFour,
+  threatEntryExistFour
 }

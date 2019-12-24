@@ -1,12 +1,27 @@
 const process = require('process')
 const { postThreatMatches } = require('./post-threat-matches')
 
+// TODO: Remove postThreatMatches call from function
 const setSafeBrowseThreats = async (messageLinks) => {
   /* find suspected threats in safe browse API */
   var uncachedThreatEntries = setUncachedThreatEntries(messageLinks)
-  var requestBody = setRequestBody(uncachedThreatEntries)
-  var threatMatches = await postThreatMatches(requestBody)
-  return threatMatches
+  var uncachedThreatEntriesExist = setUncachedThreatEntriesExist(uncachedThreatEntries)
+  if (uncachedThreatEntriesExist) {
+    var requestBody = setRequestBody(uncachedThreatEntries)
+    var threatMatches = await postThreatMatches(requestBody)
+    return threatMatches
+  } else {
+    return undefined
+  }
+}
+
+const setUncachedThreatEntriesExist = (uncachedThreatEntries) => {
+  /* prevent unnecessary calls to the SafeBrowse API, where there are no uncached threat urls */
+  if (uncachedThreatEntries.length >= 1) {
+    return true
+  } else {
+    return false
+  }
 }
 
 const setUncachedThreatEntries = (links) => {
@@ -79,6 +94,7 @@ module.exports = {
   setSafeBrowseThreats,
   setRequestBody,
   setUncachedThreatEntries,
+  setUncachedThreatEntriesExist,
   setThreatTypes,
   setSafeBrowseThreatTypes
 }
