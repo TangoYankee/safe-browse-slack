@@ -4,22 +4,25 @@ const {
   setDestUrl, setDisplayText, getMarkdownHyperText, setAllSharedAsHttpSecure,
   setHttpDestUrl, setUrlDomainKey, setSharedAsHttpSecure
 } = require('./content')
-const { getCacheThreats, setCacheThreatTypes } = require('../cache/threats')
+const { getCacheThreats, setCacheThreatTypes, postCacheThreats } = require('../cache/threats')
 const { setSafeBrowseThreats, setSafeBrowseThreatTypes } = require('../safe-browse/safe-browse')
 
 const setMessage = async (text, userId) => {
+  /* organize metadata and search for suspected threats from urls */
   var allHyperTextPositions = setAllHyperTextPositions(text)
   let messageData = setMessageData(text, userId)
   if (allHyperTextPositions) {
     messageData = setHyperText(messageData, allHyperTextPositions, text)
     messageData = setAllSharedAsHttpSecure(messageData)
-    messageData = setCache(messageData)
+    messageData = getCache(messageData)
     messageData = setSafeBrowse(messageData)
+    postCacheThreats(messageData.links)
   }
   return messageData
 }
 
 const setHyperText = (messageData, allHyperTextPositions, text) => {
+  /* destination urls, display text, and their meta data */
   for (var hyperTextPosition of allHyperTextPositions) {
     if (validHyperTextPositions(hyperTextPosition)) {
       var displayText = setDisplayText(hyperTextPosition, text)
@@ -38,13 +41,15 @@ const setHyperText = (messageData, allHyperTextPositions, text) => {
   return messageData
 }
 
-const setCache = (messageData) => {
+const getCache = (messageData) => {
+  /* reference threat urls that are already saved locally */
   var cacheThreats = getCacheThreats(messageData.links)
   messageData = setCacheThreatTypes(messageData, cacheThreats)
   return messageData
 }
 
 const setSafeBrowse = async (messageData) => {
+  /* check whether url is a suspected threat by google safe browse api */
   var safeBrowseThreats = await setSafeBrowseThreats(messageData.links)
   if (safeBrowseThreats) {
     messageData.safeBrowseSuccess = true
@@ -53,7 +58,9 @@ const setSafeBrowse = async (messageData) => {
   return messageData
 }
 
+// Separate File
 const setMessageData = (text, userId) => {
+  /* message with meta data stored in an object*/
   return {
     message: text,
     sharedBy: userId,
@@ -64,7 +71,9 @@ const setMessageData = (text, userId) => {
   }
 }
 
+// Separate File
 const setHyperTextData = (markdownHyperText, slackHyperText, urlDomainKey, sharedAsHttpSecure) => {
+  /* each link and its meta data stored in an object*/
   return {
     urlDomainKey: urlDomainKey,
     cacheDuration: '',
