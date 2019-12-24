@@ -7,35 +7,77 @@ const {
 const { getCacheThreats, setCacheThreatTypes } = require('../cache/threats')
 const { setSafeBrowseThreats, setSafeBrowseThreatTypes } = require('../safe-browse/safe-browse')
 
-const hyperText = (text) => {
-  /* receive markdown hypertext syntax, return slack hypertext syntax */
+// const hyperText = (text) => {
+//   /* receive markdown hypertext syntax, return slack hypertext syntax */
+//   var allHyperTextPositions = setAllHyperTextPositions(text)
+//   if (allHyperTextPositions) {
+//     let message = text
+//     for (var hyperTextPosition of allHyperTextPositions) {
+//       if (validHyperTextPositions(hyperTextPosition)) {
+//         var displayText = setDisplayText(hyperTextPosition, text)
+//         var destUrl = setDestUrl(hyperTextPosition, text)
+//         if (validateDisplayText(displayText) && validateDestUrl(destUrl)) {
+//           var httpDestUrl = setHttpDestUrl(destUrl)
+//           var slackHyperText = setSlackHyperText(httpDestUrl, displayText)
+//           var markdownHyperText = getMarkdownHyperText(hyperTextPosition, text)
+//           message = message.replace(markdownHyperText, slackHyperText, message)
+//         }
+//       }
+//     }
+//     return message
+//   } else {
+//     return text
+//   }
+// }
+
+// const setMessage = async (text, userId) => {
+//   /* receive markdown hypertext syntax, return slack hypertext syntax and threat data */
+//   var allHyperTextPositions = setAllHyperTextPositions(text)
+//   let messageData = setMessageData(text, userId) // Move out to const
+//   if (allHyperTextPositions) {
+//     for (var hyperTextPosition of allHyperTextPositions) {
+//       if (validHyperTextPositions(hyperTextPosition)) {
+//         var displayText = setDisplayText(hyperTextPosition, text)
+//         var destUrl = setDestUrl(hyperTextPosition, text)
+//         if (validateDisplayText(displayText) && validateDestUrl(destUrl)) {
+//           var urlDomainKey = setUrlDomainKey(destUrl)
+//           var sharedAsHttpSecure = setSharedAsHttpSecure(destUrl)
+//           var httpDestUrl = setHttpDestUrl(destUrl)
+//           var slackHyperText = setSlackHyperText(httpDestUrl, displayText)
+//           var markdownHyperText = getMarkdownHyperText(hyperTextPosition, text)
+//           var hyperTextData = setHyperTextData(markdownHyperText, slackHyperText, urlDomainKey, sharedAsHttpSecure)
+//           messageData.links.push(hyperTextData)
+//         }
+//       }
+//     }
+//     messageData = setAllSharedAsHttpSecure(messageData)
+//     var cacheThreats = getCacheThreats(messageData.links)
+//     messageData = setCacheThreatTypes(messageData, cacheThreats)
+
+//     var safeBrowseThreats = await setSafeBrowseThreats(messageData.links)
+//     if (safeBrowseThreats) {
+//       messageData.safeBrowseSuccess = true
+//       messageData = setSafeBrowseThreatTypes(messageData, safeBrowseThreats)
+//     }
+//     return messageData
+//   } else {
+//     return messageData
+//   }
+// }
+
+const setMessage = async(text, userId) => {
   var allHyperTextPositions = setAllHyperTextPositions(text)
+  let messageData = setMessageData(text, userId)
   if (allHyperTextPositions) {
-    let message = text
-    for (var hyperTextPosition of allHyperTextPositions) {
-      if (validHyperTextPositions(hyperTextPosition)) {
-        var displayText = setDisplayText(hyperTextPosition, text)
-        var destUrl = setDestUrl(hyperTextPosition, text)
-        if (validateDisplayText(displayText) && validateDestUrl(destUrl)) {
-          var httpDestUrl = setHttpDestUrl(destUrl)
-          var slackHyperText = setSlackHyperText(httpDestUrl, displayText)
-          var markdownHyperText = getMarkdownHyperText(hyperTextPosition, text)
-          message = message.replace(markdownHyperText, slackHyperText, message)
-        }
-      }
-    }
-    return message
-  } else {
-    return text
-  }
+    messageData = setHyperText(messageData, allHyperTextPositions, text)
+    messageData = setAllSharedAsHttpSecure(messageData)
+    messageData = setCache(messageData)
+    messageData = setSafeBrowse(messageData)
+}
+  return messageData
 }
 
-// TODO: Refactor into smaller functions
-const setMessage = async (text, userId) => {
-  /* receive markdown hypertext syntax, return slack hypertext syntax and threat data */
-  var allHyperTextPositions = setAllHyperTextPositions(text)
-  let messageData = setMessageData(text, userId) // Move out to const
-  if (allHyperTextPositions) {
+const setHyperText = (messageData, allHyperTextPositions, text) => {
     for (var hyperTextPosition of allHyperTextPositions) {
       if (validHyperTextPositions(hyperTextPosition)) {
         var displayText = setDisplayText(hyperTextPosition, text)
@@ -51,22 +93,24 @@ const setMessage = async (text, userId) => {
         }
       }
     }
-    messageData = setAllSharedAsHttpSecure(messageData)
-    var cacheThreats = getCacheThreats(messageData.links)
-    messageData = setCacheThreatTypes(messageData, cacheThreats)
-
-    var safeBrowseThreats = await setSafeBrowseThreats(messageData.links)
-    if (safeBrowseThreats) {
-      messageData.safeBrowseSuccess = true
-      messageData = setSafeBrowseThreatTypes(messageData, safeBrowseThreats)
-    }
     return messageData
-  } else {
-    return messageData
-  }
 }
 
-// Separate File?
+const setCache = (messageData) => {
+  var cacheThreats = getCacheThreats(messageData.links)
+  messageData = setCacheThreatTypes(messageData, cacheThreats)
+  return messageData
+}
+
+const setSafeBrowse = async (messageData) => {
+  var safeBrowseThreats = await setSafeBrowseThreats(messageData.links)
+  if (safeBrowseThreats) {
+    messageData.safeBrowseSuccess = true
+    messageData = setSafeBrowseThreatTypes(messageData, safeBrowseThreats)
+  }
+  return messageData
+}
+
 const setMessageData = (text, userId) => {
   return {
     message: text,
@@ -91,6 +135,7 @@ const setHyperTextData = (markdownHyperText, slackHyperText, urlDomainKey, share
 }
 
 module.exports = {
-  hyperText,
+  // hyperText,
   setMessage
+  // setMasterMessage
 }
