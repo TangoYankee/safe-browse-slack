@@ -186,6 +186,64 @@ var messageFormat = {
   ]
 }
 
+var messageDataSafe = {
+  message: '[Nasa](nasa.gov)',
+  sharedBy: 'TangoYankee',
+  safeBrowseSuccess: true,
+  allSharedAsHttpSecure: false,
+  threatTypes: [
+  ],
+  links: [
+    {
+      cacheKeyFromUrl: 'nasa.gov',
+      cacheDuration: '',
+      inCache: false,
+      markdownLink: '[Nasa](nasa.gov)',
+      messageLink: '<https://nasa.gov|Nasa>',
+      sharedAsHttpSecure: false,
+      threatMatch: ''
+    }
+  ]
+}
+
+var messageFormatSafe = {
+  response_type: 'in_channel',
+  blocks: [
+    {
+      type: 'section',
+      text: {
+        type: 'mrkdwn',
+        text: '<https://nasa.gov|Nasa>:eyes:'
+      }
+    },
+    {
+      type: 'context',
+      elements: [
+        {
+          type: 'mrkdwn',
+          text: '-shared by <@TangoYankee>'
+        },
+        {
+          type: 'mrkdwn',
+          text: ':eyes: shared without <https://www.snopes.com/fact-check/http-vs-https/|https>'
+        }
+      ]
+    },
+    {
+      type: 'divider'
+    },
+    {
+      type: 'context',
+      elements: [
+        {
+          type: 'mrkdwn',
+          text: ':small_blue_diamond: No suspected threats found by <https://developers.google.com/safe-browsing/v4/advisory|Google Safe Browse>:'
+        }
+      ]
+    }
+  ]
+}
+
 module.exports = {
   userId,
   helpMessage,
@@ -193,5 +251,7 @@ module.exports = {
   markdownSyntax,
   markdownMessage,
   messageData,
-  messageFormat
+  messageFormat,
+  messageDataSafe,
+  messageFormatSafe
 }

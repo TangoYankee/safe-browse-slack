@@ -30,12 +30,16 @@ const messageLogic = (messageData) => {
 const setSafeBrowseStatus = (messageData) => {
   /* indicate whether safe browse was successfully called */
   if (messageData.safeBrowseSuccess) {
-    if (messageData.threatTypes) {
+    console.log(`messageData Threat types... ${JSON.stringify(messageData.threatTypes)}`)
+    if (messageData.threatTypes.length >= 1) {
+      console.log('threats found\n')
       return safeBrowseStatusData.suspected_threats_found
     } else {
+      console.log('no threats\n')
       return safeBrowseStatusData.no_suspected_threats_found
     }
   } else {
+    console.log('error checking\n')
     return safeBrowseStatusData.error_checking_safe_browse
   }
 }
@@ -57,7 +61,7 @@ const sharedContextLogic = (sharedContextBlock, messageData) => {
 
 const threatLogic = (threatBlock, threatTypes) => {
   /* list all of the suspected threats found in the destination urls */
-  if (threatTypes) {
+  if (threatTypes.length >= 1) {
     for (var threat of threatTypes) {
       var threatWarningText = setWarningText(safeBrowseThreatsData[threat])
       var threatWarning = mrkdwnTemplate(threatWarningText)
