@@ -1,3 +1,4 @@
+const { response } = require('../test-data/post-threat-matches-data')
 const { postThreatMatches } = require('../post-threat-matches')
 jest.mock('../post-threat-matches')
 
@@ -29,13 +30,22 @@ const {
   threatMatchThree, threatMatchFour
 } = require('../test-data/threat-matches-data')
 
-test(
-  'setSafeBrowseThreats() /* find suspected threats in safe browse API */',
-  async () => {
+
+describe.each([
+  [inputMessageOne, threatMatchOne],
+  [inputMessageTwo, threatMatchTwo],
+[inputMessageThree, threatMatchThree],
+[inputMessageFour, threatMatchFour]
+])('setSafeBrowseThreats() /* find suspected threats in safe browse API */',
+(inputMessage, threatMatch) => {
+  test( 
+    'setSafeBrowseThreats()',
+    async () => {
     expect.assertions(1)
-    var threatMatchesResponse = await setSafeBrowseThreats(inputMessageOne.links)
-    return expect(threatMatchesResponse).toEqual(threatMatchOne)
-  }
+    var threatMatchesResponse = await setSafeBrowseThreats(inputMessage.links)
+    return expect(threatMatchesResponse).toEqual(threatMatch)
+  })
+}
 )
 
 test.each([
@@ -85,10 +95,19 @@ test.each([
     expect(setSafeBrowseThreatTypes(inputMessage, threatMatch)).toEqual(outputMessage)
   })
 
-it(
-  'postThreatMatches() /* threats suspected by google safe-browse API */',
+
+describe.each([
+  [requestBodyOne, threatMatchOne],
+  [requestBodyTwo, threatMatchTwo],
+  [requestBodyThree, threatMatchThree],
+  [requestBodyFour, threatMatchFour]
+])('postThreatMatches() /* threats suspected by google safe-browse API */',
+(requestBody, threatMatch) => {
+test(
+  'postThreatMatches()',
   async () => {
     expect.assertions(1)
-    const threatMatchesResponse = await postThreatMatches(0)
-    return expect(threatMatchesResponse).toEqual(threatMatchOne)
+    const threatMatchesResponse = await postThreatMatches(requestBody)
+    return expect(threatMatchesResponse).toEqual(threatMatch)
   })
+})
