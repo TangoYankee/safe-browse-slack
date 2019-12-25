@@ -94,7 +94,10 @@ const linkThreatsRepeat = [
   }
 ]
 
+const linkThreatsNone = []
+
 module.exports = {
   linkThreats,
-  linkThreatsRepeat
+  linkThreatsRepeat,
+  linkThreatsNone
 }

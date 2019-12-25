@@ -12,7 +12,10 @@ const urlDomainKeysRepeat = [
   'nasa.gov'
 ]
 
+const urlDomainKeysNone = []
+
 module.exports = {
   urlDomainKeys,
-  urlDomainKeysRepeat
+  urlDomainKeysRepeat,
+  urlDomainKeysNone
 }

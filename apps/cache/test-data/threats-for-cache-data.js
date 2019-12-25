@@ -34,7 +34,11 @@ const threatsForCacheRepeat = [
   }
 ]
 
+const threatsForCacheNone = [
+]
+
 module.exports = {
   threatsForCache,
-  threatsForCacheRepeat
+  threatsForCacheRepeat,
+  threatsForCacheNone
 }

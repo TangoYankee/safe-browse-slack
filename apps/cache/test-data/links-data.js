@@ -94,7 +94,10 @@ const linksRepeat = [
   }
 ]
 
+const linksNone = []
+
 module.exports = {
   links,
-  linksRepeat
+  linksRepeat,
+  linksNone
 }

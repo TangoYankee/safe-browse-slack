@@ -1,68 +1,56 @@
 const {
   setCacheThreatTypes, setUrlDomainKeys, postCacheThreats,
-  setCacheThreats, setCacheDuration, getCacheThreats
+  setCacheThreats, setCacheDuration, getCacheThreats,
+  clearCache
 } = require('../threats')
 
-const { links, linksRepeat } = require('../test-data/links-data')
+const { links, linksRepeat, linksNone } = require('../test-data/links-data')
 const { threatsInCache, threatsInCacheNone, threatsInCacheRepeat } = require('../test-data/threats-in-cache-data')
-const { threatsForCache, threatsForCacheRepeat } = require('../test-data/threats-for-cache-data')
+const { threatsForCache, threatsForCacheRepeat, threatsForCacheNone } = require('../test-data/threats-for-cache-data')
 const { inputMessage, inputMessageRepeat } = require('../test-data/input-messages-data')
 const { outputMessage, outputMessageNone, outputMessageRepeat } = require('../test-data/output-messages-data')
-const { linkThreats, linkThreatsRepeat } = require('../test-data/link-threats-data')
-const { urlDomainKeys, urlDomainKeysRepeat } = require('../test-data/url-domain-keys-data')
+const { linkThreats, linkThreatsRepeat, linkThreatsNone } = require('../test-data/link-threats-data')
+const { urlDomainKeys, urlDomainKeysRepeat, urlDomainKeysNone } = require('../test-data/url-domain-keys-data')
 const { cacheDurationUnits, cacheDurationBare } = require('../test-data/cache-duration-data')
 
-/* threats are not yet stored in cache */
-test(
-  'getCacheThreats() /* previously encountered threats */',
-  () => {
-    return expect(getCacheThreats(links)).toEqual(threatsInCacheNone)
-  }
-)
+describe.each([
+ [linkThreatsNone, links, threatsInCacheNone, inputMessage, outputMessageNone],
+ [linkThreats, links, threatsInCache, inputMessage, outputMessage],
+ [linkThreatsRepeat, linksRepeat, threatsInCacheRepeat, inputMessageRepeat, outputMessageRepeat]
+])('postCacheThreats(), getCacheThreats(), setCacheThreatTypes() cycle',
+  (linkThreats, links, threatsInCache, inputMessage, outputMessage) => {
 
-/* threats are not yet stored in cache */
-test(
-  'setCacheThreatTypes() /* save threat matches to message object */',
-  () => {
-    expect(setCacheThreatTypes(inputMessage, threatsInCacheNone)).toEqual(outputMessageNone)
-  }
-)
+    afterAll(() => {
+      clearCache()
+    })
 
-test.each([
-  [linkThreats],
-  [linkThreatsRepeat]
-])(
-  'postCacheThreats() /* remember threats */',
-  (linkThreats) => {
-    expect(postCacheThreats(linkThreats)).toBe(true)
-  }
-)
+    test(
+      'postCacheThreats() /* remember threats */',
+      () => {
+        expect(postCacheThreats(linkThreats)).toBe(true)
+      }
+    )
 
-/* threats are now stored in cache */
-test.each([
-  [inputMessage, threatsInCache, outputMessage],
-  [inputMessageRepeat, threatsInCacheRepeat, outputMessageRepeat]
-])(
-  'setCacheThreatTypes() /* save threat matches to message object */',
-  (inputMessage, threatsInCache, outputMessage) => {
-    expect(setCacheThreatTypes(inputMessage, threatsInCache)).toEqual(outputMessage)
-  }
-)
+    test(
+      'getCacheThreats() /* previously encountered threats */',
+      () => {
+        expect(getCacheThreats(links)).toEqual(threatsInCache)
+      }
+    )
 
-/* threats are now stored cache */
-test.each([
-  [links, threatsInCache],
-  [linksRepeat, threatsInCacheRepeat]
-])(
-  'getCacheThreats() /* previously encountered threats */',
-  (links, threatsInCache) => {
-    expect(getCacheThreats(links)).toEqual(threatsInCache)
+    test(
+      'setCacheThreatTypes() /* save threat matches to message object */',
+      () => {
+        expect(setCacheThreatTypes(inputMessage, threatsInCache)).toEqual(outputMessage)
+      }
+    )
   }
 )
 
 test.each([
   [links, urlDomainKeys],
-  [linksRepeat, urlDomainKeysRepeat]
+  [linksRepeat, urlDomainKeysRepeat],
+  [linksNone, urlDomainKeysNone]
 ])(
   'setUrlDomainKeys() /* list of urls to look for in cache */',
   (links, urlDomainKeys) => {
@@ -78,7 +66,8 @@ test(
 
 test.each([
   [linkThreats, threatsForCache],
-  [linkThreatsRepeat, threatsForCacheRepeat]
+  [linkThreatsRepeat, threatsForCacheRepeat],
+  [linkThreatsNone, threatsForCacheNone]
 ])(
   'setCacheThreats() /* cache-friendly threat format */',
   (linkThreats, threatsForCache) => {
