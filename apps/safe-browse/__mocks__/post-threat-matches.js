@@ -7,7 +7,7 @@ const postThreatMatches = (requestBody) => {
     if (requestBody.threatInfo) {
       var matches = []
       for (var threatEntry of requestBody.threatInfo.threatEntries) {
-        var match = suspectedThreats.find(matches => matches.threat.url === threatEntry.url)
+        var match = suspectedThreats.find(suspectedMatches => suspectedMatches.threat.url === threatEntry.url)
         if (match) {
           matches.push(match)
         }
