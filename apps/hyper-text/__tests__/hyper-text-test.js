@@ -24,6 +24,8 @@ const { messageDataOutOfCacheOne, messageDataOutOfCacheTwo, messageDataOutOfCach
 const { messageDataIntoSafeBrowseFull, messageDataIntoSafeBrowseEmpty } = require('../test-data/set-safe-browse-data/into-safe-browse-data')
 const { messageDataOutOfSafeBrowseFull, messageDataOutOfSafeBrowseEmpty } = require('../test-data/set-safe-browse-data/out-of-safe-browse-data')
 
+
+// TODO: Expand to muliple tests, now that mock module supports multiple responses 
 describe.each([
   [setMessagePostToCacheOne, inputTextOne, userIdOne, outputMessageOne]
 ])(
@@ -76,6 +78,7 @@ describe.each([
   }
 )
 
+// Expand into multiple levels of response
 test.each([
   [messageDataIntoSafeBrowseFull, messageDataOutOfSafeBrowseFull],
   [messageDataIntoSafeBrowseEmpty, messageDataOutOfSafeBrowseEmpty]
