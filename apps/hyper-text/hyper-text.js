@@ -14,9 +14,8 @@ const setMessage = async (text, userId) => {
   if (allHyperTextPositions) {
     messageData = setHyperText(messageData, allHyperTextPositions, text)
     messageData = setAllSharedAsHttpSecure(messageData)
-    console.log(`message data ${messageData}`)
     messageData = getCache(messageData)
-    messageData = setSafeBrowse(messageData)
+    messageData = await setSafeBrowse(messageData)
     if (messageData.links){
       postCacheThreats(messageData.links)
     }

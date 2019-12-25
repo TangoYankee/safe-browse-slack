@@ -46,56 +46,44 @@ describe.each([
   }
 )
 
-// Insert into a 'describe' block
-// Within 'describe' also include the 'getCache' function to test the 'postCache' functionality
-// Start block with 'before all' to seed the cache with data
-// End block with 'after all' to clear the cache of data
-// test(
-//   'setMessage() /* receive markdown hypertext syntax, return slack hypertext syntax and threat data */',
-//   async () => {
+// test.each([
+//   [messageDataIntoHyperTextOne, allHyperTextPositionsOne, textOne, messageDataOutOfHyperTextOne]
+// ])(
+//   'setHyperText() /* destination urls, display text, and their meta data */',
+//   (messageDataIntoHyperText, allHyperTextPositions, text, messageDataOutOfHyperText) => {
+//     expect(setHyperText(messageDataIntoHyperText, allHyperTextPositions, text)).toEqual(messageDataOutOfHyperText)
+//   }
+// )
+
+// describe.each([
+//   [postToCacheOne, messageDataIntoCacheOne, messageDataOutOfCacheOne],
+//   [postToCacheTwo, messageDataIntoCacheTwo, messageDataOutOfCacheTwo],
+//   [postToCacheThree, messageDataIntoCacheThree, messageDataOutOfCacheThree]
+// ])(
+//   'getCache() suite /* reference threat urls that are already saved locally */',
+//   (postToCache, messageDataIntoCache, messageDataOutOfCache) => {
+//     beforeAll(() => {
+//       postCacheThreats(postToCache)
+//     })
+//     afterAll(() => { 
+//       clearCache() 
+//     })
+//     test(
+//       'getCache()',
+//       () => {
+//         expect(getCache(messageDataIntoCache)).toEqual(messageDataOutOfCache)
+//       })
+//   }
+// )
+
+// test.each([
+//   [messageDataIntoSafeBrowseFull, messageDataOutOfSafeBrowseFull],
+//   [messageDataIntoSafeBrowseEmpty, messageDataOutOfSafeBrowseEmpty]
+// ])(
+//   'setSafeBrowse() /* check whether url is a suspected threat by google safe browse api */',
+//   async (messageDataIntoSafeBrowse, messageDataOutOfSafeBrowse) => {
 //     expect.assertions(1)
-//     const message = await setMessage(inputTextOne, userIdOne)
-//     return expect(message).toEqual(outputMessageOne)
-//   })
-
-test.each([
-  [messageDataIntoHyperTextOne, allHyperTextPositionsOne, textOne, messageDataOutOfHyperTextOne]
-])(
-  'setHyperText() /* destination urls, display text, and their meta data */',
-  (messageDataIntoHyperText, allHyperTextPositions, text, messageDataOutOfHyperText) => {
-    expect(setHyperText(messageDataIntoHyperText, allHyperTextPositions, text)).toEqual(messageDataOutOfHyperText)
-  }
-)
-
-describe.each([
-  [postToCacheOne, messageDataIntoCacheOne, messageDataOutOfCacheOne],
-  [postToCacheTwo, messageDataIntoCacheTwo, messageDataOutOfCacheTwo],
-  [postToCacheThree, messageDataIntoCacheThree, messageDataOutOfCacheThree]
-])(
-  'getCache() suite /* reference threat urls that are already saved locally */',
-  (postToCache, messageDataIntoCache, messageDataOutOfCache) => {
-    beforeAll(() => {
-      postCacheThreats(postToCache)
-    })
-    afterAll(() => { 
-      clearCache() 
-    })
-    test(
-      'getCache()',
-      () => {
-        expect(getCache(messageDataIntoCache)).toEqual(messageDataOutOfCache)
-      })
-  }
-)
-
-test.each([
-  [messageDataIntoSafeBrowseFull, messageDataOutOfSafeBrowseFull],
-  [messageDataIntoSafeBrowseEmpty, messageDataOutOfSafeBrowseEmpty]
-])(
-  'setSafeBrowse() /* check whether url is a suspected threat by google safe browse api */',
-  async (messageDataIntoSafeBrowse, messageDataOutOfSafeBrowse) => {
-    expect.assertions(1)
-    var messageDataOut = await setSafeBrowse(messageDataIntoSafeBrowse)
-    expect(messageDataOut).toEqual(messageDataOutOfSafeBrowse)
-  }
-)
+//     var messageDataOut = await setSafeBrowse(messageDataIntoSafeBrowse)
+//     expect(messageDataOut).toEqual(messageDataOutOfSafeBrowse)
+//   }
+// )
