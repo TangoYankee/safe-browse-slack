@@ -12,9 +12,7 @@ const publish = async (requestBody, res) => {
     res.json(setHelpMessage(userId))
   } else if (text) {
     res.send()
-    console.log(`text: ${text}`)
     var message = await setMessage(text, userId)
-    console.log(message)
     var devMarkdownMessage = setDevMarkdownMessage(message)
     postMessage(responseUrl, devMarkdownMessage)
   } else {

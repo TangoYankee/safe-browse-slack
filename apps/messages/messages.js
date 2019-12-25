@@ -91,8 +91,6 @@ const setDevMarkdownMessage = (messageData) => {
       blocks.push(threatBlock)
     }
   }
-
-  console.log(JSON.stringify(responseHeadTemplate('in_channel', blocks)))
   return responseHeadTemplate('in_channel', blocks)
 }
 

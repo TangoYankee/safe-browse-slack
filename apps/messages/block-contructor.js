@@ -30,16 +30,12 @@ const messageLogic = (messageData) => {
 const setSafeBrowseStatus = (messageData) => {
   /* indicate whether safe browse was successfully called */
   if (messageData.safeBrowseSuccess) {
-    console.log(`messageData Threat types... ${JSON.stringify(messageData.threatTypes)}`)
     if (messageData.threatTypes.length >= 1) {
-      console.log('threats found\n')
       return safeBrowseStatusData.suspected_threats_found
     } else {
-      console.log('no threats\n')
       return safeBrowseStatusData.no_suspected_threats_found
     }
   } else {
-    console.log('error checking\n')
     return safeBrowseStatusData.error_checking_safe_browse
   }
 }
