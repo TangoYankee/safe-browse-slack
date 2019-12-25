@@ -38,6 +38,22 @@ const setMessagePostToCacheOne = [
   // }
 ]
 
+const setMessagePostToCacheTwo = [
+  {
+    urlDomainKey: 'testsafebrowsing.appspot.com/s/phishing.html',
+    cacheDuration: '300s',
+    inCache: false,
+    markdownLink: '[Phishing Site](testsafebrowsing.appspot.com/s/phishing.html)',
+    messageLink: '<https://testsafebrowsing.appspot.com/s/phishing.html|Phishing Site>',
+    sharedAsHttpSecure: false,
+    threatMatch: 'SOCIAL_ENGINEERING'
+  }
+]
+
+const setMessagePostToCacheThree = [ ]
+
 module.exports = {
-  setMessagePostToCacheOne
+  setMessagePostToCacheOne,
+  setMessagePostToCacheTwo,
+  setMessagePostToCacheThree
 }

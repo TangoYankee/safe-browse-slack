@@ -7,10 +7,10 @@ const {
 const { postCacheThreats, clearCache } = require('../../cache/threats')
 // Test Data
 // Set Message
-const { setMessagePostToCacheOne } = require('../test-data/set-message-data/set-message-post-to-cache-data')
-const { inputTextOne } = require('../test-data/set-message-data/input-text-data')
-const { outputMessageOne } = require('../test-data/set-message-data/output-message-data')
-const { userIdOne } = require('../test-data/set-message-data/user-id-data')
+const { setMessagePostToCacheOne, setMessagePostToCacheTwo, setMessagePostToCacheThree } = require('../test-data/set-message-data/set-message-post-to-cache-data')
+const { inputTextOne, inputTextTwo, inputTextThree } = require('../test-data/set-message-data/input-text-data')
+const { outputMessageOne, outputMessageTwo, outputMessageThree } = require('../test-data/set-message-data/output-message-data')
+const { userIdOne, userIdTwo, userIdThree } = require('../test-data/set-message-data/user-id-data')
 // HyperText
 const { messageDataIntoHyperTextOne } = require('../test-data/hyper-text-data/into-hyper-text-data')
 const { allHyperTextPositionsOne } = require('../test-data/hyper-text-data/hyper-text-positions-data')
@@ -25,9 +25,10 @@ const { messageDataIntoSafeBrowseFull, messageDataIntoSafeBrowseEmpty } = requir
 const { messageDataOutOfSafeBrowseFull, messageDataOutOfSafeBrowseEmpty } = require('../test-data/set-safe-browse-data/out-of-safe-browse-data')
 
 
-// TODO: Expand to muliple tests, now that mock module supports multiple responses 
 describe.each([
-  [setMessagePostToCacheOne, inputTextOne, userIdOne, outputMessageOne]
+  [setMessagePostToCacheOne, inputTextOne, userIdOne, outputMessageOne],
+  [setMessagePostToCacheTwo, inputTextTwo, userIdTwo, outputMessageTwo],
+  [setMessagePostToCacheThree, inputTextThree, userIdThree, outputMessageThree]
 ])(
   'setMessage() suite /* receive markdown hypertext syntax, return slack hypertext syntax and threat data */',
   (setMessagePostToCache, inputText, userId, outputMessage) => {

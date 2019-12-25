@@ -16,7 +16,7 @@ const postThreatMatches = (requestBody) => {
     if (matches.length >= 1) {
       customResponse.body['matches'] = matches
     }
-    console.log(JSON.stringify(customResponse.body))
+    // console.log(JSON.stringify(customResponse.body))
     resolve(customResponse.body)
   })
 }

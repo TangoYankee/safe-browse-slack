@@ -1,5 +1,11 @@
 const userIdOne = 'TangoYankee'
 
+const userIdTwo = 'TangoYankee'
+
+const userIdThree = 'TangoYankee'
+
 module.exports = {
-  userIdOne
+  userIdOne,
+  userIdTwo,
+  userIdThree
 }

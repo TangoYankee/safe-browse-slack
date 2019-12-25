@@ -5,12 +5,12 @@ const setSafeBrowseThreats = async (messageLinks) => {
   /* find suspected threats in safe browse API */
   var uncachedThreatEntries = setUncachedThreatEntries(messageLinks)
   var uncachedThreatEntriesExist = setUncachedThreatEntriesExist(uncachedThreatEntries)
-  console.log('uncached threats set')
+  // console.log('uncached threats set')
   if (uncachedThreatEntriesExist) {
     var requestBody = setRequestBody(uncachedThreatEntries)
-    console.log('request body set')
+    // console.log('request body set')
     var threatMatches = await postThreatMatches(requestBody)
-    console.log('threat matches got')
+    // console.log('threat matches got')
     return threatMatches
   } else {
     return undefined
@@ -58,6 +58,8 @@ const setRequestBody = (uncachedThreatEntries) => {
 
 const setSafeBrowseThreatTypes = (messageData, threatMatches) => {
   /* add threat type to the original message */
+  console.log(`threat matches... ${JSON.stringify(threatMatches)}`)
+  if(threatMatches.matches){
   for (var threatMatch of threatMatches.matches) {
     for (var link of messageData.links) {
       if (link.urlDomainKey === threatMatch.threat.url) {
@@ -71,6 +73,7 @@ const setSafeBrowseThreatTypes = (messageData, threatMatches) => {
       }
     }
   }
+}
   return messageData
 }
 

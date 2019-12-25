@@ -146,7 +146,7 @@ var messageFormat = {
       elements: [
         {
           type: 'mrkdwn',
-          text: '-shared by @TangoYankee'
+          text: '-shared by <@TangoYankee>'
         },
         {
           type: 'mrkdwn',
