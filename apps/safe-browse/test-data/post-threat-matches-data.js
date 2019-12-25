@@ -1,33 +1,6 @@
 const response = {
   body: {
-    matches: [{
-      threatType: 'SOCIAL_ENGINEERING',
-      platformType: 'ANY_PLATFORM',
-      threat: {
-        url: 'testsafebrowsing.appspot.com/s/phishing.html'
-      },
-      cacheDuration: '300s',
-      threatEntryType: 'URL'
-    },
-    {
-      threatType: 'UNWANTED_SOFTWARE',
-      platformType: 'ANY_PLATFORM',
-      threat: {
-        url: 'testsafebrowsing.appspot.com/s/unwanted.html'
-      },
-      cacheDuration: '300s',
-      threatEntryType: 'URL'
-    },
-    {
-      cacheDuration: '300s',
-      platformType: 'ANY_PLATFORM',
-      threat: {
-        url: 'testsafebrowsing.appspot.com/s/malware.html'
-      },
-      threatEntryType: 'URL',
-      threatType: 'MALWARE'
-    }
-    ]
+    matches: []
   },
   headers: {
     'accept-ranges': 'none',
@@ -67,55 +40,37 @@ const response = {
   statusCode: 200
 }
 
-const responseEmpty = {
-  body: {
-    matches: [
-    ]
-  },
-  headers: {
-    'accept-ranges': 'none',
-    'alt-svc': 'quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443"; ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443"; ma=2592000',
-    'cache-control': 'private',
-    connection: 'close',
-    'content-type': 'application/json; charset=UTF-8',
-    date: 'Sat, 09 Nov 2019 03:22:00 GMT',
-    server: 'ESF',
-    vary: 'Accept-Encoding',
-    'x-content-type-options': 'nosniff',
-    'x-frame-options': 'SAMEORIGIN',
-    'x-xss-protection': '0'
-  },
-  request: {
-    headers: {
-      accept: 'application/json',
-      'content-length': 337,
-      'content-type': 'application/json'
+const suspectedThreats = [
+  {
+    threatType: 'SOCIAL_ENGINEERING',
+    platformType: 'ANY_PLATFORM',
+    threat: {
+      url: 'testsafebrowsing.appspot.com/s/phishing.html'
     },
-    method: 'POST',
-    uri: {
-      auth: null,
-      hash: null,
-      host: 'safebrowsing.googleapis.com',
-      hostname: 'safebrowsing.googleapis.com',
-      href: 'https://safebrowsing.googleapis.com/v4/threatMatches:find?key=',
-      path: '/v4/threatMatches:find?key=',
-      pathname: '/v4/threatMatches:find',
-      port: null,
-      protocol: 'https:',
-      query: 'key=',
-      search: '?key=',
-      slashes: true
-    }
+    cacheDuration: '300s',
+    threatEntryType: 'URL'
   },
-  statusCode: 200
-}
-
-const responseArray = [
-  response,
-  responseEmpty
+  {
+    threatType: 'UNWANTED_SOFTWARE',
+    platformType: 'ANY_PLATFORM',
+    threat: {
+      url: 'testsafebrowsing.appspot.com/s/unwanted.html'
+    },
+    cacheDuration: '300s',
+    threatEntryType: 'URL'
+  },
+  {
+    cacheDuration: '300s',
+    platformType: 'ANY_PLATFORM',
+    threat: {
+      url: 'testsafebrowsing.appspot.com/s/malware.html'
+    },
+    threatEntryType: 'URL',
+    threatType: 'MALWARE'
+  }
 ]
 
 module.exports = {
   response,
-  responseArray
+  suspectedThreats
 }

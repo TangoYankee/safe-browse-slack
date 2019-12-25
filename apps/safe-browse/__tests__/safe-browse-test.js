@@ -29,7 +29,7 @@ const {
   threatMatchThree, threatMatchFour
 } = require('../test-data/threat-matches-data')
 
-it(
+test(
   'setSafeBrowseThreats() /* find suspected threats in safe browse API */',
   async () => {
     expect.assertions(1)
@@ -89,6 +89,6 @@ it(
   'postThreatMatches() /* threats suspected by google safe-browse API */',
   async () => {
     expect.assertions(1)
-    const threatMatchesResponse = await postThreatMatches(requestBodyOne)
+    const threatMatchesResponse = await postThreatMatches(0)
     return expect(threatMatchesResponse).toEqual(threatMatchOne)
   })
