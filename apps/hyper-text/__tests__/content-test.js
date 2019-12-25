@@ -1,10 +1,12 @@
 const {
-  validateDestUrl, validateDisplayText,
+  validateDestUrl, validateDisplayText, setAllSharedAsHttpSecure,
   getMarkdownHyperText, setHttpDestUrl
 } = require('../content')
 const {
   validUrls, displayTexts,
-  markdownHyperText, httpUrls
+  markdownHyperText, httpUrls,
+  inputMessageDataOne, outputMessageDataOne,
+  inputMessageDataTwo, outputMessageDataTwo
 } = require('../test-data/content-data')
 
 test.each(validUrls)(
@@ -29,3 +31,13 @@ test.each(httpUrls)(
   'setHttpDestUrl() /* each link has http or https in the url */', (inputUrl, expectedUrl) => {
     expect(setHttpDestUrl(inputUrl)).toEqual(expectedUrl)
   })
+
+test.each([
+  [inputMessageDataOne, outputMessageDataOne],
+  [inputMessageDataTwo, outputMessageDataTwo]
+])(
+  'setAllSharedAsHttpSecure() /* all urls were originally prefaced with https */',
+  (inputMessageData, outputMessageData) => {
+    expect(setAllSharedAsHttpSecure(inputMessageData)).toEqual(outputMessageData)
+  }
+)

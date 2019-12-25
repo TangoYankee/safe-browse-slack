@@ -66,7 +66,7 @@ const setSharedAsHttpSecure = (unhttpedLinkAddress) => {
 const setAllSharedAsHttpSecure = (messageData) => {
   /* all urls were originally prefaced with 'https' */
   messageData.allSharedAsHttpSecure = true
-  for (var link in messageData.links) {
+  for (var link of messageData.links) {
     if (!link.sharedAsHttpSecure) {
       messageData.allSharedAsHttpSecure = false
     }

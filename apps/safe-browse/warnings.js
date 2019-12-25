@@ -25,11 +25,11 @@ const safeBrowseThreatsData = {
   },
   SOCIAL_ENGINEERING: {
     emoji: 'biohazard_sign',
-    text: '<https://googleonlinesecurity.blogspot.com/2015/11/safe-browsing-protection-from-even-more.html|social engineering>'
+    text: '<https://googleonlinesecurity.blogspot.com/2015/11/safe-browsing-protection-from-even-more.html|social engineering> '
   },
   UNWANTED_SOFTWARE: {
     emoji: 'no_entry_sign',
-    text: '<https://www.google.com/about/unwanted-software-policy.html|unwanted software>'
+    text: '<https://www.google.com/about/unwanted-software-policy.html|unwanted software> '
   },
   THREAT_TYPE_UNSPECIFIED: {
     emoji: 'exclamation',

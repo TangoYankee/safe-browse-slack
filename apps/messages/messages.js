@@ -58,7 +58,7 @@ const setMarkdownMessage = (markdownFormat, userId) => {
   return responseHeadTemplate('in_channel', blocks)
 }
 
-const devMarkdownMessage = (messageData) => {
+const setDevMarkdownMessage = (messageData) => {
   /* compose markdown message */
   var blocks = []
 
@@ -68,7 +68,7 @@ const devMarkdownMessage = (messageData) => {
   blocks.push(messageBlock)
 
   var sharedBy = messageData.sharedBy
-  var sharedByText = `-shared by @${sharedBy}`
+  var sharedByText = `-shared by <@${sharedBy}>`
   var sharedByMrkdwn = mrkdwnTemplate(sharedByText)
   let sharedContextBlock = contextTemplate()
   sharedContextBlock.elements.push(sharedByMrkdwn)
@@ -91,7 +91,6 @@ const devMarkdownMessage = (messageData) => {
       blocks.push(threatBlock)
     }
   }
-
   return responseHeadTemplate('in_channel', blocks)
 }
 
@@ -99,5 +98,5 @@ module.exports = {
   setHelpMessage,
   setErrorMessage,
   setMarkdownMessage,
-  devMarkdownMessage
+  setDevMarkdownMessage
 }

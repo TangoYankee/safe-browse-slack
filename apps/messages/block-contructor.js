@@ -2,10 +2,12 @@ const { sharedWithoutHttpsData, safeBrowseStatusData, safeBrowseThreatsData } = 
 const { mrkdwnTemplate } = require('./block-templates')
 
 const appendEmoji = (messageLink, emoji) => {
+  /* emojis act as notes on the destination urls */
   return `${messageLink}:${emoji}:`
 }
 
 const messageLogic = (messageData) => {
+  /* construct slack message based on message object */
   let message = messageData.message
   for (var link of messageData.links) {
     var markdownLink = link.markdownLink
@@ -26,8 +28,9 @@ const messageLogic = (messageData) => {
 }
 
 const setSafeBrowseStatus = (messageData) => {
+  /* indicate whether safe browse was successfully called */
   if (messageData.safeBrowseSuccess) {
-    if (messageData.threatTypes) {
+    if (messageData.threatTypes.length >= 1) {
       return safeBrowseStatusData.suspected_threats_found
     } else {
       return safeBrowseStatusData.no_suspected_threats_found
@@ -38,10 +41,12 @@ const setSafeBrowseStatus = (messageData) => {
 }
 
 const setWarningText = (warning) => {
+  /* message for the emoji note left on destination urls */
   return `:${warning.emoji}: ${warning.text}`
 }
 
 const sharedContextLogic = (sharedContextBlock, messageData) => {
+  /* indicate when a destination url was shared without https specified */
   if (!messageData.allSharedAsHttpSecure) {
     var httpsWarningText = setWarningText(sharedWithoutHttpsData)
     var httpsWarning = mrkdwnTemplate(httpsWarningText)
@@ -51,7 +56,8 @@ const sharedContextLogic = (sharedContextBlock, messageData) => {
 }
 
 const threatLogic = (threatBlock, threatTypes) => {
-  if (threatTypes) {
+  /* list all of the suspected threats found in the destination urls */
+  if (threatTypes.length >= 1) {
     for (var threat of threatTypes) {
       var threatWarningText = setWarningText(safeBrowseThreatsData[threat])
       var threatWarning = mrkdwnTemplate(threatWarningText)

@@ -1,11 +1,12 @@
 const {
   setHelpMessage, setErrorMessage,
-  setMarkdownMessage, devMarkdownMessage
+  setMarkdownMessage, setDevMarkdownMessage
 } = require('../messages.js')
 const {
   userId, helpMessage, errorMessage,
   markdownSyntax, markdownMessage,
-  messageData, messageFormat
+  messageData, messageFormat,
+  messageDataSafe, messageFormatSafe
 } = require('../test-data/message-data')
 
 test(
@@ -26,8 +27,11 @@ test(
     expect(setMarkdownMessage(markdownSyntax, userId)).toEqual(markdownMessage)
   })
 
-test(
-  'devMarkdownMessage() /* compose markdown message */',
-  () => {
-    expect(devMarkdownMessage(messageData)).toEqual(messageFormat)
+test.each([
+  [messageData, messageFormat],
+  [messageDataSafe, messageFormatSafe]
+])(
+  'setDevMarkdownMessage() /* compose markdown message */',
+  (messageData, messageFormat) => {
+    expect(setDevMarkdownMessage(messageData)).toEqual(messageFormat)
   })
