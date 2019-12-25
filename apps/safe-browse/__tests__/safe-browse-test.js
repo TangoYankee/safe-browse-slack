@@ -1,4 +1,3 @@
-const { response } = require('../test-data/post-threat-matches-data')
 const { postThreatMatches } = require('../post-threat-matches')
 jest.mock('../post-threat-matches')
 
@@ -30,22 +29,21 @@ const {
   threatMatchThree, threatMatchFour
 } = require('../test-data/threat-matches-data')
 
-
 describe.each([
   [inputMessageOne, threatMatchOne],
   [inputMessageTwo, threatMatchTwo],
-[inputMessageThree, threatMatchThree],
-[inputMessageFour, threatMatchFour]
+  [inputMessageThree, threatMatchThree],
+  [inputMessageFour, threatMatchFour]
 ])('setSafeBrowseThreats() /* find suspected threats in safe browse API */',
-(inputMessage, threatMatch) => {
-  test( 
-    'setSafeBrowseThreats()',
-    async () => {
-    expect.assertions(1)
-    var threatMatchesResponse = await setSafeBrowseThreats(inputMessage.links)
-    return expect(threatMatchesResponse).toEqual(threatMatch)
-  })
-}
+  (inputMessage, threatMatch) => {
+    test(
+      'setSafeBrowseThreats()',
+      async () => {
+        expect.assertions(1)
+        var threatMatchesResponse = await setSafeBrowseThreats(inputMessage.links)
+        return expect(threatMatchesResponse).toEqual(threatMatch)
+      })
+  }
 )
 
 test.each([
@@ -95,19 +93,18 @@ test.each([
     expect(setSafeBrowseThreatTypes(inputMessage, threatMatch)).toEqual(outputMessage)
   })
 
-
 describe.each([
   [requestBodyOne, threatMatchOne],
   [requestBodyTwo, threatMatchTwo],
   [requestBodyThree, threatMatchThree],
   [requestBodyFour, threatMatchFour]
 ])('postThreatMatches() /* threats suspected by google safe-browse API */',
-(requestBody, threatMatch) => {
-test(
-  'postThreatMatches()',
-  async () => {
-    expect.assertions(1)
-    const threatMatchesResponse = await postThreatMatches(requestBody)
-    return expect(threatMatchesResponse).toEqual(threatMatch)
+  (requestBody, threatMatch) => {
+    test(
+      'postThreatMatches()',
+      async () => {
+        expect.assertions(1)
+        const threatMatchesResponse = await postThreatMatches(requestBody)
+        return expect(threatMatchesResponse).toEqual(threatMatch)
+      })
   })
-})
