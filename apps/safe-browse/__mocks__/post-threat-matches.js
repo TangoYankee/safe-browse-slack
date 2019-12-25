@@ -1,7 +1,8 @@
-const { response } = require('../test-data/post-threat-matches-data')
+const { responseArray } = require('../test-data/post-threat-matches-data')
 
 const postThreatMatches = () => {
   return new Promise(resolve => {
+    var response = responseArray[0]
     if (response.statusCode === 200) {
       resolve(response.body)
     }
