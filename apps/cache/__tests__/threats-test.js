@@ -14,12 +14,11 @@ const { urlDomainKeys, urlDomainKeysRepeat, urlDomainKeysNone } = require('../te
 const { cacheDurationUnits, cacheDurationBare } = require('../test-data/cache-duration-data')
 
 describe.each([
- [linkThreatsNone, links, threatsInCacheNone, inputMessage, outputMessageNone],
- [linkThreats, links, threatsInCache, inputMessage, outputMessage],
- [linkThreatsRepeat, linksRepeat, threatsInCacheRepeat, inputMessageRepeat, outputMessageRepeat]
+  [linkThreatsNone, links, threatsInCacheNone, inputMessage, outputMessageNone],
+  [linkThreats, links, threatsInCache, inputMessage, outputMessage],
+  [linkThreatsRepeat, linksRepeat, threatsInCacheRepeat, inputMessageRepeat, outputMessageRepeat]
 ])('postCacheThreats(), getCacheThreats(), setCacheThreatTypes() cycle',
   (linkThreats, links, threatsInCache, inputMessage, outputMessage) => {
-
     afterAll(() => {
       clearCache()
     })
