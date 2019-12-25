@@ -65,12 +65,20 @@ const setSharedAsHttpSecure = (unhttpedLinkAddress) => {
 
 const setAllSharedAsHttpSecure = (messageData) => {
   /* all urls were originally prefaced with 'https' */
+  // console.log(`messageData.. ${JSON.stringify(messageData)}`)
   messageData.allSharedAsHttpSecure = true
-  for (var link in messageData.links) {
+  // console.log(`before for... ${messageData.allSharedAsHttpSecure}`)
+  for (var link of messageData.links) {
+    // console.log(`before if... ${messageData.allSharedAsHttpSecure}`)
+    // console.log(`link... ${JSON.stringify(link)}`)
+    // console.log(`condition... ${link.sharedAsHttpSecure}`)
     if (!link.sharedAsHttpSecure) {
       messageData.allSharedAsHttpSecure = false
+      // console.log(`after if... ${messageData.allSharedAsHttpSecure}`)
     }
   }
+  // console.log(`before return... ${messageData.allSharedAsHttpSecure}`)
+  // console.log('NEW TEST\n')
   return messageData
 }
 

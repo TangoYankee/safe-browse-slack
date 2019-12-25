@@ -50,7 +50,7 @@ const setMessagePostToCacheTwo = [
   }
 ]
 
-const setMessagePostToCacheThree = [ ]
+const setMessagePostToCacheThree = []
 
 module.exports = {
   setMessagePostToCacheOne,

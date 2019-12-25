@@ -61,8 +61,8 @@ const getCache = (messageData) => {
 const setSafeBrowse = async (messageData) => {
   /* check whether url is a suspected threat by google safe browse api */
   var safeBrowseThreats = await setSafeBrowseThreats(messageData.links)
-  console.log(`safe browse threats ... ${JSON.stringify(safeBrowseThreats)}`)
-  if (safeBrowseThreats != undefined) {
+  // console.log(`safe browse threats ... ${JSON.stringify(safeBrowseThreats)}`)
+  if (safeBrowseThreats !== undefined) {
     messageData.safeBrowseSuccess = true
     messageData = setSafeBrowseThreatTypes(messageData, safeBrowseThreats)
   }

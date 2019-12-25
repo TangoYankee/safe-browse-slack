@@ -24,9 +24,129 @@ const httpUrls = [
   ['https://www.osha.com/', 'https://www.osha.com/']
 ]
 
+const inputMessageDataOne = {
+  message: 'Here[ in my [car](dmv.ca.gov) I) feel [safest of all](https://www.osha.com/). [Example site](example.com)',
+  sharedBy: 'TangoYankee',
+  safeBrowseSuccess: true,
+  allSharedAsHttpSecure: false,
+  threatTypes: [
+  ],
+  links: [
+    {
+      urlDomainKey: 'dmv.ca.gov',
+      cacheDuration: '',
+      inCache: false,
+      markdownLink: '[car](dmv.ca.gov)',
+      messageLink: '<https://dmv.ca.gov|car>',
+      sharedAsHttpSecure: false,
+      threatMatch: ''
+    },
+    {
+      urlDomainKey: 'osha.com/',
+      cacheDuration: '',
+      inCache: false,
+      markdownLink: '[safest of all](https://www.osha.com/)',
+      messageLink: '<https://www.osha.com/|safest of all>',
+      sharedAsHttpSecure: true,
+      threatMatch: ''
+    },
+    {
+      urlDomainKey: 'example.com',
+      cacheDuration: '',
+      inCache: false,
+      markdownLink: '[Example site](example.com)',
+      messageLink: '<https://example.com|Example site>',
+      sharedAsHttpSecure: false,
+      threatMatch: ''
+    }
+  ]
+}
+
+const outputMessageDataOne = {
+  message: 'Here[ in my [car](dmv.ca.gov) I) feel [safest of all](https://www.osha.com/). [Example site](example.com)',
+  sharedBy: 'TangoYankee',
+  safeBrowseSuccess: true,
+  allSharedAsHttpSecure: false,
+  threatTypes: [
+  ],
+  links: [
+    {
+      urlDomainKey: 'dmv.ca.gov',
+      cacheDuration: '',
+      inCache: false,
+      markdownLink: '[car](dmv.ca.gov)',
+      messageLink: '<https://dmv.ca.gov|car>',
+      sharedAsHttpSecure: false,
+      threatMatch: ''
+    },
+    {
+      urlDomainKey: 'osha.com/',
+      cacheDuration: '',
+      inCache: false,
+      markdownLink: '[safest of all](https://www.osha.com/)',
+      messageLink: '<https://www.osha.com/|safest of all>',
+      sharedAsHttpSecure: true,
+      threatMatch: ''
+    },
+    {
+      urlDomainKey: 'example.com',
+      cacheDuration: '',
+      inCache: false,
+      markdownLink: '[Example site](example.com)',
+      messageLink: '<https://example.com|Example site>',
+      sharedAsHttpSecure: false,
+      threatMatch: ''
+    }
+  ]
+}
+
+const inputMessageDataTwo = {
+  message: '[safest of all](https://www.osha.com/).',
+  sharedBy: 'TangoYankee',
+  safeBrowseSuccess: true,
+  allSharedAsHttpSecure: true,
+  threatTypes: [
+  ],
+  links: [
+    {
+      urlDomainKey: 'osha.com/',
+      cacheDuration: '',
+      inCache: false,
+      markdownLink: '[safest of all](https://www.osha.com/)',
+      messageLink: '<https://www.osha.com/|safest of all>',
+      sharedAsHttpSecure: true,
+      threatMatch: ''
+    }
+  ]
+}
+
+const outputMessageDataTwo = {
+  message: '[safest of all](https://www.osha.com/).',
+  sharedBy: 'TangoYankee',
+  safeBrowseSuccess: true,
+  allSharedAsHttpSecure: true,
+  threatTypes: [
+  ],
+  links: [
+    {
+      urlDomainKey: 'osha.com/',
+      cacheDuration: '',
+      inCache: false,
+      markdownLink: '[safest of all](https://www.osha.com/)',
+      messageLink: '<https://www.osha.com/|safest of all>',
+      sharedAsHttpSecure: true,
+      threatMatch: ''
+    }
+  ]
+}
+
 module.exports = {
   validUrls,
   displayTexts,
   markdownHyperText,
-  httpUrls
+  httpUrls,
+  inputMessageDataOne,
+  outputMessageDataOne,
+  inputMessageDataTwo,
+  outputMessageDataTwo
 }

@@ -7,7 +7,7 @@ const appendEmoji = (messageLink, emoji) => {
 }
 
 const messageLogic = (messageData) => {
-  /* construct slack message based on message object*/
+  /* construct slack message based on message object */
   let message = messageData.message
   for (var link of messageData.links) {
     var markdownLink = link.markdownLink
@@ -41,7 +41,7 @@ const setSafeBrowseStatus = (messageData) => {
 }
 
 const setWarningText = (warning) => {
-  /* message for the emoji note left on destination urls*/
+  /* message for the emoji note left on destination urls */
   return `:${warning.emoji}: ${warning.text}`
 }
 

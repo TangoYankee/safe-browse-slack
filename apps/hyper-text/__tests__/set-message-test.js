@@ -24,7 +24,6 @@ const { messageDataOutOfCacheOne, messageDataOutOfCacheTwo, messageDataOutOfCach
 const { messageDataIntoSafeBrowseFull, messageDataIntoSafeBrowseEmpty } = require('../test-data/set-safe-browse-data/into-safe-browse-data')
 const { messageDataOutOfSafeBrowseFull, messageDataOutOfSafeBrowseEmpty } = require('../test-data/set-safe-browse-data/out-of-safe-browse-data')
 
-
 describe.each([
   [setMessagePostToCacheOne, inputTextOne, userIdOne, outputMessageOne],
   [setMessagePostToCacheTwo, inputTextTwo, userIdTwo, outputMessageTwo],
