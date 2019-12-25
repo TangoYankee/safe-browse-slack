@@ -45,7 +45,7 @@ const messageDataOutOfCacheTwo = {
   safeBrowseSuccess: true,
   allSharedAsHttpSecure: false,
   threatTypes: [
-    'SOCIAL_ENGINEERING',
+    'SOCIAL_ENGINEERING'
   ],
   links: [
     {

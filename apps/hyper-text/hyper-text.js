@@ -16,7 +16,7 @@ const setMessage = async (text, userId) => {
     messageData = setAllSharedAsHttpSecure(messageData)
     messageData = getCache(messageData)
     messageData = await setSafeBrowse(messageData)
-    if (messageData.links){
+    if (messageData.links) {
       postCacheThreats(messageData.links)
     }
   }

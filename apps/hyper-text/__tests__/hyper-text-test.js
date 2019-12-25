@@ -16,7 +16,7 @@ const { messageDataIntoHyperTextOne } = require('../test-data/hyper-text-data/in
 const { allHyperTextPositionsOne } = require('../test-data/hyper-text-data/hyper-text-positions-data')
 const { textOne } = require('../test-data/hyper-text-data/text-data')
 const { messageDataOutOfHyperTextOne } = require('../test-data/hyper-text-data/out-of-hyper-text-data')
-//getCache
+// getCache
 const { postToCacheOne, postToCacheTwo, postToCacheThree } = require('../test-data/get-cache-data/post-to-cache-data')
 const { messageDataIntoCacheOne, messageDataIntoCacheTwo, messageDataIntoCacheThree } = require('../test-data/get-cache-data/into-cache-data')
 const { messageDataOutOfCacheOne, messageDataOutOfCacheTwo, messageDataOutOfCacheThree } = require('../test-data/get-cache-data/out-of-cache-data')
@@ -46,44 +46,44 @@ describe.each([
   }
 )
 
-// test.each([
-//   [messageDataIntoHyperTextOne, allHyperTextPositionsOne, textOne, messageDataOutOfHyperTextOne]
-// ])(
-//   'setHyperText() /* destination urls, display text, and their meta data */',
-//   (messageDataIntoHyperText, allHyperTextPositions, text, messageDataOutOfHyperText) => {
-//     expect(setHyperText(messageDataIntoHyperText, allHyperTextPositions, text)).toEqual(messageDataOutOfHyperText)
-//   }
-// )
+test.each([
+  [messageDataIntoHyperTextOne, allHyperTextPositionsOne, textOne, messageDataOutOfHyperTextOne]
+])(
+  'setHyperText() /* destination urls, display text, and their meta data */',
+  (messageDataIntoHyperText, allHyperTextPositions, text, messageDataOutOfHyperText) => {
+    expect(setHyperText(messageDataIntoHyperText, allHyperTextPositions, text)).toEqual(messageDataOutOfHyperText)
+  }
+)
 
-// describe.each([
-//   [postToCacheOne, messageDataIntoCacheOne, messageDataOutOfCacheOne],
-//   [postToCacheTwo, messageDataIntoCacheTwo, messageDataOutOfCacheTwo],
-//   [postToCacheThree, messageDataIntoCacheThree, messageDataOutOfCacheThree]
-// ])(
-//   'getCache() suite /* reference threat urls that are already saved locally */',
-//   (postToCache, messageDataIntoCache, messageDataOutOfCache) => {
-//     beforeAll(() => {
-//       postCacheThreats(postToCache)
-//     })
-//     afterAll(() => { 
-//       clearCache() 
-//     })
-//     test(
-//       'getCache()',
-//       () => {
-//         expect(getCache(messageDataIntoCache)).toEqual(messageDataOutOfCache)
-//       })
-//   }
-// )
+describe.each([
+  [postToCacheOne, messageDataIntoCacheOne, messageDataOutOfCacheOne],
+  [postToCacheTwo, messageDataIntoCacheTwo, messageDataOutOfCacheTwo],
+  [postToCacheThree, messageDataIntoCacheThree, messageDataOutOfCacheThree]
+])(
+  'getCache() suite /* reference threat urls that are already saved locally */',
+  (postToCache, messageDataIntoCache, messageDataOutOfCache) => {
+    beforeAll(() => {
+      postCacheThreats(postToCache)
+    })
+    afterAll(() => {
+      clearCache()
+    })
+    test(
+      'getCache()',
+      () => {
+        expect(getCache(messageDataIntoCache)).toEqual(messageDataOutOfCache)
+      })
+  }
+)
 
-// test.each([
-//   [messageDataIntoSafeBrowseFull, messageDataOutOfSafeBrowseFull],
-//   [messageDataIntoSafeBrowseEmpty, messageDataOutOfSafeBrowseEmpty]
-// ])(
-//   'setSafeBrowse() /* check whether url is a suspected threat by google safe browse api */',
-//   async (messageDataIntoSafeBrowse, messageDataOutOfSafeBrowse) => {
-//     expect.assertions(1)
-//     var messageDataOut = await setSafeBrowse(messageDataIntoSafeBrowse)
-//     expect(messageDataOut).toEqual(messageDataOutOfSafeBrowse)
-//   }
-// )
+test.each([
+  [messageDataIntoSafeBrowseFull, messageDataOutOfSafeBrowseFull],
+  [messageDataIntoSafeBrowseEmpty, messageDataOutOfSafeBrowseEmpty]
+])(
+  'setSafeBrowse() /* check whether url is a suspected threat by google safe browse api */',
+  async (messageDataIntoSafeBrowse, messageDataOutOfSafeBrowse) => {
+    expect.assertions(1)
+    var messageDataOut = await setSafeBrowse(messageDataIntoSafeBrowse)
+    expect(messageDataOut).toEqual(messageDataOutOfSafeBrowse)
+  }
+)
