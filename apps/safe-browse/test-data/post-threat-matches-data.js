@@ -1,6 +1,6 @@
-const response = {
+const response = () => {
+  return {
   body: {
-    matches: []
   },
   headers: {
     'accept-ranges': 'none',
@@ -38,6 +38,7 @@ const response = {
     }
   },
   statusCode: 200
+}
 }
 
 const suspectedThreats = [

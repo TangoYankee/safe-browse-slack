@@ -2,6 +2,7 @@ const NodeCache = require('node-cache')
 let cache = null
 
 const cacheStart = (done) => {
+  /* initialize */
   if (cache) {
     return done()
   }
@@ -9,6 +10,7 @@ const cacheStart = (done) => {
 }
 
 const cacheInstance = () => {
+  /* share */
   return cache
 }
 

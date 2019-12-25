@@ -1,9 +1,9 @@
 const request = require('request')
-const { setMessage } = require('../hyper-text/hyper-text.js')
+const { setMessage } = require('../hyper-text/set-message')
 
 const { setHelpMessage, setDevMarkdownMessage, setErrorMessage } = require('./messages.js')
 
-const publish = (requestBody, res) => {
+const publish = async (requestBody, res) => {
   /* respond to a slash command */
   var text = requestBody.text
   var responseUrl = requestBody.response_url
@@ -12,7 +12,9 @@ const publish = (requestBody, res) => {
     res.json(setHelpMessage(userId))
   } else if (text) {
     res.send()
-    var message = setMessage(text, userId)
+    console.log(`text: ${text}`)
+    var message = await setMessage(text, userId)
+    console.log(message)
     var devMarkdownMessage = setDevMarkdownMessage(message)
     postMessage(responseUrl, devMarkdownMessage)
   } else {

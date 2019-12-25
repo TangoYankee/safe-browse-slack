@@ -54,7 +54,6 @@ const threatMatchTwo = {
 }
 
 const threatMatchThree = {
-  matches: []
 }
 
 const threatMatchFour = {

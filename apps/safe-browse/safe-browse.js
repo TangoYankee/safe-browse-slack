@@ -1,14 +1,16 @@
 const process = require('process')
 const { postThreatMatches } = require('./post-threat-matches')
 
-// TODO: Remove postThreatMatches call from function
 const setSafeBrowseThreats = async (messageLinks) => {
   /* find suspected threats in safe browse API */
   var uncachedThreatEntries = setUncachedThreatEntries(messageLinks)
   var uncachedThreatEntriesExist = setUncachedThreatEntriesExist(uncachedThreatEntries)
+  console.log('uncached threats set')
   if (uncachedThreatEntriesExist) {
     var requestBody = setRequestBody(uncachedThreatEntries)
+    console.log('request body set')
     var threatMatches = await postThreatMatches(requestBody)
+    console.log('threat matches got')
     return threatMatches
   } else {
     return undefined

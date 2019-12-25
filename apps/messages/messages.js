@@ -68,7 +68,7 @@ const setDevMarkdownMessage = (messageData) => {
   blocks.push(messageBlock)
 
   var sharedBy = messageData.sharedBy
-  var sharedByText = `-shared by @${sharedBy}`
+  var sharedByText = `-shared by <@${sharedBy}>`
   var sharedByMrkdwn = mrkdwnTemplate(sharedByText)
   let sharedContextBlock = contextTemplate()
   sharedContextBlock.elements.push(sharedByMrkdwn)

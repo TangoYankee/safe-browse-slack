@@ -78,6 +78,7 @@ const setCacheThreats = (hyperTexts) => {
 }
 
 const clearCache = () => {
+  /* reset data */
   cache.flushAll()
 }
 
