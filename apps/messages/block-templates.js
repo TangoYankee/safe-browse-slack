@@ -67,11 +67,20 @@ const removeButtonTemplate = () => {
   }
 }
 
+const messageRemovedTemplate = (text) => {
+  return {
+    response_type: 'in_channel',
+    replace_original: 'true',
+    text: text
+  }
+}
+
 module.exports = {
   contextTemplate,
   dividerTemplate,
   mrkdwnTemplate,
   responseHeadTemplate,
   sectionTemplate,
-  removeButtonTemplate
+  removeButtonTemplate,
+  messageRemovedTemplate
 }
