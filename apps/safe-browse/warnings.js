@@ -43,7 +43,7 @@ const safeBrowseThreatsData = {
   },
   NONE_FOUND: {
     emoji: 'small_blue_diamond',
-    text: 'No threats suspected by <https://developers.google.com/safe-browsing/v4/advisory|Google Safe Browse>:'
+    text: '<https://developers.google.com/safe-browsing/v4/advisory|no threats suspected>'
   }
 }
 

@@ -19,6 +19,7 @@ const messageLogic = (messageData) => {
       // Expanded version of markdownlinl
       messageLink = appendEmoji(markdownLink, threatEmoji)
     } else if(threatMatch === ''){
+      // Nicely formatted version of link
       var threatEmoji = safeBrowseThreatsData['NONE_FOUND'].emoji
       messageLink = appendEmoji(messageLink, threatEmoji)
     }
