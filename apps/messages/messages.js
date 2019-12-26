@@ -1,8 +1,12 @@
-const { contextTemplate, dividerTemplate, mrkdwnTemplate, 
+const {
+  contextTemplate, dividerTemplate, mrkdwnTemplate,
   responseHeadTemplate, sectionTemplate, removeButtonTemplate,
-messageRemovedTemplate } = require('./block-templates')
-const { messageLogic, setSafeBrowseStatus, setWarningText,
-  sharedContextLogic, threatLogic } = require('./block-contructor')
+  messageRemovedTemplate
+} = require('./block-templates')
+const {
+  messageLogic, setSafeBrowseStatus, setWarningText,
+  sharedContextLogic, threatLogic
+} = require('./block-contructor')
 
 const setHelpMessage = (userId) => {
   /* in message usage instructions */

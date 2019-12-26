@@ -1,8 +1,10 @@
 const request = require('request')
 const { setMessage } = require('../hyper-text/set-message')
 
-const { setHelpMessage, setDevMarkdownMessage,
-  setErrorMessage, setRemovedMessage } = require('./messages.js')
+const {
+  setHelpMessage, setDevMarkdownMessage,
+  setErrorMessage, setRemovedMessage
+} = require('./messages.js')
 
 const publish = async (requestBody, res) => {
   /* respond to a slash command */
