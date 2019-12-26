@@ -20,7 +20,6 @@ const safeBrowseStatusData = {
   }
 }
 
-// Make 'none_suspected' a threat data
 const safeBrowseThreatsData = {
   MALWARE: {
     emoji: 'beetle',
@@ -41,6 +40,10 @@ const safeBrowseThreatsData = {
   POTENTIALLY_HARMFUL_APPLICATION: {
     emoji: 'exclamation',
     text: 'potentially harmful app'
+  },
+  NONE_FOUND: {
+    emoji: 'small_blue_diamond',
+    text: 'No threats suspected by <https://developers.google.com/safe-browsing/v4/advisory|Google Safe Browse>:'
   }
 }
 

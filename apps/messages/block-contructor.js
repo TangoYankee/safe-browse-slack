@@ -27,18 +27,9 @@ const messageLogic = (messageData) => {
   return message
 }
 
-// Change to only a status when there is an error
-const setSafeBrowseStatus = (messageData) => {
-  /* indicate whether safe browse was successfully called */
-  if (messageData.safeBrowseSuccess) {
-    if (messageData.threatTypes.length >= 1) {
-      return safeBrowseStatusData.suspected_threats_found
-    } else {
-      return safeBrowseStatusData.no_suspected_threats_found
-    }
-  } else {
-    return safeBrowseStatusData.error_checking_safe_browse
-  }
+const setSafeBrowseWarningData = () => {
+  /* indicate safe browse was not successfully called */
+  return safeBrowseStatusData.error_checking_safe_browse
 }
 
 const setWarningText = (warning) => {
@@ -72,7 +63,7 @@ const threatLogic = (threatBlock, threatTypes) => {
 
 module.exports = {
   appendEmoji,
-  setSafeBrowseStatus,
+  setSafeBrowseWarningData,
   setWarningText,
   messageLogic,
   sharedContextLogic,
