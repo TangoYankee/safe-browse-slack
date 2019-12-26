@@ -32,6 +32,22 @@ const sectionTemplate = (text) => {
   }
 }
 
+const removeButton = () => {
+  return {
+    'type': 'actions',
+    'elements': [
+      {
+        'type': 'button',
+        'text': {
+          'type': 'plain_text',
+          'text': 'Remove Message'
+        },
+        'value': 'remove_message',
+        'style': 'danger'
+      }
+    ]
+}
+
 module.exports = {
   contextTemplate,
   dividerTemplate,

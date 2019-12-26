@@ -27,6 +27,17 @@ const checkHelp = (text) => {
   return text === 'help'
 }
 
+const remove = (requestBody, res) => {
+  res.send()
+  var responseUrl = requestBody.response_url
+  var responseMessage = {
+    'response_type': 'ephemeral',
+    'replace_original': 'true',
+    'text': 'Thank you. This message will self-destruct when the workspace is refreshed.'
+}
+postMessage(responseUrl, responseMessage)
+}
+
 const postMessage = (responseUrl, responseMessage) => {
   /* send a reply message */
   request.post({
@@ -43,5 +54,6 @@ const postMessage = (responseUrl, responseMessage) => {
 }
 
 module.exports = {
-  publish
+  publish,
+  remove
 }
