@@ -1,5 +1,12 @@
-const { contextTemplate, dividerTemplate, mrkdwnTemplate, responseHeadTemplate, sectionTemplate, removeButtonTemplate } = require('./block-templates')
-const { messageLogic, setSafeBrowseStatus, setWarningText, sharedContextLogic, threatLogic } = require('./block-contructor')
+const {
+  contextTemplate, dividerTemplate, mrkdwnTemplate,
+  responseHeadTemplate, sectionTemplate, removeButtonTemplate,
+  messageRemovedTemplate
+} = require('./block-templates')
+const {
+  messageLogic, setSafeBrowseStatus, setWarningText,
+  sharedContextLogic, threatLogic
+} = require('./block-contructor')
 
 const setHelpMessage = (userId) => {
   /* in message usage instructions */
@@ -96,9 +103,14 @@ const setDevMarkdownMessage = (messageData) => {
   return responseHeadTemplate('in_channel', blocks)
 }
 
+const setRemovedMessage = (text) => {
+  return messageRemovedTemplate(text)
+}
+
 module.exports = {
   setHelpMessage,
   setErrorMessage,
   setMarkdownMessage,
-  setDevMarkdownMessage
+  setDevMarkdownMessage,
+  setRemovedMessage
 }

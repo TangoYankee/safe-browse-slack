@@ -1,7 +1,10 @@
 const request = require('request')
 const { setMessage } = require('../hyper-text/set-message')
 
-const { setHelpMessage, setDevMarkdownMessage, setErrorMessage } = require('./messages.js')
+const {
+  setHelpMessage, setDevMarkdownMessage,
+  setErrorMessage, setRemovedMessage
+} = require('./messages.js')
 
 const publish = async (requestBody, res) => {
   /* respond to a slash command */
@@ -31,11 +34,9 @@ const remove = (requestBody, res) => {
   /* delete the markdown message sending the request */
   res.send()
   var responseUrl = requestBody.response_url
-  var responseMessage = {
-    response_type: 'in_channel',
-    replace_original: 'true',
-    text: 'A member of your workspace removed this message'
-  }
+  var text = '_A member of your workspace removed this message_'
+  var responseMessage = setRemovedMessage(text)
+  // console.log(JSON.stringify(responseMessage))
   postMessage(responseUrl, responseMessage)
 }
 
