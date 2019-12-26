@@ -13,14 +13,15 @@ const messageLogic = (messageData) => {
     var markdownLink = link.markdownLink
     let messageLink = link.messageLink
     var threatMatch = link.threatMatch
+    var threatEmoji
     // Create flow for '' to equal 'NONE_FOUND'
     if (threatMatch !== '') {
-      var threatEmoji = safeBrowseThreatsData[threatMatch].emoji
+      threatEmoji = safeBrowseThreatsData[threatMatch].emoji
       // Expanded version of markdownlinl
       messageLink = appendEmoji(markdownLink, threatEmoji)
-    } else if(threatMatch === ''){
+    } else if (threatMatch === '') {
       // Nicely formatted version of link
-      var threatEmoji = safeBrowseThreatsData['NONE_FOUND'].emoji
+      threatEmoji = safeBrowseThreatsData.NONE_FOUND.emoji
       messageLink = appendEmoji(messageLink, threatEmoji)
     }
     var sharedAsHttpSecure = link.sharedAsHttpSecure

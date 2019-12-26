@@ -4,8 +4,8 @@ const {
   messageRemovedTemplate
 } = require('./block-templates')
 const {
-  messageLogic, setSafeBrowseStatus, setWarningText,
-  sharedContextLogic, threatLogic
+  messageLogic, setWarningText, sharedContextLogic,
+  threatLogic, setSafeBrowseWarningData
 } = require('./block-contructor')
 
 const setHelpMessage = (userId) => {
@@ -84,11 +84,10 @@ const setDevMarkdownMessage = (messageData) => {
 
   blocks.push(dividerTemplate())
 
-
   // Only Create Block if there is an error accessing safebrowse
   var safeBrowseSuccess = messageData.safeBrowseSuccess
-  if(!safeBrowseSuccess){
-    var safeBrowseStatusWarningData = setSafeBrowseWarningData() 
+  if (!safeBrowseSuccess) {
+    var safeBrowseStatusWarningData = setSafeBrowseWarningData()
     var safeBrowseStatusWarningText = setWarningText(safeBrowseStatusWarningData)
     var safeBrowseStatusWarning = mrkdwnTemplate(safeBrowseStatusWarningText)
     var safeBrowseStatusBlock = contextTemplate()
