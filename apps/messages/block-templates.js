@@ -32,20 +32,21 @@ const sectionTemplate = (text) => {
   }
 }
 
-const removeButton = () => {
+const removeButtonTemplate = () => {
   return {
-    'type': 'actions',
-    'elements': [
+    type: 'actions',
+    elements: [
       {
-        'type': 'button',
-        'text': {
-          'type': 'plain_text',
-          'text': 'Remove Message'
+        type: 'button',
+        text: {
+          type: 'plain_text',
+          text: 'Remove Message'
         },
-        'value': 'remove_message',
-        'style': 'danger'
+        value: 'remove_message',
+        style: 'danger'
       }
     ]
+  }
 }
 
 module.exports = {
@@ -53,5 +54,6 @@ module.exports = {
   dividerTemplate,
   mrkdwnTemplate,
   responseHeadTemplate,
-  sectionTemplate
+  sectionTemplate,
+  removeButtonTemplate
 }

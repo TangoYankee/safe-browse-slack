@@ -182,6 +182,20 @@ var messageFormat = {
           text: ':beetle: <https://www.stopbadware.org/|malware> '
         }
       ]
+    },
+    {
+      type: 'actions',
+      elements: [
+        {
+          type: 'button',
+          text: {
+            type: 'plain_text',
+            text: 'Remove Message'
+          },
+          value: 'remove_message',
+          style: 'danger'
+        }
+      ]
     }
   ]
 }
@@ -238,6 +252,20 @@ var messageFormatSafe = {
         {
           type: 'mrkdwn',
           text: ':small_blue_diamond: No suspected threats found by <https://developers.google.com/safe-browsing/v4/advisory|Google Safe Browse>:'
+        }
+      ]
+    },
+    {
+      type: 'actions',
+      elements: [
+        {
+          type: 'button',
+          text: {
+            type: 'plain_text',
+            text: 'Remove Message'
+          },
+          value: 'remove_message',
+          style: 'danger'
         }
       ]
     }

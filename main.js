@@ -32,10 +32,12 @@ app.post('/publish', (req, res) => {
   }
 })
 
-app.post('/delete', (req, res) => {  
+app.post('/remove', (req, res) => {
+  /* delete messages already posted */
   var currentTime = Math.floor(new Date().getTime() / 1000)
-  if (signature(req, currentTime)){
-    remove(req.body, res)
+  if (signature(req, currentTime)) {
+    var requestBody = JSON.parse(req.body.payload)
+    remove(requestBody, res)
   } else {
     res.status(400).send('Ingore this request')
   }

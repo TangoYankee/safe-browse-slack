@@ -28,14 +28,15 @@ const checkHelp = (text) => {
 }
 
 const remove = (requestBody, res) => {
+  /* delete the markdown message sending the request */
   res.send()
   var responseUrl = requestBody.response_url
   var responseMessage = {
-    'response_type': 'ephemeral',
-    'replace_original': 'true',
-    'text': 'Thank you. This message will self-destruct when the workspace is refreshed.'
-}
-postMessage(responseUrl, responseMessage)
+    response_type: 'in_channel',
+    replace_original: 'true',
+    text: 'A member of your workspace removed this message'
+  }
+  postMessage(responseUrl, responseMessage)
 }
 
 const postMessage = (responseUrl, responseMessage) => {
