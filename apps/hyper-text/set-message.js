@@ -66,15 +66,20 @@ const setNoneFound = (messageData) => {
   /* identify if there are links that are not suspected of threats*/
   for(var link of messageData.links) {
     // If the threat type is blank
-    if()
-    // And if 'none_found' does not yet exist in the list of threat types
-    // Then add 'none_found' to the list of threatTypes
+    if(link.threatMatch === '') {
+      var noneFoundInThreatTypes = messageData.threatTypes.includes('NONE_FOUND')
+      if (!noneFoundInThreatTypes) {
+        messageData.threatTypes.push('NONE_FOUND')
+      }
+    }
   }
+  return messageData
 }
 
 module.exports = {
   setMessage,
   setHyperText,
   getCache,
-  setSafeBrowse
+  setSafeBrowse,
+  setNoneFound
 }
