@@ -43,7 +43,25 @@ const removeButtonTemplate = () => {
           text: 'Remove Message'
         },
         value: 'remove_message',
-        style: 'danger'
+        style: 'danger',
+        confirm: {
+          title: {
+            type: 'plain_text',
+            text: 'Confirm Message Removal'
+          },
+          text: {
+            type: 'mrkdwn',
+            text: 'Are you sure you would like to remove this message?'
+          },
+          confirm: {
+            type: 'plain_text',
+            text: 'Yes, remove message'
+          },
+          deny: {
+            type: 'plain_text',
+            text: 'No, keep message'
+          }
+        }
       }
     ]
   }
