@@ -104,11 +104,9 @@ const setDevMarkdownMessage = (messageData) => {
 
   let threatBlock = contextTemplate()
   // Remove condition. It should check for threats regardless. They could come from the cache
-  if (messageData.safeBrowseSuccess) {
-    threatBlock = threatLogic(threatBlock, messageData.threatTypes)
-    if (threatBlock) {
-      blocks.push(threatBlock)
-    }
+  threatBlock = threatLogic(threatBlock, messageData.threatTypes)
+  if (threatBlock) {
+    blocks.push(threatBlock)
   }
   var removeButtonBlock = removeButtonTemplate()
   blocks.push(removeButtonBlock)
