@@ -1,7 +1,7 @@
 'use strict'
 const bodyParser = require('body-parser')
 const express = require('express')
-const { publish } = require('./apps/messages/methods')
+const { publish, remove } = require('./apps/messages/methods')
 const { oauth } = require('./apps/credential/oauth')
 const { signature } = require('./apps/credential/signature')
 
@@ -29,6 +29,17 @@ app.post('/publish', (req, res) => {
     publish(req.body, res)
   } else {
     res.status(400).send('Ignore this request')
+  }
+})
+
+app.post('/remove', (req, res) => {
+  /* delete messages already posted */
+  var currentTime = Math.floor(new Date().getTime() / 1000)
+  if (signature(req, currentTime)) {
+    var requestBody = JSON.parse(req.body.payload)
+    remove(requestBody, res)
+  } else {
+    res.status(400).send('Ingore this request')
   }
 })
 

@@ -27,6 +27,18 @@ const checkHelp = (text) => {
   return text === 'help'
 }
 
+const remove = (requestBody, res) => {
+  /* delete the markdown message sending the request */
+  res.send()
+  var responseUrl = requestBody.response_url
+  var responseMessage = {
+    response_type: 'in_channel',
+    replace_original: 'true',
+    text: 'A member of your workspace removed this message'
+  }
+  postMessage(responseUrl, responseMessage)
+}
+
 const postMessage = (responseUrl, responseMessage) => {
   /* send a reply message */
   request.post({
@@ -43,5 +55,6 @@ const postMessage = (responseUrl, responseMessage) => {
 }
 
 module.exports = {
-  publish
+  publish,
+  remove
 }

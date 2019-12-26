@@ -1,4 +1,4 @@
-const { contextTemplate, dividerTemplate, mrkdwnTemplate, responseHeadTemplate, sectionTemplate } = require('./block-templates')
+const { contextTemplate, dividerTemplate, mrkdwnTemplate, responseHeadTemplate, sectionTemplate, removeButtonTemplate } = require('./block-templates')
 const { messageLogic, setSafeBrowseStatus, setWarningText, sharedContextLogic, threatLogic } = require('./block-contructor')
 
 const setHelpMessage = (userId) => {
@@ -91,6 +91,8 @@ const setDevMarkdownMessage = (messageData) => {
       blocks.push(threatBlock)
     }
   }
+  var removeButtonBlock = removeButtonTemplate()
+  blocks.push(removeButtonBlock)
   return responseHeadTemplate('in_channel', blocks)
 }
 
