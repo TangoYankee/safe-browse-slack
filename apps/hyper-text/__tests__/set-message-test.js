@@ -1,8 +1,8 @@
 jest.mock('../../safe-browse/post-threat-matches')
 // Test Modules
 const {
-  setMessage, setHyperText,
-  getCache, setSafeBrowse
+  setMessage, setHyperText, getCache,
+  setSafeBrowse, setNoneFound
 } = require('../set-message')
 const { postCacheThreats, clearCache } = require('../../cache/threats')
 // Test Data
@@ -23,6 +23,10 @@ const { messageDataOutOfCacheOne, messageDataOutOfCacheTwo, messageDataOutOfCach
 // setSafeBrowse
 const { messageDataIntoSafeBrowseFull, messageDataIntoSafeBrowseEmpty } = require('../test-data/set-safe-browse-data/into-safe-browse-data')
 const { messageDataOutOfSafeBrowseFull, messageDataOutOfSafeBrowseEmpty } = require('../test-data/set-safe-browse-data/out-of-safe-browse-data')
+// setNoneFound
+const { messageDataIntoNoneFoundOne } = require('../test-data/set-none-found-data/into-none-found-data')
+const { messageDataOutOfNoneFoundOne } = require('../test-data/set-none-found-data/out-of-none-found-data')
+
 
 describe.each([
   [setMessagePostToCacheOne, inputTextOne, userIdOne, outputMessageOne],

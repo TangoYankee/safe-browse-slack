@@ -20,7 +20,7 @@ const setMessage = async (text, userId) => {
     if (messageData.links) {
       postCacheThreats(messageData.links)
     }
-    // Add 'none_found' to list of messageData threatTypes, if none were found in cache or API
+    messageData = setNoneFound(messageData)
   }
   return messageData
 }

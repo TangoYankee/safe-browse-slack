@@ -6,7 +6,8 @@ const outputMessageOne = {
   threatTypes: [
     'SOCIAL_ENGINEERING',
     'UNWANTED_SOFTWARE',
-    'MALWARE'
+    'MALWARE',
+    'NONE_FOUND'
   ],
   links: [
     {
@@ -56,7 +57,8 @@ const outputMessageTwo = {
   threatTypes: [
     'SOCIAL_ENGINEERING',
     'UNWANTED_SOFTWARE',
-    'MALWARE'
+    'MALWARE',
+    'NONE_FOUND'
   ],
   links: [
     {
@@ -104,6 +106,7 @@ const outputMessageThree = {
   safeBrowseSuccess: true,
   allSharedAsHttpSecure: true,
   threatTypes: [
+    'NONE_FOUND'
   ],
   links: [
     {
