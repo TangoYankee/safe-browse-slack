@@ -90,3 +90,12 @@ test.each([
     expect(messageDataOut).toEqual(messageDataOutOfSafeBrowse)
   }
 )
+
+test.each([
+  [messageDataIntoNoneFoundOne, messageDataOutOfNoneFoundOne]
+])(
+  'setNoneFound () /* identify if there are links that are not suspected of threats*/',
+  (messageDataIntoNoneFound, messageDataOutOfNoneFound) => {
+    expect(setNoneFound(messageDataIntoNoneFound)).toEqual(messageDataOutOfNoneFound)
+  }
+)
