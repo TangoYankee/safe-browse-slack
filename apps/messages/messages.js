@@ -4,8 +4,8 @@ const {
   messageRemovedTemplate
 } = require('./block-templates')
 const {
-  messageLogic, setSafeBrowseStatus, setWarningText,
-  sharedContextLogic, threatLogic
+  messageLogic, setWarningText, sharedContextLogic,
+  threatLogic, setSafeBrowseWarningData
 } = require('./block-contructor')
 
 const setHelpMessage = (userId) => {
@@ -84,19 +84,27 @@ const setDevMarkdownMessage = (messageData) => {
 
   blocks.push(dividerTemplate())
 
-  var safeBrowseStatus = setSafeBrowseStatus(messageData)
-  var safeBrowseStatusWarningText = setWarningText(safeBrowseStatus)
-  var safeBrowseStatusWarning = mrkdwnTemplate(safeBrowseStatusWarningText)
-  var safeBrowseStatusBlock = contextTemplate()
-  safeBrowseStatusBlock.elements.push(safeBrowseStatusWarning)
-  blocks.push(safeBrowseStatusBlock)
+  // Only Create Block if there is an error accessing safebrowse
+  var safeBrowseSuccess = messageData.safeBrowseSuccess
+  if (!safeBrowseSuccess) {
+    var safeBrowseStatusWarningData = setSafeBrowseWarningData()
+    var safeBrowseStatusWarningText = setWarningText(safeBrowseStatusWarningData)
+    var safeBrowseStatusWarning = mrkdwnTemplate(safeBrowseStatusWarningText)
+    var safeBrowseStatusBlock = contextTemplate()
+    safeBrowseStatusBlock.elements.push(safeBrowseStatusWarning)
+    blocks.push(safeBrowseStatusBlock)
+  }
+  // var safeBrowseStatus = setSafeBrowseStatus(messageData)
+  // var safeBrowseStatusWarningText = setWarningText(safeBrowseStatus)
+  // var safeBrowseStatusWarning = mrkdwnTemplate(safeBrowseStatusWarningText)
+  // var safeBrowseStatusBlock = contextTemplate()
+  // safeBrowseStatusBlock.elements.push(safeBrowseStatusWarning)
+  // blocks.push(safeBrowseStatusBlock)
 
   let threatBlock = contextTemplate()
-  if (messageData.safeBrowseSuccess) {
-    threatBlock = threatLogic(threatBlock, messageData.threatTypes)
-    if (threatBlock) {
-      blocks.push(threatBlock)
-    }
+  threatBlock = threatLogic(threatBlock, messageData.threatTypes)
+  if (threatBlock) {
+    blocks.push(threatBlock)
   }
   var removeButtonBlock = removeButtonTemplate()
   blocks.push(removeButtonBlock)

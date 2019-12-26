@@ -13,9 +13,16 @@ const messageLogic = (messageData) => {
     var markdownLink = link.markdownLink
     let messageLink = link.messageLink
     var threatMatch = link.threatMatch
-    if (threatMatch) {
-      var threatEmoji = safeBrowseThreatsData[threatMatch].emoji
+    var threatEmoji
+    // Create flow for '' to equal 'NONE_FOUND'
+    if (threatMatch !== '') {
+      threatEmoji = safeBrowseThreatsData[threatMatch].emoji
+      // Expanded version of markdownlinl
       messageLink = appendEmoji(markdownLink, threatEmoji)
+    } else if (threatMatch === '') {
+      // Nicely formatted version of link
+      threatEmoji = safeBrowseThreatsData.NONE_FOUND.emoji
+      messageLink = appendEmoji(messageLink, threatEmoji)
     }
     var sharedAsHttpSecure = link.sharedAsHttpSecure
     if (!sharedAsHttpSecure) {
@@ -27,17 +34,9 @@ const messageLogic = (messageData) => {
   return message
 }
 
-const setSafeBrowseStatus = (messageData) => {
-  /* indicate whether safe browse was successfully called */
-  if (messageData.safeBrowseSuccess) {
-    if (messageData.threatTypes.length >= 1) {
-      return safeBrowseStatusData.suspected_threats_found
-    } else {
-      return safeBrowseStatusData.no_suspected_threats_found
-    }
-  } else {
-    return safeBrowseStatusData.error_checking_safe_browse
-  }
+const setSafeBrowseWarningData = () => {
+  /* indicate safe browse was not successfully called */
+  return safeBrowseStatusData.error_checking_safe_browse
 }
 
 const setWarningText = (warning) => {
@@ -71,7 +70,7 @@ const threatLogic = (threatBlock, threatTypes) => {
 
 module.exports = {
   appendEmoji,
-  setSafeBrowseStatus,
+  setSafeBrowseWarningData,
   setWarningText,
   messageLogic,
   sharedContextLogic,

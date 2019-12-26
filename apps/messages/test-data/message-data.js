@@ -89,7 +89,8 @@ var messageData = {
   threatTypes: [
     'SOCIAL_ENGINEERING',
     'UNWANTED_SOFTWARE',
-    'MALWARE'
+    'MALWARE',
+    'NONE_FOUND'
   ],
   links: [
     {
@@ -138,7 +139,7 @@ var messageFormat = {
       type: 'section',
       text: {
         type: 'mrkdwn',
-        text: '[Phishing Site](testsafebrowsing.appspot.com/s/phishing.html):biohazard_sign::eyes:, [Unwanted Software](testsafebrowsing.appspot.com/s/unwanted.html):no_entry_sign::eyes:, [Malware Site](testsafebrowsing.appspot.com/s/malware.html):beetle::eyes:, and <https://nasa.gov|Nasa>:eyes:'
+        text: '[Phishing Site](testsafebrowsing.appspot.com/s/phishing.html):biohazard_sign::eyes:, [Unwanted Software](testsafebrowsing.appspot.com/s/unwanted.html):no_entry_sign::eyes:, [Malware Site](testsafebrowsing.appspot.com/s/malware.html):beetle::eyes:, and <https://nasa.gov|Nasa>:small_blue_diamond::eyes:'
       }
     },
     {
@@ -162,15 +163,6 @@ var messageFormat = {
       elements: [
         {
           type: 'mrkdwn',
-          text: ':warning: Suspected threats found by <https://developers.google.com/safe-browsing/v4/advisory|Google Safe Browse>:'
-        }
-      ]
-    },
-    {
-      type: 'context',
-      elements: [
-        {
-          type: 'mrkdwn',
           text: ':biohazard_sign: <https://googleonlinesecurity.blogspot.com/2015/11/safe-browsing-protection-from-even-more.html|social engineering> '
         },
         {
@@ -180,6 +172,10 @@ var messageFormat = {
         {
           type: 'mrkdwn',
           text: ':beetle: <https://www.stopbadware.org/|malware> '
+        },
+        {
+          type: 'mrkdwn',
+          text: ':small_blue_diamond: <https://developers.google.com/safe-browsing/v4/advisory|no threats suspected>'
         }
       ]
     },
@@ -224,6 +220,7 @@ var messageDataSafe = {
   safeBrowseSuccess: true,
   allSharedAsHttpSecure: false,
   threatTypes: [
+    'NONE_FOUND'
   ],
   links: [
     {
@@ -245,7 +242,7 @@ var messageFormatSafe = {
       type: 'section',
       text: {
         type: 'mrkdwn',
-        text: '<https://nasa.gov|Nasa>:eyes:'
+        text: '<https://nasa.gov|Nasa>:small_blue_diamond::eyes:'
       }
     },
     {
@@ -269,7 +266,7 @@ var messageFormatSafe = {
       elements: [
         {
           type: 'mrkdwn',
-          text: ':small_blue_diamond: No suspected threats found by <https://developers.google.com/safe-browsing/v4/advisory|Google Safe Browse>:'
+          text: ':small_blue_diamond: <https://developers.google.com/safe-browsing/v4/advisory|no threats suspected>'
         }
       ]
     },
