@@ -3,6 +3,8 @@ const sharedWithoutHttpsData = {
   text: 'shared without <https://www.snopes.com/fact-check/http-vs-https/|https>'
 }
 
+// Only set status when there is an error checking the API
+// Remove specification for `suspected threats found`. It's redundant
 const safeBrowseStatusData = {
   suspected_threats_found: {
     emoji: 'warning',
@@ -18,6 +20,7 @@ const safeBrowseStatusData = {
   }
 }
 
+// Make 'none_suspected' a threat data
 const safeBrowseThreatsData = {
   MALWARE: {
     emoji: 'beetle',

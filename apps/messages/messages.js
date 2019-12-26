@@ -84,6 +84,7 @@ const setDevMarkdownMessage = (messageData) => {
 
   blocks.push(dividerTemplate())
 
+  // Only Create Block if there is an error accessing safebrowse
   var safeBrowseStatus = setSafeBrowseStatus(messageData)
   var safeBrowseStatusWarningText = setWarningText(safeBrowseStatus)
   var safeBrowseStatusWarning = mrkdwnTemplate(safeBrowseStatusWarningText)
@@ -92,6 +93,7 @@ const setDevMarkdownMessage = (messageData) => {
   blocks.push(safeBrowseStatusBlock)
 
   let threatBlock = contextTemplate()
+  // Remove condition. It should check for threats regardless. They could come from the cache
   if (messageData.safeBrowseSuccess) {
     threatBlock = threatLogic(threatBlock, messageData.threatTypes)
     if (threatBlock) {

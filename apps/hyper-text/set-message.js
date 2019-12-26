@@ -20,6 +20,7 @@ const setMessage = async (text, userId) => {
     if (messageData.links) {
       postCacheThreats(messageData.links)
     }
+    // Add 'none_found' to list of messageData threatTypes, if none were found in cache or API
   }
   return messageData
 }
@@ -59,6 +60,16 @@ const setSafeBrowse = async (messageData) => {
     messageData = setSafeBrowseThreatTypes(messageData, safeBrowseThreats)
   }
   return messageData
+}
+
+const setNoneFound = (messageData) => {
+  /* identify if there are links that are not suspected of threats*/
+  for(var link of messageData.links) {
+    // If the threat type is blank
+    if()
+    // And if 'none_found' does not yet exist in the list of threat types
+    // Then add 'none_found' to the list of threatTypes
+  }
 }
 
 module.exports = {

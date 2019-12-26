@@ -27,6 +27,7 @@ const messageLogic = (messageData) => {
   return message
 }
 
+// Change to only a status when there is an error
 const setSafeBrowseStatus = (messageData) => {
   /* indicate whether safe browse was successfully called */
   if (messageData.safeBrowseSuccess) {
