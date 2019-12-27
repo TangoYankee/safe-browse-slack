@@ -14,13 +14,11 @@ const messageLogic = (messageData) => {
     let messageLink = link.messageLink
     var threatMatch = link.threatMatch
     var threatEmoji
-    // Create flow for '' to equal 'NONE_FOUND'
     if (threatMatch !== '') {
       threatEmoji = safeBrowseThreatsData[threatMatch].emoji
-      // Expanded version of markdownlinl
-      messageLink = appendEmoji(markdownLink, threatEmoji)
+      messageLink = appendEmoji(markdownLink, threatEmoji)      
+      // Only add the blue diamond if the safebrowse call was successful
     } else if (threatMatch === '') {
-      // Nicely formatted version of link
       threatEmoji = safeBrowseThreatsData.NONE_FOUND.emoji
       messageLink = appendEmoji(messageLink, threatEmoji)
     }
@@ -58,6 +56,7 @@ const threatLogic = (threatBlock, threatTypes) => {
   /* list all of the suspected threats found in the destination urls */
   if (threatTypes.length >= 1) {
     for (var threat of threatTypes) {
+      // check whether the threat type is 'NONE_FOUND' and the 'safeBrowseSuccess' is 'true'. Only add threat if both are true
       var threatWarningText = setWarningText(safeBrowseThreatsData[threat])
       var threatWarning = mrkdwnTemplate(threatWarningText)
       threatBlock.elements.push(threatWarning)

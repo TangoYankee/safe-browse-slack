@@ -54,6 +54,8 @@ const getCache = (messageData) => {
   return messageData
 }
 
+// Create test cases for 403 and error
+// Possible solution is for the domain urls to be '403' and 'error'
 const setSafeBrowse = async (messageData) => {
   /* check whether url is a suspected threat by google safe browse api */
   var safeBrowseThreats = await setSafeBrowseThreats(messageData.links)
