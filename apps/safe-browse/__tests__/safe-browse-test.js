@@ -8,32 +8,32 @@ const {
 
 const {
   inputMessageOne, inputMessageTwo, inputMessageThree,
-  inputMessageFour, inputMessageFive
+  inputMessageFour, inputMessageSix
 } = require('../test-data/input-message-data')
 const {
   outputMessageOne, outputMessageTwo,
   outputMessageThree, outputMessageFour
 } = require('../test-data/output-message-data')
 const {
-  requestBodyOne, requestBodyTwo,
-  requestBodyThree, requestBodyFour
+  requestBodyOne, requestBodyTwo, requestBodyThree,
+  requestBodyFour, requestBodyFive
 } = require('../test-data/request-body-data')
 const {
   threatEntryOne, threatEntryExistOne, threatEntryTwo,
   threatEntryExistTwo, threatEntryThree, threatEntryExistThree,
-  threatEntryFour, threatEntryExistFour, threatEntryFive,
-  threatEntryExistFive
+  threatEntryFour, threatEntryExistFour, threatEntryExistFive
 } = require('../test-data/threat-entries-data')
 const {
-  threatMatchOne, threatMatchTwo,
-  threatMatchThree, threatMatchFour
+  threatMatchOne, threatMatchTwo, threatMatchThree,
+  threatMatchFour, threatMatchFive, threatMatchSix
 } = require('../test-data/threat-matches-data')
 
 describe.each([
   [inputMessageOne, threatMatchOne],
   [inputMessageTwo, threatMatchTwo],
   [inputMessageThree, threatMatchThree],
-  [inputMessageFour, threatMatchFour]
+  [inputMessageFour, threatMatchFour],
+  [inputMessageSix, threatMatchSix]
 ])('setSafeBrowseThreats() /* find suspected threats in safe browse API */',
   (inputMessage, threatMatch) => {
     test(
@@ -50,8 +50,8 @@ test.each([
   [inputMessageOne, threatEntryOne],
   [inputMessageTwo, threatEntryTwo],
   [inputMessageThree, threatEntryThree],
-  [inputMessageFour, threatEntryFour],
-  [inputMessageFive, threatEntryFive]
+  [inputMessageFour, threatEntryFour]
+  // [inputMessageFive, threatEntryFive]
 ])(
   'setUncachedThreatEntries() /* urls have a specific format when placed into Lookup API body */',
   (inputMessage, threatEntry) => {
@@ -97,7 +97,8 @@ describe.each([
   [requestBodyOne, threatMatchOne],
   [requestBodyTwo, threatMatchTwo],
   [requestBodyThree, threatMatchThree],
-  [requestBodyFour, threatMatchFour]
+  [requestBodyFour, threatMatchFour],
+  [requestBodyFive, threatMatchFive]
 ])('postThreatMatches() /* threats suspected by google safe-browse API */',
   (requestBody, threatMatch) => {
     test(

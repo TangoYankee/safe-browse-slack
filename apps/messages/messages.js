@@ -65,6 +65,7 @@ const setMarkdownMessage = (markdownFormat, userId) => {
   return responseHeadTemplate('in_channel', blocks)
 }
 
+// Create Two Test cases
 const setDevMarkdownMessage = (messageData) => {
   /* compose markdown message */
   var blocks = []
@@ -102,8 +103,8 @@ const setDevMarkdownMessage = (messageData) => {
   // blocks.push(safeBrowseStatusBlock)
 
   let threatBlock = contextTemplate()
-  threatBlock = threatLogic(threatBlock, messageData.threatTypes)
-  if (threatBlock) {
+  threatBlock = threatLogic(threatBlock, messageData.threatTypes, messageData.safeBrowseSuccess)
+  if (threatBlock.elements.length >= 1) {
     blocks.push(threatBlock)
   }
   var removeButtonBlock = removeButtonTemplate()

@@ -305,6 +305,142 @@ var messageFormatSafe = {
   ]
 }
 
+var messageDataError = {
+  message: '[Phishing Site](testsafebrowsing.appspot.com/s/phishing.html), [Error destination url](https://error.io) [Unwanted Software](testsafebrowsing.appspot.com/s/unwanted.html), [Malware Site](testsafebrowsing.appspot.com/s/malware.html), and [Nasa](nasa.gov)',
+  sharedBy: 'TangoYankee',
+  safeBrowseSuccess: false,
+  allSharedAsHttpSecure: false,
+  threatTypes: [
+    'MALWARE',
+    'NONE_FOUND'
+  ],
+  links: [
+    {
+      urlDomainKey: 'testsafebrowsing.appspot.com/s/phishing.html',
+      cacheDuration: '',
+      inCache: false,
+      markdownLink: '[Phishing Site](testsafebrowsing.appspot.com/s/phishing.html)',
+      messageLink: '<https://testsafebrowsing.appspot.com/s/phishing.html|Phishing Site>',
+      sharedAsHttpSecure: false,
+      threatMatch: ''
+    },
+    {
+      urlDomainKey: 'error.io',
+      cacheDuration: '',
+      inCache: false,
+      markdownLink: '[Error destination url](https://error.io)',
+      messageLink: '<https://error.io|Error destination url>',
+      sharedAsHttpSecure: true,
+      threatMatch: ''
+    },
+    {
+      urlDomainKey: 'testsafebrowsing.appspot.com/s/unwanted.html',
+      cacheDuration: '',
+      inCache: false,
+      markdownLink: '[Unwanted Software](testsafebrowsing.appspot.com/s/unwanted.html)',
+      messageLink: '<https://testsafebrowsing.appspot.com/s/unwanted.html|Unwanted Software>',
+      sharedAsHttpSecure: false,
+      threatMatch: ''
+    },
+    {
+      urlDomainKey: 'testsafebrowsing.appspot.com/s/malware.html',
+      cacheDuration: '',
+      inCache: true,
+      markdownLink: '[Malware Site](testsafebrowsing.appspot.com/s/malware.html)',
+      messageLink: '<https://testsafebrowsing.appspot.com/s/malware.html|Malware Site>',
+      sharedAsHttpSecure: false,
+      threatMatch: 'MALWARE'
+    },
+    {
+      urlDomainKey: 'nasa.gov',
+      cacheDuration: '',
+      inCache: false,
+      markdownLink: '[Nasa](nasa.gov)',
+      messageLink: '<https://nasa.gov|Nasa>',
+      sharedAsHttpSecure: false,
+      threatMatch: ''
+    }
+  ]
+}
+
+var messageFormatError = {
+  response_type: 'in_channel',
+  blocks: [
+    {
+      type: 'section',
+      text: {
+        type: 'mrkdwn',
+        text: '<https://testsafebrowsing.appspot.com/s/phishing.html|Phishing Site>:eyes:, <https://error.io|Error destination url> <https://testsafebrowsing.appspot.com/s/unwanted.html|Unwanted Software>:eyes:, [Malware Site](testsafebrowsing.appspot.com/s/malware.html):beetle::eyes:, and <https://nasa.gov|Nasa>:eyes:'
+      }
+    },
+    {
+      type: 'context',
+      elements: [
+        {
+          type: 'mrkdwn',
+          text: '-shared by <@TangoYankee>'
+        },
+        {
+          type: 'mrkdwn',
+          text: ':eyes: shared without <https://www.snopes.com/fact-check/http-vs-https/|https>'
+        }
+      ]
+    },
+    {
+      type: 'divider'
+    }, {
+      type: 'context',
+      elements: [
+        {
+          type: 'mrkdwn',
+          text: ':heavy_multiplication_x: Error checking for threats in <https://developers.google.com/safe-browsing/v4/advisory|Google Safe Browse>'
+        }
+      ]
+    },
+    {
+      type: 'context',
+      elements: [
+        {
+          type: 'mrkdwn',
+          text: ':beetle: <https://www.stopbadware.org/|malware> '
+        }
+      ]
+    },
+    {
+      type: 'actions',
+      elements: [
+        {
+          type: 'button',
+          text: {
+            type: 'plain_text',
+            text: 'Remove Message'
+          },
+          value: 'remove_message',
+          style: 'danger',
+          confirm: {
+            title: {
+              type: 'plain_text',
+              text: 'Confirm Message Removal'
+            },
+            text: {
+              type: 'mrkdwn',
+              text: 'Are you sure you would like to remove this message?'
+            },
+            confirm: {
+              type: 'plain_text',
+              text: 'Yes, remove message'
+            },
+            deny: {
+              type: 'plain_text',
+              text: 'No, keep message'
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+
 module.exports = {
   userId,
   helpMessage,
@@ -314,5 +450,7 @@ module.exports = {
   messageData,
   messageFormat,
   messageDataSafe,
-  messageFormatSafe
+  messageFormatSafe,
+  messageDataError,
+  messageFormatError
 }

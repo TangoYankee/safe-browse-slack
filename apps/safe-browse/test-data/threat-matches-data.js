@@ -79,12 +79,15 @@ const threatMatchFour = {
   ]
 }
 
-const threatMatchFive = undefined
+const threatMatchFive = 'error'
+
+const threatMatchSix = 'error'
 
 module.exports = {
   threatMatchOne,
   threatMatchTwo,
   threatMatchThree,
   threatMatchFour,
-  threatMatchFive
+  threatMatchFive,
+  threatMatchSix
 }

@@ -16,7 +16,7 @@ const safeBrowseStatusData = {
   },
   error_checking_safe_browse: {
     emoji: 'heavy_multiplication_x',
-    text: 'Error checking for threats in <https://developers.google.com/safe-browsing/v4/advisory|Google Safe Browse>:'
+    text: 'Error checking for threats in <https://developers.google.com/safe-browsing/v4/advisory|Google Safe Browse>'
   }
 }
 

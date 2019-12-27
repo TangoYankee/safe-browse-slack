@@ -6,7 +6,8 @@ const {
   userId, helpMessage, errorMessage,
   markdownSyntax, markdownMessage,
   messageData, messageFormat,
-  messageDataSafe, messageFormatSafe
+  messageDataSafe, messageFormatSafe,
+  messageDataError, messageFormatError
 } = require('../test-data/message-data')
 
 test(
@@ -29,7 +30,8 @@ test(
 
 test.each([
   [messageData, messageFormat],
-  [messageDataSafe, messageFormatSafe]
+  [messageDataSafe, messageFormatSafe],
+  [messageDataError, messageFormatError]
 ])(
   'setDevMarkdownMessage() /* compose markdown message */',
   (messageData, messageFormat) => {

@@ -8,6 +8,8 @@ const {
 const { getCacheThreats, setCacheThreatTypes, postCacheThreats } = require('../cache/threats')
 const { setSafeBrowseThreats, setSafeBrowseThreatTypes } = require('../safe-browse/safe-browse')
 
+// Create test cases for 403 and error
+// Possible solution is for the domain urls to be '403' and 'error'
 const setMessage = async (text, userId) => {
   /* organize metadata and search for suspected threats from urls */
   var allHyperTextPositions = setAllHyperTextPositions(text)
@@ -52,12 +54,18 @@ const getCache = (messageData) => {
   return messageData
 }
 
+// Create test cases for 403 and error
+// Possible solution is for the domain urls to be '403' and 'error'
 const setSafeBrowse = async (messageData) => {
   /* check whether url is a suspected threat by google safe browse api */
   var safeBrowseThreats = await setSafeBrowseThreats(messageData.links)
   if (safeBrowseThreats !== undefined) {
-    messageData.safeBrowseSuccess = true
-    messageData = setSafeBrowseThreatTypes(messageData, safeBrowseThreats)
+    if (safeBrowseThreats === 'error') {
+      messageData.safeBrowseSuccess = false
+    } else {
+      messageData.safeBrowseSuccess = true
+      messageData = setSafeBrowseThreatTypes(messageData, safeBrowseThreats)
+    }
   }
   return messageData
 }
