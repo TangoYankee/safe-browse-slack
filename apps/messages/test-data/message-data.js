@@ -58,29 +58,6 @@ var errorMessage = {
   ]
 }
 
-var markdownSyntax = 'example text'
-var markdownMessage = {
-  response_type: 'in_channel',
-  blocks: [
-    {
-      type: 'section',
-      text: {
-        type: 'mrkdwn',
-        text: `${markdownSyntax}`
-      }
-    },
-    {
-      type: 'context',
-      elements: [
-        {
-          type: 'mrkdwn',
-          text: `-shared by <@${userId}>`
-        }
-      ]
-    }
-  ]
-}
-
 var messageData = {
   message: '[Phishing Site](testsafebrowsing.appspot.com/s/phishing.html), [Unwanted Software](testsafebrowsing.appspot.com/s/unwanted.html), [Malware Site](testsafebrowsing.appspot.com/s/malware.html), and [Nasa](nasa.gov)',
   sharedBy: 'TangoYankee',
@@ -445,8 +422,6 @@ module.exports = {
   userId,
   helpMessage,
   errorMessage,
-  markdownSyntax,
-  markdownMessage,
   messageData,
   messageFormat,
   messageDataSafe,
