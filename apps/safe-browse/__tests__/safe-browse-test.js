@@ -15,8 +15,8 @@ const {
   outputMessageThree, outputMessageFour
 } = require('../test-data/output-message-data')
 const {
-  requestBodyOne, requestBodyTwo,
-  requestBodyThree, requestBodyFour
+  requestBodyOne, requestBodyTwo, requestBodyThree,
+  requestBodyFour, requestBodyFive
 } = require('../test-data/request-body-data')
 const {
   threatEntryOne, threatEntryExistOne, threatEntryTwo,
@@ -25,8 +25,8 @@ const {
   threatEntryExistFive
 } = require('../test-data/threat-entries-data')
 const {
-  threatMatchOne, threatMatchTwo,
-  threatMatchThree, threatMatchFour
+  threatMatchOne, threatMatchTwo, threatMatchThree,
+  threatMatchFour, threatMatchFive
 } = require('../test-data/threat-matches-data')
 
 describe.each([
@@ -93,12 +93,12 @@ test.each([
     expect(setSafeBrowseThreatTypes(inputMessage, threatMatch)).toEqual(outputMessage)
   })
 
-// Two more test cases... request error and 403 response
 describe.each([
   [requestBodyOne, threatMatchOne],
   [requestBodyTwo, threatMatchTwo],
   [requestBodyThree, threatMatchThree],
-  [requestBodyFour, threatMatchFour]
+  [requestBodyFour, threatMatchFour],
+  [requestBodyFive, threatMatchFive]
 ])('postThreatMatches() /* threats suspected by google safe-browse API */',
   (requestBody, threatMatch) => {
     test(

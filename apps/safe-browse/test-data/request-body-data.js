@@ -91,9 +91,34 @@ const requestBodyFour = {
   }
 }
 
+const requestBodyFive = {
+  client: {
+    clientId: process.env.GOOGLE_SAFE_BROWSING_CLIENT_ID,
+    clientVersion: '1.5.2'
+  },
+  threatInfo: {
+    platformTypes: ['ANY_PLATFORM'],
+    threatEntries: [
+      { url: 'testsafebrowsing.appspot.com/s/unwanted.html' },
+      { url: 'testsafebrowsing.appspot.com/s/malware.html' },
+      { url: 'nasa.gov' },
+      { url: 'error' }
+    ],
+    threatEntryTypes: ['URL'],
+    threatTypes: [
+      'THREAT_TYPE_UNSPECIFIED',
+      'MALWARE',
+      'SOCIAL_ENGINEERING',
+      'UNWANTED_SOFTWARE',
+      'POTENTIALLY_HARMFUL_APPLICATION'
+    ]
+  }
+}
+
 module.exports = {
   requestBodyOne,
   requestBodyTwo,
   requestBodyThree,
-  requestBodyFour
+  requestBodyFour,
+  requestBodyFive
 }

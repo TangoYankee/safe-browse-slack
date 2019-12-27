@@ -2,8 +2,6 @@ const { response, suspectedThreats } = require('../test-data/post-threat-matches
 
 const postThreatMatches = (requestBody) => {
   /* mock database of threats suspected by safe browse */
-  // Create a pathway for requestBody test case is error
-  // Create a pathway for requestBody test case is HTTP 403 code
   var customResponse = response()
   return new Promise(resolve => {
     if (requestBody.threatInfo) {
