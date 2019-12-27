@@ -52,16 +52,16 @@ const setMessagePostToCacheTwo = [
 
 const setMessagePostToCacheThree = []
 
-const setMessagePostToCacheFour = [    
+const setMessagePostToCacheFour = [
   {
-  urlDomainKey: 'testsafebrowsing.appspot.com/s/malware.html',
-  cacheDuration: '300s',
-  inCache: false,
-  markdownLink: '[Malware Site](testsafebrowsing.appspot.com/s/malware.html)',
-  messageLink: '<https://testsafebrowsing.appspot.com/s/malware.html|Malware Site>',
-  sharedAsHttpSecure: false,
-  threatMatch: 'MALWARE'
-}
+    urlDomainKey: 'testsafebrowsing.appspot.com/s/malware.html',
+    cacheDuration: '300s',
+    inCache: false,
+    markdownLink: '[Malware Site](testsafebrowsing.appspot.com/s/malware.html)',
+    messageLink: '<https://testsafebrowsing.appspot.com/s/malware.html|Malware Site>',
+    sharedAsHttpSecure: false,
+    threatMatch: 'MALWARE'
+  }
 ]
 
 module.exports = {

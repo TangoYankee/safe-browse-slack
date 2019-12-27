@@ -388,7 +388,7 @@ var messageFormatError = {
     },
     {
       type: 'divider'
-    },    {
+    }, {
       type: 'context',
       elements: [
         {
@@ -450,8 +450,6 @@ module.exports = {
   messageData,
   messageFormat,
   messageDataSafe,
-  messageFormatSafe,
-  messageDataError,
   messageFormatSafe,
   messageDataError,
   messageFormatError

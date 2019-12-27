@@ -139,7 +139,7 @@ const outputMessageFour = {
       messageLink: '<https://testsafebrowsing.appspot.com/s/phishing.html|Phishing Site>',
       sharedAsHttpSecure: false,
       threatMatch: ''
-    },    
+    },
     {
       urlDomainKey: 'error.io',
       cacheDuration: '',

@@ -21,8 +21,7 @@ const {
 const {
   threatEntryOne, threatEntryExistOne, threatEntryTwo,
   threatEntryExistTwo, threatEntryThree, threatEntryExistThree,
-  threatEntryFour, threatEntryExistFour, threatEntryFive,
-  threatEntryExistFive
+  threatEntryFour, threatEntryExistFour, threatEntryExistFive
 } = require('../test-data/threat-entries-data')
 const {
   threatMatchOne, threatMatchTwo, threatMatchThree,
