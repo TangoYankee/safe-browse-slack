@@ -316,21 +316,21 @@ var messageDataError = {
   ],
   links: [
     {
-      urlDomainKey: 'https://error.io',
-      cacheDuration: '',
-      inCache: false,
-      markdownLink: '[Error destination url](https://error.io)',
-      messageLink: '<https://error.io|Error destination url>',
-      sharedAsHttpSecure: true,
-      threatMatch: ''
-    },
-    {
       urlDomainKey: 'testsafebrowsing.appspot.com/s/phishing.html',
       cacheDuration: '',
       inCache: false,
       markdownLink: '[Phishing Site](testsafebrowsing.appspot.com/s/phishing.html)',
       messageLink: '<https://testsafebrowsing.appspot.com/s/phishing.html|Phishing Site>',
       sharedAsHttpSecure: false,
+      threatMatch: ''
+    },
+    {
+      urlDomainKey: 'error.io',
+      cacheDuration: '',
+      inCache: false,
+      markdownLink: '[Error destination url](https://error.io)',
+      messageLink: '<https://error.io|Error destination url>',
+      sharedAsHttpSecure: true,
       threatMatch: ''
     },
     {
@@ -370,7 +370,7 @@ var messageFormatError = {
       type: 'section',
       text: {
         type: 'mrkdwn',
-        text: '[Phishing Site](testsafebrowsing.appspot.com/s/phishing.html):eyes:, [Error destination url](https://error.io) [Unwanted Software](testsafebrowsing.appspot.com/s/unwanted.html):eyes:, [Malware Site](testsafebrowsing.appspot.com/s/malware.html):beetle::eyes:, and <https://nasa.gov|Nasa>'
+        text: '<https://testsafebrowsing.appspot.com/s/phishing.html|Phishing Site>:eyes:, <https://error.io|Error destination url> <https://testsafebrowsing.appspot.com/s/unwanted.html|Unwanted Software>:eyes:, [Malware Site](testsafebrowsing.appspot.com/s/malware.html):beetle::eyes:, and <https://nasa.gov|Nasa>:eyes:'
       }
     },
     {
@@ -400,14 +400,6 @@ var messageFormatError = {
     {
       type: 'context',
       elements: [
-        {
-          type: 'mrkdwn',
-          text: ':biohazard_sign: <https://googleonlinesecurity.blogspot.com/2015/11/safe-browsing-protection-from-even-more.html|social engineering> '
-        },
-        {
-          type: 'mrkdwn',
-          text: ':no_entry_sign: <https://www.google.com/about/unwanted-software-policy.html|unwanted software> '
-        },
         {
           type: 'mrkdwn',
           text: ':beetle: <https://www.stopbadware.org/|malware> '
