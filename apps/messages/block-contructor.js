@@ -16,9 +16,8 @@ const messageLogic = (messageData) => {
     var threatEmoji
     if (threatMatch !== '') {
       threatEmoji = safeBrowseThreatsData[threatMatch].emoji
-      messageLink = appendEmoji(markdownLink, threatEmoji)      
-      // Only add the blue diamond if the safebrowse call was successful
-    } else if (threatMatch === '') {
+      messageLink = appendEmoji(markdownLink, threatEmoji)
+    } else if (threatMatch === '' && messageData.safeBrowseSuccess ) {
       threatEmoji = safeBrowseThreatsData.NONE_FOUND.emoji
       messageLink = appendEmoji(messageLink, threatEmoji)
     }
@@ -52,14 +51,16 @@ const sharedContextLogic = (sharedContextBlock, messageData) => {
   return sharedContextBlock
 }
 
-const threatLogic = (threatBlock, threatTypes) => {
+const threatLogic = (threatBlock, threatTypes, safeBrowseSuccess) => {
   /* list all of the suspected threats found in the destination urls */
   if (threatTypes.length >= 1) {
     for (var threat of threatTypes) {
-      // check whether the threat type is 'NONE_FOUND' and the 'safeBrowseSuccess' is 'true'. Only add threat if both are true
-      var threatWarningText = setWarningText(safeBrowseThreatsData[threat])
-      var threatWarning = mrkdwnTemplate(threatWarningText)
-      threatBlock.elements.push(threatWarning)
+      if (threat === 'NONE_FOUND' && !safeBrowseSuccess){
+        continue
+      }      
+        var threatWarningText = setWarningText(safeBrowseThreatsData[threat])
+        var threatWarning = mrkdwnTemplate(threatWarningText)
+        threatBlock.elements.push(threatWarning)
     }
     return threatBlock
   } else {

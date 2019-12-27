@@ -103,7 +103,7 @@ const setDevMarkdownMessage = (messageData) => {
   // blocks.push(safeBrowseStatusBlock)
 
   let threatBlock = contextTemplate()
-  threatBlock = threatLogic(threatBlock, messageData.threatTypes)
+  threatBlock = threatLogic(threatBlock, messageData.threatTypes, messageData.safeBrowseSuccess)
   if (threatBlock) {
     blocks.push(threatBlock)
   }
