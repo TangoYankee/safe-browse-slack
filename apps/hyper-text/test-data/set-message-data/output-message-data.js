@@ -122,7 +122,7 @@ const outputMessageThree = {
 }
 
 const outputMessageFour = {
-  message: '[Phishing Site](testsafebrowsing.appspot.com/s/phishing.html),  [Error destination url](https://error.io) [Unwanted Software](testsafebrowsing.appspot.com/s/unwanted.html), [Malware Site](testsafebrowsing.appspot.com/s/malware.html), and [Nasa](nasa.gov)',
+  message: '[Phishing Site](testsafebrowsing.appspot.com/s/phishing.html), [Error destination url](https://error.io) [Unwanted Software](testsafebrowsing.appspot.com/s/unwanted.html), [Malware Site](testsafebrowsing.appspot.com/s/malware.html), and [Nasa](nasa.gov)',
   sharedBy: 'TangoYankee',
   safeBrowseSuccess: false,
   allSharedAsHttpSecure: false,
@@ -132,21 +132,21 @@ const outputMessageFour = {
   ],
   links: [
     {
-      urlDomainKey: 'error.io',
-      cacheDuration: '',
-      inCache: false,
-      markdownLink: '[Error destination url](https://error.io)',
-      messageLink: '<https://error.io|Error destination url>',
-      sharedAsHttpSecure: true,
-      threatMatch: ''
-    },
-    {
       urlDomainKey: 'testsafebrowsing.appspot.com/s/phishing.html',
       cacheDuration: '',
       inCache: false,
       markdownLink: '[Phishing Site](testsafebrowsing.appspot.com/s/phishing.html)',
       messageLink: '<https://testsafebrowsing.appspot.com/s/phishing.html|Phishing Site>',
       sharedAsHttpSecure: false,
+      threatMatch: ''
+    },    
+    {
+      urlDomainKey: 'error.io',
+      cacheDuration: '',
+      inCache: false,
+      markdownLink: '[Error destination url](https://error.io)',
+      messageLink: '<https://error.io|Error destination url>',
+      sharedAsHttpSecure: true,
       threatMatch: ''
     },
     {
