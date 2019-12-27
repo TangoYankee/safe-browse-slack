@@ -8,7 +8,7 @@ const {
 
 const {
   inputMessageOne, inputMessageTwo, inputMessageThree,
-  inputMessageFour, inputMessageFive, inputMessageSix
+  inputMessageFour, inputMessageSix
 } = require('../test-data/input-message-data')
 const {
   outputMessageOne, outputMessageTwo,
@@ -51,8 +51,8 @@ test.each([
   [inputMessageOne, threatEntryOne],
   [inputMessageTwo, threatEntryTwo],
   [inputMessageThree, threatEntryThree],
-  [inputMessageFour, threatEntryFour],
-  [inputMessageFive, threatEntryFive]
+  [inputMessageFour, threatEntryFour]
+  // [inputMessageFive, threatEntryFive]
 ])(
   'setUncachedThreatEntries() /* urls have a specific format when placed into Lookup API body */',
   (inputMessage, threatEntry) => {

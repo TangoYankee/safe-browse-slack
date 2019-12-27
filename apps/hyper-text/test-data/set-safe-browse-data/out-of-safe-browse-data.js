@@ -90,7 +90,7 @@ const messageDataOutOfSafeBrowseEmpty = {
 }
 
 const messageDataOutOfSafeBrowseError = {
-  message: '[Phishing Site](testsafebrowsing.appspot.com/s/phishing.html),  [Error destination url](https://error.io) [Unwanted Software](testsafebrowsing.appspot.com/s/unwanted.html), [Malware Site](testsafebrowsing.appspot.com/s/malware.html), and [Nasa](nasa.gov)',
+  message: '[Phishing Site](testsafebrowsing.appspot.com/s/phishing.html), [Error destination url](https://error.io) [Unwanted Software](testsafebrowsing.appspot.com/s/unwanted.html), [Malware Site](testsafebrowsing.appspot.com/s/malware.html), and [Nasa](nasa.gov)',
   sharedBy: 'TangoYankee',
   safeBrowseSuccess: false,
   allSharedAsHttpSecure: false,

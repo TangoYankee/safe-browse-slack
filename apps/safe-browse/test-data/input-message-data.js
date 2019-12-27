@@ -178,34 +178,23 @@ const inputMessageFour = {
   ]
 }
 
-const inputMessageFive = {
-  message: '[Phishing Site](testsafebrowsing.appspot.com/s/phishing.html)',
-  sharedBy: 'TangoYankee',
-  safeBrowseSuccess: true,
-  allSharedAsHttpSecure: false,
-  threatTypes: [
-    'SOCIAL_ENGINEERING'
-  ],
-  links: [{
-    urlDomainKey: 'testsafebrowsing.appspot.com/s/phishing.html',
-    cacheDuration: '',
-    inCache: true,
-    markdownLink: '[Phishing Site](testsafebrowsing.appspot.com/s/phishing.html)',
-    messageLink: '<https://testsafebrowsing.appspot.com/s/phishing.html|Phishing Site>',
-    sharedAsHttpSecure: false,
-    threatMatch: 'SOCIAL_ENGINEERING'
-  }]
-}
-
 const inputMessageSix = {
-  message: '[Phishing Site](testsafebrowsing.appspot.com/s/phishing.html), [Unwanted Software](https://testsafebrowsing.appspot.com/s/unwanted.html), [Malware Site](testsafebrowsing.appspot.com/s/malware.html), and [Nasa](nasa.gov)',
+  message: '[Phishing Site](testsafebrowsing.appspot.com/s/phishing.html), [Error destination url](https://error.io) [Unwanted Software](https://testsafebrowsing.appspot.com/s/unwanted.html), [Malware Site](testsafebrowsing.appspot.com/s/malware.html), and [Nasa](nasa.gov)',
   sharedBy: 'TangoYankee',
   safeBrowseSuccess: true,
   allSharedAsHttpSecure: false,
   threatTypes: [
     'SOCIAL_ENGINEERING'
   ],
-  links: [
+  links: [    {
+    urlDomainKey: 'error.io',
+    cacheDuration: '',
+    inCache: false,
+    markdownLink: '[Error destination url](https://error.io)',
+    messageLink: '<https://error.io|Error destination url>',
+    sharedAsHttpSecure: true,
+    threatMatch: ''
+  },
     {
       urlDomainKey: 'testsafebrowsing.appspot.com/s/phishing.html',
       cacheDuration: '',
@@ -250,6 +239,6 @@ module.exports = {
   inputMessageTwo,
   inputMessageThree,
   inputMessageFour,
-  inputMessageFive,
+  // inputMessageFive,
   inputMessageSix
 }

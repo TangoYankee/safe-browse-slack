@@ -102,7 +102,7 @@ const requestBodyFive = {
       { url: 'testsafebrowsing.appspot.com/s/unwanted.html' },
       { url: 'testsafebrowsing.appspot.com/s/malware.html' },
       { url: 'nasa.gov' },
-      { url: 'error' }
+      { url: 'error.io' }
     ],
     threatEntryTypes: ['URL'],
     threatTypes: [

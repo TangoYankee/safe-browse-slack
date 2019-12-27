@@ -132,7 +132,7 @@ const outputMessageFour = {
   ],
   links: [
     {
-      urlDomainKey: 'https://error.io',
+      urlDomainKey: 'error.io',
       cacheDuration: '',
       inCache: false,
       markdownLink: '[Error destination url](https://error.io)',
