@@ -1,7 +1,7 @@
 const process = require('process')
 const { postThreatMatches } = require('./post-threat-matches')
 
-// Create two test cases... request error and 403 response
+// Create test case... request error
 // Possibly achieved by making domain url error and 403
 const setSafeBrowseThreats = async (messageLinks) => {
   /* find suspected threats in safe browse API */

@@ -8,7 +8,7 @@ const {
 
 const {
   inputMessageOne, inputMessageTwo, inputMessageThree,
-  inputMessageFour, inputMessageFive
+  inputMessageFour, inputMessageFive, inputMessageSix
 } = require('../test-data/input-message-data')
 const {
   outputMessageOne, outputMessageTwo,
@@ -26,14 +26,15 @@ const {
 } = require('../test-data/threat-entries-data')
 const {
   threatMatchOne, threatMatchTwo, threatMatchThree,
-  threatMatchFour, threatMatchFive
+  threatMatchFour, threatMatchFive, threatMatchSix
 } = require('../test-data/threat-matches-data')
 
 describe.each([
   [inputMessageOne, threatMatchOne],
   [inputMessageTwo, threatMatchTwo],
   [inputMessageThree, threatMatchThree],
-  [inputMessageFour, threatMatchFour]
+  [inputMessageFour, threatMatchFour],
+  [inputMessageSix, threatMatchSix]
 ])('setSafeBrowseThreats() /* find suspected threats in safe browse API */',
   (inputMessage, threatMatch) => {
     test(
