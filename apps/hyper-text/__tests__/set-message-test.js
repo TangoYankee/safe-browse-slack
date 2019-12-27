@@ -21,8 +21,8 @@ const { postToCacheOne, postToCacheTwo, postToCacheThree } = require('../test-da
 const { messageDataIntoCacheOne, messageDataIntoCacheTwo, messageDataIntoCacheThree } = require('../test-data/get-cache-data/into-cache-data')
 const { messageDataOutOfCacheOne, messageDataOutOfCacheTwo, messageDataOutOfCacheThree } = require('../test-data/get-cache-data/out-of-cache-data')
 // setSafeBrowse
-const { messageDataIntoSafeBrowseFull, messageDataIntoSafeBrowseEmpty } = require('../test-data/set-safe-browse-data/into-safe-browse-data')
-const { messageDataOutOfSafeBrowseFull, messageDataOutOfSafeBrowseEmpty } = require('../test-data/set-safe-browse-data/out-of-safe-browse-data')
+const { messageDataIntoSafeBrowseFull, messageDataIntoSafeBrowseEmpty, messageDataIntoSafeBrowseError } = require('../test-data/set-safe-browse-data/into-safe-browse-data')
+const { messageDataOutOfSafeBrowseFull, messageDataOutOfSafeBrowseEmpty, messageDataOutOfSafeBrowseError } = require('../test-data/set-safe-browse-data/out-of-safe-browse-data')
 // setNoneFound
 const { messageDataIntoNoneFoundOne } = require('../test-data/set-none-found-data/into-none-found-data')
 const { messageDataOutOfNoneFoundOne } = require('../test-data/set-none-found-data/out-of-none-found-data')
@@ -81,10 +81,11 @@ describe.each([
   }
 )
 
-// Expand into multiple levels of response
+// Why is this test in set message?
 test.each([
   [messageDataIntoSafeBrowseFull, messageDataOutOfSafeBrowseFull],
-  [messageDataIntoSafeBrowseEmpty, messageDataOutOfSafeBrowseEmpty]
+  [messageDataIntoSafeBrowseEmpty, messageDataOutOfSafeBrowseEmpty],
+  [messageDataIntoSafeBrowseError, messageDataOutOfSafeBrowseError]
 ])(
   'setSafeBrowse() /* check whether url is a suspected threat by google safe browse api */',
   async (messageDataIntoSafeBrowse, messageDataOutOfSafeBrowse) => {
