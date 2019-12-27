@@ -104,11 +104,12 @@ const setDevMarkdownMessage = (messageData) => {
 
   let threatBlock = contextTemplate()
   threatBlock = threatLogic(threatBlock, messageData.threatTypes, messageData.safeBrowseSuccess)
-  if (threatBlock) {
+  if (threatBlock.elements.length >= 1) {
     blocks.push(threatBlock)
   }
   var removeButtonBlock = removeButtonTemplate()
   blocks.push(removeButtonBlock)
+  console.log(JSON.stringify(responseHeadTemplate('in_channel', blocks)))
   return responseHeadTemplate('in_channel', blocks)
 }
 
