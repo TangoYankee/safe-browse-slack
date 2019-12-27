@@ -8,6 +8,8 @@ const {
 const { getCacheThreats, setCacheThreatTypes, postCacheThreats } = require('../cache/threats')
 const { setSafeBrowseThreats, setSafeBrowseThreatTypes } = require('../safe-browse/safe-browse')
 
+// Create test cases for 403 and error
+// Possible solution is for the domain urls to be '403' and 'error'
 const setMessage = async (text, userId) => {
   /* organize metadata and search for suspected threats from urls */
   var allHyperTextPositions = setAllHyperTextPositions(text)

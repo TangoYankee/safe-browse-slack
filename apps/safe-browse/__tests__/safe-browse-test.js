@@ -93,6 +93,8 @@ test.each([
     expect(setSafeBrowseThreatTypes(inputMessage, threatMatch)).toEqual(outputMessage)
   })
 
+
+//Two more test cases... request error and 403 response  
 describe.each([
   [requestBodyOne, threatMatchOne],
   [requestBodyTwo, threatMatchTwo],
