@@ -1,8 +1,6 @@
 const process = require('process')
 const { postThreatMatches } = require('./post-threat-matches')
 
-// Create test case... request error
-// Possibly achieved by making domain url error and 403
 const setSafeBrowseThreats = async (messageLinks) => {
   /* find suspected threats in safe browse API */
   var uncachedThreatEntries = setUncachedThreatEntries(messageLinks)
@@ -10,7 +8,6 @@ const setSafeBrowseThreats = async (messageLinks) => {
   if (uncachedThreatEntriesExist) {
     var requestBody = setRequestBody(uncachedThreatEntries)
     var threatMatches = await postThreatMatches(requestBody)
-    console.log(`threat matches... ${threatMatches}`)
     return threatMatches
   } else {
     return undefined
