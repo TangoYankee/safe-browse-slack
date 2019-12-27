@@ -10,7 +10,6 @@ const postThreatMatches = (requestBody) => {
     json: true,
     qs: { key: process.env.GOOGLE_SAFE_BROWSING_KEY }
   }
-  // Create one path for all errors
   return new Promise(resolve => {
     request.post(options, (error, response) => {
       if (error) {

@@ -2,14 +2,13 @@ const { setMessageData, setHyperTextData } = require('./message-object')
 const { setAllHyperTextPositions, validHyperTextPositions } = require('./positions')
 const {
   validateDestUrl, validateDisplayText, setSlackHyperText,
-  setDestUrl, setDisplayText, getMarkdownHyperText, setAllSharedAsHttpSecure,
-  setHttpDestUrl, setUrlDomainKey, setSharedAsHttpSecure
+  setDestUrl, setDisplayText, getMarkdownHyperText,
+  setAllSharedAsHttpSecure, setHttpDestUrl, setUrlDomainKey,
+  setSharedAsHttpSecure
 } = require('./content')
 const { getCacheThreats, setCacheThreatTypes, postCacheThreats } = require('../cache/threats')
 const { setSafeBrowseThreats, setSafeBrowseThreatTypes } = require('../safe-browse/safe-browse')
 
-// Create test cases for 403 and error
-// Possible solution is for the domain urls to be '403' and 'error'
 const setMessage = async (text, userId) => {
   /* organize metadata and search for suspected threats from urls */
   var allHyperTextPositions = setAllHyperTextPositions(text)
@@ -54,8 +53,6 @@ const getCache = (messageData) => {
   return messageData
 }
 
-// Create test cases for 403 and error
-// Possible solution is for the domain urls to be '403' and 'error'
 const setSafeBrowse = async (messageData) => {
   /* check whether url is a suspected threat by google safe browse api */
   var safeBrowseThreats = await setSafeBrowseThreats(messageData.links)

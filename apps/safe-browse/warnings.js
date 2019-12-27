@@ -3,17 +3,7 @@ const sharedWithoutHttpsData = {
   text: 'shared without <https://www.snopes.com/fact-check/http-vs-https/|https>'
 }
 
-// Only set status when there is an error checking the API
-// Remove specification for `suspected threats found`. It's redundant
 const safeBrowseStatusData = {
-  suspected_threats_found: {
-    emoji: 'warning',
-    text: 'Suspected threats found by <https://developers.google.com/safe-browsing/v4/advisory|Google Safe Browse>:'
-  },
-  no_suspected_threats_found: {
-    emoji: 'small_blue_diamond',
-    text: 'No suspected threats found by <https://developers.google.com/safe-browsing/v4/advisory|Google Safe Browse>:'
-  },
   error_checking_safe_browse: {
     emoji: 'heavy_multiplication_x',
     text: 'Error checking for threats in <https://developers.google.com/safe-browsing/v4/advisory|Google Safe Browse>'

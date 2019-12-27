@@ -2,7 +2,7 @@ const request = require('request')
 const { setMessage } = require('../hyper-text/set-message')
 
 const {
-  setHelpMessage, setDevMarkdownMessage,
+  setHelpMessage, setMarkdownMessage,
   setErrorMessage, setRemovedMessage
 } = require('./messages.js')
 
@@ -16,8 +16,8 @@ const publish = async (requestBody, res) => {
   } else if (text) {
     res.send()
     var message = await setMessage(text, userId)
-    var devMarkdownMessage = setDevMarkdownMessage(message)
-    postMessage(responseUrl, devMarkdownMessage)
+    var markdownMessage = setMarkdownMessage(message)
+    postMessage(responseUrl, markdownMessage)
   } else {
     res.json(setErrorMessage(':warning:please provide input'))
   }
@@ -36,7 +36,6 @@ const remove = (requestBody, res) => {
   var responseUrl = requestBody.response_url
   var text = '_A member of your workspace removed this message_'
   var responseMessage = setRemovedMessage(text)
-  // console.log(JSON.stringify(responseMessage))
   postMessage(responseUrl, responseMessage)
 }
 

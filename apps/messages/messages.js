@@ -49,24 +49,7 @@ const setErrorMessage = () => {
   return responseHeadTemplate('ephemeral', blocks)
 }
 
-const setMarkdownMessage = (markdownFormat, userId) => {
-  /* formatted hyperlinks in slack message */
-  var blocks = []
-
-  var messageMrkdwn = mrkdwnTemplate(markdownFormat)
-  var messageSection = sectionTemplate(messageMrkdwn)
-  blocks.push(messageSection)
-
-  var userContextMrkdwn = mrkdwnTemplate(`-shared by <@${userId}>`)
-  var userContextSection = contextTemplate()
-  userContextSection.elements.push(userContextMrkdwn)
-  blocks.push(userContextSection)
-
-  return responseHeadTemplate('in_channel', blocks)
-}
-
-// Create Two Test cases
-const setDevMarkdownMessage = (messageData) => {
+const setMarkdownMessage = (messageData) => {
   /* compose markdown message */
   var blocks = []
 
@@ -85,7 +68,6 @@ const setDevMarkdownMessage = (messageData) => {
 
   blocks.push(dividerTemplate())
 
-  // Only Create Block if there is an error accessing safebrowse
   var safeBrowseSuccess = messageData.safeBrowseSuccess
   if (!safeBrowseSuccess) {
     var safeBrowseStatusWarningData = setSafeBrowseWarningData()
@@ -95,12 +77,6 @@ const setDevMarkdownMessage = (messageData) => {
     safeBrowseStatusBlock.elements.push(safeBrowseStatusWarning)
     blocks.push(safeBrowseStatusBlock)
   }
-  // var safeBrowseStatus = setSafeBrowseStatus(messageData)
-  // var safeBrowseStatusWarningText = setWarningText(safeBrowseStatus)
-  // var safeBrowseStatusWarning = mrkdwnTemplate(safeBrowseStatusWarningText)
-  // var safeBrowseStatusBlock = contextTemplate()
-  // safeBrowseStatusBlock.elements.push(safeBrowseStatusWarning)
-  // blocks.push(safeBrowseStatusBlock)
 
   let threatBlock = contextTemplate()
   threatBlock = threatLogic(threatBlock, messageData.threatTypes, messageData.safeBrowseSuccess)
@@ -113,6 +89,7 @@ const setDevMarkdownMessage = (messageData) => {
 }
 
 const setRemovedMessage = (text) => {
+  /* informs users a previous message has been removed from their workspace */
   return messageRemovedTemplate(text)
 }
 
@@ -120,6 +97,5 @@ module.exports = {
   setHelpMessage,
   setErrorMessage,
   setMarkdownMessage,
-  setDevMarkdownMessage,
   setRemovedMessage
 }

@@ -1,13 +1,10 @@
 const {
-  setHelpMessage, setErrorMessage,
-  setMarkdownMessage, setDevMarkdownMessage
+  setHelpMessage, setErrorMessage, setMarkdownMessage
 } = require('../messages.js')
 const {
   userId, helpMessage, errorMessage,
-  markdownSyntax, markdownMessage,
-  messageData, messageFormat,
-  messageDataSafe, messageFormatSafe,
-  messageDataError, messageFormatError
+  messageData, messageFormat, messageDataSafe,
+  messageFormatSafe, messageDataError, messageFormatError
 } = require('../test-data/message-data')
 
 test(
@@ -22,18 +19,12 @@ test(
     expect(setErrorMessage()).toEqual(errorMessage)
   })
 
-test(
-  'setMarkdownMessage() /* formatted hyperlinks in slack message */',
-  () => {
-    expect(setMarkdownMessage(markdownSyntax, userId)).toEqual(markdownMessage)
-  })
-
 test.each([
   [messageData, messageFormat],
   [messageDataSafe, messageFormatSafe],
   [messageDataError, messageFormatError]
 ])(
-  'setDevMarkdownMessage() /* compose markdown message */',
+  'setMarkdownMessage() /* compose markdown message */',
   (messageData, messageFormat) => {
-    expect(setDevMarkdownMessage(messageData)).toEqual(messageFormat)
+    expect(setMarkdownMessage(messageData)).toEqual(messageFormat)
   })
