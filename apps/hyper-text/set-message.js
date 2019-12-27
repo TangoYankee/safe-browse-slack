@@ -63,8 +63,8 @@ const setSafeBrowse = async (messageData) => {
     if (safeBrowseThreats === 'error') {
       messageData.safeBrowseSuccess = false
     } else {
-    messageData.safeBrowseSuccess = true
-    messageData = setSafeBrowseThreatTypes(messageData, safeBrowseThreats)
+      messageData.safeBrowseSuccess = true
+      messageData = setSafeBrowseThreatTypes(messageData, safeBrowseThreats)
     }
   }
   return messageData
