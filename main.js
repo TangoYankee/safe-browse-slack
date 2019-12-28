@@ -17,6 +17,11 @@ app.get('/', (req, res) => {
   res.render('index', { message: message })
 })
 
+app.get('/privacy', (req, res) => {
+  /* privacy policy */
+  res.render('privacy')
+})
+
 app.get('/oauth', (req, res) => {
   /* oauth with Slack */
   oauth(req, res)
