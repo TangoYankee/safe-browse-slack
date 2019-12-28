@@ -19,7 +19,9 @@ header img {
   margin: auto 1rem;
 }
 
-header h1 {
+header a {
+  text-decoration: none;
+  color: black;
   margin: auto 1rem;
 }
 
@@ -54,9 +56,33 @@ div.message {
 div.content {
   display: flex;
   flex-direction: column;
-  text-align: center;
+  /* text-align: center; */
   margin: auto;
   max-width: 50rem;
+}
+
+div.content h1 {
+  margin: 1.0rem 0rem;
+}
+
+div.content h2 {
+  margin: 1.0rem 0rem 0.50rem;
+}
+
+div.content h1 {
+  margin: 1.0rem 0rem 0.25rem
+}
+
+div.content p {
+  margin: 0.5rem 0.25rem;
+}
+
+a[title="add to slack"] {
+  text-align: center;
+}
+
+div.content ul {
+  margin: 0.25rem;
 }
 
 img#demo {
