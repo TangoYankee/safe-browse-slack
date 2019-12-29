@@ -12,7 +12,7 @@ const oauth = (req, res) => {
     const thisQueryMessage = queryString.stringify({ message: 'error' })
     res.redirect('/?' + thisQueryMessage)
   } else {
-    const url = 'https://slack.com/api/oauth.access'
+    const url = 'https://slack.com/api/oauth.v2.access'
     const thisQueryString = {
       client_id: process.env.SLACK_CLIENT_ID,
       client_secret: process.env.SLACK_CLIENT_SECRET,
