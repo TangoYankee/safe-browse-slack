@@ -33,7 +33,8 @@ const postOAuth = (res, url, thisQueryString) => {
       res.redirect('/?' + thisQueryMessage)
     } else {
       const bodyJson = JSON.parse(body)
-      const teamId = bodyJson.team_id
+      const teamId = bodyJson.team.id
+      // const teamId = bodyJson.team_id
       const accessTokenPlain = bodyJson.access_token
       if (teamId && accessTokenPlain) {
         const accessTokenCipher = encryptToken(accessTokenPlain, process.env.SLACK_OAUTH_TOKEN_SECRET)
