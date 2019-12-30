@@ -10,6 +10,7 @@ const setSafeBrowseThreats = async (messageLinks) => {
     var threatMatches = await postThreatMatches(requestBody)
     return threatMatches
   } else {
+    // Consider refactoring to 'null'
     return undefined
   }
 }

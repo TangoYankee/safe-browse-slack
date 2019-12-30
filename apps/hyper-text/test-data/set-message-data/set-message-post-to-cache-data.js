@@ -64,9 +64,12 @@ const setMessagePostToCacheFour = [
   }
 ]
 
+const setMessagePostToCacheFive = []
+
 module.exports = {
   setMessagePostToCacheOne,
   setMessagePostToCacheTwo,
   setMessagePostToCacheThree,
-  setMessagePostToCacheFour
+  setMessagePostToCacheFour,
+  setMessagePostToCacheFive
 }
