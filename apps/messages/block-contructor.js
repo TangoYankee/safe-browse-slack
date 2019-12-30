@@ -62,7 +62,11 @@ const threatLogic = (threatBlock, threatTypes, safeBrowseSuccess) => {
       var threatWarning = mrkdwnTemplate(threatWarningText)
       threatBlock.elements.push(threatWarning)
     }
-    return threatBlock
+    if (threatBlock.elements.length > 0) {
+      return threatBlock
+    } else {
+      return null
+    }
   } else {
     return null
   }

@@ -19,6 +19,7 @@ const setMessage = async (text, userId) => {
     messageData = setAllSharedAsHttpSecure(messageData)
     messageData = getCache(messageData)
     messageData = await setSafeBrowse(messageData)
+    // Refactor to length greater than or equal to one/ greater than zero
     if (messageData.links) {
       postCacheThreats(messageData.links)
     }
