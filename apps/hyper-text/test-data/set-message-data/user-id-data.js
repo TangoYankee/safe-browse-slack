@@ -8,7 +8,6 @@ const userIdFour = 'TangoYankee'
 
 const userIdFive = 'TangoYankee'
 
-
 module.exports = {
   userIdOne,
   userIdTwo,
