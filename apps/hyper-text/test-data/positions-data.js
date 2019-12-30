@@ -2,20 +2,33 @@
 const bracketsParentheses = [16, 52, 91]
 const parentheses = [28, 31, 75, 104]
 const brackets = [4, 12, 38, 78]
+const bracketsParenthesesEmpty = []
+const parenthesesEmpty = []
+const bracketsEmpty = []
 
 const message = 'Here[ in my [car](dmv.ca.gov) I) feel [safest of all](https://www.osha.com/). [Example site](example.com)'
+const messageEmpty = 'Here in my car'
+
 const charsInMessage = [
   [message, '](', bracketsParentheses],
   [message, ')', parentheses],
-  [message, '[', brackets]
+  [message, '[', brackets],
+  [messageEmpty, '](', bracketsParenthesesEmpty],
+  [messageEmpty, ')', parenthesesEmpty],
+  [messageEmpty, '[', bracketsEmpty]
 ]
+
 const expectedHyperTextPositions = [
   [12, 16, 28],
   [38, 52, 75],
   [78, 91, 104]
 ]
+const expectedHyperTextPositionsEmpty = [
+]
+
 const charPositions = [
-  [bracketsParentheses, brackets, parentheses, expectedHyperTextPositions]
+  [bracketsParentheses, brackets, parentheses, expectedHyperTextPositions],
+  [bracketsParenthesesEmpty, bracketsEmpty, parenthesesEmpty, expectedHyperTextPositionsEmpty]
 ]
 const areValidPositions = [
   [

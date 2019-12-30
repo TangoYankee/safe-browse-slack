@@ -13,7 +13,8 @@ const setMessage = async (text, userId) => {
   /* organize metadata and search for suspected threats from urls */
   var allHyperTextPositions = setAllHyperTextPositions(text)
   let messageData = setMessageData(text, userId)
-  if (allHyperTextPositions) {
+  // console.log()
+  if (allHyperTextPositions.length >= 1) {
     messageData = setHyperText(messageData, allHyperTextPositions, text)
     messageData = setAllSharedAsHttpSecure(messageData)
     messageData = getCache(messageData)

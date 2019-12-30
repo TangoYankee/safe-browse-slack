@@ -179,9 +179,19 @@ const outputMessageFour = {
   ]
 }
 
+const outputMessageFive = {
+  message: 'No rich text',
+  sharedBy: 'TangoYankee',
+  safeBrowseSuccess: true,
+  allSharedAsHttpSecure: true,
+  threatTypes: [],
+  links: []
+}
+
 module.exports = {
   outputMessageOne,
   outputMessageTwo,
   outputMessageThree,
-  outputMessageFour
+  outputMessageFour,
+  outputMessageFive
 }

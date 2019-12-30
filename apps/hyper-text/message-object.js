@@ -4,7 +4,7 @@ const setMessageData = (text, userId) => {
     message: text,
     sharedBy: userId,
     safeBrowseSuccess: true,
-    allSharedAsHttpSecure: false,
+    allSharedAsHttpSecure: true,
     threatTypes: [],
     links: []
   }
