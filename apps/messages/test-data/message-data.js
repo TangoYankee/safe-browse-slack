@@ -116,7 +116,7 @@ var messageFormat = {
       type: 'section',
       text: {
         type: 'mrkdwn',
-        text: '[Phishing Site](testsafebrowsing.appspot.com/s/phishing.html):biohazard_sign::eyes:, [Unwanted Software](testsafebrowsing.appspot.com/s/unwanted.html):no_entry_sign::eyes:, [Malware Site](testsafebrowsing.appspot.com/s/malware.html):beetle::eyes:, and <https://nasa.gov|Nasa>:small_blue_diamond::eyes:'
+        text: '[Phishing Site](testsafebrowsing.appspot.com/s/phishing.html):biohazard_sign::small_orange_diamond:, [Unwanted Software](testsafebrowsing.appspot.com/s/unwanted.html):no_entry_sign::small_orange_diamond:, [Malware Site](testsafebrowsing.appspot.com/s/malware.html):beetle::small_orange_diamond:, and <https://nasa.gov|Nasa>:small_blue_diamond::small_orange_diamond:'
       }
     },
     {
@@ -128,7 +128,7 @@ var messageFormat = {
         },
         {
           type: 'mrkdwn',
-          text: ':eyes: shared without <https://www.snopes.com/fact-check/http-vs-https/|https>'
+          text: ':small_orange_diamond: shared without <https://www.snopes.com/fact-check/http-vs-https/|https>'
         }
       ]
     },
@@ -219,7 +219,7 @@ var messageFormatSafe = {
       type: 'section',
       text: {
         type: 'mrkdwn',
-        text: '<https://nasa.gov|Nasa>:small_blue_diamond::eyes:'
+        text: '<https://nasa.gov|Nasa>:small_blue_diamond::small_orange_diamond:'
       }
     },
     {
@@ -231,7 +231,7 @@ var messageFormatSafe = {
         },
         {
           type: 'mrkdwn',
-          text: ':eyes: shared without <https://www.snopes.com/fact-check/http-vs-https/|https>'
+          text: ':small_orange_diamond: shared without <https://www.snopes.com/fact-check/http-vs-https/|https>'
         }
       ]
     },
@@ -347,7 +347,7 @@ var messageFormatError = {
       type: 'section',
       text: {
         type: 'mrkdwn',
-        text: '<https://testsafebrowsing.appspot.com/s/phishing.html|Phishing Site>:eyes:, <https://error.io|Error destination url> <https://testsafebrowsing.appspot.com/s/unwanted.html|Unwanted Software>:eyes:, [Malware Site](testsafebrowsing.appspot.com/s/malware.html):beetle::eyes:, and <https://nasa.gov|Nasa>:eyes:'
+        text: '<https://testsafebrowsing.appspot.com/s/phishing.html|Phishing Site>:small_orange_diamond:, <https://error.io|Error destination url> <https://testsafebrowsing.appspot.com/s/unwanted.html|Unwanted Software>:small_orange_diamond:, [Malware Site](testsafebrowsing.appspot.com/s/malware.html):beetle::small_orange_diamond:, and <https://nasa.gov|Nasa>:small_orange_diamond:'
       }
     },
     {
@@ -359,7 +359,7 @@ var messageFormatError = {
         },
         {
           type: 'mrkdwn',
-          text: ':eyes: shared without <https://www.snopes.com/fact-check/http-vs-https/|https>'
+          text: ':small_orange_diamond: shared without <https://www.snopes.com/fact-check/http-vs-https/|https>'
         }
       ]
     },
