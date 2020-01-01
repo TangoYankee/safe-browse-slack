@@ -47,9 +47,7 @@ const postMessage = (responseUrl, responseMessage) => {
     json: true
   }, function (error, response, body) {
     if (error) {
-      console.log(`Error: ${error}`)
-    } else {
-      console.log(`Body: ${body}, Response ${response}`)
+      console.error(`error posting blocks to slack: ${error}`)
     }
   })
 }
