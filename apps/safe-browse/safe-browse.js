@@ -56,6 +56,7 @@ const setRequestBody = (uncachedThreatEntries) => {
 
 const setSafeBrowseThreatTypes = (messageData, threatMatches) => {
   /* add threat type to the original message */
+  // See whether it should be a check for array length
   if (threatMatches.matches) {
     for (var threatMatch of threatMatches.matches) {
       for (var link of messageData.links) {
@@ -64,6 +65,7 @@ const setSafeBrowseThreatTypes = (messageData, threatMatches) => {
           link.cacheDuration = threatMatch.cacheDuration
           link.inCache = false
           var threatMatchInThreatTypes = messageData.threatTypes.includes(threatMatch.threatType)
+          // See whether it should be a check for array length
           if (!threatMatchInThreatTypes) {
             messageData.threatTypes.push(threatMatch.threatType)
           }

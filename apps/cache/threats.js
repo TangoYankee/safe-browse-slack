@@ -12,6 +12,7 @@ const setCacheThreatTypes = (messageData, threatMatches) => {
         link.threatMatch = threatMatch
         link.inCache = true
         var threatMatchInThreatTypes = messageData.threatTypes.includes(threatMatch)
+        // See whether it should be an array length check
         if (!threatMatchInThreatTypes) {
           messageData.threatTypes.push(threatMatch)
         }
@@ -32,6 +33,7 @@ const setUrlDomainKeys = (hyperTexts) => {
   var urlDomainKeys = []
   for (var hyperText of hyperTexts) {
     var urlDomainKeyInUrlDomainKeys = urlDomainKeys.includes(hyperText.urlDomainKey)
+    // See whether it should be an array length check
     if (!urlDomainKeyInUrlDomainKeys) {
       urlDomainKeys.push(hyperText.urlDomainKey)
     }
@@ -59,6 +61,7 @@ const setCacheThreats = (hyperTexts) => {
   var cacheThreats = []
   for (var hyperText of hyperTexts) {
     var threatMatch = hyperText.threatMatch
+    // See whether it should be an array length check
     if (threatMatch && !hyperText.inCache) {
       var urlDomainKeyInCacheThreats = cacheThreats.find(cacheThreat => cacheThreat.key === hyperText.urlDomainKey)
       if (urlDomainKeyInCacheThreats === undefined) {
