@@ -80,8 +80,6 @@ const setMarkdownMessage = (messageData) => {
 
   let threatBlock = contextTemplate()
   threatBlock = threatLogic(threatBlock, messageData.threatTypes, messageData.safeBrowseSuccess)
-  // console.log(JSON.stringify(threatBlock))
-  // if (threatBlock.elements.length >= 1) {
   if (threatBlock) {
     blocks.push(threatBlock)
   }

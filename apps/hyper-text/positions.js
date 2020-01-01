@@ -3,7 +3,6 @@ const setAllHyperTextPositions = (text) => {
   var bracketsParentheses = allIndexOf(text, '](')
   var brackets = allIndexOf(text, '[')
   var parentheses = allIndexOf(text, ')')
-  // Should have been checking for length of array
   if (bracketsParentheses.length > 0) {
     return allHyperTextPositions(bracketsParentheses, brackets, parentheses)
   } else {
