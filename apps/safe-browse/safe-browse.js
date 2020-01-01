@@ -56,7 +56,7 @@ const setRequestBody = (uncachedThreatEntries) => {
 
 const setSafeBrowseThreatTypes = (messageData, threatMatches) => {
   /* add threat type to the original message */
-  // See whether it should be a check for array length
+  // Returns undefined and will trip the conditional
   if (threatMatches.matches) {
     for (var threatMatch of threatMatches.matches) {
       for (var link of messageData.links) {

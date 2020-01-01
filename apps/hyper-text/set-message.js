@@ -19,8 +19,8 @@ const setMessage = async (text, userId) => {
     messageData = setAllSharedAsHttpSecure(messageData)
     messageData = getCache(messageData)
     messageData = await setSafeBrowse(messageData)
-    // Refactor to length greater than or equal to one/ greater than zero
-    if (messageData.links) {
+    // Check now based on array length
+    if (messageData.links.length > 0) {
       var postCacheThreatsStatus = postCacheThreats(messageData.links)
       if (postCacheThreatsStatus === false) {
         console.error('error saving to cache')
