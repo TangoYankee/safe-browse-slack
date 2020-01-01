@@ -42,7 +42,11 @@ const setUrlDomainKeys = (hyperTexts) => {
 const postCacheThreats = (hyperTexts) => {
   /* remember threats */
   var cacheThreats = setCacheThreats(hyperTexts)
-  return cache.mset(cacheThreats)
+  if (cacheThreats.length > 0) {
+    return cache.mset(cacheThreats)
+  } else {
+    return true
+  }
 }
 
 const setCacheDuration = (cacheDurationUnits) => {
