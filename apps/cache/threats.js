@@ -62,7 +62,7 @@ const setCacheThreats = (hyperTexts) => {
   for (var hyperText of hyperTexts) {
     var threatMatch = hyperText.threatMatch
     // threat match false when blank
-    if (threatMatch && !hyperText.inCache) {      
+    if (threatMatch && !hyperText.inCache) {
       var urlDomainKeyInCacheThreats = cacheThreats.find(cacheThreat => cacheThreat.key === hyperText.urlDomainKey)
       if (urlDomainKeyInCacheThreats === undefined) {
         cacheThreats.push(
