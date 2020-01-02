@@ -7,9 +7,11 @@ const saveTeam = (teamId, accessTokenCipher) => {
   /* send the team data to the database */
   var client = MongoClient(clusterUri, { useNewUrlParser: true })
   client.connect(async (err) => {
-    if (err) return console.log(err)
+    if (err) {
+      return console.error(`error connecting to database... ${err}`)
+    }
+    // Is this a missed `else`?
     var teams = client.db('markdownlinksdb').collection('teams')
-    console.log('connected successfully')
     await checkTeam(teamId, accessTokenCipher, teams)
     client.close()
   })
@@ -21,7 +23,6 @@ const checkTeam = async (teamId, accessTokenCipher, teams) => {
     team_id: teamId
   })
   if (teamRecord) {
-    console.log('found record')
     await teams.findOneAndUpdate({
       team_id: teamId
     },
@@ -30,7 +31,6 @@ const checkTeam = async (teamId, accessTokenCipher, teams) => {
           { access_token_cipher: accessTokenCipher }
     })
   } else if (!teamRecord) {
-    console.log('did not find record')
     await teams.insertOne({
       team_id: teamId,
       access_token_cipher: accessTokenCipher
