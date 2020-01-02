@@ -13,14 +13,12 @@ const setMessage = async (text, userId) => {
   /* organize metadata and search for suspected threats from urls */
   var allHyperTextPositions = setAllHyperTextPositions(text)
   let messageData = setMessageData(text, userId)
-  // console.log()
   if (allHyperTextPositions.length >= 1) {
     messageData = setHyperText(messageData, allHyperTextPositions, text)
     messageData = setAllSharedAsHttpSecure(messageData)
     messageData = getCache(messageData)
     messageData = await setSafeBrowse(messageData)
-    // Refactor to length greater than or equal to one/ greater than zero
-    if (messageData.links) {
+    if (messageData.links.length > 0) {
       var postCacheThreatsStatus = postCacheThreats(messageData.links)
       if (postCacheThreatsStatus === false) {
         console.error('error saving to cache')
