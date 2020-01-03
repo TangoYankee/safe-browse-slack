@@ -1,3 +1,5 @@
+'use strict'
+
 const setMessagePostToCacheOne = [
   /* No urls will post because they are marked as already in the cache */
   // {

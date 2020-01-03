@@ -1,3 +1,5 @@
+'use strict'
+
 const userIdOne = 'TangoYankee'
 
 const userIdTwo = 'TangoYankee'

@@ -1,3 +1,5 @@
+'use strict'
+
 const validUrls = [
   ['nasa', false], ['', false], ['http://.example.com', false],
   ['nasa. gov', false], ['h://nasa.gov', false], ['https://www.nasa.gov', true],

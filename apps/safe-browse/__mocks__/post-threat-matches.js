@@ -1,3 +1,5 @@
+'use strict'
+
 const { response, suspectedThreats } = require('../test-data/post-threat-matches-data')
 
 const postThreatMatches = (requestBody) => {

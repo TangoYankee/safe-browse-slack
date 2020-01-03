@@ -1,3 +1,5 @@
+'use strict'
+
 const validateDestUrl = (destUrl) => {
   /* must fit the correct format of a url */
   var destUrlLower = destUrl.toLowerCase()

@@ -1,3 +1,5 @@
+'use strict'
+
 const slackRequest = {
   body: {
     token: 'fake-token-value',

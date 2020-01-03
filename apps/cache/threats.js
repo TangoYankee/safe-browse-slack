@@ -1,3 +1,5 @@
+'use strict'
+
 const { cacheStart, cacheInstance } = require('./cache')
 
 cacheStart()

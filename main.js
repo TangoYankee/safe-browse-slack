@@ -1,4 +1,5 @@
 'use strict'
+
 const bodyParser = require('body-parser')
 const express = require('express')
 const { publish, remove } = require('./apps/messages/methods')

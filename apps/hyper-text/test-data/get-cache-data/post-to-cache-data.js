@@ -1,3 +1,5 @@
+'use strict'
+
 const postToCacheOne = [
   {
     urlDomainKey: 'testsafebrowsing.appspot.com/s/phishing.html',

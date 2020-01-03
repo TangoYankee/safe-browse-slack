@@ -1,3 +1,5 @@
+'use strict'
+
 const {
   setHelpMessage, setErrorMessage, setMarkdownMessage
 } = require('../messages.js')

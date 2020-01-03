@@ -1,3 +1,5 @@
+'use strict'
+
 const {
   contextTemplate, dividerTemplate, mrkdwnTemplate,
   responseHeadTemplate, sectionTemplate, removeButtonTemplate,

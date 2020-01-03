@@ -1,3 +1,5 @@
+'use strict'
+
 const threatsForCache = [
   {
     key: 'testsafebrowsing.appspot.com/s/phishing.html',

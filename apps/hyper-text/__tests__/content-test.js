@@ -1,3 +1,5 @@
+'use strict'
+
 const {
   validateDestUrl, validateDisplayText, setAllSharedAsHttpSecure,
   getMarkdownHyperText, setHttpDestUrl

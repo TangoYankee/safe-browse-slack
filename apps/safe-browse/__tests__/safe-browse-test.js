@@ -1,3 +1,5 @@
+'use strict'
+
 const { postThreatMatches } = require('../post-threat-matches')
 jest.mock('../post-threat-matches')
 

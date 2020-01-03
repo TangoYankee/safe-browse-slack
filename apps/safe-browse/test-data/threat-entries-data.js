@@ -1,3 +1,5 @@
+'use strict'
+
 const threatEntryOne = [
   { url: 'testsafebrowsing.appspot.com/s/phishing.html' },
   { url: 'testsafebrowsing.appspot.com/s/unwanted.html' },

@@ -1,3 +1,5 @@
+'use strict'
+
 jest.mock('../../safe-browse/post-threat-matches')
 // Test Modules
 const {

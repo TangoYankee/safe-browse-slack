@@ -1,3 +1,5 @@
+'use strict'
+
 const crypto = require('crypto')
 const cryptoRandomString = require('crypto-random-string')
 const process = require('process')

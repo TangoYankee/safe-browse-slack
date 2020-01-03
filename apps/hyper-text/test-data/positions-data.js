@@ -1,3 +1,5 @@
+'use strict'
+
 /* base arrays for character position tests */
 const bracketsParentheses = [16, 52, 91]
 const parentheses = [28, 31, 75, 104]
