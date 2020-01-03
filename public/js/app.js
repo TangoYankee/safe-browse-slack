@@ -1,3 +1,5 @@
+'use strict'
+
 var footerAlign = () => {
   /* create bottom padding on the body to accommodate footer */
   $('footer').css('height', 'auto')
