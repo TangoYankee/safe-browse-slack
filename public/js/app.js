@@ -18,16 +18,10 @@ var headerAlign = () => {
 
 $().ready(() => {
   footerAlign()
-})
-
-$().ready(() => {
   headerAlign()
 })
 
 $(window).resize(() => {
   footerAlign()
-})
-
-$(window).resize(() => {
   headerAlign()
 })
