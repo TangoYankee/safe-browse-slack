@@ -1,3 +1,5 @@
+'use strict'
+
 const {
   setCacheThreatTypes, setUrlDomainKeys, postCacheThreats,
   setCacheThreats, setCacheDuration, getCacheThreats,

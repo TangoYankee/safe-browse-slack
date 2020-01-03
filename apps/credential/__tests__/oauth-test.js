@@ -1,3 +1,5 @@
+'use strict'
+
 const { encryptToken, decryptToken } = require('../oauth.js')
 const { tokenKey, tokenPlain, checkCipher } = require('../test-data/oauth-data')
 

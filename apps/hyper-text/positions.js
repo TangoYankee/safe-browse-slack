@@ -1,3 +1,5 @@
+'use strict'
+
 const setAllHyperTextPositions = (text) => {
   /* locations of Markdown syntax hypertext in the user message */
   var bracketsParentheses = allIndexOf(text, '](')

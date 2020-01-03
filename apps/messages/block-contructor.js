@@ -1,3 +1,5 @@
+'use strict'
+
 const { sharedWithoutHttpsData, safeBrowseStatusData, safeBrowseThreatsData } = require('../safe-browse/warnings')
 const { mrkdwnTemplate } = require('./block-templates')
 

@@ -1,3 +1,5 @@
+'use strict'
+
 const { signature, isRecent, isValidHash } = require('../signature')
 const { validRequest, timestamps, validHash } = require('../test-data/signature-data.js')
 

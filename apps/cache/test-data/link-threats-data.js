@@ -1,3 +1,5 @@
+'use strict'
+
 const linkThreats = [
   {
     urlDomainKey: 'testsafebrowsing.appspot.com/s/phishing.html',

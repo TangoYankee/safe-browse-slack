@@ -1,3 +1,5 @@
+'use strict'
+
 const MongoClient = require('mongodb').MongoClient
 const { checkTeam } = require('../db')
 const { teamId, teamTokenOne, teamTokentwo } = require('../test-data/db-data')

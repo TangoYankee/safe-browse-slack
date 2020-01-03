@@ -1,3 +1,5 @@
+'use strict'
+
 const { setMessageData, setHyperTextData } = require('./message-object')
 const { setAllHyperTextPositions, validHyperTextPositions } = require('./positions')
 const {

@@ -1,3 +1,5 @@
+'use strict'
+
 const { allIndexOf, allHyperTextPositions, validHyperTextPositions } = require('../positions')
 const { charsInMessage, charPositions, areValidPositions } = require('../test-data/positions-data')
 

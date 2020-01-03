@@ -1,3 +1,5 @@
+'use strict'
+
 const request = require('request')
 const { setMessage } = require('../hyper-text/set-message')
 

@@ -1,3 +1,5 @@
+'use strict'
+
 const contextTemplate = () => {
   return {
     type: 'context',

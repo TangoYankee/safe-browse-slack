@@ -1,3 +1,5 @@
+'use strict'
+
 var userId = 12345678
 var helpMessage = {
   response_type: 'ephemeral',

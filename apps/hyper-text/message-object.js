@@ -1,3 +1,5 @@
+'use strict'
+
 const setMessageData = (text, userId) => {
   /* message with meta data stored in an object */
   return {

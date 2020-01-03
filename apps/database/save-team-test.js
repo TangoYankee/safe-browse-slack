@@ -1,3 +1,5 @@
+'use strict'
+
 const { saveTeam } = require('./db.js')
 
 var testTeamA = '12345678990'
