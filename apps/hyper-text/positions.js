@@ -6,7 +6,7 @@ const setAllHyperTextPositions = (text) => {
   if (bracketsParentheses.length > 0) {
     return allHyperTextPositions(bracketsParentheses, brackets, parentheses)
   } else {
-    return ''
+    return []
   }
 }
 
