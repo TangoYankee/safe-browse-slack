@@ -56,9 +56,8 @@ div.message {
 div.content {
   display: flex;
   flex-direction: column;
-  /* text-align: center; */
   margin: auto;
-  max-width: 50rem;
+  max-width: 75rem;
 }
 
 div.content h1 {
@@ -85,11 +84,9 @@ div.content ul {
   margin: 0.25rem;
 }
 
-img#demo {
-  object-fit: contain;
-  border-style: solid;
-  border-radius: 0.25rem;
-  border-width: 0.15rem;
+img.demo-gifs {
+  object-fit: scale-down;
+  max-width: 100%;
 }
   
 footer {
