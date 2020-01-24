@@ -2,16 +2,77 @@ extends _base.pug
 
 append content
     div(class="content")
-        p Use the /markdownlinks slash command to send a message with links formatted based on the Markdown hyperlink syntax.
-        p Markdownlinks will return a message with clean and simple hyperlinks
-
         a(title="add to slack" href="https://slack.com/oauth/v2/authorize?client_id=588720890436.589085146405&scope=commands") 
             img(alt="Add to Slack" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" width="139" height="40")
         
-        h2 Google Safe Browsing
-        p 
-         | Making a url behind a nicely formatted link can hide malicious we addresses.
-         | We use Google Safe Browse to check for whether there are any reported threats from the link.
-         | Different Types of threats including phishing, malicious software, malware, and unwanted software.
-         | These threat types are represented by (insert emojis)
+        h2 Overview
+        p Use the /markdownlinks slash command to send a message with links formatted based on the Markdown hyperlink syntax.
+        p Markdownlinks will return a message with clean and simple hyperlinks
+
         img(id="demo" src="img/nasa_dmv_demo_optimize.gif" alt="demonstration of application")
+
+        h2 Security Features
+        p
+         | Sharing a web address within rich text could enable malicious users to hide harmful content.
+         | Markdownlinks implements a few features to reduce the risk of following an unknown web address.
+
+        h3 Shared By
+        p 
+         | Markdownlinks automatically reports which user shared a message.
+         | Other users can see who shared the message and determine whether
+         | they consider that user trustworthy.
+
+        h3 HTTP Secure
+        p
+         | HTTP Secure (https) encrypts data that is sent over the web. A web address
+         | using https does not guarantee that it is safe. However,
+         | it does indicate that it has taken steps to protect its users' information.
+         | When a user shares a web address that does not use https,
+         | Markdownlinks will mark the web address with a small orange diamond
+         img(class="emoji" src="img/slack-emojis/small_orange_diamond.png" alt="small orange diamond")
+         | .
+         | In some cases, Markdownlinks will also automatically add https to the web address.
+
+        
+        h3 Google Safe Browsing
+        p 
+         | Markdownlinks uses the Google Safe Browse Service to check whether
+         | a web address has been previously reported as being potentially harmful.
+         | This harmful content may include phishing attempts, malware, and malicious or unwanted software.
+         | If a web address is suspected of being harmful,
+         | it will be shown and marked with an emoji corresponding to its
+         | type of threat.
+        dl
+            dt These threat emojis are:
+            dd 
+                | malware: beetle
+                img(class="emoji" src="img/slack-emojis/beetle.png" alt="beetle")
+            dd 
+                | phishing/social engineering: biohazard sign
+                img(class="emoji" src="img/slack-emojis/biohazard_sign.png" alt="biohazard sign")
+            dd
+                | unwanted software: no entry sign
+                img(class="emoji" src="img/slack-emojis/no_entry_sign.png" alt="no entry sign")
+            dd 
+                | potentially harmful application or unspecified threat: exclamation
+                img(class="emoji" src="img/slack-emojis/exclamation.png" alt="exclamation")
+        p 
+            | Web addresses without any reported threats are marked with a small blue diamond
+            img(class="emoji" src="img/slack-emojis/small_blue_diamond.png" alt="small blue diamond")
+            | .
+        p 
+         | If Markdownlinks fails to contact the Google Safe Browse Service,
+         | the shared web addresses will be kept in their rich text.
+         | However, they will not be given the blue diamond.
+         | Also, a warning message will indicate that the addresses have not been
+         | checked for potentially harmful content.
+
+        h3 Unformatted Web Addresses
+        p
+         | If a user shares a web address without formatting it with Markdown syntax,
+         | Markdownlinks will not check it for threats in the Google Safe Browse Service.
+         | Markdownlinks also will not flag these web addresses when they fail to use http secure.
+         | These two security features are designed to provide information that would
+         | otherwise be hidden under rich text. When this rich text is not present,
+         | users must rely on their discretion to examine a web address and determine
+         | whether it is safe.
