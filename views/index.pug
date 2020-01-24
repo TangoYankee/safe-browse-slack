@@ -9,7 +9,9 @@ append content
         p Use the /markdownlinks slash command to send a message with links formatted based on the Markdown hyperlink syntax.
         p Markdownlinks will return a message with clean and simple hyperlinks
 
-        img(id="demo" src="img/nasa_dmv_demo_optimize.gif" alt="demonstration of application")
+        //- img(class = "demo-gifs" src="img/demos/help-demo.gif" alt="demonstration of help option")
+
+        img(class = "demo-gifs" src="img/demos/safe-demo.gif" alt="demonstration of safe and successful web address formatting")
 
         h2 Security Features
         p
@@ -29,11 +31,11 @@ append content
          | it does indicate that it has taken steps to protect its users' information.
          | When a user shares a web address that does not use https,
          | Markdownlinks will mark the web address with a small orange diamond
-         img(class="emoji" src="img/slack-emojis/small_orange_diamond.png" alt="small orange diamond")
+
+         img(class="emoji" src="img/emojis/small_orange_diamond.png" alt="small orange diamond")
          | .
          | In some cases, Markdownlinks will also automatically add https to the web address.
 
-        
         h3 Google Safe Browsing
         p 
          | Markdownlinks uses the Google Safe Browse Service to check whether
@@ -46,26 +48,31 @@ append content
             dt These threat emojis are:
             dd 
                 | malware: beetle
-                img(class="emoji" src="img/slack-emojis/beetle.png" alt="beetle")
+                img(class="emoji" src="img/emojis/beetle.png" alt="beetle")
             dd 
                 | phishing/social engineering: biohazard sign
-                img(class="emoji" src="img/slack-emojis/biohazard_sign.png" alt="biohazard sign")
+                img(class="emoji" src="img/emojis/biohazard_sign.png" alt="biohazard sign")
             dd
                 | unwanted software: no entry sign
-                img(class="emoji" src="img/slack-emojis/no_entry_sign.png" alt="no entry sign")
+                img(class="emoji" src="img/emojis/no_entry_sign.png" alt="no entry sign")
             dd 
                 | potentially harmful application or unspecified threat: exclamation
-                img(class="emoji" src="img/slack-emojis/exclamation.png" alt="exclamation")
+                img(class="emoji" src="img/emojis/exclamation.png" alt="exclamation")
         p 
             | Web addresses without any reported threats are marked with a small blue diamond
-            img(class="emoji" src="img/slack-emojis/small_blue_diamond.png" alt="small blue diamond")
+            img(class="emoji" src="img/emojis/small_blue_diamond.png" alt="small blue diamond")
             | .
+
+        img(class = "demo-gifs" src="img/demos/harmful-demo.gif" alt="demonstration of harmful yet successful web address formatting")
+
         p 
          | If Markdownlinks fails to contact the Google Safe Browse Service,
          | the shared web addresses will be kept in their rich text.
          | However, they will not be given the blue diamond.
          | Also, a warning message will indicate that the addresses have not been
          | checked for potentially harmful content.
+        
+        img(class = "demo-gifs" src="img/demos/error-demo.gif" alt="demonstration of safe yet failed web address formatting")
 
         h3 Unformatted Web Addresses
         p
