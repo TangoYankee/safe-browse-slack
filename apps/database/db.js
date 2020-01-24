@@ -10,12 +10,12 @@ const saveTeam = (teamId, accessTokenCipher) => {
   var client = MongoClient(clusterUri, { useNewUrlParser: true })
   client.connect(async (err) => {
     if (err) {
-      return console.error(`error connecting to database... ${err}`)
+      console.error(`error connecting to database... ${err}`)
+    } else {
+      var teams = client.db('markdownlinksdb').collection('teams')
+      await checkTeam(teamId, accessTokenCipher, teams)
+      client.close()
     }
-    // Is this a missed `else`?
-    var teams = client.db('markdownlinksdb').collection('teams')
-    await checkTeam(teamId, accessTokenCipher, teams)
-    client.close()
   })
 }
 
