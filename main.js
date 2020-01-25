@@ -1,36 +1,58 @@
-"use strict";
-const bodyParser = require("body-parser");
-const express = require("express");
-const markdownlinks = require("./apps/markdownlinks/methods.js");
-const { oauth, encrypt, decrypt } = require("./apps/slack/oauth.js");
-const { signature } = require("./apps/slack/signature.js");
+'use strict'
 
-var app = express();
-app.set("view engine", "pug");
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
+const bodyParser = require('body-parser')
+const express = require('express')
+const { publish, remove } = require('./apps/messages/methods')
+const { oauth } = require('./apps/credential/oauth')
+const { signature } = require('./apps/credential/signature')
 
-app.get("/", (req, res) => {
+var app = express()
+app.set('view engine', 'pug')
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.static('public'))
+
+app.get('/', (req, res) => {
   /* home page viewable from web browser */
-  let message = req.query.message;
-  res.render("index", { message: message });
-});
+  var message = req.query.message
+  res.render('index', { message: message })
+})
 
-app.get("/oauth", (req, res) => {
+app.get('/privacy', (req, res) => {
+  /* privacy policy */
+  res.render('privacy')
+})
+
+app.get('/oauth', (req, res) => {
   /* oauth with Slack */
-  oauth(req, res);
-});
+  oauth(req, res)
+})
 
-app.post("/publish", (req, res) => {
+app.post('/publish', (req, res) => {
   /* send message in response to user input from slash command */
-  let current_time = Math.floor(new Date().getTime() / 1000);
-  if (signature(req, current_time)) {
-    markdownlinks.data.publish(req.body, res);
+  var currentTime = Math.floor(new Date().getTime() / 1000)
+  if (signature(req, currentTime)) {
+    publish(req.body, res)
   } else {
-    res.status(400).send("Ignore this request");
+    res.status(400).send('Ignore this request')
   }
-});
+})
 
-const port = 4390;
-app.listen(port);
+app.post('/remove', (req, res) => {
+  /* delete messages already posted */
+  var currentTime = Math.floor(new Date().getTime() / 1000)
+  if (signature(req, currentTime)) {
+    var requestBody = JSON.parse(req.body.payload)
+    remove(requestBody, res)
+  } else {
+    res.status(400).send('Ingore this request')
+  }
+})
+
+app.use((req, res, next) => {
+  /* render 404 message on home page */
+  res.status(404).render('index', { message: 'page-not-found' })
+})
+
+const port = 4390
+app.listen(port)

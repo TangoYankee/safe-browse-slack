@@ -2,8 +2,50 @@ extends _base.pug
 
 append content
     div(class="content")
-        p Use the /markdownlinks slash command to send a message with links formatted based on the Markdown hyperlink syntax.
-        p Markdownlinks will return a message with clean and simple hyperlinks
-        a(title="add to slack" href="https://slack.com/oauth/authorize?client_id=588720890436.589085146405&scope=commands") 
-            img(src="https://platform.slack-edge.com/img/add_to_slack.png" alt="add to slack")
-        img(id="demo" src="img/nasa_dmv_demo_optimize.gif" alt="demonstration of application")
+        a(title="add to slack" href="https://slack.com/oauth/v2/authorize?client_id=588720890436.589085146405&scope=commands") 
+            img(alt="Add to Slack" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" width="139" height="40")
+        
+        h2 Use /markdownlinks to share web addresses that are cleanly formatted using Markdown syntax.
+
+        img(class = "demo-gifs" src="img/demos/safe-demo.gif" alt="demonstration of safe and successful web address formatting")
+
+        h3 If you forget the format for [Markdown](hyperlink syntax), use the /markdownlinks help command to remember.
+        img(class = "demo-gifs" src="img/demos/help-demo.gif" alt="demonstration of help option")
+
+        h3 
+            | Markdownlinks uses 
+            a(class="google-safe-browse" title="Google safe browse home" href="https://safebrowsing.google.com/") Google Safe Browse
+            |  to check whether a web address is potentially harmful.
+        p Suspicious web addresses are exposed and marked with an emoji representing their threat types.
+        ul
+            li
+                img(class="emoji" src="img/emojis/beetle.png" alt="beetle")
+                a(class="google-safe-browse" title="Google safe browse malware" href="https://www.stopbadware.org/")  malware
+            li 
+                img(class="emoji" src="img/emojis/biohazard_sign.png" alt="biohazard sign")
+                a(class="google-safe-browse" title="Google safe browse phishing" href="https://googleonlinesecurity.blogspot.com/2015/11/safe-browsing-protection-from-even-more.html")  phishing/social engineering
+            li
+                img(class="emoji" src="img/emojis/no_entry_sign.png" alt="no entry sign")
+                a(class="google-safe-browse" title="Google safe browse unwanted software" href="https://www.google.com/about/unwanted-software-policy.html")  unwanted software
+            li 
+                img(class="emoji" src="img/emojis/exclamation.png" alt="exclamation")
+                |  potentially harmful application or unspecified threat
+        p
+            | Web addresses not suspected of being harmful earn a small blue diamond.
+            img(class="emoji" src="img/emojis/small_blue_diamond.png" alt="small blue diamond")
+        p
+            | A small orange diamond 
+            img(class="emoji" src="img/emojis/small_orange_diamond.png" alt="small orange diamond")
+            | means the web address was
+            a(class="google-safe-browse" href="https://www.snopes.com/fact-check/http-vs-https/")  shared without https.
+        img(class = "demo-gifs" src="img/demos/harmful-demo.gif" alt="demonstration of harmful yet successful web address formatting")
+        p 
+            i Google Safe Browse and https checks are not performed on web addresses shared outside of Markdown syntax.
+
+        h3 A warning indicates when Markdownlinks fails to contact Google Safe Browse
+        p 
+            | Web addresses keep their formatting but do not earn the small blue diamond.
+            img(class="emoji" src="img/emojis/small_blue_diamond.png" alt="small blue diamond")
+        img(class = "demo-gifs" src="img/demos/error-demo.gif" alt="demonstration of safe yet failed web address formatting")
+
+        h3 Thank you for visiting!

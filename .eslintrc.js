@@ -1,17 +1,19 @@
 module.exports = {
-    "env": {
-        "browser": true,
-        "commonjs": true,
-        "es6": true
+    "env":{
+        "jest": true,
+        /* jquery file still ignored because it is 'min' */
+        "jquery": true
     },
-    "extends": "eslint:recommended",
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
-    },
+    "extends": "standard",
     "parserOptions": {
-        "ecmaVersion": 2018
+        "ecmaVersion": 2019
     },
-    "rules": {
-    }
+    "overrides": [
+        {   /* datalayer is not recongized by eslint */
+            "files": [ "public/js/analytics.js" ],
+            "rules": {
+                "no-undef": "off"
+            }
+        }
+    ]
 };
