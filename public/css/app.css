@@ -3,6 +3,10 @@ html {
     min-height: 100%;
   }
 
+body {
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+
 header {
   position: absolute;
   top: 0;
@@ -57,31 +61,33 @@ div.content {
   display: flex;
   flex-direction: column;
   margin: auto;
-  max-width: 75rem;
+  max-width: 67rem;
 }
 
 div.content h1 {
-  margin: 1.0rem 0rem;
+  margin: 3.0rem 0.1rem 0.25rem
 }
 
 div.content h2 {
-  margin: 1.0rem 0rem 0.50rem;
+  margin: 2.5rem 0.2rem 0.25rem;
 }
 
-div.content h1 {
-  margin: 1.0rem 0rem 0.25rem
+div.content h3 {
+  margin: 2.0rem 0.3rem 0.1rem;
 }
 
 div.content p {
-  margin: 0.5rem 0.25rem;
+  margin: 0 1rem;
 }
 
 a[title="add to slack"] {
   text-align: center;
+  padding: 0.5rem;
 }
 
 div.content ul {
-  margin: 0.25rem;
+  list-style-type: circle;
+  margin: 0 1rem;
 }
 
 img.demo-gifs {

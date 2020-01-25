@@ -5,81 +5,43 @@ append content
         a(title="add to slack" href="https://slack.com/oauth/v2/authorize?client_id=588720890436.589085146405&scope=commands") 
             img(alt="Add to Slack" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" width="139" height="40")
         
-        h2 Overview
-        p Use the /markdownlinks slash command to send a message with links formatted based on the Markdown hyperlink syntax.
-        p Markdownlinks will return a message with clean and simple hyperlinks
-
-        //- img(class = "demo-gifs" src="img/demos/help-demo.gif" alt="demonstration of help option")
+        h2 Use /markdownlinks to share web addresses that are cleanly formatted using Markdown syntax.
 
         img(class = "demo-gifs" src="img/demos/safe-demo.gif" alt="demonstration of safe and successful web address formatting")
 
-        h2 Security Features
-        p
-         | Sharing a web address within rich text could enable malicious users to hide harmful content.
-         | Markdownlinks implements a few features to reduce the risk of following an unknown web address.
+        h3 If you forget the format for [Markdown](hyperlink syntax), use the /markdownlinks help command to remember.
+        img(class = "demo-gifs" src="img/demos/help-demo.gif" alt="demonstration of help option")
 
-        h3 Shared By
-        p 
-         | Markdownlinks automatically reports which user shared a message.
-         | Other users can see who shared the message and determine whether
-         | they consider that user trustworthy.
-
-        h3 HTTP Secure
-        p
-         | HTTP Secure (https) encrypts data that is sent over the web. A web address
-         | using https does not guarantee that it is safe. However,
-         | it does indicate that it has taken steps to protect its users' information.
-         | When a user shares a web address that does not use https,
-         | Markdownlinks will mark the web address with a small orange diamond
-         img(class="emoji" src="img/emojis/small_orange_diamond.png" alt="small orange diamond")
-         | .
-         | In some cases, Markdownlinks will also automatically add https to the web address.
-
-        h3 Google Safe Browsing
-        p 
-         | Markdownlinks uses the Google Safe Browse Service to check whether
-         | a web address has been previously reported as being potentially harmful.
-         | This harmful content may include phishing attempts, malware, and malicious or unwanted software.
-         | If a web address is suspected of being harmful,
-         | it will be shown and marked with an emoji corresponding to its
-         | type of threat.
-        dl
-            dt These threat emojis are:
-            dd 
-                | malware: beetle
+        h3 Markdownlinks uses Google Safe Browse to check whether a web address is potentially harmful.
+        p Suspicious web addresses are exposed and marked with an emoji representing their threat types.
+        ul
+            li
                 img(class="emoji" src="img/emojis/beetle.png" alt="beetle")
-            dd 
-                | phishing/social engineering: biohazard sign
+                |  malware
+            li 
                 img(class="emoji" src="img/emojis/biohazard_sign.png" alt="biohazard sign")
-            dd
-                | unwanted software: no entry sign
+                |  phishing/social engineering
+            li
                 img(class="emoji" src="img/emojis/no_entry_sign.png" alt="no entry sign")
-            dd 
-                | potentially harmful application or unspecified threat: exclamation
+                |  unwanted software
+            li 
                 img(class="emoji" src="img/emojis/exclamation.png" alt="exclamation")
-        p 
-            | Web addresses without any reported threats are marked with a small blue diamond
+                |  potentially harmful application or unspecified threat
+        p
+            | Web addresses not suspected of being harmful earn a small blue diamond.
             img(class="emoji" src="img/emojis/small_blue_diamond.png" alt="small blue diamond")
-            | .
-
+        p
+            | A small orange diamond 
+            img(class="emoji" src="img/emojis/small_orange_diamond.png" alt="small orange diamond")
+            | means the web address was shared without https.
         img(class = "demo-gifs" src="img/demos/harmful-demo.gif" alt="demonstration of harmful yet successful web address formatting")
-
         p 
-         | If Markdownlinks fails to contact the Google Safe Browse Service,
-         | the shared web addresses will be kept in their rich text.
-         | However, they will not be given the blue diamond.
-         | Also, a warning message will indicate that the addresses have not been
-         | checked for potentially harmful content.
+            i Google Safe Browse and https checks are not performed on web addresses shared outside of Markdown syntax.
 
-         
+        h3 A warning indicates when Markdownlinks fails to contact Google Safe Browse
+        p 
+            | Web addresses keep their formatting but do not earn the small blue diamond.
+            img(class="emoji" src="img/emojis/small_blue_diamond.png" alt="small blue diamond")
         img(class = "demo-gifs" src="img/demos/error-demo.gif" alt="demonstration of safe yet failed web address formatting")
 
-        h3 Unformatted Web Addresses
-        p
-         | If a user shares a web address without formatting it with Markdown syntax,
-         | Markdownlinks will not check it for threats in the Google Safe Browse Service.
-         | Markdownlinks also will not flag these web addresses when they fail to use http secure.
-         | These two security features are designed to provide information that would
-         | otherwise be hidden under rich text. When this rich text is not present,
-         | users must rely on their discretion to examine a web address and determine
-         | whether it is safe.
+        h3 Thank you for visiting!
