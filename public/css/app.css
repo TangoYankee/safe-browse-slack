@@ -90,6 +90,10 @@ div.content ul {
   margin: 0 1rem;
 }
 
+a.google-safe-browse {
+  text-decoration: none;
+}
+
 img.demo-gifs {
   object-fit: scale-down;
   max-width: 100%;
