@@ -27,7 +27,6 @@ const {
 } = require('../test-data/set-message-data/user-id-data')
 // HyperText
 const { messageDataIntoHyperTextOne } = require('../test-data/hyper-text-data/into-hyper-text-data')
-const { allHyperTextPositionsOne } = require('../test-data/hyper-text-data/hyper-text-positions-data')
 const { textOne } = require('../test-data/hyper-text-data/text-data')
 const { messageDataOutOfHyperTextOne } = require('../test-data/hyper-text-data/out-of-hyper-text-data')
 // getCache
@@ -68,11 +67,11 @@ describe.each([
 )
 
 test.each([
-  [messageDataIntoHyperTextOne, allHyperTextPositionsOne, textOne, messageDataOutOfHyperTextOne]
+  [messageDataIntoHyperTextOne, textOne, messageDataOutOfHyperTextOne]
 ])(
   'setHyperText() /* destination urls, display text, and their meta data */',
-  (messageDataIntoHyperText, allHyperTextPositions, text, messageDataOutOfHyperText) => {
-    expect(setHyperText(messageDataIntoHyperText, allHyperTextPositions, text)).toEqual(messageDataOutOfHyperText)
+  (messageDataIntoHyperText, text, messageDataOutOfHyperText) => {
+    expect(setHyperText(messageDataIntoHyperText, text)).toEqual(messageDataOutOfHyperText)
   }
 )
 

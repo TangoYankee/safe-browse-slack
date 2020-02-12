@@ -2,13 +2,14 @@
 
 const {
   validateDestUrl, validateDisplayText, setAllSharedAsHttpSecure,
-  getMarkdownHyperText, setHttpDestUrl
+  getMarkdownHyperText, setHttpDestUrl, getRawMarkdownHyperTexts
 } = require('../content')
 const {
   validUrls, displayTexts,
-  markdownHyperText, httpUrls,
+  httpUrls, simpleMarkdownHypertText,
   inputMessageDataOne, outputMessageDataOne,
-  inputMessageDataTwo, outputMessageDataTwo
+  inputMessageDataTwo, outputMessageDataTwo,
+  text, rawMarkdownHyperText
 } = require('../test-data/content-data')
 
 test.each(validUrls)(
@@ -23,10 +24,16 @@ test.each(displayTexts)(
     expect(validateDisplayText(displayText)).toBe(expectedBoolean)
   })
 
-test.each(markdownHyperText)(
+test(
+  'getRawMarkdownHyperTexts() /* identify entire portion of markdown syntax from original user input */',
+  () => {
+    expect(getRawMarkdownHyperTexts(text)).toEqual(rawMarkdownHyperText)
+  })
+
+test.each(simpleMarkdownHypertText)(
   'getMarkdownHyperText() /* identify entire portion of markdown syntax from original user input */',
-  (hyperTextPositions, text, expectedMarkdown) => {
-    expect(getMarkdownHyperText(hyperTextPositions, text)).toEqual(expectedMarkdown)
+  (raw, refined) => {
+    expect(getMarkdownHyperText(raw)).toEqual(refined)
   })
 
 test.each(httpUrls)(
