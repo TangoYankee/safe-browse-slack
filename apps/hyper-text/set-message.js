@@ -30,7 +30,6 @@ const setMessage = async (text, userId) => {
 const setHyperText = (messageData, text) => {
   /* destination urls, display text, and their meta data */
   var rawMarkdownHyperTexts = getRawMarkdownHyperTexts(text)
-  // console.log(rawMarkdownHyperTexts)
   if (rawMarkdownHyperTexts !== null) {
     for (var rawMarkdownHyperText of rawMarkdownHyperTexts) {
       // console.log(`rawmarkdownhypertext: ${rawMarkdownHyperText}`)
