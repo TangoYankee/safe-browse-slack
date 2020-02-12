@@ -1,10 +1,12 @@
 'use strict'
 
+const footerOffset = 25
+
 const footerAlign = () => {
   /* create bottom padding on the body to accommodate footer */
   $('footer').css('height', 'auto')
   var footerHeight = $('footer').outerHeight()
-  $('body').css('padding-bottom', footerHeight)
+  $('body').css('padding-bottom', footerHeight + footerOffset)
   $('footer').css('height', footerHeight)
 }
 
