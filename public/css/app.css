@@ -97,6 +97,9 @@ a.google-safe-browse {
 img.demo-gifs {
   object-fit: scale-down;
   max-width: 100%;
+  border-style: solid;
+  border-radius: 0.25rem;
+  border-width: 0.1rem;
 }
   
 footer {
