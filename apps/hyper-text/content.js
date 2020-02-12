@@ -4,8 +4,6 @@ const validateDestUrl = (destUrl) => {
   /* must fit the correct format of a url */
   var destUrlLower = destUrl.toLowerCase()
   var domainRegex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm
-
-  // console.log(`dest url lower ${destUrlLower}`)
   if (destUrlLower.match(domainRegex)) {
     return true
   } else {
@@ -16,7 +14,6 @@ const validateDestUrl = (destUrl) => {
 const validateDisplayText = (displayText) => {
   /* link string cannot be blank or only spaces */
   var displayTextTrim = displayText.trim()
-  // console.log(`displayTextTrim: ${displayTextTrim}`)
   if (displayTextTrim) {
     return true
   } else {
