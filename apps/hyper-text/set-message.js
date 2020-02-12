@@ -32,13 +32,9 @@ const setHyperText = (messageData, text) => {
   var rawMarkdownHyperTexts = getRawMarkdownHyperTexts(text)
   if (rawMarkdownHyperTexts !== null) {
     for (var rawMarkdownHyperText of rawMarkdownHyperTexts) {
-      // console.log(`rawmarkdownhypertext: ${rawMarkdownHyperText}`)
       var markdownHyperText = getMarkdownHyperText(rawMarkdownHyperText)
-      // console.log(`markdownhypertext: ${markdownHyperText}`)
       var displayText = setDisplayText(markdownHyperText)
-      // console.log(`display text: ${displayText}`)
       var destUrl = setDestUrl(markdownHyperText)
-      // console.log(`desturl ${destUrl}`)
       if (validateDisplayText(displayText) && validateDestUrl(destUrl)) {
         var urlDomainKey = setUrlDomainKey(destUrl)
         var sharedAsHttpSecure = setSharedAsHttpSecure(destUrl)
