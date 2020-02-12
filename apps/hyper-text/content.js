@@ -4,6 +4,8 @@ const validateDestUrl = (destUrl) => {
   /* must fit the correct format of a url */
   var destUrlLower = destUrl.toLowerCase()
   var domainRegex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm
+
+  // console.log(`dest url lower ${destUrlLower}`)
   if (destUrlLower.match(domainRegex)) {
     return true
   } else {
@@ -14,6 +16,7 @@ const validateDestUrl = (destUrl) => {
 const validateDisplayText = (displayText) => {
   /* link string cannot be blank or only spaces */
   var displayTextTrim = displayText.trim()
+  // console.log(`displayTextTrim: ${displayTextTrim}`)
   if (displayTextTrim) {
     return true
   } else {
@@ -21,26 +24,36 @@ const validateDisplayText = (displayText) => {
   }
 }
 
+const getRawMarkdownHyperTexts = (text) => {
+  /* identify entire portion of markdown syntax from original user input */
+  var markdownHyperTextRegex = /(\[.*?\]\(.*?\))/gm
+  return text.match(markdownHyperTextRegex)
+}
+
+const getMarkdownHyperText = (rawMarkdownHyperText) => {
+  /* identify refined portion of markdown syntax, without extra leading opening brackets */
+  var openBracket = '['
+  var bracketParenPosition = rawMarkdownHyperText.indexOf('](')
+  var displayText = rawMarkdownHyperText.slice(0, bracketParenPosition)
+  var lastOpenBracketPosition = displayText.lastIndexOf(openBracket)
+  return rawMarkdownHyperText.slice(lastOpenBracketPosition)
+}
+
+const setDestUrl = (markdownHyperText) => {
+  /* identify url portion of link from message string, without padding spaces */
+  var bracketParenPosition = markdownHyperText.indexOf('](')
+  return markdownHyperText.slice(bracketParenPosition + 2, -1)
+}
+
+const setDisplayText = (markdownHyperText) => {
+  /* identify text portion of hyperlink from message string */
+  var bracketParenPosition = markdownHyperText.indexOf('](')
+  return markdownHyperText.slice(1, bracketParenPosition)
+}
+
 const setSlackHyperText = (destUrl, displayText) => {
   /* slack hypertext syntax for urls and text */
   return `<${destUrl}|${displayText}>`
-}
-
-const setDestUrl = (linkPositions, text) => {
-  /* identify url portion of link from message string, without padding spaces */
-  let destUrl = text.slice(linkPositions[1] + 2, linkPositions[2])
-  destUrl = destUrl.trim()
-  return destUrl
-}
-
-const setDisplayText = (linkPositions, text) => {
-  /* identify text portion of hyperlink from message string */
-  return text.slice(linkPositions[0] + 1, linkPositions[1])
-}
-
-const getMarkdownHyperText = (linkPositions, text) => {
-  /* identify entire portion of markdown syntax from original user input */
-  return text.slice(linkPositions[0], linkPositions[2] + 1)
 }
 
 const setHttpDestUrl = (destUrl) => {
@@ -80,6 +93,7 @@ module.exports = {
   validateDestUrl,
   validateDisplayText,
   setSlackHyperText,
+  getRawMarkdownHyperTexts,
   setDestUrl,
   setDisplayText,
   getMarkdownHyperText,

@@ -6,15 +6,13 @@ const validUrls = [
   ['http://na sa.gov', false], ['https://google.com/maps/place/Glen+Cove+Marina/@38.0677063,-122.2313533,15z/data=!4m5!3m4!1s0x80857235b7b561fb:0xa31992d9db3a4004!8m2!3d38.0677786!4d-122.213746', true]
 ]
 const text = 'Here[ in my [car](dmv.ca.gov) I) feel [safest of all](https://www.osha.com/). [Example site](example.com)'
-const markdownHyperText = [
-  [
-    [12, 16, 28], text, '[car](dmv.ca.gov)'],
-  [
-    [38, 52, 75], text, '[safest of all](https://www.osha.com/)'],
-  [
-    [78, 91, 104], text, '[Example site](example.com)'
-  ]
+const rawMarkdownHyperText = ['[ in my [car](dmv.ca.gov)', '[safest of all](https://www.osha.com/)', '[Example site](example.com)']
+const simpleMarkdownHypertText = [
+  ['[ in my [car](dmv.ca.gov)', '[car](dmv.ca.gov)'],
+  ['[safest of all](https://www.osha.com/)', '[safest of all](https://www.osha.com/)'],
+  ['[Example site](example.com)', '[Example site](example.com)']
 ]
+
 const displayTexts = [
   ['0', true],
   ['', false],
@@ -145,10 +143,12 @@ const outputMessageDataTwo = {
 module.exports = {
   validUrls,
   displayTexts,
-  markdownHyperText,
   httpUrls,
   inputMessageDataOne,
   outputMessageDataOne,
   inputMessageDataTwo,
-  outputMessageDataTwo
+  outputMessageDataTwo,
+  text,
+  rawMarkdownHyperText,
+  simpleMarkdownHypertText
 }
