@@ -63,27 +63,28 @@ const setHttpDestUrl = (destUrl) => {
   }
 }
 
-const setUrlDomainKey = (unhttpedLinkAddress) => {
-  /* remove http(s) and www for consistency across safe browse, cache, and multiple user requests */
-  var domainPrefixRegex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)/gm
-  return unhttpedLinkAddress.replace(domainPrefixRegex, '')
-}
+// const setUrlDomainKey = (unhttpedLinkAddress) => {
+//   /* remove http(s) and www for consistency across safe browse, cache, and multiple user requests */
+//   var domainPrefixRegex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)/gm
+//   return unhttpedLinkAddress.replace(domainPrefixRegex, '')
+// }
 
-const setSharedAsHttpSecure = (unhttpedLinkAddress) => {
-  /* url was originally prefaced with 'https' */
-  var unhttpedLinkAddressLower = unhttpedLinkAddress.toLowerCase()
-  return unhttpedLinkAddressLower.startsWith('https://')
-}
+// const setSharedAsHttpSecure = (unhttpedLinkAddress) => {
+//   /* url was originally prefaced with 'https' */
+//   var unhttpedLinkAddressLower = unhttpedLinkAddress.toLowerCase()
+//   return unhttpedLinkAddressLower.startsWith('https://')
+// }
 
-const setAllSharedAsHttpSecure = (messageData) => {
+const setAllSharedAsHttpSecure = (messageDataLinks) => {
   /* all urls were originally prefaced with 'https' */
-  messageData.allSharedAsHttpSecure = true
-  for (var link of messageData.links) {
+  // messageData.allSharedAsHttpSecure = true
+  for (var link of messageDataLinks) {
     if (!link.sharedAsHttpSecure) {
-      messageData.allSharedAsHttpSecure = false
+      // messageData.allSharedAsHttpSecure = false
+      return false
     }
   }
-  return messageData
+  return true
 }
 
 module.exports = {

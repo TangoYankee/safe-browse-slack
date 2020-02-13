@@ -1,8 +1,8 @@
 'use strict'
 
-const { setMessageData, setHyperTextData } = require('./message-object')
+const { Message, Hypertext } = require('./message-object')
 const {
-  validateDestUrl, validateDisplayText, setSlackHyperText,
+  validateDestUrl, validateDisplayText, setSlackHypertext,
   setDestUrl, setDisplayText, getMarkdownHyperText,
   setAllSharedAsHttpSecure, setHttpDestUrl, setUrlDomainKey,
   setSharedAsHttpSecure, getRawMarkdownHyperTexts
@@ -12,78 +12,80 @@ const { setSafeBrowseThreats, setSafeBrowseThreatTypes } = require('../safe-brow
 
 const setMessage = async (text, userId) => {
   /* organize metadata and search for suspected threats from urls */
-  let messageData = setMessageData(text, userId)
-  messageData = setHyperText(messageData, text)
-  messageData = setAllSharedAsHttpSecure(messageData)
-  messageData = getCache(messageData)
-  messageData = await setSafeBrowse(messageData)
-  if (messageData.links.length > 0) {
-    var postCacheThreatsStatus = postCacheThreats(messageData.links)
+  var message = new Message(text, userId)
+  message.hypertexts = setHyperText(text)
+  message.setAllSharedAsHttpSecure = setAllSharedAsHttpSecure(message.hypertexts)
+  message = getCache(message)
+  message = await setSafeBrowse(message)
+  if (message.hypertexts.length > 0) {
+    var postCacheThreatsStatus = postCacheThreats(message.hypertexts)
     if (postCacheThreatsStatus === false) {
       console.error('error saving to cache')
     }
   }
-  messageData = setNoneFound(messageData)
-  return messageData
+  message = setNoneFound(message)
+  return message
 }
 
-const setHyperText = (messageData, text) => {
+const setHyperText = (text) => {
   /* destination urls, display text, and their meta data */
   var rawMarkdownHyperTexts = getRawMarkdownHyperTexts(text)
+  var hypertexts = []
   if (rawMarkdownHyperTexts !== null) {
     for (var rawMarkdownHyperText of rawMarkdownHyperTexts) {
       var markdownHyperText = getMarkdownHyperText(rawMarkdownHyperText)
       var displayText = setDisplayText(markdownHyperText)
       var destUrl = setDestUrl(markdownHyperText)
       if (validateDisplayText(displayText) && validateDestUrl(destUrl)) {
-        var urlDomainKey = setUrlDomainKey(destUrl)
-        var sharedAsHttpSecure = setSharedAsHttpSecure(destUrl)
-        var httpDestUrl = setHttpDestUrl(destUrl)
-        var slackHyperText = setSlackHyperText(httpDestUrl, displayText)
-        var hyperTextData = setHyperTextData(markdownHyperText, slackHyperText, urlDomainKey, sharedAsHttpSecure)
-        messageData.links.push(hyperTextData)
+        var hypertext = new Hypertext()
+        // hypertext.urlDomainKey = setUrlDomainKey(destUrl)
+        hypertext.sharedAsHttpSecure = setSharedAsHttpSecure(destUrl)
+        hypertext.httpDestUrl = setHttpDestUrl(destUrl)
+        hypertext.slackHypertext = setSlackHypertext(httpDestUrl, displayText)
+        hypertext.hypertextData = Hypertext(markdownHyperText, slackHypertext, urlDomainKey, sharedAsHttpSecure)
+        hypertexts.push(hypertextData)
       }
     }
   }
-  return messageData
+  return hypertexts
 }
 
-const getCache = (messageData) => {
+const getCache = (message) => {
   /* reference threat urls that are already saved locally */
-  var cacheThreats = getCacheThreats(messageData.links)
+  var cacheThreats = getCacheThreats(message.hypertexts)
   if (cacheThreats === undefined) {
     console.error('error retrieving cache values')
   } else {
-    messageData = setCacheThreatTypes(messageData, cacheThreats)
+    message = setCacheThreatTypes(message, cacheThreats)
   }
-  return messageData
+  return message
 }
 
-const setSafeBrowse = async (messageData) => {
+const setSafeBrowse = async (message) => {
   /* check whether url is a suspected threat by google safe browse api */
-  var safeBrowseThreats = await setSafeBrowseThreats(messageData.links)
+  var safeBrowseThreats = await setSafeBrowseThreats(message.hypertexts)
   if (safeBrowseThreats !== undefined) {
     if (safeBrowseThreats === 'error') {
-      messageData.safeBrowseSuccess = false
+      message.safeBrowseSuccess = false
     } else {
-      messageData.safeBrowseSuccess = true
-      messageData = setSafeBrowseThreatTypes(messageData, safeBrowseThreats)
+      message.safeBrowseSuccess = true
+      message = setSafeBrowseThreatTypes(message, safeBrowseThreats)
     }
   }
-  return messageData
+  return message
 }
 
-const setNoneFound = (messageData) => {
+const setNoneFound = (message) => {
   /* identify if there are links that are not suspected of threats */
-  for (var link of messageData.links) {
+  for (var link of message.hypertexts) {
     if (link.threatMatch === '') {
-      var noneFoundInThreatTypes = messageData.threatTypes.includes('NONE_FOUND')
+      var noneFoundInThreatTypes = message.threatTypes.includes('NONE_FOUND')
       if (!noneFoundInThreatTypes) {
-        messageData.threatTypes.push('NONE_FOUND')
+        message.threatTypes.push('NONE_FOUND')
       }
     }
   }
-  return messageData
+  return message
 }
 
 module.exports = {
