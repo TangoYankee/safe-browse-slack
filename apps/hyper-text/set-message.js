@@ -1,6 +1,6 @@
 'use strict'
 
-const { Message, Hypertext } = require('./message-object')
+const { Message } = require('./message')
 const {
   validateDestUrl, validateDisplayText, setSlackHypertext,
   setDestUrl, setDisplayText, getMarkdownHyperText,
@@ -13,8 +13,8 @@ const { setSafeBrowseThreats, setSafeBrowseThreatTypes } = require('../safe-brow
 const setMessage = async (text, userId) => {
   /* organize metadata and search for suspected threats from urls */
   var message = new Message(text, userId)
-  message.hypertexts = setHyperText(text)
-  message.setAllSharedAsHttpSecure = setAllSharedAsHttpSecure(message.hypertexts)
+  // message.hypertexts = setHyperText(text)
+  // message.setAllSharedAsHttpSecure = setAllSharedAsHttpSecure(message.hypertexts)
   message = getCache(message)
   message = await setSafeBrowse(message)
   if (message.hypertexts.length > 0) {
@@ -27,28 +27,24 @@ const setMessage = async (text, userId) => {
   return message
 }
 
-const setHyperText = (text) => {
-  /* destination urls, display text, and their meta data */
-  var rawMarkdownHyperTexts = getRawMarkdownHyperTexts(text)
-  var hypertexts = []
-  if (rawMarkdownHyperTexts !== null) {
-    for (var rawMarkdownHyperText of rawMarkdownHyperTexts) {
-      var markdownHyperText = getMarkdownHyperText(rawMarkdownHyperText)
-      var displayText = setDisplayText(markdownHyperText)
-      var destUrl = setDestUrl(markdownHyperText)
-      if (validateDisplayText(displayText) && validateDestUrl(destUrl)) {
-        var hypertext = new Hypertext()
-        // hypertext.urlDomainKey = setUrlDomainKey(destUrl)
-        hypertext.sharedAsHttpSecure = setSharedAsHttpSecure(destUrl)
-        hypertext.httpDestUrl = setHttpDestUrl(destUrl)
-        hypertext.slackHypertext = setSlackHypertext(httpDestUrl, displayText)
-        hypertext.hypertextData = Hypertext(markdownHyperText, slackHypertext, urlDomainKey, sharedAsHttpSecure)
-        hypertexts.push(hypertextData)
-      }
-    }
-  }
-  return hypertexts
-}
+// Make part of the Message Object?
+// const setHyperText = (text) => {
+//   /* destination urls, display text, and their meta data */
+//   var rawHypertextInputs = getRawMarkdownHyperTexts(text)
+//   var hypertexts = []
+//   if (rawHypertextInputs !== null) {
+//     for (var rawHypertextInput of rawHypertextInputs) {
+//       var refinedHypertextInput = getRefinedHypertextInput(rawHypertextInput)
+//       var displayText = setDisplayText(refinedHypertextInput)
+//       var destUrl = setDestUrl(refinedHypertextInput)
+//       if (validateDisplayText(displayText) && validateDestUrl(destUrl)) {
+//         var hypertext = new Hypertext(destUrl, displayText)
+//         hypertexts.push(hypertext)
+//       }
+//     }
+//   }
+//   return hypertexts
+// }
 
 const getCache = (message) => {
   /* reference threat urls that are already saved locally */
