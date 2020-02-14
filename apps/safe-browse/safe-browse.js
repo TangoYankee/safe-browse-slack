@@ -3,57 +3,117 @@
 const process = require('process')
 const { postThreatMatches } = require('./post-threat-matches')
 
-const setSafeBrowseThreats = async (messageLinks) => {
-  /* find suspected threats in safe browse API */
-  var uncachedThreatEntries = setUncachedThreatEntries(messageLinks)
-  var uncachedThreatEntriesExist = setUncachedThreatEntriesExist(uncachedThreatEntries)
-  if (uncachedThreatEntriesExist) {
-    var requestBody = setRequestBody(uncachedThreatEntries)
-    var threatMatches = await postThreatMatches(requestBody)
-    return threatMatches
-  } else {
-    return undefined
-  }
-}
+class SafeBrowse {
+  constructor(hypertexts) {
+     this.hypertexts = hypertexts
+     this.uncachedThreatEntries = this.setUncachedThreatEntries()
+     this.requestBody = this.setRequestBody()
 
-const setUncachedThreatEntriesExist = (uncachedThreatEntries) => {
-  /* prevent unnecessary calls to the SafeBrowse API, where there are no uncached threat urls */
-  if (uncachedThreatEntries.length >= 1) {
-    return true
-  } else {
-    return false
   }
-}
 
-const setUncachedThreatEntries = (links) => {
-  /* pair urls with key for safe browse threat entries */
-  var uncachedThreatEntries = []
-  for (var link of links) {
-    if (!link.inCache) {
-      var threatEntryInArray = uncachedThreatEntries.find(threatEntry => threatEntry.url === link.urlDomainKey)
-      if (threatEntryInArray === undefined) {
-        uncachedThreatEntries.push({ url: link.urlDomainKey })
+  setUncachedThreatEntries = () => {
+    /* pair urls with key for safe browse threat entries */
+    var uncachedThreatEntries = []
+    for (var hypertext of this.hypertexts) {
+      if (!hypertext.inCache) {
+        var threatEntryInArray = uncachedThreatEntries.find(threatEntry => threatEntry.url === link.urlDomainKey)
+        if (threatEntryInArray === undefined) {
+          uncachedThreatEntries.push({ url: link.urlDomainKey })
+        }
+      }
+    }
+    return uncachedThreatEntries
+  }
+
+  uncachedThreatEntriesExist = () => {
+    /* prevent unnecessary calls to the SafeBrowse API, where there are no uncached threat urls */
+    if (this.uncachedThreatEntries.length >= 1) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  setRequestBody = () => {
+    /* pair threat entries urls with threat types to check */
+    return {
+      client: {
+        clientId: process.env.GOOGLE_SAFE_BROWSING_CLIENT_ID,
+        clientVersion: '1.5.2'
+      },
+      threatInfo: {
+        threatTypes: ['THREAT_TYPE_UNSPECIFIED', 'MALWARE', 'SOCIAL_ENGINEERING', 'UNWANTED_SOFTWARE', 'POTENTIALLY_HARMFUL_APPLICATION'],
+        platformTypes: ['ANY_PLATFORM'],
+        threatEntryTypes: ['URL'],
+        threatEntries: this.uncachedThreatEntries
       }
     }
   }
-  return uncachedThreatEntries
-}
 
-const setRequestBody = (uncachedThreatEntries) => {
-  /* pair threat entries urls with threat types to check */
-  return {
-    client: {
-      clientId: process.env.GOOGLE_SAFE_BROWSING_CLIENT_ID,
-      clientVersion: '1.5.2'
-    },
-    threatInfo: {
-      threatTypes: ['THREAT_TYPE_UNSPECIFIED', 'MALWARE', 'SOCIAL_ENGINEERING', 'UNWANTED_SOFTWARE', 'POTENTIALLY_HARMFUL_APPLICATION'],
-      platformTypes: ['ANY_PLATFORM'],
-      threatEntryTypes: ['URL'],
-      threatEntries: uncachedThreatEntries
+  // Don't pass 'undefined' !
+  getSafeBrowseThreats = async () => {
+    /* find suspected threats in safe browse API */
+    var threatMatches = undefined
+    if (this.uncachedThreatEntriesExist()) {
+      threatMatches = await postThreatMatches(requestBody)
+      return threatMatches
+    } else {
+      return threatMatches
     }
   }
 }
+
+// const setSafeBrowseThreats = async () => {
+//   /* find suspected threats in safe browse API */
+//   var uncachedThreatEntries = setUncachedThreatEntries(this.messageLinks)
+//   var uncachedThreatEntriesExist = setUncachedThreatEntriesExist(uncachedThreatEntries)
+//   if (uncachedThreatEntriesExist) {
+//     var requestBody = setRequestBody(uncachedThreatEntries)
+//     var threatMatches = await postThreatMatches(requestBody)
+//     return threatMatches
+//   } else {
+//     return undefined
+//   }
+// }
+
+// const checkUncachedThreatEntriesExist = () => {
+//   /* prevent unnecessary calls to the SafeBrowse API, where there are no uncached threat urls */
+//   if (this.uncachedThreatEntries.length >= 1) {
+//     return true
+//   } else {
+//     return false
+//   }
+// }
+
+// const setUncachedThreatEntries = (links) => {
+//   /* pair urls with key for safe browse threat entries */
+//   var uncachedThreatEntries = []
+//   for (var link of links) {
+//     if (!link.inCache) {
+//       var threatEntryInArray = uncachedThreatEntries.find(threatEntry => threatEntry.url === link.urlDomainKey)
+//       if (threatEntryInArray === undefined) {
+//         uncachedThreatEntries.push({ url: link.urlDomainKey })
+//       }
+//     }
+//   }
+//   return uncachedThreatEntries
+// }
+
+// const setRequestBody = (uncachedThreatEntries) => {
+//   /* pair threat entries urls with threat types to check */
+//   return {
+//     client: {
+//       clientId: process.env.GOOGLE_SAFE_BROWSING_CLIENT_ID,
+//       clientVersion: '1.5.2'
+//     },
+//     threatInfo: {
+//       threatTypes: ['THREAT_TYPE_UNSPECIFIED', 'MALWARE', 'SOCIAL_ENGINEERING', 'UNWANTED_SOFTWARE', 'POTENTIALLY_HARMFUL_APPLICATION'],
+//       platformTypes: ['ANY_PLATFORM'],
+//       threatEntryTypes: ['URL'],
+//       threatEntries: uncachedThreatEntries
+//     }
+//   }
+// }
 
 const setSafeBrowseThreatTypes = (messageData, threatMatches) => {
   /* add threat type to the original message */

@@ -75,17 +75,17 @@
 //   return unhttpedLinkAddressLower.startsWith('https://')
 // }
 
-const setAllSharedAsHttpSecure = (messageDataLinks) => {
-  /* all urls were originally prefaced with 'https' */
-  // messageData.allSharedAsHttpSecure = true
-  for (var link of messageDataLinks) {
-    if (!link.sharedAsHttpSecure) {
-      // messageData.allSharedAsHttpSecure = false
-      return false
-    }
-  }
-  return true
-}
+// const setAllSharedAsHttpSecure = (messageDataLinks) => {
+//   /* all urls were originally prefaced with 'https' */
+//   // messageData.allSharedAsHttpSecure = true
+//   for (var link of messageDataLinks) {
+//     if (!link.sharedAsHttpSecure) {
+//       // messageData.allSharedAsHttpSecure = false
+//       return false
+//     }
+//   }
+//   return true
+// }
 
 module.exports = {
   // validateDestUrl,
@@ -98,5 +98,5 @@ module.exports = {
   // setHttpDestUrl,
   // setUrlDomainKey,
   // setSharedAsHttpSecure,
-  setAllSharedAsHttpSecure
+  // setAllSharedAsHttpSecure
 }

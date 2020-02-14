@@ -42,8 +42,24 @@ class Message {
     }
     return true
   }
-}
 
+  getInCacheThreatMatches = (inCacheThreatMatches) => {
+      /* save threat matches to message object */
+      for (var urlDomainKey in inCacheThreatMatches) {
+        var threatMatch = inCacheThreatMatches[urlDomainKey].threatMatch
+        for (this.hypertext of this.hypertexts) {
+          if (this.hypertext.urlDomainKey === urlDomainKey) {
+            this.hypertext.threatMatch = threatMatch
+            this.hypertext.inCache = true
+            var threatMatchInThreatTypes = this.threatTypes.includes(threatMatch)
+            if (!threatMatchInThreatTypes) {
+              this.threatTypes.push(threatMatch)
+            }
+          }
+        }
+      }
+    }
+}
 
 module.exports = {
   Message

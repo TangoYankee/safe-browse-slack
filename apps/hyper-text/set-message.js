@@ -1,13 +1,14 @@
 'use strict'
 
+// const {
+//   validateDestUrl, validateDisplayText, setSlackHypertext,
+//   setDestUrl, setDisplayText, getMarkdownHyperText,
+//   setAllSharedAsHttpSecure, setHttpDestUrl, setUrlDomainKey,
+//   setSharedAsHttpSecure, getRawMarkdownHyperTexts
+// } = require('./content')
 const { Message } = require('./message')
-const {
-  validateDestUrl, validateDisplayText, setSlackHypertext,
-  setDestUrl, setDisplayText, getMarkdownHyperText,
-  setAllSharedAsHttpSecure, setHttpDestUrl, setUrlDomainKey,
-  setSharedAsHttpSecure, getRawMarkdownHyperTexts
-} = require('./content')
-const { getCacheThreats, setCacheThreatTypes, postCacheThreats } = require('../cache/threats')
+const { ThreatCache } = require('./cache/threats')
+// const { getCacheThreats, setCacheThreatTypes, postCacheThreats } = require('../cache/threats')
 const { setSafeBrowseThreats, setSafeBrowseThreatTypes } = require('../safe-browse/safe-browse')
 
 const setMessage = async (text, userId) => {
@@ -15,15 +16,23 @@ const setMessage = async (text, userId) => {
   var message = new Message(text, userId)
   // message.hypertexts = setHyperText(text)
   // message.setAllSharedAsHttpSecure = setAllSharedAsHttpSecure(message.hypertexts)
-  message = getCache(message)
-  message = await setSafeBrowse(message)
-  if (message.hypertexts.length > 0) {
-    var postCacheThreatsStatus = postCacheThreats(message.hypertexts)
-    if (postCacheThreatsStatus === false) {
-      console.error('error saving to cache')
-    }
-  }
-  message = setNoneFound(message)
+  threatCache = new ThreatCache(message.hypertexts)
+  inCacheThreatMatches = threatCache.getCacheThreats()
+  message.getInCacheThreatMatches(inCacheThreatMatches)
+  // Go go safebrowse before sending more threat urls to the cache
+  safeBrowse = new SafeBrowse(message.hypertexts)
+  await message.getSafeBrowse(safeBrowse)
+  threatCache.postCacheThreats(message.hypertexts)
+  message.checkNoneFound
+  // message = getCache(message)
+  // message = await setSafeBrowse(message)
+  // if (message.hypertexts.length > 0) {
+  //   var postCacheThreatsStatus = threatCache.postCacheThreats(message.hypertexts)
+  //   if (postCacheThreatsStatus === false) {
+  //     console.error('error saving to cache')
+  //   }
+  // }
+  // message = setNoneFound(message)
   return message
 }
 
@@ -46,16 +55,16 @@ const setMessage = async (text, userId) => {
 //   return hypertexts
 // }
 
-const getCache = (message) => {
-  /* reference threat urls that are already saved locally */
-  var cacheThreats = getCacheThreats(message.hypertexts)
-  if (cacheThreats === undefined) {
-    console.error('error retrieving cache values')
-  } else {
-    message = setCacheThreatTypes(message, cacheThreats)
-  }
-  return message
-}
+// const getCache = (message) => {
+//   /* reference threat urls that are already saved locally */
+//   var cacheThreats = getCacheThreats(message.hypertexts)
+//   if (cacheThreats === undefined) {
+//     console.error('error retrieving cache values')
+//   } else {
+//     message = setCacheThreatTypes(message, cacheThreats)
+//   }
+//   return message
+// }
 
 const setSafeBrowse = async (message) => {
   /* check whether url is a suspected threat by google safe browse api */
