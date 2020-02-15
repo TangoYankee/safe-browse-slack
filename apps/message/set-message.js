@@ -1,7 +1,7 @@
 'use strict'
 
 const { Message } = require('./message')
-const { ThreatCache } = require('./cache/threats')
+const { ThreatCache } = require('../cache/threats')
 const { SafeBrowse } = require('../safe-browse/safe-browse')
 
 const setMessage = async (text, userId) => {
