@@ -8,12 +8,12 @@ class ThreatCache {
   constructor (uncheckedHypertexts) {
     this.cache = cacheInstance()
     this.uncheckedHypertexts = uncheckedHypertexts
+    this.urlDomainKeys = this._setUrlDomainKeys()
   }
 
   getCacheThreats () {
     /* previously encountered threats */
     try {
-      this._setUrlDomainKeys()
       return this.cache.mget(this.urlDomainKeys)
     } catch (error) {
       return error
