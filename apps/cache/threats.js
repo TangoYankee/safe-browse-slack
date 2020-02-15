@@ -31,7 +31,7 @@ class ThreatCache {
         throw error
       }
     }
-    this.urlDomainKeys = incomingUrlDomainKeys
+    return incomingUrlDomainKeys
   }
 
   postCacheThreats (checkedThreatUrls) {
