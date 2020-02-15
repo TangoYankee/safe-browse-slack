@@ -2,7 +2,7 @@
 
 const { Hypertext } = require('./hypertext')
 
-class Message {
+class IncomingMessage {
   constructor (text, userId) {
     /* message with meta data stored in an object */
     this.text = text
@@ -94,5 +94,5 @@ class Message {
 }
 
 module.exports = {
-  Message
+  IncomingMessage
 }

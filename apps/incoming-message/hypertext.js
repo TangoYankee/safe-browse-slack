@@ -13,6 +13,7 @@ class Hypertext {
     this.inCache = false
     this.cacheDuration = ''
     this.threatMatch = ''
+    this.threatEmoji = ''
   }
 
   _setMarkdownHypertextSyntax () {
