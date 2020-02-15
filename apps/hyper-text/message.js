@@ -43,7 +43,7 @@ class Message {
     return true
   }
 
-  getInCacheThreatMatches = (inCacheThreatMatches) => {
+  setInCacheThreatMatches = (inCacheThreatMatches) => {
       /* save threat matches to message object */
       for (var urlDomainKey in inCacheThreatMatches) {
         var threatMatch = inCacheThreatMatches[urlDomainKey].threatMatch
@@ -59,6 +59,40 @@ class Message {
         }
       }
     }
+
+  setSafeBrowseThreatMatches = (safeBrowseThreatMatches) => {
+      /* add threat type to the original message */
+      if (safeBrowseThreatMatches.matches) {
+        for (var threatMatch of safeBrowseThreatMatches.matches) {
+          for (var link of messageData.links) {
+            if (link.urlDomainKey === threatMatch.threat.url) {
+              link.threatMatch = threatMatch.threatType
+              link.cacheDuration = threatMatch.cacheDuration
+              link.inCache = false
+              var threatMatchInThreatTypes = messageData.threatTypes.includes(threatMatch.threatType)
+              if (!threatMatchInThreatTypes) {
+                messageData.threatTypes.push(threatMatch.threatType)
+              }
+            }
+          }
+        }
+      }
+      return messageData
+    }
+
+  setNoneFound = () => {
+      /* identify whether there is url for a hypertext object that is not suspected of threats */
+      for (var hypertext of this.hypertexts) {
+        if (hypertext.threatMatch === '') {
+          var noneFoundInThreatTypes = this.threatTypes.includes('NONE_FOUND')
+          if (!noneFoundInThreatTypes) {
+            this.threatTypes.push('NONE_FOUND')
+          }
+        }
+      }
+      return message
+    }
+  
 }
 
 module.exports = {

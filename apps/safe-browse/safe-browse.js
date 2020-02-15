@@ -55,7 +55,7 @@ class SafeBrowse {
     /* find suspected threats in safe browse API */
     var threatMatches = undefined
     if (this.uncachedThreatEntriesExist()) {
-      threatMatches = await postThreatMatches(requestBody)
+      threatMatches = await postThreatMatches(this.requestBody)
       return threatMatches
     } else {
       return threatMatches
@@ -115,49 +115,44 @@ class SafeBrowse {
 //   }
 // }
 
-const setSafeBrowseThreatTypes = (messageData, threatMatches) => {
-  /* add threat type to the original message */
-  if (threatMatches.matches) {
-    for (var threatMatch of threatMatches.matches) {
-      for (var link of messageData.links) {
-        if (link.urlDomainKey === threatMatch.threat.url) {
-          link.threatMatch = threatMatch.threatType
-          link.cacheDuration = threatMatch.cacheDuration
-          link.inCache = false
-          var threatMatchInThreatTypes = messageData.threatTypes.includes(threatMatch.threatType)
-          if (!threatMatchInThreatTypes) {
-            messageData.threatTypes.push(threatMatch.threatType)
-          }
-        }
-      }
-    }
-  }
-  return messageData
-}
+// const setSafeBrowseThreatTypes = (messageData, threatMatches) => {
+//   /* add threat type to the original message */
+//   if (threatMatches.matches) {
+//     for (var threatMatch of threatMatches.matches) {
+//       for (var link of messageData.links) {
+//         if (link.urlDomainKey === threatMatch.threat.url) {
+//           link.threatMatch = threatMatch.threatType
+//           link.cacheDuration = threatMatch.cacheDuration
+//           link.inCache = false
+//           var threatMatchInThreatTypes = messageData.threatTypes.includes(threatMatch.threatType)
+//           if (!threatMatchInThreatTypes) {
+//             messageData.threatTypes.push(threatMatch.threatType)
+//           }
+//         }
+//       }
+//     }
+//   }
+//   return messageData
+// }
 
-const setThreatTypes = (messageData, threatMatches) => {
-  /* add threat type to the original message */
-  for (var threatMatch of threatMatches.matches) {
-    for (var link of messageData.links) {
-      if (link.urlDomainKey === threatMatch.threat.url) {
-        link.threatMatch = threatMatch.threatType
-        link.cacheDuration = threatMatch.cacheDuration
-        link.inCache = false
-        var threatMatchInThreatTypes = messageData.threatTypes.includes(threatMatch.threatType)
-        if (!threatMatchInThreatTypes) {
-          messageData.threatTypes.push(threatMatch.threatType)
-        }
-      }
-    }
-  }
-  return messageData
-}
+// const setThreatTypes = (messageData, threatMatches) => {
+//   /* add threat type to the original message */
+//   for (var threatMatch of threatMatches.matches) {
+//     for (var link of messageData.links) {
+//       if (link.urlDomainKey === threatMatch.threat.url) {
+//         link.threatMatch = threatMatch.threatType
+//         link.cacheDuration = threatMatch.cacheDuration
+//         link.inCache = false
+//         var threatMatchInThreatTypes = messageData.threatTypes.includes(threatMatch.threatType)
+//         if (!threatMatchInThreatTypes) {
+//           messageData.threatTypes.push(threatMatch.threatType)
+//         }
+//       }
+//     }
+//   }
+//   return messageData
+// }
 
 module.exports = {
-  setSafeBrowseThreats,
-  setRequestBody,
-  setUncachedThreatEntries,
-  setUncachedThreatEntriesExist,
-  setThreatTypes,
-  setSafeBrowseThreatTypes
+  SafeBrowse
 }
