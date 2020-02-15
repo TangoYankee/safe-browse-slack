@@ -3,19 +3,16 @@
 const { sharedWithoutHttpsData, safeBrowseStatusData, safeBrowseThreatsData } = require('../safe-browse/warnings')
 const { mrkdwnTemplate } = require('./block-templates')
 
-
 class BlockConstructor {
   constructor (destUrl, emoji) {
     this.destUrl = destUrl
     this.emoji = emoji
-
   }
 
   get appendEmoji () {
     /* emojis act as notes on the destination urls */
     return `${messageLink}:${emoji}:`
   }
-
 }
 
 // const appendEmoji = (messageLink, emoji) => {

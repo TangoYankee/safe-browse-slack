@@ -2,8 +2,8 @@
 
 const { BlockTemplate } = require('./block-templates')
 
-class HelpMessage{
-  constructor(userID){
+class HelpMessage {
+  constructor (userID) {
     this.userID = userID
     this.blockTemplate = new BlockTemplate('ephemeral')
     this.blocks = []
@@ -41,7 +41,6 @@ class HelpMessage{
   getHelp () {
     return this.blockTemplate.responseHead(this._arrangeBlocks())
   }
-
 }
 
 module.exports = {

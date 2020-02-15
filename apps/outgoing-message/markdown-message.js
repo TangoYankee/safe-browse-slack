@@ -3,7 +3,7 @@
 const { BlockTemplate } = require('./block-templates')
 
 class MarkdownMessage {
-  constructor(incomingMessage){
+  constructor (incomingMessage) {
     this.incomingMessage = incomingMessage
     this.blocks = []
     this.blockTemplate = new BlockTemplate('in_channel')
@@ -20,7 +20,7 @@ class MarkdownMessage {
 
   // This does not belong here.
   _threatMatches () {
-    for (this.hypertext in this.hypertexts){
+    for (this.hypertext in this.hypertexts) {
       {
         var markdownLink = hypertext.markdownHypertextSyntax
         let messageLink = hypertext.slackHypertextSyntax
@@ -42,9 +42,10 @@ class MarkdownMessage {
         message = message.replace(markdownLink, messageLink, message)
       }
     }
-  }  
+  }
+
   _removeButtonElements () {
-    return       {
+    return {
       type: 'button',
       text: {
         type: 'plain_text',
@@ -73,7 +74,7 @@ class MarkdownMessage {
     }
   }
 
-  _arrangeBlocks() {
+  _arrangeBlocks () {
     this.blocks.push(this._mrkdwnSection(this._sharedByText))
     this.blocks.push(this.blockTemplate.divider())
     this.blocks.push(this.blockTemplate.elements('actions', this._removeButtonElements))
