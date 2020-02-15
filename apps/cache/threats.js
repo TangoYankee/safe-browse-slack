@@ -5,36 +5,35 @@ const { cacheStart, cacheInstance } = require('./cache')
 cacheStart()
 
 class ThreatCache {
-  constructor(uncheckedHypertexts) {
+  constructor (uncheckedHypertexts) {
     this.cache = cacheInstance()
     this.uncheckedHypertexts = uncheckedHypertexts
     this.urlDomainKeys = this.setUrlDomainKeys()
   }
 
-  setUrlDomainKeys = () => {
+  setUrlDomainKeys () {
     /* list of urls to look for in cache */
     incomingUrlDomainKeys = []
     for (var hypertext of this.uncheckedHypertexts) {
       try {
         incomingUrlDomainKeys.push(hypertext.urlDomainKey)
-      }
-      catch(error){
+      } catch (error) {
         throw error
       }
-    } 
+    }
     return incomingUrlDomainKeys
   }
 
-  getCacheThreats = () => {
+  getCacheThreats () {
     /* previously encountered threats */
-    try{
+    try {
       return this.cache.mget(this.urlDomainKeys)
     } catch (error) {
       return error
     }
   }
 
-  postCacheThreats = (checkedThreatUrls) => {
+  postCacheThreats (checkedThreatUrls) {
     /* remember threats */
     try {
       return this.cache.mset(this.formatThreatUrls(checkedThreatUrls))
@@ -43,7 +42,7 @@ class ThreatCache {
     }
   }
 
-  formatThreatUrls = (checkedThreatUrls) => {
+  formatThreatUrls (checkedThreatUrls) {
     /* cache-friendly threat format */
     var incomingThreatUrls = []
     for (var hypertext of checkedThreatUrls) {
@@ -66,7 +65,7 @@ class ThreatCache {
     return incomingThreatUrls
   }
 
-  setCacheDuration = (cacheDurationUnits) => {
+  setCacheDuration (cacheDurationUnits) {
     /* string with units to integer */
     var numberRegex = /[0-9]/g
     var durationSplit = cacheDurationUnits.match(numberRegex)
@@ -75,12 +74,11 @@ class ThreatCache {
     return cacheDuration
   }
 
-  clearCache = () => {
+  clearCache () {
     /* reset data */
     this.cache.flushAll()
   }
 }
-
 
 module.exports = {
   ThreatCache

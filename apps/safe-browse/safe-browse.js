@@ -4,13 +4,13 @@ const process = require('process')
 const { postThreatMatches } = require('./post-threat-matches')
 
 class SafeBrowse {
-  constructor(hypertexts) {
-     this.hypertexts = hypertexts
-     this.uncachedThreatEntries = this.setUncachedThreatEntries()
-     this.requestBody = this.setRequestBody()
+  constructor (hypertexts) {
+    this.hypertexts = hypertexts
+    this.uncachedThreatEntries = this.setUncachedThreatEntries()
+    this.requestBody = this.setRequestBody()
   }
 
-  setUncachedThreatEntries = () => {
+  setUncachedThreatEntries () {
     /* pair urls with key for safe browse threat entries */
     var uncachedThreatEntries = []
     for (var hypertext of this.hypertexts) {
@@ -24,7 +24,7 @@ class SafeBrowse {
     return uncachedThreatEntries
   }
 
-  uncachedThreatEntriesExist = () => {
+  uncachedThreatEntriesExist () {
     /* prevent unnecessary calls to the SafeBrowse API, where there are no uncached threat urls */
     if (this.uncachedThreatEntries.length >= 1) {
       return true
@@ -33,7 +33,7 @@ class SafeBrowse {
     }
   }
 
-  setRequestBody = () => {
+  setRequestBody () {
     /* pair threat entries urls with threat types to check */
     return {
       client: {
@@ -50,7 +50,7 @@ class SafeBrowse {
   }
 
   // TODO: Don't pass 'undefined' !
-  getSafeBrowseThreats = async () => {
+  async getSafeBrowseThreats () {
     /* find suspected threats in safe browse API */
     var threatMatches = undefined
     if (this.uncachedThreatEntriesExist()) {

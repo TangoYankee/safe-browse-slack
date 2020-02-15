@@ -2,7 +2,7 @@
 const { Hypertext } = require('./hypertext')
 
 class Message {
-  constructor(text, userId) {
+  constructor (text, userId) {
     /* message with meta data stored in an object */
     this.text = text
     this.sharedBy = userId
@@ -13,13 +13,13 @@ class Message {
     this.threatTypes = []
   }
 
-  setRawHypertexts = () => {
+  setRawHypertexts () {
     /* identify entire portion of markdown syntax from original user input */
     var markdownHyperTextRegex = /(\[.*?\]\(.*?\))/gm
     return this.text.match(markdownHyperTextRegex)
   }
 
-  setHyperTexts = () => {
+  setHyperTexts () {
     /* destination urls, display text, and their meta data */
     var hypertexts = []
     if (this.rawHypertexts !== null) {
@@ -27,13 +27,13 @@ class Message {
         var hypertext = new Hypertext(rawHypertext)
         if (hypertext.isValid) {
           hypertexts.push(hypertext)
-          }
+        }
       }
     }
     return hypertexts
   }
 
-  setAllSharedAsHttpSecure = () => {
+  setAllSharedAsHttpSecure () {
     /* all urls were originally prefaced with 'https' */
     for (var hypertext of this.hypertexts) {
       if (!hypertext.sharedAsHttpSecure) {
@@ -43,56 +43,55 @@ class Message {
     return true
   }
 
-  setInCacheThreatMatches = (inCacheThreatMatches) => {
-      /* save threat matches to message object */
-      for (var urlDomainKey in inCacheThreatMatches) {
-        var threatMatch = inCacheThreatMatches[urlDomainKey].threatMatch
-        for (this.hypertext of this.hypertexts) {
-          if (this.hypertext.urlDomainKey === urlDomainKey) {
-            this.hypertext.threatMatch = threatMatch
-            this.hypertext.inCache = true
-            var threatMatchInThreatTypes = this.threatTypes.includes(threatMatch)
+  setInCacheThreatMatches (inCacheThreatMatches) {
+    /* save threat matches to message object */
+    for (var urlDomainKey in inCacheThreatMatches) {
+      var threatMatch = inCacheThreatMatches[urlDomainKey].threatMatch
+      for (this.hypertext of this.hypertexts) {
+        if (this.hypertext.urlDomainKey === urlDomainKey) {
+          this.hypertext.threatMatch = threatMatch
+          this.hypertext.inCache = true
+          var threatMatchInThreatTypes = this.threatTypes.includes(threatMatch)
+          if (!threatMatchInThreatTypes) {
+            this.threatTypes.push(threatMatch)
+          }
+        }
+      }
+    }
+  }
+
+  setSafeBrowseThreatMatches (safeBrowseThreatMatches) {
+    /* add threat type to the original message */
+    if (safeBrowseThreatMatches.matches) {
+      for (var threatMatch of safeBrowseThreatMatches.matches) {
+        for (var link of messageData.links) {
+          if (link.urlDomainKey === threatMatch.threat.url) {
+            link.threatMatch = threatMatch.threatType
+            link.cacheDuration = threatMatch.cacheDuration
+            link.inCache = false
+            var threatMatchInThreatTypes = messageData.threatTypes.includes(threatMatch.threatType)
             if (!threatMatchInThreatTypes) {
-              this.threatTypes.push(threatMatch)
+              messageData.threatTypes.push(threatMatch.threatType)
             }
           }
         }
       }
     }
+    return messageData
+  }
 
-  setSafeBrowseThreatMatches = (safeBrowseThreatMatches) => {
-      /* add threat type to the original message */
-      if (safeBrowseThreatMatches.matches) {
-        for (var threatMatch of safeBrowseThreatMatches.matches) {
-          for (var link of messageData.links) {
-            if (link.urlDomainKey === threatMatch.threat.url) {
-              link.threatMatch = threatMatch.threatType
-              link.cacheDuration = threatMatch.cacheDuration
-              link.inCache = false
-              var threatMatchInThreatTypes = messageData.threatTypes.includes(threatMatch.threatType)
-              if (!threatMatchInThreatTypes) {
-                messageData.threatTypes.push(threatMatch.threatType)
-              }
-            }
-          }
+  setNoneFound () {
+    /* identify whether there is url for a hypertext object that is not suspected of threats */
+    for (var hypertext of this.hypertexts) {
+      if (hypertext.threatMatch === '') {
+        var noneFoundInThreatTypes = this.threatTypes.includes('NONE_FOUND')
+        if (!noneFoundInThreatTypes) {
+          this.threatTypes.push('NONE_FOUND')
         }
       }
-      return messageData
     }
-
-  setNoneFound = () => {
-      /* identify whether there is url for a hypertext object that is not suspected of threats */
-      for (var hypertext of this.hypertexts) {
-        if (hypertext.threatMatch === '') {
-          var noneFoundInThreatTypes = this.threatTypes.includes('NONE_FOUND')
-          if (!noneFoundInThreatTypes) {
-            this.threatTypes.push('NONE_FOUND')
-          }
-        }
-      }
-      return message
-    }
-  
+    return message
+  }
 }
 
 module.exports = {
