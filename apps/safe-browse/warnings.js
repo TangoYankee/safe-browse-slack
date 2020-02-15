@@ -1,46 +1,63 @@
 'use strict'
 
-const sharedWithoutHttpsData = {
-  emoji: 'small_orange_diamond',
-  text: 'shared without <https://www.snopes.com/fact-check/http-vs-https/|https>'
-}
 
-const safeBrowseStatusData = {
-  error_checking_safe_browse: {
-    emoji: 'heavy_multiplication_x',
-    text: 'Error checking for threats in <https://developers.google.com/safe-browsing/v4/advisory|Google Safe Browse>'
+class ThreatWarning {
+  constructor(threatType) {
+    this.threatType = threatType
+    this.threatWarnings =  this._threatWarnings
+    this.threatEmoji = this._setEmoji()
+    this.warning = this._setWarning()
   }
-}
 
-const safeBrowseThreatsData = {
-  MALWARE: {
-    emoji: 'beetle',
-    text: '<https://www.stopbadware.org/|malware> '
-  },
-  SOCIAL_ENGINEERING: {
-    emoji: 'biohazard_sign',
-    text: '<https://googleonlinesecurity.blogspot.com/2015/11/safe-browsing-protection-from-even-more.html|social engineering> '
-  },
-  UNWANTED_SOFTWARE: {
-    emoji: 'no_entry_sign',
-    text: '<https://www.google.com/about/unwanted-software-policy.html|unwanted software> '
-  },
-  THREAT_TYPE_UNSPECIFIED: {
-    emoji: 'exclamation',
-    text: 'unspecified threat'
-  },
-  POTENTIALLY_HARMFUL_APPLICATION: {
-    emoji: 'exclamation',
-    text: 'potentially harmful app'
-  },
-  NONE_FOUND: {
-    emoji: 'small_blue_diamond',
-    text: '<https://developers.google.com/safe-browsing/v4/advisory|no threats suspected>'
+  _setWarning () {
+    return this.threatWarnings[this.threatType].warning
   }
+
+  _setEmoji () {
+    return this.threatWarnings[this.threatType].emoji
+  }
+
+  _threatWarnings () { 
+    return {
+    SHARED_WITHOUT_HTTPS: {
+        emoji: 'small_orange_diamond',
+        text: 'shared without <https://www.snopes.com/fact-check/http-vs-https/|https>'
+    },
+    SAFE_BROWSE_ERROR: {
+      emoji: 'heavy_multiplication_x',
+      text: 'Error checking for threats in <https://developers.google.com/safe-browsing/v4/advisory|Google Safe Browse>'
+    },
+    MALWARE: {
+      emoji: 'beetle',
+      text: '<https://www.stopbadware.org/|malware> '
+    },
+    SOCIAL_ENGINEERING: {
+      emoji: 'biohazard_sign',
+      text: '<https://googleonlinesecurity.blogspot.com/2015/11/safe-browsing-protection-from-even-more.html|social engineering> '
+    },
+    UNWANTED_SOFTWARE: {
+      emoji: 'no_entry_sign',
+      text: '<https://www.google.com/about/unwanted-software-policy.html|unwanted software> '
+    },
+    THREAT_TYPE_UNSPECIFIED: {
+      emoji: 'exclamation',
+      text: 'unspecified threat'
+    },
+    POTENTIALLY_HARMFUL_APPLICATION: {
+      emoji: 'exclamation',
+      text: 'potentially harmful app'
+    },
+    NONE_FOUND: {
+      emoji: 'small_blue_diamond',
+      text: '<https://developers.google.com/safe-browsing/v4/advisory|no threats suspected>'
+    }
+  }
+  }
+
+  warningText () {
+  /* message for the emoji note left on destination urls */
+  return `:${warning.emoji}: ${warning.text}`
+  }  
 }
 
-module.exports = {
-  sharedWithoutHttpsData,
-  safeBrowseStatusData,
-  safeBrowseThreatsData
-}
+module.exports = { ThreatWarning }
