@@ -3,7 +3,7 @@
 const bodyParser = require('body-parser')
 const express = require('express')
 const { publish, remove } = require('./apps/blocks/methods')
-const { oauth } = require('./apps/credential/oauth')
+const { OAuth } = require('./apps/credential/oauth')
 const { Signature } = require('./apps/credential/signature')
 
 var app = express()
@@ -25,7 +25,9 @@ app.get('/privacy', (req, res) => {
 
 app.get('/oauth', (req, res) => {
   /* oauth with Slack */
-  oauth(req, res)
+  var oauth = new OAuth(req, res)
+  oauth.checkQueryCode()
+  oauth.postOAuth()
 })
 
 app.post('/publish', (req, res) => {
