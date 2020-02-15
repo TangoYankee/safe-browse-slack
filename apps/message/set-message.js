@@ -9,7 +9,7 @@ const setMessage = async (text, userId) => {
   var message = new Message(text, userId)
   var threatCache = new ThreatCache(message.hypertexts)
   var inCacheThreatMatches = threatCache.getCacheThreats()
-  message.getInCacheThreatMatches(inCacheThreatMatches)
+  message.setInCacheThreatMatches(inCacheThreatMatches)
   var safeBrowse = new SafeBrowse(message.hypertexts)
   var safeBrowseThreatMatches = await safeBrowse.getSafeBrowseThreats()
   if (safeBrowseThreatMatches !== undefined) {

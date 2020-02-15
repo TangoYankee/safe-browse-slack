@@ -8,19 +8,19 @@ class Message {
     this.text = text
     this.sharedBy = userId
     this.safeBrowseSuccess = true
-    this.rawHypertexts = this.setRawHypertexts()
-    this.hypertexts = this.setHyperTexts()
-    this.allSharedAsHttpSecure = this.setAllSharedAsHttpSecure()
+    this.rawHypertexts = this._setRawHypertexts()
+    this.hypertexts = this._setHyperTexts()
+    this.allSharedAsHttpSecure = this._setAllSharedAsHttpSecure()
     this.threatTypes = []
   }
 
-  setRawHypertexts () {
+  _setRawHypertexts () {
     /* identify entire portion of markdown syntax from original user input */
     var markdownHyperTextRegex = /(\[.*?\]\(.*?\))/gm
     return this.text.match(markdownHyperTextRegex)
   }
 
-  setHyperTexts () {
+  _setHyperTexts () {
     /* destination urls, display text, and their meta data */
     var hypertexts = []
     if (this.rawHypertexts !== null) {
@@ -34,7 +34,7 @@ class Message {
     return hypertexts
   }
 
-  setAllSharedAsHttpSecure () {
+  _setAllSharedAsHttpSecure () {
     /* all urls were originally prefaced with 'https' */
     for (var hypertext of this.hypertexts) {
       if (!hypertext.sharedAsHttpSecure) {

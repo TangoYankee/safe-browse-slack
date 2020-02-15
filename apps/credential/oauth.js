@@ -3,7 +3,7 @@
 const process = require('process')
 const queryString = require('querystring')
 const request = require('request')
-const { saveTeam } = require('../database/db.js')
+const { DataBase } = require('../database/db.js')
 const { TokenEncryption } = require('./encryption')
 
 class OAuth {
@@ -12,6 +12,7 @@ class OAuth {
     this.res = res
     this.url = 'https://slack.com/api/oauth.v2.access'
     this.tokenEncryption = new TokenEncryption()
+    this.dataBase = new DataBase()
   }
 
   checkQueryCode () {
@@ -45,7 +46,7 @@ class OAuth {
         var teamId = bodyJson.team.id
         var accessTokenPlain = bodyJson.access_token
         if (teamId && accessTokenPlain) {
-          saveTeam(teamId, this.tokenEncryption.encryptToken(accessTokenPlain))
+          this.database.saveTeam(teamId, this.tokenEncryption.encryptToken(accessTokenPlain))
           this.res.redirect('/?' + this._resultMessage('success'))
         } else {
           this._resultError(401, 'oauth failed to recieve team ID/access token')

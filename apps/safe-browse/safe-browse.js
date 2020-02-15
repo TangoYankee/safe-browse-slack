@@ -1,16 +1,16 @@
 'use strict'
 
 const process = require('process')
-const { postThreatMatches } = require('./post-threat-matches')
+const { _postThreatMatches } = require('./post-threat-matches')
 
 class SafeBrowse {
   constructor (hypertexts) {
     this.hypertexts = hypertexts
-    this.uncachedThreatEntries = this.setUncachedThreatEntries()
-    this.requestBody = this.setRequestBody()
+    this.uncachedThreatEntries = this._setUncachedThreatEntries()
+    this.requestBody = this._setRequestBody()
   }
 
-  setUncachedThreatEntries () {
+  _setUncachedThreatEntries () {
     /* pair urls with key for safe browse threat entries */
     var uncachedThreatEntries = []
     for (this.hypertext of this.hypertexts) {
@@ -24,16 +24,7 @@ class SafeBrowse {
     return uncachedThreatEntries
   }
 
-  uncachedThreatEntriesExist () {
-    /* prevent unnecessary calls to the SafeBrowse API, where there are no uncached threat urls */
-    if (this.uncachedThreatEntries.length >= 1) {
-      return true
-    } else {
-      return false
-    }
-  }
-
-  setRequestBody () {
+  _setRequestBody () {
     /* pair threat entries urls with threat types to check */
     return {
       client: {
@@ -53,11 +44,20 @@ class SafeBrowse {
   async getSafeBrowseThreats () {
     /* find suspected threats in safe browse API */
     var threatMatches
-    if (this.uncachedThreatEntriesExist()) {
-      threatMatches = await postThreatMatches(this.requestBody)
+    if (this._uncachedThreatEntriesExist()) {
+      threatMatches = await _postThreatMatches(this.requestBody)
       return threatMatches
     } else {
       return threatMatches
+    }
+  }
+
+  _uncachedThreatEntriesExist () {
+    /* prevent unnecessary calls to the SafeBrowse API, where there are no uncached threat urls */
+    if (this.uncachedThreatEntries.length >= 1) {
+      return true
+    } else {
+      return false
     }
   }
 }

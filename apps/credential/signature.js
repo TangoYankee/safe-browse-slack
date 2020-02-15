@@ -10,7 +10,16 @@ class Signature {
     this.timeTolerance = 3e2
   }
 
-  isRecent () {
+  isValidSignature () {
+    /* request sent within 5 minutes and with correct hash */
+    if (this._isRecent() && this._isValidHash()) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  _isRecent () {
     /* guard against replay attacks */
     var currentTime = Math.floor(new Date().getTime() / 1000)
     var timestamp = Number(this.req.headers['x-slack-request-timestamp'])
@@ -18,7 +27,7 @@ class Signature {
     return (timeDelta <= this.timeTolerance)
   }
 
-  isValidHash () {
+  _isValidHash () {
   /* calculated application signature and slack signature match */
     var reqBody = qs.stringify(this.req.body, { format: 'RFC1738' })
     var baseString = `${this.version}:${this.timestamp}:${reqBody}`
@@ -30,15 +39,6 @@ class Signature {
       Buffer.from(appSignature, 'utf-8'),
       Buffer.from(slackSignature, 'utf-8'))
     )
-  }
-
-  isValidSignature () {
-  /* request sent within 5 minutes and with correct hash */
-    if (this.isRecent() && this.isValidHash()) {
-      return true
-    } else {
-      return false
-    }
   }
 }
 
