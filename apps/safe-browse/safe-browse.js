@@ -13,11 +13,11 @@ class SafeBrowse {
   setUncachedThreatEntries () {
     /* pair urls with key for safe browse threat entries */
     var uncachedThreatEntries = []
-    for (var hypertext of this.hypertexts) {
-      if (!hypertext.inCache) {
-        var threatEntryInArray = uncachedThreatEntries.find(threatEntry => threatEntry.url === link.urlDomainKey)
+    for (this.hypertext of this.hypertexts) {
+      if (!this.hypertext.inCache) {
+        var threatEntryInArray = uncachedThreatEntries.find(threatEntry => threatEntry.url === this.hypertext.urlDomainKey)
         if (threatEntryInArray === undefined) {
-          uncachedThreatEntries.push({ url: link.urlDomainKey })
+          uncachedThreatEntries.push({ url: this.hypertext.urlDomainKey })
         }
       }
     }
@@ -52,7 +52,7 @@ class SafeBrowse {
   // TODO: Don't pass 'undefined' !
   async getSafeBrowseThreats () {
     /* find suspected threats in safe browse API */
-    var threatMatches = undefined
+    var threatMatches
     if (this.uncachedThreatEntriesExist()) {
       threatMatches = await postThreatMatches(this.requestBody)
       return threatMatches

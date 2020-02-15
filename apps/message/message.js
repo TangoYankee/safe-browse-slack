@@ -64,20 +64,19 @@ class Message {
     /* add threat type to the original message */
     if (safeBrowseThreatMatches.matches) {
       for (var threatMatch of safeBrowseThreatMatches.matches) {
-        for (var link of messageData.links) {
-          if (link.urlDomainKey === threatMatch.threat.url) {
-            link.threatMatch = threatMatch.threatType
-            link.cacheDuration = threatMatch.cacheDuration
-            link.inCache = false
-            var threatMatchInThreatTypes = messageData.threatTypes.includes(threatMatch.threatType)
+        for (this.hypertext of this.hypertexts) {
+          if (this.hypertext.urlDomainKey === threatMatch.threat.url) {
+            this.hypertext.threatMatch = threatMatch.threatType
+            this.hypertext.cacheDuration = threatMatch.cacheDuration
+            this.hypertext.inCache = false
+            var threatMatchInThreatTypes = this.threatTypes.includes(threatMatch.threatType)
             if (!threatMatchInThreatTypes) {
-              messageData.threatTypes.push(threatMatch.threatType)
+              this.threatTypes.push(threatMatch.threatType)
             }
           }
         }
       }
     }
-    return messageData
   }
 
   setNoneFound () {
@@ -90,7 +89,6 @@ class Message {
         }
       }
     }
-    return message
   }
 }
 

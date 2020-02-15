@@ -13,11 +13,12 @@ class ThreatCache {
 
   setUrlDomainKeys () {
     /* list of urls to look for in cache */
-    incomingUrlDomainKeys = []
+    var incomingUrlDomainKeys = []
     for (var hypertext of this.uncheckedHypertexts) {
       try {
         incomingUrlDomainKeys.push(hypertext.urlDomainKey)
       } catch (error) {
+        console.warn(`set urldomainkey error: ${error}`)
         throw error
       }
     }
