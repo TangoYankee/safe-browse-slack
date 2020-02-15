@@ -1,7 +1,7 @@
 'use strict'
 
 const request = require('request')
-const { setMessage } = require('../hyper-text/set-message')
+const { setMessage } = require('../message/set-message')
 
 const {
   setHelpMessage, setMarkdownMessage,

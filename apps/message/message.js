@@ -1,4 +1,5 @@
 'use strict'
+
 const { Hypertext } = require('./hypertext')
 
 class Message {

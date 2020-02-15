@@ -1,3 +1,5 @@
+'use strict'
+
 class Hypertext {
   constructor (rawHypertext) {
   /* each link and its meta data stored in an object */

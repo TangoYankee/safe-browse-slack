@@ -2,7 +2,7 @@
 
 const bodyParser = require('body-parser')
 const express = require('express')
-const { publish, remove } = require('./apps/messages/methods')
+const { publish, remove } = require('./apps/blocks/methods')
 const { oauth } = require('./apps/credential/oauth')
 const { signature } = require('./apps/credential/signature')
 
