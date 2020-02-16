@@ -19,7 +19,8 @@ const slackRequest = {
     'accept-encoding': '',
     accept: '',
     'x-slack-signature': 'v0=6a205d5c0edf4b801ef2f83e6c931d1e2d160ffcaad209df4506bce5ae9d6ffe',
-    'x-slack-request-timestamp': '1531420618',
+    // 'x-slack-request-timestamp': '1531420618',
+    'x-slack-request-timestamp': Math.floor(new Date().getTime()/1e3),
     'content-length': '',
     'content-type': '',
     host: '',
@@ -50,5 +51,6 @@ const validHash = [
 module.exports = {
   validRequest,
   timestamps,
-  validHash
+  validHash,
+  slackRequest
 }
