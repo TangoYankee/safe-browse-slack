@@ -4,7 +4,8 @@ const bodyParser = require('body-parser')
 const express = require('express')
 const { publish, remove } = require('./apps/messages/methods')
 const { oauth } = require('./apps/credential/oauth')
-const { signature } = require('./apps/credential/signature')
+// const { signature } = require('./apps/credential/signature')
+const { Signature } = require('/apps/credential/signature-class')
 
 var app = express()
 app.set('view engine', 'pug')
@@ -30,8 +31,9 @@ app.get('/oauth', (req, res) => {
 
 app.post('/publish', (req, res) => {
   /* send message in response to user input from slash command */
-  var currentTime = Math.floor(new Date().getTime() / 1000)
-  if (signature(req, currentTime)) {
+  // var currentTime = Math.floor(new Date().getTime() / 1000)
+  // if (signature(req, currentTime)) {
+  if (new Signature(req).isValid) {
     publish(req.body, res)
   } else {
     res.status(400).send('Ignore this request')
@@ -40,8 +42,9 @@ app.post('/publish', (req, res) => {
 
 app.post('/remove', (req, res) => {
   /* delete messages already posted */
-  var currentTime = Math.floor(new Date().getTime() / 1000)
-  if (signature(req, currentTime)) {
+  // var currentTime = Math.floor(new Date().getTime() / 1000)
+  // if (signature(req, currentTime)) {
+  if (new Signature(req).isValid) {
     var requestBody = JSON.parse(req.body.payload)
     remove(requestBody, res)
   } else {
