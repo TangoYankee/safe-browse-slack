@@ -3,52 +3,42 @@
 const crypto = require('crypto')
 const qs = require('qs')
 
-const signature = (request, currentTime) => {
-  /* verify request is from slack */
-  var timestampStr = request.headers['x-slack-request-timestamp']
-  var timestamp = Number(timestampStr)
-  if (isRecent(timestamp, currentTime)) {
-    return isValidHash(timestamp, request)
-  } else {
-    return false
+class Signature {
+  /* request is properly signed */
+  constructor (req) {
+    this.req = req
+    this.version = 'v0'
+    this.timeTolerance = 3e2
+    this.timestamp = Number(req.headers['x-slack-request-timestamp'])
+    this.currentTime = Math.floor(new Date().getTime() / 1e3)
+  }
+
+  get isValid () {
+    /* request was sent recently and matches slack credentials */
+    return (this._isRecent && this._isCorrectSignature)
+  }
+
+  get _isRecent () {
+    /* guard against replay attacks */
+    var timeDelta = Math.abs(this.currentTime - this.timestamp)
+    return (timeDelta <= this.timeTolerance)
+  }
+
+  get _isCorrectSignature () {
+    /* calculated application signature and slack signature match */
+    var reqBody = qs.stringify(this.req.body, { format: 'RFC1738' })
+    var baseString = `${this.version}:${this.timestamp}:${reqBody}`
+    var signingSecret = process.env.SLACK_SIGNING_SECRET
+    var hexDigest = crypto.createHmac('sha256', signingSecret).update(`${baseString}`).digest('hex')
+    var appSignature = `${this.version}=${hexDigest}`
+    var slackSignature = this.req.headers['x-slack-signature']
+    return (crypto.timingSafeEqual(
+      Buffer.from(appSignature, 'utf-8'),
+      Buffer.from(slackSignature, 'utf-8'))
+    )
   }
 }
 
-const isRecent = (timestamp, currentTime) => {
-  /* guard against replay attacks */
-  const timeTolerance = 3e2
-  var timeDelta = Math.abs(currentTime - timestamp)
-  return (timeDelta <= timeTolerance)
+module.exports = {
+  Signature
 }
-
-const isValidHash = (timestamp, request) => {
-  /* calculated application signature and slack signature match */
-  const version = 'v0'
-  var requestBody = qs.stringify(request.body, { format: 'RFC1738' })
-  var baseString = getBaseString(version, timestamp, requestBody)
-  var signingSecret = process.env.SLACK_SIGNING_SECRET
-  var hexDigest = getHexDigest(signingSecret, baseString)
-  var appSignature = getSignature(version, hexDigest)
-  var slackSignature = request.headers['x-slack-signature']
-  return (crypto.timingSafeEqual(
-    Buffer.from(appSignature, 'utf-8'),
-    Buffer.from(slackSignature, 'utf-8'))
-  )
-}
-
-const getBaseString = (version, timestamp, requestBody) => {
-  /* format raw string to use in calculation hash */
-  return (`${version}:${timestamp}:${requestBody}`)
-}
-
-const getHexDigest = (signingSecret, baseString) => {
-  /* calculate the raw hash */
-  return crypto.createHmac('sha256', signingSecret).update(`${baseString}`).digest('hex')
-}
-
-const getSignature = (version, hexDigest) => {
-  /* format the full signature */
-  return (`${version}=${hexDigest}`)
-}
-
-module.exports = { signature, isRecent, isValidHash }
