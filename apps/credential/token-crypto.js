@@ -10,6 +10,7 @@ class TokenCrypto {
   }
 
   encrypt (tokenPlain) {
+    /* encrypt token to store at rest */
     var ivLen = 16
     var iv = cryptoRandomString({ length: ivLen, type: 'hex' })
     var cipher = crypto.createCipheriv(this.algorithm, this.tokenKey, iv)

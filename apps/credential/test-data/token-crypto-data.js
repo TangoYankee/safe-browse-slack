@@ -22,6 +22,7 @@ class TestCrypto {
   }
 
   get isValidCipher () {
+    /* ciphers follow a standard format */
     return (this.tokenCipher.length === 176 && !this.tokenCipher.includes('-'))
   }
 }
