@@ -14,7 +14,7 @@ class TestCrypto {
     var token = 'xoxp'
     for (let i = 0; i < 3; i++) {
       token += '-'
-      token += cryptoRandomString({ length: 10, characters: '0123456789' })
+      token += cryptoRandomString({ length: 12, characters: '0123456789' })
     }
     token += '-'
     token += cryptoRandomString({ length: 32 })
