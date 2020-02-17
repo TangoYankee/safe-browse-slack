@@ -8,6 +8,8 @@ const { TokenCrypto } = require('./token-crypto')
 
 const oauth = (req, res) => {
   /* compose Slack credentials */
+  console.log('request')
+  console.log(req)
   if (!req.query.code) {
     console.warn('oauth error with code 500')
     res.status(500)
@@ -36,6 +38,8 @@ const postOAuth = (res, url, thisQueryString) => {
       thisQueryMessage = queryString.stringify({ message: 'error' })
       res.redirect('/?' + thisQueryMessage)
     } else {
+      console.log('response')
+      console.log(response)
       var bodyJson = JSON.parse(body)
       var teamId = bodyJson.team.id
       var accessTokenPlain = bodyJson.access_token
