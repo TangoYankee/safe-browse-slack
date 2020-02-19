@@ -1,7 +1,7 @@
 'use strict'
 
-const { OAuth } = require('../oauth-class')
-const { TestCipher } = require('../test-data/token-crypto-data')
+const { OAuth, OAuthToken } = require('../oauth-class')
+const { TestCrypto } = require('../test-data/token-crypto-data')
 const { mockResponse, mockCodeRequest, mockTokenRequest } = require('../test-data/oauth-data')
 const cryptoRandomString = require('crypto-random-string')
 
@@ -48,7 +48,7 @@ describe('oauth successfully recieves an authorization code', () => {
   })
 
   it('should successfully generate options for a post', () => {
-    console.log(process.env.SLACK_CLIENT_ID)
+    // console.log(process.env.SLACK_CLIENT_ID)
     expect(oauth.options).toEqual({
       url: 'https://slack.com/api/oauth.v2.access',
       qs: {
@@ -57,6 +57,21 @@ describe('oauth successfully recieves an authorization code', () => {
         code: code
       }
     })
+  })
+})
+
+describe('oauthToken should inherit ability to cipher tokens', () => {
+  var oauthToken
+  var testCrypto
+  beforeAll(()=> {
+    oauthToken = new OAuthToken()
+    testCrypto = new TestCrypto()
+    oauthToken.tokenKey = testCrypto.tokenKey
+  })
+
+  it('should have token encrypt function', ()=> {
+    testCrypto.tokenCipher = oauthToken.encrypt(testCrypto.tokenPlain)
+    expect(testCrypto.isValidCipher).toBe(true)
   })
 })
 

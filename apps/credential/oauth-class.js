@@ -1,6 +1,7 @@
 'use strict'
 
 const queryString = require('querystring')
+const { TokenCrypto } = require('./token-crypto')
 
 class OAuth {
   constructor (codeReq, res) {
@@ -36,6 +37,12 @@ class OAuth {
   sendRedirect (message) {
     var thisQueryMessage = queryString.stringify({ message: message })
     return this.res.redirect('/?' + thisQueryMessage)
+  }
+}
+
+class OAuthToken extends TokenCrypto {
+  constructor(){
+    super()
   }
 }
 
@@ -81,5 +88,6 @@ class OAuth {
 // }
 
 module.exports = {
-  OAuth
+  OAuth,
+  OAuthToken
 }
