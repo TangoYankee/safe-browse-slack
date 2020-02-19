@@ -49,7 +49,7 @@ describe('oauth successfully recieves an authorization code', () => {
 
   it('should successfully generate options for a post', () => {
     // console.log(process.env.SLACK_CLIENT_ID)
-    expect(oauth.options).toEqual({
+    expect(oauth._options).toEqual({
       url: 'https://slack.com/api/oauth.v2.access',
       qs: {
         client_id: process.env.SLACK_CLIENT_ID,
