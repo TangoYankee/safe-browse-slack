@@ -13,20 +13,20 @@ describe('oauth fails to recieve an authorization code', () => {
   beforeAll(() => {
     res = mockResponse()
     codeReq = mockCodeRequest(code)
-    oauth = new OAuth(codeReq, res)
   })
 
   it('should be missing authorization code', () => {
+    oauth = new OAuth(codeReq, res)
     expect(!oauth.authCode).toBe(true)
   })
 
   it('should respond with a 500 code', () => {
-    oauth.sendResponse(500)
+    oauth = new OAuth(codeReq, res)
     expect(oauth.res.status).toHaveBeenCalledWith(500)
   })
 
   it('should redirect home with an error message', () => {
-    oauth.sendRedirect('error')
+    oauth = new OAuth(codeReq, res)
     expect(oauth.res.redirect).toHaveBeenCalledWith('/?message=error')
   })
 })

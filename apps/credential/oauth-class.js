@@ -11,10 +11,14 @@ class OAuth {
   }
 
   setAuthCode () {
-    try {
+    if(this.codeReq.query.code) {
       return this.codeReq.query.code
-    } catch (e) {
-      console.warn(`authorization code not recieved. Error: ${e}`)
+    } else {
+      console.warn('authorization code not recieved.')
+      // Res redirect/status not called
+      // Warning now seen in console.
+      this.res.status(500)
+      this.res.redirect('/?message=error')
       return ''
     }
   }
@@ -30,14 +34,14 @@ class OAuth {
     }
   }
 
-  sendResponse (statusCode) {
-    return this.res.status(statusCode)
-  }
+  // sendResponse (statusCode) {
+  //   return this.res.status(statusCode)
+  // }
 
-  sendRedirect (message) {
-    var thisQueryMessage = queryString.stringify({ message: message })
-    return this.res.redirect('/?' + thisQueryMessage)
-  }
+  // sendRedirect (message) {
+  //   // var thisQueryMessage = queryString.stringify({ message: message })
+  //   return this.res.redirect(`/?message=${message}`)
+  // }
 }
 
 class OAuthToken extends TokenCrypto {
