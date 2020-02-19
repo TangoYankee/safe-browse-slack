@@ -1,9 +1,12 @@
 'use strict'
 
-const { OAuth, OAuthToken } = require('../oauth-class')
+const { OAuth } = require('../oauth-class')
 const { TestCrypto } = require('../test-data/token-crypto-data')
 const { mockResponse, mockCodeRequest, mockTokenRequest } = require('../test-data/oauth-data')
 const cryptoRandomString = require('crypto-random-string')
+
+
+// Create a mock OAuth response from slack
 
 describe('oauth fails to recieve an authorization code', () => {
   var res
@@ -80,68 +83,3 @@ describe('oauth should inherit ability to cipher tokens', () => {
     expect(testCrypto.isValidCipher).toBe(true)
   })
 })
-
-// describe('oauth successfully recieves an authorization code', () => {
-//   var appCodeRes
-//   var slackCodeReq
-//   var oauth
-//   var code
-//   beforeAll(() => {
-//     appCodeRes = JSON.parse(JSON.stringify(resApp))
-//     slackCodeReq = JSON.parse(JSON.stringify(reqSlackCode))
-//     code = cryptoRandomString({ length: 9 })
-//     slackCodeReq.query.code = code
-//     console.log(`slack req code: ${slackCodeReq.query.code}`)
-//     oauth = new OAuthFlow(slackCodeReq, appCodeRes)
-//   })
-
-//   it('should reflect code is present', () => {
-//     console.log(`oauth object code: ${oauth.code.slackReq.query.code}`)
-//     expect(oauth.code.exists).toBe(true)
-//   })
-// })
-
-// describe('oauth fails to recieve an authorization code', () => {
-//   var appCodeRes
-//   var slackCodeReq
-//   var oauth
-//   var code
-//   beforeAll(() => {
-//     appCodeRes = JSON.parse(JSON.stringify(resApp))
-//     slackCodeReq = JSON.parse(JSON.stringify(reqSlackCode))
-//     code = ''
-//     slackCodeReq.query.code = code
-//     oauth = new OAuthFlow(slackCodeReq, appCodeRes)
-//   })
-
-//   it('should reflect code is missing', () => {
-//     expect(oauth.code.exists).toBe(false)
-//   })
-
-//   it('should set the response status to 500', () => {
-//     expect(oauth.res.status).toEqual
-//   })
-// })
-
-// describe('oauth class exists', () => {
-//   var oauth
-//   var appCodeRes
-//   var appTokenRes
-//   var slackCodeReq
-//   var slackTokenReq
-//   var code
-//   beforeAll(() => {
-//     appCodeRes = JSON.parse(JSON.stringify( resApp ))
-//     appTokenRes = JSON.parse(JSON.stringify( resApp ))
-//     slackCodeReq = JSON.parse(JSON.stringify( reqSlackCode ))
-//     slackTokenReq = JSON.parse(JSON.stringify( reqSlackToken ))
-//     code = cryptoRandomString({length: 9})
-//     slackCodeReq.query.code = code
-//     oauth = new OAuth(slackCodeReq)
-//   })
-
-//   it('should check whether there is a code from slack',
-//   () => {
-//     expect(oauth.isCodeExists = true)
-//   })
-// })
