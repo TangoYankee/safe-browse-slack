@@ -60,17 +60,23 @@ describe('oauth successfully recieves an authorization code', () => {
   })
 })
 
-describe('oauthToken should inherit ability to cipher tokens', () => {
-  var oauthToken
+describe('oauth should inherit ability to cipher tokens', () => {
+  var res
+  var oauth
+  var codeReq
+  var code
   var testCrypto
   beforeAll(()=> {
-    oauthToken = new OAuthToken()
+    res = mockResponse()
+    code = cryptoRandomString({ length: 9 })
+    codeReq = mockCodeRequest(code)
+    oauth = new OAuth(codeReq, res)
     testCrypto = new TestCrypto()
-    oauthToken.tokenKey = testCrypto.tokenKey
+    oauth.tokenKey = testCrypto.tokenKey
   })
 
   it('should have token encrypt function', ()=> {
-    testCrypto.tokenCipher = oauthToken.encrypt(testCrypto.tokenPlain)
+    testCrypto.tokenCipher = oauth.encrypt(testCrypto.tokenPlain)
     expect(testCrypto.isValidCipher).toBe(true)
   })
 })
