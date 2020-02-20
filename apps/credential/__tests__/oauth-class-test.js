@@ -2,9 +2,9 @@
 
 const { OAuth } = require('../oauth-class')
 const { TestCrypto } = require('../test-data/token-crypto-data')
-const { mockResponse, mockCodeRequest, mockTokenRequest } = require('../test-data/oauth-data')
+const { mockResponse, mockCodeRequest } = require('../test-data/oauth-data')
 const mockRequest = require("request")
-jest.mock('request')
+// jest.mock('request') // request is not defined
 // const request = require('request')
 // const { Response} = require('request')
 const cryptoRandomString = require('crypto-random-string')
@@ -43,6 +43,7 @@ const cryptoRandomString = require('crypto-random-string')
 //   })
 
 //   it('should be missing authorization code', () => {
+  //  May need a "before each" instead of "before All"?
 //     oauth = new OAuth(codeReq, res)
 //     expect(!oauth.authCode).toBe(true)
 //   })
@@ -75,14 +76,35 @@ describe('oauth successfully recieves an authorization code', () => {
   })
 
   it('should call a mock request to slack for a token', () => {
+    const spy = spyOn(mockRequest, 'post')
     oauth = new OAuth(codeReq, res)
-    expect(mockRequest.post).toHaveBeenCalledTimes(1)
-    console.log(oauth._options)
-    expect(mockRequest.post).toHaveBeenCalledWith({ url: 'https://slack.com/api/oauth.v2.access',
-    qs: 
-     { client_id: '',
-       client_secret: '',
-       code: '' } })
+    expect(spy).toHaveBeenCalledTimes(1)
+    // Need to mock an anonymous function call
+    // expect(mockRequest.post).toHaveBeenCalledWith(oauth._options, (tokenError, tokenRes, tokenBody) => {
+    //   console.log("entered callback")
+    //   if (tokenError) {
+    //     console.warn(`oauth failed to recieve authorization token with error: ${tokenError}`)
+    //     tokenRes.redirect('/?message=error')
+    //     resolve('error')
+    //   }
+    //   var tokenBodyJSON = JSON.parse(tokenBody)
+    //   if (!tokenBodyJSON.team.id || !tokenBodyJSON.access_token) {
+    //     console.warn('oauth failed to recieve team ID or access token')
+    //     tokenRes.redirect('/?message=error')
+    //     resolve('error')
+    //   } else {
+    //     tokenRes.redirect('/?message=success')
+    //     resolve(tokenBodyJSON)
+    //   }
+    // })
+    expect(oauth.tokenBody).toEqual("error")
+    // expect(request.post).toHaveBeenCalledTimes(1)
+    // console.log(oauth._options)
+    // expect(mockRequest.post).toHaveBeenCalledWith({ url: 'https://slack.com/api/oauth.v2.access',
+    // qs: 
+    //  { client_id: '',
+    //    client_secret: '',
+    //    code: '' } })
     // mockRequest.post.mockImplementationOnce(() => 
     // Promise.resolve({
     //   body: {

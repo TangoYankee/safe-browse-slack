@@ -1,6 +1,34 @@
 'use strict'
 
 const request = jest.genMockFromModule('request')
+const { mockTokenRequest }= require('../apps/credential/test-data/oauth-data')
+
+const mockTokenResponse = () => {
+  const res = {}
+  res.body = jest.fn().mockReturnValue(res)
+  return res
+}
+
+const post = jest.fn ((options, callback) => {
+  let tokenResponse = mockTokenResponse()
+  tokenResponse.body(mockTokenRequest)
+  return tokenResponse
+})
+
+
+// const post = jest.fn(() => {
+//   let tokenResponse = mockTokenResponse()
+//   tokenResponse.body(mockTokenRequest)
+//   return Promise.resolve(tokenResponse)
+// })
+
+// const post = jest.fn(() => {
+//   Promise.resolve(mockTokenRequest)
+// })
+
+// const post = (options, callback) => {
+//   return mockTokenRequest
+// }
 
 // const post = (options) => {
 //   return {
@@ -22,5 +50,8 @@ const request = jest.genMockFromModule('request')
 //   }}
 // }
 
-// request.post = post
+// May be covering default behavior?
+// request.post = post 
+
+request.post = post
 module.exports = request;

@@ -40,9 +40,12 @@ class OAuth extends TokenCrypto {
   }
 
   get _tokenBody () {
+    console.log("enter token body")
     return new Promise(resolve => {
+      console.log("enter promise")
       request.post(this._options,
         (tokenError, tokenRes, tokenBody) => {
+          console.log("entered callback")
           if (tokenError) {
             console.warn(`oauth failed to recieve authorization token with error: ${tokenError}`)
             tokenRes.redirect('/?message=error')
@@ -60,7 +63,7 @@ class OAuth extends TokenCrypto {
         })
     })
   }
-
+// Removed 'get'
   get _options () {
     return {
       url: 'https://slack.com/api/oauth.v2.access',

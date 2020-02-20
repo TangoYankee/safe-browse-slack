@@ -37,8 +37,6 @@ const mockTokenRequest = () => {
   }
 }
 
-
-
 module.exports = {
   mockResponse,
   mockCodeRequest,
