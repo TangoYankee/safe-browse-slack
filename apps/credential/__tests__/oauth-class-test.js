@@ -4,8 +4,31 @@ const { OAuth } = require('../oauth-class')
 const { TestCrypto } = require('../test-data/token-crypto-data')
 const { mockResponse, mockCodeRequest, mockTokenRequest } = require('../test-data/oauth-data')
 const mockRequest = require("request")
+jest.mock('request')
+// const request = require('request')
+// const { Response} = require('request')
 const cryptoRandomString = require('crypto-random-string')
 
+// it('mocks request', () => {
+//   request.mockReturnValue(Promise.resolve(new Response('error')))
+
+//   var code = cryptoRandomString({ length: 9 })
+//   var codeReq = mockCodeRequest(code)
+//   var oauth = new OAuth(codeReq, res)
+//   expect(request).toHaveBeenCalledTimes(1)
+
+// })
+// biblia/__tests__/search.test.js
+// const search = require("../js/search");
+// const mockAxios = require("axios")
+// test("fetches results from google books api", () => {
+//   mockAxios.get.mockImplementationOnce(() =>
+//     Promise.resolve(dummy_response_data_here)
+//   );
+// return search.fetchBooks().then(response => {
+//     expect(response).toEqual();
+//   });
+// });
 
 // Create a mock OAuth response from slack
 
@@ -33,7 +56,7 @@ const cryptoRandomString = require('crypto-random-string')
 //     oauth = new OAuth(codeReq, res)
 //     expect(oauth.res.redirect).toHaveBeenCalledWith('/?message=error')
 //   })
-// })
+// // })
 
 describe('oauth successfully recieves an authorization code', () => {
   var res
@@ -52,56 +75,66 @@ describe('oauth successfully recieves an authorization code', () => {
   })
 
   it('should call a mock request to slack for a token', () => {
-    mockRequest.post.mockImplementationOnce(() => 
-    Promise.resolve({
-      ok: true,
-      app_id: 'AHB2H4ABX',
-      authed_user: {
-        id: ''
-      },
-      scope: 'commands',
-      token_type: 'bot',
-      access_token: '123456',
-      bot_user_id: '123409',
-      team: {
-        id: '123456789',
-        name: 'USAF Bots'
-      },
-      enterprise: null
-    }))
-    // return OAuth
-  })
-
-  it('should successfully generate options for a post', () => {
-    // console.log(process.env.SLACK_CLIENT_ID)
-    expect(oauth._options).toEqual({
-      url: 'https://slack.com/api/oauth.v2.access',
-      qs: {
-        client_id: process.env.SLACK_CLIENT_ID,
-        client_secret: process.env.SLACK_CLIENT_SECRET,
-        code: code
-      }
-    })
+    oauth = new OAuth(codeReq, res)
+    expect(mockRequest.post).toHaveBeenCalledTimes(1)
+    console.log(oauth._options)
+    expect(mockRequest.post).toHaveBeenCalledWith({ url: 'https://slack.com/api/oauth.v2.access',
+    qs: 
+     { client_id: '',
+       client_secret: '',
+       code: '' } })
+    // mockRequest.post.mockImplementationOnce(() => 
+    // Promise.resolve({
+    //   body: {
+    //   ok: true,
+    //   app_id: 'AHB2H4ABX',
+    //   authed_user: {
+    //     id: '123456'
+    //   },
+    //   scope: 'commands',
+    //   token_type: 'bot',
+    //   access_token: '123456',
+    //   bot_user_id: '123456',
+    //   team: {
+    //     id: '123456789',
+    //     name: 'USAF Bots'
+    //   },
+    //   enterprise: null
+    // }})
+    // )
   })
 })
 
-// describe('oauth should inherit ability to cipher tokens', () => {
-//   var res
-//   var oauth
-//   var codeReq
-//   var code
-//   var testCrypto
-//   beforeAll(()=> {
-//     res = mockResponse()
-//     code = cryptoRandomString({ length: 9 })
-//     codeReq = mockCodeRequest(code)
-//     oauth = new OAuth(codeReq, res)
-//     testCrypto = new TestCrypto()
-//     oauth.tokenKey = testCrypto.tokenKey
-//   })
-
-//   it('should have token encrypt function', ()=> {
-//     testCrypto.tokenCipher = oauth.encrypt(testCrypto.tokenPlain)
-//     expect(testCrypto.isValidCipher).toBe(true)
+//   it('should successfully generate options for a post', () => {
+//     // console.log(process.env.SLACK_CLIENT_ID)
+//     expect(oauth._options).toEqual({
+//       url: 'https://slack.com/api/oauth.v2.access',
+//       qs: {
+//         client_id: process.env.SLACK_CLIENT_ID,
+//         client_secret: process.env.SLACK_CLIENT_SECRET,
+//         code: code
+//       }
+//     })
 //   })
 // })
+
+// // describe('oauth should inherit ability to cipher tokens', () => {
+// //   var res
+// //   var oauth
+// //   var codeReq
+// //   var code
+// //   var testCrypto
+// //   beforeAll(()=> {
+// //     res = mockResponse()
+// //     code = cryptoRandomString({ length: 9 })
+// //     codeReq = mockCodeRequest(code)
+// //     oauth = new OAuth(codeReq, res)
+// //     testCrypto = new TestCrypto()
+// //     oauth.tokenKey = testCrypto.tokenKey
+// //   })
+
+// //   it('should have token encrypt function', ()=> {
+// //     testCrypto.tokenCipher = oauth.encrypt(testCrypto.tokenPlain)
+// //     expect(testCrypto.isValidCipher).toBe(true)
+// //   })
+// // })
