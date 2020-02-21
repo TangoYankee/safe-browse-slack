@@ -26,10 +26,10 @@ const mockTokenRequest = () => {
       },
       scope: 'commands',
       token_type: 'bot',
-      access_token: '',
+      access_token: '12345',
       bot_user_id: '',
       team: {
-        id: '',
+        id: 'heroes',
         name: 'USAF Bots'
       },
       enterprise: null

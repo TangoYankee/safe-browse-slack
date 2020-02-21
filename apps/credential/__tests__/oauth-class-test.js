@@ -2,35 +2,10 @@
 
 const { OAuth } = require('../oauth-class')
 const { TestCrypto } = require('../test-data/token-crypto-data')
-const { mockResponse, mockCodeRequest } = require('../test-data/oauth-data')
-const mockRequest = require("request")
-// jest.mock('request') // request is not defined
-// const request = require('request')
-// const { Response} = require('request')
+const { mockResponse, mockCodeRequest, mockTokenRequest } = require('../test-data/oauth-data')
+jest.mock('request')
+const request = require('request')
 const cryptoRandomString = require('crypto-random-string')
-
-// it('mocks request', () => {
-//   request.mockReturnValue(Promise.resolve(new Response('error')))
-
-//   var code = cryptoRandomString({ length: 9 })
-//   var codeReq = mockCodeRequest(code)
-//   var oauth = new OAuth(codeReq, res)
-//   expect(request).toHaveBeenCalledTimes(1)
-
-// })
-// biblia/__tests__/search.test.js
-// const search = require("../js/search");
-// const mockAxios = require("axios")
-// test("fetches results from google books api", () => {
-//   mockAxios.get.mockImplementationOnce(() =>
-//     Promise.resolve(dummy_response_data_here)
-//   );
-// return search.fetchBooks().then(response => {
-//     expect(response).toEqual();
-//   });
-// });
-
-// Create a mock OAuth response from slack
 
 describe('oauth should inherit ability to cipher tokens', () => {
   var res
@@ -38,7 +13,7 @@ describe('oauth should inherit ability to cipher tokens', () => {
   var codeReq
   var code
   var testCrypto
-  beforeAll(()=> {
+  beforeAll(() => {
     res = mockResponse()
     code = cryptoRandomString({ length: 9 })
     codeReq = mockCodeRequest(code)
@@ -47,7 +22,7 @@ describe('oauth should inherit ability to cipher tokens', () => {
     oauth.tokenKey = testCrypto.tokenKey
   })
 
-  it('should have token encrypt function', ()=> {
+  it('should have token encrypt function', () => {
     testCrypto.tokenCipher = oauth.encrypt(testCrypto.tokenPlain)
     expect(testCrypto.isValidCipher).toBe(true)
   })
@@ -66,7 +41,7 @@ describe('oauth fails to recieve an authorization code', () => {
   var spyOnMockRequest
   var spyOnRes
   beforeEach(() => {
-    spyOnMockRequest = spyOn(mockRequest, 'post')
+    spyOnMockRequest = spyOn(request, 'post')
     oauth = new OAuth(codeReq, res)
     spyOnRes = spyOn(oauth, 'res')
   })
@@ -94,64 +69,31 @@ describe('oauth successfully recieves an authorization code and token', () => {
   var codeReq = mockCodeRequest(code)
   var oauth
   var spyOnMockRequest
+
   beforeEach(() => {
-    spyOnMockRequest = spyOn(mockRequest, 'post')
+    spyOnMockRequest = spyOn(request, 'post')
+    request.post.mockResolvedValue({ response: mockTokenRequest() })
     oauth = new OAuth(codeReq, res)
+    oauth._tokenBody
   })
 
   it('should not be missing an auth code', () => {
     expect(!oauth.authCode).toBe(false)
   })
 
-  it('should call a mock request to slack for a token', () => {
-    expect(spyOnMockRequest).toHaveBeenCalledTimes(1)
-    // Need to mock an anonymous function call
-    // expect(mockRequest.post).toHaveBeenCalledWith(oauth._options, (tokenError, tokenRes, tokenBody) => {
-    //   console.log("entered callback")
-    //   if (tokenError) {
-    //     console.warn(`oauth failed to recieve authorization token with error: ${tokenError}`)
-    //     tokenRes.redirect('/?message=error')
-    //     resolve('error')
-    //   }
-    //   var tokenBodyJSON = JSON.parse(tokenBody)
-    //   if (!tokenBodyJSON.team.id || !tokenBodyJSON.access_token) {
-    //     console.warn('oauth failed to recieve team ID or access token')
-    //     tokenRes.redirect('/?message=error')
-    //     resolve('error')
-    //   } else {
-    //     tokenRes.redirect('/?message=success')
-    //     resolve(tokenBodyJSON)
-    //   }
-    // })
-    // expect(request.post).toHaveBeenCalledTimes(1)
-    // console.log(oauth._options)
-    // expect(mockRequest.post).toHaveBeenCalledWith({ url: 'https://slack.com/api/oauth.v2.access',
-    // qs: 
-    //  { client_id: '',
-    //    client_secret: '',
-    //    code: '' } })
-    // mockRequest.post.mockImplementationOnce(() => 
-    // Promise.resolve({
-    //   body: {
-    //   ok: true,
-    //   app_id: 'AHB2H4ABX',
-    //   authed_user: {
-    //     id: '123456'
-    //   },
-    //   scope: 'commands',
-    //   token_type: 'bot',
-    //   access_token: '123456',
-    //   bot_user_id: '123456',
-    //   team: {
-    //     id: '123456789',
-    //     name: 'USAF Bots'
-    //   },
-    //   enterprise: null
-    // }})
-    // )
+  it('should redirect with a string', () => {
+    async () => {
+      expect.assertions(1)
+      expect(spyOnMockRequest).toHaveBeenCalledTimes(1)
+      return expect(oauth._tokenBody).resolves.toEqual('incorrect output')
+    }
+  })
+  
+  it('should have a valid team id', () => {
+    expect(oauth.teamID).toEqual('heroes')
   })
 
-  it('should return a token body', () => {
-    expect(oauth.tokenBody).toEqual("error")
+  it('should have a valid token', () => {
+    expect(oauth.tokenCipher).toEqual('cipher')
   })
 })
