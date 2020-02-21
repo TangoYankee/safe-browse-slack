@@ -32,42 +32,70 @@ const cryptoRandomString = require('crypto-random-string')
 
 // Create a mock OAuth response from slack
 
-// describe('oauth fails to recieve an authorization code', () => {
-//   var res
-//   var oauth
-//   var codeReq
-//   var code
-//   beforeAll(() => {
-//     res = mockResponse()
-//     codeReq = mockCodeRequest(code)
-//   })
-
-//   it('should be missing authorization code', () => {
-  //  May need a "before each" instead of "before All"?
-//     oauth = new OAuth(codeReq, res)
-//     expect(!oauth.authCode).toBe(true)
-//   })
-
-//   it('should respond with a 500 code', () => {
-//     oauth = new OAuth(codeReq, res)
-//     expect(oauth.res.status).toHaveBeenCalledWith(500)
-//   })
-
-//   it('should redirect home with an error message', () => {
-//     oauth = new OAuth(codeReq, res)
-//     expect(oauth.res.redirect).toHaveBeenCalledWith('/?message=error')
-//   })
-// // })
-
-describe('oauth successfully recieves an authorization code', () => {
+describe('oauth should inherit ability to cipher tokens', () => {
   var res
   var oauth
   var codeReq
   var code
-  beforeAll(() => {
+  var testCrypto
+  beforeAll(()=> {
     res = mockResponse()
     code = cryptoRandomString({ length: 9 })
     codeReq = mockCodeRequest(code)
+    oauth = new OAuth(codeReq, res)
+    testCrypto = new TestCrypto()
+    oauth.tokenKey = testCrypto.tokenKey
+  })
+
+  it('should have token encrypt function', ()=> {
+    testCrypto.tokenCipher = oauth.encrypt(testCrypto.tokenPlain)
+    expect(testCrypto.isValidCipher).toBe(true)
+  })
+
+  it('should successfully decrypt tokens', () => {
+    testCrypto.tokenCipher = oauth.encrypt(testCrypto.tokenPlain)
+    expect(oauth.decrypt(testCrypto.tokenCipher)).toEqual(testCrypto.tokenPlain)
+  })
+})
+
+describe('oauth fails to recieve an authorization code', () => {
+  var res = mockResponse()
+  var code = ''
+  var codeReq = mockCodeRequest(code)
+  var oauth
+  var spyOnMockRequest
+  var spyOnRes
+  beforeEach(() => {
+    spyOnMockRequest = spyOn(mockRequest, 'post')
+    oauth = new OAuth(codeReq, res)
+    spyOnRes = spyOn(oauth, 'res')
+  })
+
+  it('should be missing authorization code', () => {
+    expect(!oauth.authCode).toBe(true)
+  })
+
+  it('should respond with a 500 code', () => {
+    expect(spyOnRes.status).toHaveBeenCalledWith(500)
+  })
+
+  it('should redirect home with an error message', () => {
+    expect(spyOnRes.redirect).toHaveBeenCalledWith('/?message=error')
+  })
+
+  it('should not call a request for a token from slack', () => {
+    expect(spyOnMockRequest).toHaveNotBeenCalled
+  })
+})
+
+describe('oauth successfully recieves an authorization code and token', () => {
+  var res = mockResponse()
+  var code = cryptoRandomString({ length: 9 })
+  var codeReq = mockCodeRequest(code)
+  var oauth
+  var spyOnMockRequest
+  beforeEach(() => {
+    spyOnMockRequest = spyOn(mockRequest, 'post')
     oauth = new OAuth(codeReq, res)
   })
 
@@ -76,9 +104,7 @@ describe('oauth successfully recieves an authorization code', () => {
   })
 
   it('should call a mock request to slack for a token', () => {
-    const spy = spyOn(mockRequest, 'post')
-    oauth = new OAuth(codeReq, res)
-    expect(spy).toHaveBeenCalledTimes(1)
+    expect(spyOnMockRequest).toHaveBeenCalledTimes(1)
     // Need to mock an anonymous function call
     // expect(mockRequest.post).toHaveBeenCalledWith(oauth._options, (tokenError, tokenRes, tokenBody) => {
     //   console.log("entered callback")
@@ -97,7 +123,6 @@ describe('oauth successfully recieves an authorization code', () => {
     //     resolve(tokenBodyJSON)
     //   }
     // })
-    expect(oauth.tokenBody).toEqual("error")
     // expect(request.post).toHaveBeenCalledTimes(1)
     // console.log(oauth._options)
     // expect(mockRequest.post).toHaveBeenCalledWith({ url: 'https://slack.com/api/oauth.v2.access',
@@ -125,38 +150,8 @@ describe('oauth successfully recieves an authorization code', () => {
     // }})
     // )
   })
+
+  it('should return a token body', () => {
+    expect(oauth.tokenBody).toEqual("error")
+  })
 })
-
-//   it('should successfully generate options for a post', () => {
-//     // console.log(process.env.SLACK_CLIENT_ID)
-//     expect(oauth._options).toEqual({
-//       url: 'https://slack.com/api/oauth.v2.access',
-//       qs: {
-//         client_id: process.env.SLACK_CLIENT_ID,
-//         client_secret: process.env.SLACK_CLIENT_SECRET,
-//         code: code
-//       }
-//     })
-//   })
-// })
-
-// // describe('oauth should inherit ability to cipher tokens', () => {
-// //   var res
-// //   var oauth
-// //   var codeReq
-// //   var code
-// //   var testCrypto
-// //   beforeAll(()=> {
-// //     res = mockResponse()
-// //     code = cryptoRandomString({ length: 9 })
-// //     codeReq = mockCodeRequest(code)
-// //     oauth = new OAuth(codeReq, res)
-// //     testCrypto = new TestCrypto()
-// //     oauth.tokenKey = testCrypto.tokenKey
-// //   })
-
-// //   it('should have token encrypt function', ()=> {
-// //     testCrypto.tokenCipher = oauth.encrypt(testCrypto.tokenPlain)
-// //     expect(testCrypto.isValidCipher).toBe(true)
-// //   })
-// // })
