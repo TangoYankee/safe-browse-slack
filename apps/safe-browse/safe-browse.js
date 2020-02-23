@@ -9,7 +9,7 @@ const setSafeBrowseThreats = async (messageLinks) => {
   var uncachedThreatEntriesExist = setUncachedThreatEntriesExist(uncachedThreatEntries)
   if (uncachedThreatEntriesExist) {
     var requestBody = setRequestBody(uncachedThreatEntries)
-    var threatMatches = await postThreatMatches(requestBody)
+    var threatMatches = postThreatMatches(requestBody)
     return threatMatches
   } else {
     return undefined

@@ -38,13 +38,7 @@ describe.each([
   [inputMessageSix, threatMatchSix]
 ])('setSafeBrowseThreats() /* find suspected threats in safe browse API */',
   (inputMessage, threatMatch) => {
-    test(
-      'setSafeBrowseThreats()',
-      async () => {
-        expect.assertions(1)
-        var threatMatchesResponse = await setSafeBrowseThreats(inputMessage.links)
-        return expect(threatMatchesResponse).toEqual(threatMatch)
-      })
+    return expect(setSafeBrowseThreats(inputMessage.links)).resolves.toEqual(threatMatch)
   }
 )
 
