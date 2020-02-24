@@ -1,10 +1,9 @@
 'use strict'
 
-const process = require('process')
 const queryString = require('querystring')
 const request = require('request')
-const { saveTeam } = require('../database/db.js')
 const { TokenCrypto } = require('./token-crypto')
+const { Database } = require('../database/db')
 
 const oauth = (req, res) => {
   /* compose Slack credentials */
@@ -41,7 +40,7 @@ const postOAuth = (res, url, thisQueryString) => {
       var accessTokenPlain = bodyJson.access_token
       if (teamId && accessTokenPlain) {
         var accessTokenCipher = new TokenCrypto().encrypt(accessTokenPlain)
-        saveTeam(teamId, accessTokenCipher)
+        new Database('markdownlinksdb').connectStoreDisconnect(teamId, accessTokenCipher)
         thisQueryMessage = queryString.stringify({ message: 'success' })
         res.redirect('/?' + thisQueryMessage)
       } else {
