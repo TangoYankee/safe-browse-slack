@@ -20,8 +20,11 @@ describe('insert and update a team token', () => {
     teamsCollection = db.collection('teams')
     markdownlinksdb = new Database('markdownlinksdb')
     teamID = cryptoRandomString({ length: 9 })
-    tokenOne = new TokenCrypto().encrypt(new TestCrypto().tokenPlain)
-    tokenTwo = new TokenCrypto().encrypt(new TestCrypto().tokenPlain)
+    var tokenCrypto = new TokenCrypto()
+    var testCrypto = new TestCrypto()
+    tokenCrypto.tokenKey = testCrypto.tokenKey
+    tokenOne = tokenCrypto.encrypt(testCrypto.tokenPlain)
+    tokenTwo = tokenCrypto.encrypt(testCrypto.tokenPlain)
   })
 
   afterAll(async () => {
