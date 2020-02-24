@@ -8,12 +8,12 @@ describe('insert and update a team token', () => {
   var connection
   var db
   var markdownlinksdb
-  var teams
+  var teamsCollection
   beforeAll(async () => {
     connection = await MongoClient.connect(global.__MONGO_URI__, {useNewUrlParser: true})
     db = connection.db(global.__MONGO_DB_NAME__)
-    teams = db.collection('teams')
-    markdownlinksdb = new Database(db)
+    teamsCollection = db.collection('teams')
+    markdownlinksdb = new Database('markdownlinksdb')
   })
 
   afterAll(async () => {
@@ -23,15 +23,15 @@ describe('insert and update a team token', () => {
 
   it('inserts a team into the collection',
     async () => {
-      await markdownlinksdb.storeTeamToken(teamId, teamTokenOne)
-      var insertedTeam = await teams.findOne({ team_id: teamId })
+      await markdownlinksdb._storeTeamToken(teamId, teamTokenOne, teamsCollection)
+      var insertedTeam = await teamsCollection.findOne({ team_id: teamId })
       expect(teamTokenOne).toEqual(insertedTeam.access_token_cipher)
     })
 
   it('updates the team with a new token',
     async () => {
-      await markdownlinksdb.storeTeamToken(teamId, teamTokentwo)
-      var updatedTeam = await teams.findOne({ team_id: teamId })
+      await markdownlinksdb._storeTeamToken(teamId, teamTokentwo, teamsCollection)
+      var updatedTeam = await teamsCollection.findOne({ team_id: teamId })
       expect(teamTokentwo).toEqual(updatedTeam.access_token_cipher)
     })
 })

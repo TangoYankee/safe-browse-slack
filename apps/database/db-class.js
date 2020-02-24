@@ -11,17 +11,30 @@
 // db = connection.db(global.__MONGO_DB_NAME__)
 
 class Database {
-  constructor (db) {
-    this.db = db
-    this.teams = this.db.collection('teams')
+  constructor (dbName) {
+    this.clusterUri = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@ty-db-xadwv.mongodb.net/${dbName}?retryWrites=true&w=majority`
+    this.dbName = dbName
   }
 
-  async storeTeamToken (teamID, accessTokenCipher) {
-    var teamRecord = await this.teams.findOne({
+  connectStoreDisconnect () {
+    client = MongoClient(this.clusterUri, { useNewUrlParser: true })
+    client.connect(async (err) => {
+      if (err) {
+        console.error(`error connecting to database: ${err}`)
+      } else {
+        var teamsCollection = client.db(this.dbName).collection('teams')
+        await this._storeTeamToken(teamID, accessTokenCipher, teamsCollection)
+        client.close()
+      }
+    })
+  }
+
+  async _storeTeamToken (teamID, accessTokenCipher, teamsCollection) {
+    var teamRecord = await teamsCollection.findOne({
       team_id: teamID
     })
     if (teamRecord) {
-      await this.teams.findOneAndUpdate({
+      await teamsCollection.findOneAndUpdate({
         team_id: teamID
       },
       {
@@ -29,7 +42,7 @@ class Database {
             { access_token_cipher: accessTokenCipher }
       })
     } else if (!teamRecord) {
-      await this.teams.insertOne({
+      await teamsCollection.insertOne({
         team_id: teamID,
         access_token_cipher: accessTokenCipher
       })
