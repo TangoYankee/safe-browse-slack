@@ -30,7 +30,7 @@ const {
   threatMatchFour, threatMatchFive, threatMatchSix
 } = require('../test-data/threat-matches-data')
 
-describe.each([
+test.each([
   [inputMessageOne, threatMatchOne],
   [inputMessageTwo, threatMatchTwo],
   [inputMessageThree, threatMatchThree],
