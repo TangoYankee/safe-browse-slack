@@ -5,7 +5,7 @@ append content
   div(class="content")
     h2 Install
       hr
-    p Select the button below to install the Markdownlinks application in your Slack Workspace
+    p Click the button below to install the Markdownlinks application in your Slack Workspace
     a(title="add to slack" href="https://slack.com/oauth/v2/authorize?client_id=588720890436.589085146405&scope=commands") 
       img(alt="Add to Slack" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" width="139" height="40")
 
@@ -18,7 +18,7 @@ append content
       li 
         a(title = "Emerl's New Orleans" href = "https://www.google.com/maps/place/Emeril's+New+Orleans/@29.944616,-90.0694747,17z/data=!3m1!4b1!4m5!3m4!1s0x8620a6718f86a9a7:0x6ab2069a8e2a2d7d!8m2!3d29.944616!4d-90.067286") 
           | https://www.google.com/maps/place/Emeril's+New+Orleans/@29.944616,-90.0694747,17z/data=!3m1!4b1!4m5!3m4!1s0x8620a6718f86a9a7:0x6ab2069a8e2a2d7d!8m2!3d29.944616!4d-90.067286
-    p Sharing multiple web addresses in a single message can quickly make it feel cluttered:
+    p Sharing multiple web addresses in a single message quickly makes it feel cluttered:
     ul 
       li  
         | We're going to Emeril's for dinner! Here are the directions:
@@ -29,7 +29,9 @@ append content
           |  https://www.expresslane.org/Pages/default.aspx
     p Rough, right?
       br 
-      | Instead! hide these long addresses behind text by using the the Markdownlinks slash command.
+      | Instead! Hide these long addresses behind text by using the the Markdownlinks slash command, inspired by
+      a(title = "Markdown Guide" href="https://markdownguide.org/") 
+        | Markdown syntax
 
     h2 Steps
       hr
@@ -37,17 +39,13 @@ append content
       li Begin your message with '/markdownlinks' to activate the command
       li Type in the message you want share
       li When you get to the text you want to hide your link behind, place it between brackets []
-        br
-        i Markdownlinks formats up to twenty web addressess per message
       li 
         | Immediately follow the text with the web address you want to hide, placed in paretheses ()  
         br 
         i Make sure there are no spaces between the closing bracket and the opening parenthesis!
-      li Send the message to markdownlinks to be formatted
-      li Markdown Links will delete the original message and replace it with a message
-        | with the hyperlinks cleanly formatted.
+      li Send your message and Markdownlinks will cleanly format the hyperlinks
         br
-        i Additionally, other Slack formatting -such as emojis and strikethroughs- are kept in the message
+        i Other Slack formatting -such as emojis and strikethroughs- are preserved in the message
 
     h2 Demo
       hr
@@ -57,8 +55,7 @@ append content
         | We're going to Emeril's for dinner! 
         | [Here are the directions.](https://www.google.com/maps/place/Emeril's+New+Orleans/@29.944616,-90.0694747,17z/data=!3m1!4b1!4m5!3m4!1s0x8620a6718f86a9a7:0x6ab2069a8e2a2d7d!8m2!3d29.944616!4d-90.067286)
         |  If you need to stop by the DMV to get your license renewed first, make an appointment at
-        | [their website!]
-        | (https://www.expresslane.org/Pages/default.aspx)
+        | [their website!](https://www.expresslane.org/Pages/default.aspx)
     p The resulting message will read:
     ul
       li
@@ -68,7 +65,8 @@ append content
         |  If you need to stop by the DMV to get your license renewed first, make an appointment at 
         a(title = "Louisiana DMV" href="https://www.expresslane.org/Pages/default.aspx")
           | their website!
-    img(class = "demo-gifs" src="img/demos/emeril-demo.gif" alt="demonstration of safe and successful web address formatting")
+    div(class="demo")
+      img(class = "demo-gifs" src="img/demos/emeril-demo.gif" alt="demonstration of safe and successful web address formatting")
 
     h2 Help
       hr
@@ -76,7 +74,8 @@ append content
       | If you forget the format for [Markdown](hyperlink.syntax), use the 
       i /markdownlinks help 
       | command to remember.
-    img(class = "demo-gifs" src="img/demos/help-demo.gif" alt="demonstration of help option")
+    div(class="demo")
+      img(class = "demo-gifs" src="img/demos/help-demo.gif" alt="demonstration of help option")
 
     h2 Safety
       hr
@@ -108,7 +107,8 @@ append content
       img(class="emoji" src="img/emojis/small_orange_diamond.png" alt="small orange diamond")
       | means the web address was
       a(class="google-safe-browse" href="https://www.snopes.com/fact-check/http-vs-https/")  shared without https.
-    img(class = "demo-gifs" src="img/demos/harmful-demo.gif" alt="demonstration of harmful yet successful web address formatting")
+    div(class="demo")
+      img(class = "demo-gifs" src="img/demos/harmful-demo.gif" alt="demonstration of harmful yet successful web address formatting")
     p 
       i Google Safe Browse and https checks are not performed on web addresses shared outside of Markdown syntax.
 
@@ -117,4 +117,5 @@ append content
       br
       | Web addresses keep their formatting but do not earn the small blue diamond.
       img(class="emoji" src="img/emojis/small_blue_diamond.png" alt="small blue diamond")
-    img(class = "demo-gifs" src="img/demos/error-demo.gif" alt="demonstration of safe yet failed web address formatting")
+    div(class="demo")
+      img(class = "demo-gifs" src="img/demos/error-demo.gif" alt="demonstration of safe yet failed web address formatting")

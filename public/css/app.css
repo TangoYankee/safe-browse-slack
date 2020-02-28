@@ -95,6 +95,10 @@ a.google-safe-browse {
   text-decoration: none;
 }
 
+div.demo {
+  margin: 1.0rem 0.25rem 0.5rem;
+}
+
 img.demo-gifs {
   object-fit: scale-down;
   max-width: 100%;
