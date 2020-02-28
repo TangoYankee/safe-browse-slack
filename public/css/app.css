@@ -88,6 +88,7 @@ a[title="add to slack"] {
 div.content ul {
   list-style-type: circle;
   margin: 0 1rem;
+  word-wrap: break-word;
 }
 
 a.google-safe-browse {
