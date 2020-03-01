@@ -67,14 +67,10 @@ describe('oauth successfully recieves an authorization code and token', () => {
   var code = cryptoRandomString({ length: 9 })
   var codeReq = mockCodeRequest(code)
   var oauth
-  var spyOnMockRequest
   
   beforeEach(() => {
-    spyOnMockRequest = spyOn(request, 'post')
-    // request.post.mockResolvedValue({ response: mockTokenRequest() })
     request.post.mockResolvedValue({ data: 'success' })
     oauth = new OAuth(codeReq, res)
-    // oauth._tokenBody
   })
 
   it('should not be missing an auth code', () => {
@@ -86,11 +82,11 @@ describe('oauth successfully recieves an authorization code and token', () => {
     return expect(oauth._tokenBody).resolves.toEqual({data:'failure'})
   })
   
-  // it('should have a valid team id', () => {
-  //   expect(oauth.teamID).toEqual('heroes')
-  // })
+  it('should have a valid team id', () => {
+    expect(oauth.teamID).toEqual('heroes')
+  })
 
-  // it('should have a valid token', () => {
-  //   expect(oauth.tokenCipher).toEqual('cipher')
-  // })
+  it('should have a valid token', () => {
+    expect(oauth.tokenCipher).toEqual('cipher')
+  })
 })
