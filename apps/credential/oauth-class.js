@@ -1,22 +1,3 @@
-// const request = require('request')
-
-
-// // Actually shows the recieved data
-// const oauth = () => {
-//   return new Promise((resolve, reject) => {
-//     request.post("example.com")
-//     .then(response => {
-//       resolve(response)
-//     }).catch(error => {
-//       reject(error)
-//     })
-//   })
-// }
-
-
-// module.exports = oauth
-
-
 'use strict'
 
 const request = require('request')
@@ -28,12 +9,7 @@ class OAuth extends TokenCrypto {
     this.res = res
     this.codeReq = codeReq
     this.authCode = this._authCode
-    this.tokenBody = { 
-      access_token: '12345',
-      team : {
-        id: '6789'
-      }
-    }
+    this.tokenBody = this._tokenBody
   }
 
   get teamID () {
@@ -65,15 +41,14 @@ class OAuth extends TokenCrypto {
 
   get _tokenBody () {
     return new Promise((resolve, reject) => {
-      request.post("example.com")
-      .then(response => {
-        resolve(response)
-      }).catch(error => {
-        reject(error)
-      })
+      request.post('example.com')
+        .then(response => {
+          resolve(response.body)
+        }).catch(error => {
+          reject(error)
+        })
     })
   }
-  
 
   get _options () {
     return {
@@ -90,4 +65,3 @@ class OAuth extends TokenCrypto {
 module.exports = {
   OAuth
 }
-

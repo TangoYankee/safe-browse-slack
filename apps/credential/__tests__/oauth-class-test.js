@@ -69,7 +69,7 @@ describe('oauth successfully recieves an authorization code and token', () => {
   var oauth
   
   beforeEach(() => {
-    request.post.mockResolvedValue({ data: 'success' })
+    request.post.mockResolvedValue(mockTokenRequest())
     oauth = new OAuth(codeReq, res)
   })
 
@@ -83,6 +83,8 @@ describe('oauth successfully recieves an authorization code and token', () => {
   })
   
   it('should have a valid team id', () => {
+    // oauth._tokenBody
+    console.log(`from test: ${oauth.tokenBody.team.id}`)
     expect(oauth.teamID).toEqual('heroes')
   })
 
