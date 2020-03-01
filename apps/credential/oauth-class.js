@@ -1,5 +1,8 @@
-const axios = require('axios')
 const request = require('request')
+
+// const oauth = () => {
+//   return new Promise(resolve, reject)
+// }
 
 // Actually shows the recieved data
 const oauth = () => {
@@ -25,22 +28,13 @@ const oauth = () => {
 // }
 
 
-// const postOAuth = () => {
-//   /* find threats that safe browse suspects */
-//   var requestUrl = 'https://safebrowsing.googleapis.com/v4/threatMatches:find'
-//   // Add timeout of 30s as an option
-//   var options = {
-//     url: requestUrl,
-//     json: true,
-//     timeout: 1500,
-//     qs: { key: process.env.GOOGLE_SAFE_BROWSING_KEY }
-//   }
+// const oauth = () => {
 //   return new Promise((resolve, reject) => {
-//     request.post("options", (response)  => {
-//       if (!response) {
-//         reject('error')
-//       } else {
+//     request.post("options", (error, response)  => {
+//       if (response) {
 //         resolve(response)
+//       } else if (error) {
+//         resolve(error)
 //       }
 //     })
 //   })
