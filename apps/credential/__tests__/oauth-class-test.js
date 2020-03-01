@@ -70,7 +70,7 @@ describe('oauth successfully recieves an authorization code and token', () => {
   var spyOnMockRequest
   
   beforeEach(() => {
-    // spyOnMockRequest = spyOn(request, 'post')s
+    spyOnMockRequest = spyOn(request, 'post')
     // request.post.mockResolvedValue({ response: mockTokenRequest() })
     request.post.mockResolvedValue({ data: 'success' })
     oauth = new OAuth(codeReq, res)
@@ -83,7 +83,6 @@ describe('oauth successfully recieves an authorization code and token', () => {
 
   it('should redirect with a string', () => {
     expect.assertions(1)
-    // expect(spyOnMockRequest).toHaveBeenCalledTimes(1)
     return expect(oauth._tokenBody).resolves.toEqual({data:'failure'})
   })
   
