@@ -39,6 +39,15 @@ class OAuth extends TokenCrypto {
     }
   }
 
+  setTokenBody () {
+    if (this.tokenBody) {
+      return this._tokenBody
+    } else {
+      this.tokenBody = this._tokenBody
+      return this.tokenBody
+    }
+  }
+
   get _tokenBody () {
     return new Promise((resolve, reject) => {
       request.post('example.com')
