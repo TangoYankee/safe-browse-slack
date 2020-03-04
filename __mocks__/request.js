@@ -2,4 +2,4 @@
 
 const request = jest.genMockFromModule('request')
 
-module.exports = request;
+module.exports = request

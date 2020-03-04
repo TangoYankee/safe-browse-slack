@@ -9,23 +9,6 @@ class OAuth extends TokenCrypto {
     this.res = res
     this.codeReq = codeReq
     this.authCode = this._authCode
-    this.tokenBody = this._tokenBody
-  }
-
-  get teamID () {
-    if (this.tokenBody !== 'error') {
-      return this.tokenBody.team.id
-    } else {
-      return 'error'
-    }
-  }
-
-  get tokenCipher () {
-    if (this.tokenBody !== 'error') {
-      return this.encrypt(this.tokenBody.access_token)
-    } else {
-      return 'error'
-    }
   }
 
   get _authCode () {
@@ -50,10 +33,15 @@ class OAuth extends TokenCrypto {
 
   get _tokenBody () {
     return new Promise((resolve, reject) => {
-      request.post('example.com')
+      request.post(this._options)
         .then(response => {
+          this.res.redirect('/?message=success')
+          console.log(`response body: ${response.body}`)
           resolve(response.body)
-        }).catch(error => {
+        })
+        .catch(error => {
+          console.warn('oauth failed to recieve authorization')
+          this.res.redirect('/?message=error')
           reject(error)
         })
     })

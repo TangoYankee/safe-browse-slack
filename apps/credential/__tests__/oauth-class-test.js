@@ -67,7 +67,7 @@ describe('oauth successfully recieves an authorization code and token', () => {
   var code = cryptoRandomString({ length: 9 })
   var codeReq = mockCodeRequest(code)
   var oauth
-  
+
   beforeEach(() => {
     request.post.mockResolvedValue(mockTokenRequest())
     oauth = new OAuth(codeReq, res)
@@ -77,22 +77,29 @@ describe('oauth successfully recieves an authorization code and token', () => {
     expect(!oauth.authCode).toBe(false)
   })
 
+  it('should redirect to a successful message', () => {
+    async () => {
+      expect.assertions(1)
+      await oauth.setTokenBody()
+      return expect(res.redirect).toHaveBeenCalledWith('/?message=success')
+    }
+  })
+
   it('should redirect with a string', () => {
     expect.assertions(1)
-    return expect(oauth._tokenBody).resolves.toEqual({data:'failure'})
+    return expect(oauth._tokenBody).resolves.toEqual(mockTokenRequest().body)
   })
 
   it('should have a token body', () => {
-    return expect(oauth.setTokenBody()).resolves.toEqual({data: 'failure'})
+    expect.assertions(1)
+    return expect(oauth.setTokenBody()).resolves.toEqual(mockTokenRequest().body)
   })
-  
-  // it('should have a valid team id', () => {
-  //   // oauth._tokenBody
-  //   console.log(`from test: ${oauth.tokenBody.team.id}`)
-  //   expect(oauth.teamID).toEqual('heroes')
-  // })
 
-  // it('should have a valid token', () => {
-  //   expect(oauth.tokenCipher).toEqual('cipher')
-  // })
+  it('should have a valid team id', () => {
+    async () => {
+      expect.assertions(1)
+      var tokenBody = await oauth.setTokenBody()
+      return expect(tokenBody.team.id).toEqual('heroes')
+    }
+  })
 })
