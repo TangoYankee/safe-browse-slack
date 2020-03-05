@@ -88,7 +88,7 @@ describe('oauth successfully recieves an authorization code and token', () => {
     }
   })
 
-  it('should redirect with a string', () => {
+  it('should fetch the authorization token response body', () => {
     expect.assertions(1)
     return expect(oauth._tokenBody).resolves.toEqual(
       expect.objectContaining({
@@ -97,7 +97,7 @@ describe('oauth successfully recieves an authorization code and token', () => {
       }))
   })
 
-  it('should have a token body', () => {
+  it('should set token info based on the token body function', () => {
     expect.assertions(1)
     return expect(oauth.setTokenInfo()).resolves.toEqual(
       expect.objectContaining({
