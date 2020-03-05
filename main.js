@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 const express = require('express')
 const { publish, remove } = require('./apps/messages/methods')
 // const { oauth } = require('./apps/credential/oauth')
-const { OAuth } = require('./apps/credential/oauth-class')
+const { OAuth } = require('./apps/credential/oauth')
 const { Database } = require('./apps/database/db')
 const { Signature } = require('./apps/credential/signature')
 
@@ -30,7 +30,6 @@ app.get('/oauth', async (req, res) => {
   var oauth = new OAuth(req, res)
   var tokenInfo = await oauth.setTokenInfo()
   new Database('markdownlinksdb').connectStoreDisconnect(tokenInfo.team_id, tokenInfo.access_cipher)
-  // oauth(req, res)
 })
 
 app.post('/publish', (req, res) => {
