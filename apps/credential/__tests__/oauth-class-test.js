@@ -67,10 +67,13 @@ describe('oauth successfully recieves an authorization code and token', () => {
   var code = cryptoRandomString({ length: 9 })
   var codeReq = mockCodeRequest(code)
   var oauth
+  var testCrypto
 
-  beforeEach(() => {
+  beforeAll(() => {
     request.post.mockResolvedValue(mockTokenRequest())
     oauth = new OAuth(codeReq, res)
+    testCrypto = new TestCrypto()
+    oauth.tokenKey = testCrypto.tokenKey
   })
 
   it('should not be missing an auth code', () => {
@@ -80,26 +83,33 @@ describe('oauth successfully recieves an authorization code and token', () => {
   it('should redirect to a successful message', () => {
     async () => {
       expect.assertions(1)
-      await oauth.setTokenBody()
+      await oauth.setTokenInfo()
       return expect(res.redirect).toHaveBeenCalledWith('/?message=success')
     }
   })
 
   it('should redirect with a string', () => {
     expect.assertions(1)
-    return expect(oauth._tokenBody).resolves.toEqual(mockTokenRequest().body)
+    return expect(oauth._tokenBody).resolves.toEqual(
+      expect.objectContaining({
+        access_cipher: expect.any(String),
+        team_id: 'heroes'
+      }))
   })
 
   it('should have a token body', () => {
     expect.assertions(1)
-    return expect(oauth.setTokenBody()).resolves.toEqual(mockTokenRequest().body)
+    return expect(oauth.setTokenInfo()).resolves.toEqual(
+      expect.objectContaining({
+        access_cipher: expect.any(String),
+        team_id: 'heroes'
+      }))
   })
 
-  it('should have a valid team id', () => {
+  it('should have a valid team id',
     async () => {
       expect.assertions(1)
-      var tokenBody = await oauth.setTokenBody()
-      return expect(tokenBody.team.id).toEqual('heroes')
-    }
-  })
+      const tokenBody = await oauth.setTokenInfo()
+      expect(tokenBody.team_id).toEqual('heroes')
+    })
 })

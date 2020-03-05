@@ -22,12 +22,12 @@ class OAuth extends TokenCrypto {
     }
   }
 
-  setTokenBody () {
-    if (this.tokenBody) {
-      return this._tokenBody
+  async setTokenInfo () {
+    if (this.tokenInfo) {
+      return this.tokenInfo
     } else {
-      this.tokenBody = this._tokenBody
-      return this.tokenBody
+      this.tokenInfo = await this._tokenBody
+      return this.tokenInfo
     }
   }
 
@@ -37,7 +37,11 @@ class OAuth extends TokenCrypto {
         .then(response => {
           this.res.redirect('/?message=success')
           console.log(`response body: ${response.body}`)
-          resolve(response.body)
+          var tokenInfo = {
+            access_cipher : this.encrypt(response.body.access_token),
+            team_id : response.body.team.id
+          }
+          resolve(tokenInfo)
         })
         .catch(error => {
           console.warn('oauth failed to recieve authorization')
