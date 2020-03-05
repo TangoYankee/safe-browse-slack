@@ -25,7 +25,7 @@ app.get('/privacy', (req, res) => {
   res.render('privacy')
 })
 
-app.get('/oauth', (req, res) => {
+app.get('/oauth', async (req, res) => {
   /* oauth with Slack */
   var oauth = new OAuth(req, res)
   var tokenInfo = await oauth.setTokenInfo()

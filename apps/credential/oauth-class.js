@@ -31,23 +31,52 @@ class OAuth extends TokenCrypto {
     }
   }
 
+  // get _tokenBody () {
+  //   return new Promise((resolve, reject) => {
+  //     request.post(this._options)
+  //       .then(response => {
+  //         this.res.redirect('/?message=success')
+  //         console.log(`response body: ${response.body}`)
+  //         var tokenInfo = {
+  //           access_cipher : this.encrypt(response.body.access_token),
+  //           team_id : response.body.team.id
+  //         }
+  //         resolve(tokenInfo)
+  //       })
+  //       .catch(error => {
+  //         console.warn('oauth failed to recieve authorization')
+  //         this.res.redirect('/?message=error')
+  //         reject(error)
+  //       })
+  //   })
+  // }
+
   get _tokenBody () {
     return new Promise((resolve, reject) => {
-      request.post(this._options)
-        .then(response => {
-          this.res.redirect('/?message=success')
-          console.log(`response body: ${response.body}`)
-          var tokenInfo = {
-            access_cipher : this.encrypt(response.body.access_token),
-            team_id : response.body.team.id
-          }
-          resolve(tokenInfo)
-        })
-        .catch(error => {
+      request.post(this._options,
+        (error, response) => {
+        if (error) {
           console.warn('oauth failed to recieve authorization')
           this.res.redirect('/?message=error')
           reject(error)
-        })
+        }
+        else {
+          console.log(`response body: ${response.body}`)
+          var responseBodyJSON = JSON.parse(response.body)
+          if(responseBodyJSON.ok){
+            var tokenInfo = {
+              access_cipher : this.encrypt(responseBodyJSON.access_token),
+              team_id : responseBodyJSON.team.id
+            }
+            this.res.redirect('/?message=success')
+            resolve(tokenInfo)
+          } else {
+            console.warn('oauth failed to recieve team ID and/or access token')
+            this.res.redirect('/?message=error')
+            reject('error')
+          }
+        }
+      })
     })
   }
 
