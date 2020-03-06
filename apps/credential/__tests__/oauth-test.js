@@ -149,5 +149,4 @@ describe('slack denies the request for a token', () => {
   it.skip('should response with a 400 code', () => {
     expect(res.status).toHaveBeenCalledWith(400)
   })
-
 })

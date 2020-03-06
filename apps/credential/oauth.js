@@ -25,12 +25,10 @@ class OAuth extends TokenCrypto {
   async setTokenInfo () {
     if (this.tokenInfo) {
       return this.tokenInfo
-    } 
-    else if (this.codeReq.query.code) {
+    } else if (this.codeReq.query.code) {
       this.tokenInfo = await this._tokenBody
       return this.tokenInfo
-    } 
-    else {
+    } else {
       this.tokenInfo = ''
       return this.tokenInfo
     }
@@ -38,26 +36,26 @@ class OAuth extends TokenCrypto {
 
   get _tokenBody () {
     return requestPromise.post(this._options)
-        .then(response => {
-          var responseBodyJSON = JSON.parse(response)
-          if (responseBodyJSON.ok) {
-            var tokenInfo = {
-              access_cipher: this.encrypt(responseBodyJSON.access_token),
-              team_id: responseBodyJSON.team.id
-            }
-            this.res.status(200)
-            this.res.redirect('/?message=success')
-            return (tokenInfo)
-          } else {
-            throw new Error('oauth failed to recieve team ID and/or access token')
+      .then(response => {
+        var responseBodyJSON = JSON.parse(response)
+        if (responseBodyJSON.ok) {
+          var tokenInfo = {
+            access_cipher: this.encrypt(responseBodyJSON.access_token),
+            team_id: responseBodyJSON.team.id
           }
-        })
-        .catch(error => {
-          console.warn(error)
-          this.res.status(400)
-          this.res.redirect('/?message=error')
-          return error
-        })
+          this.res.status(200)
+          this.res.redirect('/?message=success')
+          return (tokenInfo)
+        } else {
+          throw new Error('oauth failed to recieve team ID and/or access token')
+        }
+      })
+      .catch(error => {
+        console.warn(error)
+        this.res.status(400)
+        this.res.redirect('/?message=error')
+        return error
+      })
   }
 
   get _options () {

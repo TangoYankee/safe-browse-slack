@@ -28,7 +28,7 @@ app.get('/oauth', async (req, res) => {
   /* oauth with Slack */
   var oauth = new OAuth(req, res)
   var tokenInfo = await oauth.setTokenInfo()
-  if (tokenInfo.team_id && tokenInfo.access_cipher){
+  if (tokenInfo.team_id && tokenInfo.access_cipher) {
     new Database('markdownlinksdb').connectStoreDisconnect(tokenInfo.team_id, tokenInfo.access_cipher)
   }
 })
