@@ -15,7 +15,7 @@ describe('insert and update a team token', () => {
   var tokenOne
   var tokenTwo
   beforeAll(async () => {
-    connection = await MongoClient.connect(global.__MONGO_URI__, { useNewUrlParser: true })
+    connection = await MongoClient.connect(global.__MONGO_URI__, { useNewUrlParser: true, useUnifiedTopology: true })
     db = connection.db(global.__MONGO_DB_NAME__)
     teamsCollection = db.collection('teams')
     markdownlinksdb = new Database('markdownlinksdb')

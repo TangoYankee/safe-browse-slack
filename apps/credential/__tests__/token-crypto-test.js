@@ -23,5 +23,4 @@ describe('generate an oauth token and a key, then check that it is encrypted and
       testCrypto.tokenCipher = tokenCrypto.encrypt(testCrypto.tokenPlain)
       expect(tokenCrypto.decrypt(testCrypto.tokenCipher)).toEqual(testCrypto.tokenPlain)
     })
-}
-)
+})

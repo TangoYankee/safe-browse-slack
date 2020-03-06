@@ -3,7 +3,8 @@
 const bodyParser = require('body-parser')
 const express = require('express')
 const { publish, remove } = require('./apps/messages/methods')
-const { oauth } = require('./apps/credential/oauth')
+const { OAuth } = require('./apps/credential/oauth')
+const { Database } = require('./apps/database/db')
 const { Signature } = require('./apps/credential/signature')
 
 var app = express()
@@ -23,9 +24,13 @@ app.get('/privacy', (req, res) => {
   res.render('privacy')
 })
 
-app.get('/oauth', (req, res) => {
+app.get('/oauth', async (req, res) => {
   /* oauth with Slack */
-  oauth(req, res)
+  var oauth = new OAuth(req, res)
+  var tokenInfo = await oauth.setTokenInfo()
+  if (tokenInfo.team_id && tokenInfo.access_cipher) {
+    new Database('markdownlinksdb').connectStoreDisconnect(tokenInfo.team_id, tokenInfo.access_cipher)
+  }
 })
 
 app.post('/publish', (req, res) => {

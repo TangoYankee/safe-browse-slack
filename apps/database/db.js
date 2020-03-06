@@ -9,7 +9,7 @@ class Database {
   }
 
   connectStoreDisconnect (teamID, accessTokenCipher) {
-    var client = MongoClient(this.clusterUri, { useNewUrlParser: true })
+    var client = MongoClient(this.clusterUri, { useNewUrlParser: true, useUnifiedTopology: true })
     client.connect(async (err) => {
       if (err) {
         console.error(`error connecting to database: ${err}`)
