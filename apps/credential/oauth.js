@@ -37,10 +37,9 @@ class OAuth extends TokenCrypto {
   }
 
   get _tokenBody () {
-    return new Promise((resolve, reject) => {
-      requestPromise.post(this._options)
+    return requestPromise.post(this._options)
         .then(response => {
-          var responseBodyJSON = JSON.parse(response.body)
+          var responseBodyJSON = JSON.parse(response)
           if (responseBodyJSON.ok) {
             var tokenInfo = {
               access_cipher: this.encrypt(responseBodyJSON.access_token),
@@ -48,7 +47,7 @@ class OAuth extends TokenCrypto {
             }
             this.res.status(200)
             this.res.redirect('/?message=success')
-            resolve(tokenInfo)
+            return (tokenInfo)
           } else {
             throw new Error('oauth failed to recieve team ID and/or access token')
           }
@@ -57,9 +56,8 @@ class OAuth extends TokenCrypto {
           console.warn(error)
           this.res.status(400)
           this.res.redirect('/?message=error')
-          reject (error)
+          return error
         })
-    })
   }
 
   get _options () {
