@@ -25,8 +25,13 @@ class OAuth extends TokenCrypto {
   async setTokenInfo () {
     if (this.tokenInfo) {
       return this.tokenInfo
-    } else {
+    } 
+    else if (this.codeReq.query.code) {
       this.tokenInfo = await this._tokenBody
+      return this.tokenInfo
+    } 
+    else {
+      this.tokenInfo = ''
       return this.tokenInfo
     }
   }
@@ -52,7 +57,7 @@ class OAuth extends TokenCrypto {
           console.warn(error)
           this.res.status(400)
           this.res.redirect('/?message=error')
-          reject(error)
+          reject (error)
         })
     })
   }
