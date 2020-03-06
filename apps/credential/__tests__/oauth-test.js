@@ -137,4 +137,17 @@ describe('slack denies the request for a token', () => {
   it('should redirect to an error message', async () => {
     return expect(oauth._tokenBody).rejects.toThrow('oauth failed to recieve team ID and/or access token')
   })
+
+  it.skip('should log multiple warnings', () => {
+    expect(spyOnWarn).toHaveBeenCalledTimes(2)
+  })
+
+  it.skip('should redirect with an error message', () => {
+    expect(res.redirect).toHaveBeenCalledWith('/?message=success')
+  })
+
+  it.skip('should response with a 400 code', () => {
+    expect(res.status).toHaveBeenCalledWith(400)
+  })
+
 })
