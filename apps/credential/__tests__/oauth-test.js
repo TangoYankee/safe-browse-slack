@@ -111,7 +111,6 @@ describe('oauth successfully recieves an authorization code and token', () => {
   })
 
   it('should have a valid team id', async () => {
-    // await request.post.mockResolvedValue(mockTokenRequest)
     expect.assertions(1)
     const tokenBody = await oauth.setTokenInfo()
     return expect(tokenBody.team_id).toEqual('ZZZZ0Z0ZZ')
@@ -125,7 +124,7 @@ describe('slack denies the request for a token', () => {
   var oauth
   var spyOnWarn
 
-  beforeAll(() => {
+  beforeEach(() => {
     requestPromise.post.mockResolvedValue(mockFailedTokenRequest)
     spyOnWarn = jest.spyOn(console, 'warn').mockImplementation()
     oauth = new OAuth(codeReq, res)
@@ -137,5 +136,10 @@ describe('slack denies the request for a token', () => {
 
   it('should redirect to an error message', async () => {
     return expect(oauth._tokenBody).rejects.toThrow('oauth failed to recieve team ID and/or access token')
+  })
+
+  it('should log a console warning', async () => {
+    /* update to two times to reflect it being called a second time in the catch block */
+    return expect(console.warn).toHaveBeenCalledTimes(1)
   })
 })
