@@ -2,7 +2,10 @@
 
 const { OAuth } = require('../oauth')
 const { TestCrypto } = require('../test-data/token-crypto-data')
-const { mockResponse, mockCodeRequest, mockTokenRequest } = require('../test-data/oauth-data')
+const {
+  mockResponse, mockCodeRequest,
+  mockTokenRequest, mockFailedTokenRequest
+} = require('../test-data/oauth-data')
 const requestPromise = require('request-promise')
 const cryptoRandomString = require('crypto-random-string')
 
@@ -37,12 +40,15 @@ describe('oauth fails to recieve an authorization code', () => {
   var code = ''
   var codeReq = mockCodeRequest(code)
   var oauth
-  var spyOnMockRequest
-  var spyOnRes
+  var spyOnWarn
+
   beforeEach(() => {
-    spyOnMockRequest = spyOn(requestPromise, 'post')
+    spyOnWarn = jest.spyOn(console, 'warn').mockImplementation()
     oauth = new OAuth(codeReq, res)
-    spyOnRes = spyOn(oauth, 'res')
+  })
+
+  afterAll(() => {
+    spyOnWarn.mockRestore()
   })
 
   it('should be missing authorization code', () => {
@@ -50,15 +56,15 @@ describe('oauth fails to recieve an authorization code', () => {
   })
 
   it('should respond with a 500 code', () => {
-    expect(spyOnRes.status).toHaveBeenCalledWith(500)
+    expect(res.status).toHaveBeenCalledWith(500)
   })
 
   it('should redirect home with an error message', () => {
-    expect(spyOnRes.redirect).toHaveBeenCalledWith('/?message=error')
+    expect(res.redirect).toHaveBeenCalledWith('/?message=error')
   })
 
-  it('should not call a request for a token from slack', () => {
-    expect(spyOnMockRequest).toHaveNotBeenCalled
+  it('should have called console warn', () => {
+    expect(console.warn).toHaveBeenCalledWith('authorization code not received.')
   })
 })
 
@@ -80,11 +86,10 @@ describe('oauth successfully recieves an authorization code and token', () => {
     expect(!oauth.authCode).toBe(false)
   })
 
-  it('should redirect to a successful message', 
-  async () => {
-      expect.assertions(1)
-      await oauth.setTokenInfo()
-      return expect(res.redirect).toHaveBeenCalledWith('/?message=success')
+  it('should redirect to a successful message', async () => {
+    expect.assertions(1)
+    await oauth.setTokenInfo()
+    return expect(res.redirect).toHaveBeenCalledWith('/?message=success')
   })
 
   it('should fetch the authorization token response body', () => {
@@ -105,11 +110,32 @@ describe('oauth successfully recieves an authorization code and token', () => {
       }))
   })
 
-  it('should have a valid team id',
-    async () => {
-      // await request.post.mockResolvedValue(mockTokenRequest)
-      expect.assertions(1)
-      const tokenBody = await oauth.setTokenInfo()
-      return expect(tokenBody.team_id).toEqual('ZZZZ0Z0ZZ')
-    })
+  it('should have a valid team id', async () => {
+    // await request.post.mockResolvedValue(mockTokenRequest)
+    expect.assertions(1)
+    const tokenBody = await oauth.setTokenInfo()
+    return expect(tokenBody.team_id).toEqual('ZZZZ0Z0ZZ')
+  })
+})
+
+describe('slack denies the request for a token', () => {
+  var res = mockResponse()
+  var code = ''
+  var codeReq = mockCodeRequest(code)
+  var oauth
+  var spyOnWarn
+
+  beforeAll(() => {
+    requestPromise.post.mockResolvedValue(mockFailedTokenRequest)
+    spyOnWarn = jest.spyOn(console, 'warn').mockImplementation()
+    oauth = new OAuth(codeReq, res)
+  })
+
+  afterAll(() => {
+    spyOnWarn.mockRestore()
+  })
+
+  it('should redirect to an error message', async () => {
+    return expect(oauth._tokenBody).rejects.toThrow('oauth failed to recieve team ID and/or access token')
+  })
 })

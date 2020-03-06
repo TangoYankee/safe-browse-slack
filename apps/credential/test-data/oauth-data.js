@@ -23,33 +23,12 @@ const mockTokenRequest = {
 }
 
 const mockFailedTokenRequest = {
-  "ok": false,
-  "error": "invalid_code"
+  body: '{"ok": false,"error": "invalid_code"}'
 }
-
-// const mockTokenRequest = () => {
-//   return {
-//     body: {
-//       ok: true,
-//       app_id: 'AHB2H4ABX',
-//       authed_user: {
-//         id: ''
-//       },
-//       scope: 'commands',
-//       token_type: 'bot',
-//       access_token: '12345',
-//       bot_user_id: '',
-//       team: {
-//         id: 'heroes',
-//         name: 'USAF Bots'
-//       },
-//       enterprise: null
-//     }
-//   }
-// }
 
 module.exports = {
   mockResponse,
   mockCodeRequest,
-  mockTokenRequest
+  mockTokenRequest,
+  mockFailedTokenRequest
 }
