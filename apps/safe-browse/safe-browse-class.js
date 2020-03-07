@@ -6,6 +6,9 @@ class SafeBrowse {
   constructor() {
     this.exists = true
   }
+
+
+  
 }
 
 module.exports = {

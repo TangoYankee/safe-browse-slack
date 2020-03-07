@@ -11,5 +11,9 @@ describe('safebrowse class exists', () => {
   it('exists', () => {
     expect(safeBrowse.exists).toBe(true)
   })
+
+  it('should format the request to safebrowse', ()=> {
+    test.todo('expect json formatted http request')
+  })
 })
 
