@@ -1,6 +1,32 @@
 'use strict'
 
-const process = require('process')
+const mockRequestBody = (threatEntries) => {
+  return {
+    client: {
+    clientId: process.env.GOOGLE_SAFE_BROWSING_CLIENT_ID,
+    clientVersion: '1.5.2'
+  },
+  threatInfo: {
+    platformTypes: ['ANY_PLATFORM'],
+    threatEntries: threatEntries,
+    threatEntryTypes: ['URL'],
+    threatTypes: [
+      'THREAT_TYPE_UNSPECIFIED',
+      'MALWARE',
+      'SOCIAL_ENGINEERING',
+      'UNWANTED_SOFTWARE',
+      'POTENTIALLY_HARMFUL_APPLICATION'
+    ]
+  }
+}
+}
+
+const threatEntriesMap = {
+  SOCIAL_ENGINEERING: 'testsafebrowsing.appspot.com/s/phishing.html',
+  UNWANTED_SOFTWARE: 'testsafebrowsing.appspot.com/s/unwanted.html',
+  MALWARE: 'testsafebrowsing.appspot.com/s/malware.html',
+  NONE_FOUND: 'nasa.gov'
+}
 
 const requestBodyOne = {
   client: {
@@ -118,9 +144,6 @@ const requestBodyFive = {
 }
 
 module.exports = {
-  requestBodyOne,
-  requestBodyTwo,
-  requestBodyThree,
-  requestBodyFour,
-  requestBodyFive
+  mockRequestBody,
+  threatEntriesMap
 }
