@@ -1,10 +1,13 @@
 'use strict'
 
-const urlDomainKeyMap = {
-  SOCIAL_ENGINEERING: 'testsafebrowsing.appspot.com/s/phishing.html',
-  UNWANTED_SOFTWARE: 'testsafebrowsing.appspot.com/s/unwanted.html',
-  MALWARE: 'testsafebrowsing.appspot.com/s/malware.html',
-  NONE_FOUND: 'nasa.gov'
+const {threatMap} = require('../class-test-data/threat-map')
+
+const mockUrlDomainKeys = (threats)  => {
+  var urlDomainKeys = []
+  for (var threat of threats){
+    urlDomainKeys.push(threatMap[threat].url)
+  }
+  return urlDomainKeys
 }
 
 const mockThreatEntries = (urlDomainKeys) => {
@@ -153,7 +156,7 @@ const requestBodyFive = {
 }
 
 module.exports = {
-  urlDomainKeyMap,
+  mockUrlDomainKeys,
   mockRequestBody,
   mockThreatEntries
 }

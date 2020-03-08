@@ -7,11 +7,11 @@ class SafeBrowse {
     this.urlDomainKeys = urlDomainKeys
   }
 
-  get _threatMatches () {
-    if (this.urlDomainKeys.length > 1) {
+  get threatMatches () {
+    if (this.urlDomainKeys.length > 0) {
       return this._callSafebrowse
     } else {
-      return {}
+      return { body: {} }
     }
   }
 
