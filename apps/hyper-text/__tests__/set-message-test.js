@@ -7,7 +7,7 @@ const { mockSafeBrowseResponse, mockFailedSafeBrowseResponse } = require('../../
 // Test Modules
 const {
   setMessage, setHyperText, getCache,
-  setSafeBrowse, setNoneFound
+  setNoneFound
 } = require('../set-message')
 const { postCacheThreats, clearCache } = require('../../cache/threats')
 // Test Data
@@ -57,7 +57,6 @@ describe.each([
 ])(
   'setMessage() suite /* receive markdown hypertext syntax, return slack hypertext syntax and threat data */',
   (setMessagePostToCache, inputText, userId, outputMessage, threats) => {
-
     beforeEach(() => {
       requestPromise.post.mockResolvedValue(mockSafeBrowseResponse(threats))
       postCacheThreats(setMessagePostToCache)
@@ -93,10 +92,10 @@ describe('safebrowse denies access', () => {
     spyOnWarn.mockRestore()
   })
   it('should reflect a failed safebrowse call', async () => {
-      expect.assertions(1)
-      var message = await setMessage(inputText, userId)
-      expect(message).toEqual(outputMessage)
-    }
+    expect.assertions(1)
+    var message = await setMessage(inputText, userId)
+    expect(message).toEqual(outputMessage)
+  }
   )
 })
 

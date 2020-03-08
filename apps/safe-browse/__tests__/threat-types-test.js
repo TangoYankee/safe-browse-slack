@@ -26,4 +26,3 @@ test.each([
   (inputMessage, threatMatch, outputMessage) => {
     expect(setSafeBrowseThreatTypes(inputMessage, threatMatch)).toEqual(outputMessage)
   })
-

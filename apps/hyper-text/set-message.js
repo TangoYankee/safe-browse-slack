@@ -10,7 +10,7 @@ const {
 const { getCacheThreats, setCacheThreatTypes, postCacheThreats } = require('../cache/threats')
 
 const { setSafeBrowseThreatTypes } = require('../safe-browse/threat-types')
-const { SafeBrowse } = require('../safe-browse/safe-browse-class')
+const { SafeBrowse } = require('../safe-browse/safe-browse')
 const { setUncachedUrlDomainKeys } = require('../safe-browse/uncached-urls')
 
 const setMessage = async (text, userId) => {
@@ -68,11 +68,11 @@ const setSafeBrowse = async (messageData) => {
   var safeBrowse = new SafeBrowse(uncachedUrlDomainKeys)
   var safeBrowseThreats = await safeBrowse.threatMatches
   if (safeBrowseThreats.message !== undefined) {
-      messageData.safeBrowseSuccess = false
-    } else {
-      messageData.safeBrowseSuccess = true
-      messageData = setSafeBrowseThreatTypes(messageData, safeBrowseThreats)
-    }
+    messageData.safeBrowseSuccess = false
+  } else {
+    messageData.safeBrowseSuccess = true
+    messageData = setSafeBrowseThreatTypes(messageData, safeBrowseThreats)
+  }
   return messageData
 }
 

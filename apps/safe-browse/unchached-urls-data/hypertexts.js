@@ -1,6 +1,5 @@
 'use strict'
 
-
 const { threatMap } = require('../class-test-data/threat-map')
 
 const messageData = {

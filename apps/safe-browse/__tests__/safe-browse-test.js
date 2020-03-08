@@ -1,7 +1,7 @@
 'use strict'
 
 const requestPromise = require('request-promise')
-const { SafeBrowse } = require('../safe-browse-class')
+const { SafeBrowse } = require('../safe-browse')
 const { mockUrlDomainKeys, mockThreatEntries, mockRequestBody } = require('../class-test-data/request-body-data')
 const { mockFailedSafeBrowseResponse, mockSafeBrowseResponse } = require('../class-test-data/response-data')
 
