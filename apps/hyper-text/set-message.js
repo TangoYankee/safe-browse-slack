@@ -10,6 +10,9 @@ const {
 const { getCacheThreats, setCacheThreatTypes, postCacheThreats } = require('../cache/threats')
 const { setSafeBrowseThreats, setSafeBrowseThreatTypes } = require('../safe-browse/safe-browse')
 
+const { safeBrowse } = require('../safe-browse/safe-browse-class')
+const { setUncachedUrlDomainKeys } = require('../safe-browse/uncached-urls')
+
 const setMessage = async (text, userId) => {
   /* organize metadata and search for suspected threats from urls */
   let messageData = setMessageData(text, userId)
@@ -61,9 +64,12 @@ const getCache = (messageData) => {
 
 const setSafeBrowse = async (messageData) => {
   /* check whether url is a suspected threat by google safe browse api */
-  var safeBrowseThreats = await setSafeBrowseThreats(messageData.links)
+  var uncachedUrlDomainKeys = setUncachedUrlDomainKeys(messageData.links)
+  var safeBrowse = new SafeBrowse(uncachedUrlDomainKeys)
+  var safeBrowseThreats = await safeBrowse.threatMatches
+  // var safeBrowseThreats = await setSafeBrowseThreats(messageData.links)
   if (safeBrowseThreats !== undefined) {
-    if (safeBrowseThreats === 'error') {
+    if (safeBrowseThreats instanceof Error) {
       messageData.safeBrowseSuccess = false
     } else {
       messageData.safeBrowseSuccess = true
