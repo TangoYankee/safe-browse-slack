@@ -1,6 +1,9 @@
 'use strict'
 
-jest.mock('../../safe-browse/post-threat-matches')
+// jest.mock('../../safe-browse/post-threat-matches')
+const requestPromise = require('request-promise')
+const { mockSafeBrowseResponse, mockFailedSafeBrowseResponse } = require('../../safe-browse/class-test-data/response-data')
+
 // Test Modules
 const {
   setMessage, setHyperText, getCache,
@@ -41,18 +44,34 @@ const { messageDataIntoNoneFoundOne } = require('../test-data/set-none-found-dat
 const { messageDataOutOfNoneFoundOne } = require('../test-data/set-none-found-data/out-of-none-found-data')
 
 describe.each([
-  [setMessagePostToCacheOne, inputTextOne, userIdOne, outputMessageOne],
-  [setMessagePostToCacheTwo, inputTextTwo, userIdTwo, outputMessageTwo],
-  [setMessagePostToCacheThree, inputTextThree, userIdThree, outputMessageThree],
-  [setMessagePostToCacheFour, inputTextFour, userIdFour, outputMessageFour],
-  [setMessagePostToCacheFive, inputTextFive, userIdFive, outputMessageFive]
+  [setMessagePostToCacheOne, inputTextOne, userIdOne, outputMessageOne, [
+    'SOCIAL_ENGINEERING',
+    'UNWANTED_SOFTWARE',
+    'MALWARE',
+    'NONE_FOUND'
+  ]],
+  [setMessagePostToCacheTwo, inputTextTwo, userIdTwo, outputMessageTwo, [
+    'UNWANTED_SOFTWARE',
+    'MALWARE',
+    'NONE_FOUND'
+  ]],
+  [setMessagePostToCacheThree, inputTextThree, userIdThree, outputMessageThree, ['NONE_FOUND']],
+  // [setMessagePostToCacheFour, inputTextFour, userIdFour, outputMessageFour, [
+  //   'SOCIAL_ENGINEERING',
+  //   'UNWANTED_SOFTWARE',
+  //   'MALWARE',
+  //   'NONE_FOUND']
+  // ],
+  [setMessagePostToCacheFive, inputTextFive, userIdFive, outputMessageFive, []]
 ])(
   'setMessage() suite /* receive markdown hypertext syntax, return slack hypertext syntax and threat data */',
-  (setMessagePostToCache, inputText, userId, outputMessage) => {
-    beforeAll(() => {
+  (setMessagePostToCache, inputText, userId, outputMessage, threats) => {
+
+    beforeEach(() => {
+      requestPromise.post.mockResolvedValue(mockSafeBrowseResponse(threats))
       postCacheThreats(setMessagePostToCache)
     })
-    afterAll(() => {
+    afterEach(() => {
       clearCache()
     })
     test(
@@ -65,6 +84,29 @@ describe.each([
     )
   }
 )
+
+describe('safebrowse denies access', () => {
+  var setMessagePostToCache = setMessagePostToCacheFour
+  var inputText = inputTextFour
+  var userId = userIdFour
+  var outputMessage = outputMessageFour
+
+  beforeAll(() => {
+    requestPromise.post.mockResolvedValue(mockFailedSafeBrowseResponse)
+    postCacheThreats(setMessagePostToCache)
+  })
+  afterEach(() => {
+    clearCache()
+  })
+  test(
+    'setMessage()',
+    async () => {
+      expect.assertions(1)
+      var message = await setMessage(inputText, userId)
+      expect(message).toEqual(outputMessage)
+    }
+  )
+})
 
 test.each([
   [messageDataIntoHyperTextOne, textOne, messageDataOutOfHyperTextOne]
@@ -97,18 +139,18 @@ describe.each([
 )
 
 // Why is this test in set message?
-test.each([
-  [messageDataIntoSafeBrowseFull, messageDataOutOfSafeBrowseFull],
-  [messageDataIntoSafeBrowseEmpty, messageDataOutOfSafeBrowseEmpty],
-  [messageDataIntoSafeBrowseError, messageDataOutOfSafeBrowseError]
-])(
-  'setSafeBrowse() /* check whether url is a suspected threat by google safe browse api */',
-  async (messageDataIntoSafeBrowse, messageDataOutOfSafeBrowse) => {
-    expect.assertions(1)
-    var messageDataOut = await setSafeBrowse(messageDataIntoSafeBrowse)
-    expect(messageDataOut).toEqual(messageDataOutOfSafeBrowse)
-  }
-)
+// test.each([
+//   [messageDataIntoSafeBrowseFull, messageDataOutOfSafeBrowseFull],
+//   [messageDataIntoSafeBrowseEmpty, messageDataOutOfSafeBrowseEmpty],
+//   [messageDataIntoSafeBrowseError, messageDataOutOfSafeBrowseError]
+// ])(
+//   'setSafeBrowse() /* check whether url is a suspected threat by google safe browse api */',
+//   async (messageDataIntoSafeBrowse, messageDataOutOfSafeBrowse) => {
+//     expect.assertions(1)
+//     var messageDataOut = await setSafeBrowse(messageDataIntoSafeBrowse)
+//     expect(messageDataOut).toEqual(messageDataOutOfSafeBrowse)
+//   }
+// )
 
 test.each([
   [messageDataIntoNoneFoundOne, messageDataOutOfNoneFoundOne]

@@ -8,8 +8,8 @@ const {
   setSharedAsHttpSecure, getRawMarkdownHyperTexts
 } = require('./content')
 const { getCacheThreats, setCacheThreatTypes, postCacheThreats } = require('../cache/threats')
-const { setSafeBrowseThreats, setSafeBrowseThreatTypes } = require('../safe-browse/safe-browse')
 
+const { setSafeBrowseThreatTypes } = require('../safe-browse/threat-types')
 const { SafeBrowse } = require('../safe-browse/safe-browse-class')
 const { setUncachedUrlDomainKeys } = require('../safe-browse/uncached-urls')
 
@@ -67,15 +67,14 @@ const setSafeBrowse = async (messageData) => {
   var uncachedUrlDomainKeys = setUncachedUrlDomainKeys(messageData.links)
   var safeBrowse = new SafeBrowse(uncachedUrlDomainKeys)
   var safeBrowseThreats = await safeBrowse.threatMatches
+  console.log(safeBrowseThreats.message)
   // var safeBrowseThreats = await setSafeBrowseThreats(messageData.links)
-  if (safeBrowseThreats.matches !== undefined) {
-    if (safeBrowseThreats instanceof Error) {
+  if (safeBrowseThreats.message !== undefined) {
       messageData.safeBrowseSuccess = false
     } else {
       messageData.safeBrowseSuccess = true
       messageData = setSafeBrowseThreatTypes(messageData, safeBrowseThreats)
     }
-  }
   return messageData
 }
 
