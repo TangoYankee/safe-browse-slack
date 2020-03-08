@@ -240,7 +240,5 @@ module.exports = {
   inputMessageOne,
   inputMessageTwo,
   inputMessageThree,
-  inputMessageFour,
-  // inputMessageFive,
-  inputMessageSix
+  inputMessageFour
 }
