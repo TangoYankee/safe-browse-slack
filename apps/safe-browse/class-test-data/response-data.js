@@ -48,5 +48,5 @@ const mockThreat = (threatEntry) => {
 
 module.exports = {
   mockSafeBrowseResponse,
-  mockFailedSafeBrowseResponse,
+  mockFailedSafeBrowseResponse
 }

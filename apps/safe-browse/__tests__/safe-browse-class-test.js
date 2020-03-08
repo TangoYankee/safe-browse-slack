@@ -88,11 +88,10 @@ describe('urldomiankeys is empty', () => {
     return expect(requestPromise.post).toHaveNotBeenCalled
   })
 
-  it('should have a similar response to recieving no threat matches', async ()=> {
+  it('should have a similar response to recieving no threat matches', async () => {
     var body = await safeBrowse.threatMatches
     return expect(body.matches).toEqual(undefined)
-  })  
-
+  })
 })
 
 describe('safebrowse denies access', () => {
