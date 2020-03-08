@@ -3,11 +3,11 @@
 const requestPromise = require('request-promise')
 
 class SafeBrowse {
-  constructor(urlDomainKeys) {
+  constructor (urlDomainKeys) {
     this.urlDomainKeys = urlDomainKeys
   }
 
-  get _options() {
+  get _options () {
     return {
       url: 'https://safebrowsing.googleapis.com/v4/threatMatches:find',
       body: this._requestBody,
@@ -17,7 +17,7 @@ class SafeBrowse {
     }
   }
 
-  get _requestBody() {
+  get _requestBody () {
     return {
       client: {
         clientId: process.env.GOOGLE_SAFE_BROWSING_CLIENT_ID,
@@ -38,7 +38,7 @@ class SafeBrowse {
     }
   }
 
-  get _threatEntries() {
+  get _threatEntries () {
     var threatEntries = []
     for (var urlDomainKey of new Set(this.urlDomainKeys)) {
       threatEntries.push({ url: urlDomainKey })

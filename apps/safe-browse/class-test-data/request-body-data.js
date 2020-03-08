@@ -11,7 +11,7 @@ const mockThreatEntries = (urlDomainKeys) => {
   var urlDomainKeysUnique = new Set(urlDomainKeys)
   var threatEntries = []
   for (var urlDomainKey of urlDomainKeysUnique) {
-    threatEntries.push({url: urlDomainKey})
+    threatEntries.push({ url: urlDomainKey })
   }
   return threatEntries
 }
