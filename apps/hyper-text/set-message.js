@@ -67,7 +67,6 @@ const setSafeBrowse = async (messageData) => {
   var uncachedUrlDomainKeys = setUncachedUrlDomainKeys(messageData.links)
   var safeBrowse = new SafeBrowse(uncachedUrlDomainKeys)
   var safeBrowseThreats = await safeBrowse.threatMatches
-  console.log(safeBrowseThreats.message)
   if (safeBrowseThreats.message !== undefined) {
       messageData.safeBrowseSuccess = false
     } else {

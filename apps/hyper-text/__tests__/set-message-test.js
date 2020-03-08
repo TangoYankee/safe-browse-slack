@@ -36,9 +36,6 @@ const { messageDataOutOfHyperTextOne } = require('../test-data/hyper-text-data/o
 const { postToCacheOne, postToCacheTwo, postToCacheThree } = require('../test-data/get-cache-data/post-to-cache-data')
 const { messageDataIntoCacheOne, messageDataIntoCacheTwo, messageDataIntoCacheThree } = require('../test-data/get-cache-data/into-cache-data')
 const { messageDataOutOfCacheOne, messageDataOutOfCacheTwo, messageDataOutOfCacheThree } = require('../test-data/get-cache-data/out-of-cache-data')
-// setSafeBrowse
-const { messageDataIntoSafeBrowseFull, messageDataIntoSafeBrowseEmpty, messageDataIntoSafeBrowseError } = require('../test-data/set-safe-browse-data/into-safe-browse-data')
-const { messageDataOutOfSafeBrowseFull, messageDataOutOfSafeBrowseEmpty, messageDataOutOfSafeBrowseError } = require('../test-data/set-safe-browse-data/out-of-safe-browse-data')
 // setNoneFound
 const { messageDataIntoNoneFoundOne } = require('../test-data/set-none-found-data/into-none-found-data')
 const { messageDataOutOfNoneFoundOne } = require('../test-data/set-none-found-data/out-of-none-found-data')
@@ -56,12 +53,6 @@ describe.each([
     'NONE_FOUND'
   ]],
   [setMessagePostToCacheThree, inputTextThree, userIdThree, outputMessageThree, ['NONE_FOUND']],
-  // [setMessagePostToCacheFour, inputTextFour, userIdFour, outputMessageFour, [
-  //   'SOCIAL_ENGINEERING',
-  //   'UNWANTED_SOFTWARE',
-  //   'MALWARE',
-  //   'NONE_FOUND']
-  // ],
   [setMessagePostToCacheFive, inputTextFive, userIdFive, outputMessageFive, []]
 ])(
   'setMessage() suite /* receive markdown hypertext syntax, return slack hypertext syntax and threat data */',
@@ -90,17 +81,18 @@ describe('safebrowse denies access', () => {
   var inputText = inputTextFour
   var userId = userIdFour
   var outputMessage = outputMessageFour
+  var spyOnWarn
 
   beforeAll(() => {
+    spyOnWarn = jest.spyOn(console, 'warn').mockImplementation()
     requestPromise.post.mockResolvedValue(mockFailedSafeBrowseResponse)
     postCacheThreats(setMessagePostToCache)
   })
   afterEach(() => {
     clearCache()
+    spyOnWarn.mockRestore()
   })
-  test(
-    'setMessage()',
-    async () => {
+  it('should reflect a failed safebrowse call', async () => {
       expect.assertions(1)
       var message = await setMessage(inputText, userId)
       expect(message).toEqual(outputMessage)
@@ -137,20 +129,6 @@ describe.each([
       })
   }
 )
-
-// Why is this test in set message?
-// test.each([
-//   [messageDataIntoSafeBrowseFull, messageDataOutOfSafeBrowseFull],
-//   [messageDataIntoSafeBrowseEmpty, messageDataOutOfSafeBrowseEmpty],
-//   [messageDataIntoSafeBrowseError, messageDataOutOfSafeBrowseError]
-// ])(
-//   'setSafeBrowse() /* check whether url is a suspected threat by google safe browse api */',
-//   async (messageDataIntoSafeBrowse, messageDataOutOfSafeBrowse) => {
-//     expect.assertions(1)
-//     var messageDataOut = await setSafeBrowse(messageDataIntoSafeBrowse)
-//     expect(messageDataOut).toEqual(messageDataOutOfSafeBrowse)
-//   }
-// )
 
 test.each([
   [messageDataIntoNoneFoundOne, messageDataOutOfNoneFoundOne]
