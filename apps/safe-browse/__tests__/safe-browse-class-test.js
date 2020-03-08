@@ -31,4 +31,12 @@ describe('safebrowse class exists with three threats and one harmless', () => {
   it('should create a json formatted body for http request', () => {
     expect(safeBrowse._requestBody).toEqual(mockRequestBody(mockThreatEntries(urlDomainKeys)))
   })
+
+  it.skip('should call safebrowse', () => {
+    test.todo('spy on request promise is call')
+  })
+
+  it.skip('should call google safe browse', () => {
+    test.todo('only call if the list of url domain keys is at least one')
+  })
 })

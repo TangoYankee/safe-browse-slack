@@ -7,6 +7,29 @@ class SafeBrowse {
     this.urlDomainKeys = urlDomainKeys
   }
 
+  get _threatMatches () {
+    if (this.urlDomainKeys.length > 1) {
+      return this._callSafebrowse
+    } else {
+      return {}
+    }
+  }
+
+  get _callSafebrowse () {
+    return requestPromise.post(this._options)
+      .then(response => {
+        if (response.statusCode === 200) {
+          return response.body
+        } else {
+          throw new Error(`safe browse response code: ${response.statusCode}`)
+        }
+      })
+      .catch(error => {
+        console.warn(error)
+        return error
+      })
+  }
+
   get _options () {
     return {
       url: 'https://safebrowsing.googleapis.com/v4/threatMatches:find',
