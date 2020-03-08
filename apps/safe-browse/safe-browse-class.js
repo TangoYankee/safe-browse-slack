@@ -3,8 +3,8 @@
 const requestPromise = require('request-promise')
 
 class SafeBrowse {
-  constructor(threatEntries) {
-    this.threatEntries = threatEntries
+  constructor(urlDomainKeys) {
+    this.urlDomainKeys = urlDomainKeys
   }
 
   get _options() {
@@ -25,7 +25,7 @@ class SafeBrowse {
       },
       threatInfo: {
         platformTypes: ['ANY_PLATFORM'],
-        threatEntries: this.threatEntries,
+        threatEntries: this._threatEntries,
         threatEntryTypes: ['URL'],
         threatTypes: [
           'THREAT_TYPE_UNSPECIFIED',
@@ -36,6 +36,14 @@ class SafeBrowse {
         ]
       }
     }
+  }
+
+  get _threatEntries() {
+    var threatEntries = []
+    for (var urlDomainKey of new Set(this.urlDomainKeys)) {
+      threatEntries.push({ url: urlDomainKey })
+    }
+    return threatEntries
   }
 }
 
