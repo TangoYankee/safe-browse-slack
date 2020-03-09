@@ -1,107 +1,121 @@
 'use strict'
 
-const { postThreatMatches } = require('../post-threat-matches')
-jest.mock('../post-threat-matches')
+const requestPromise = require('request-promise')
+const { SafeBrowse } = require('../safe-browse')
+const { mockUrlDomainKeys, mockThreatEntries, mockRequestBody } = require('../class-test-data/request-body-data')
+const { mockFailedSafeBrowseResponse, mockSafeBrowseResponse } = require('../class-test-data/response-data')
 
-const {
-  setSafeBrowseThreats, setRequestBody, setUncachedThreatEntries,
-  setUncachedThreatEntriesExist, setSafeBrowseThreatTypes
-} = require('../safe-browse')
+describe('urldomainkeys include three threats and one harmless', () => {
+  var safeBrowse
+  var threats = [
+    'SOCIAL_ENGINEERING',
+    'UNWANTED_SOFTWARE',
+    'MALWARE',
+    'NONE_FOUND'
+  ]
+  var urlDomainKeys = mockUrlDomainKeys(threats)
 
-const {
-  inputMessageOne, inputMessageTwo, inputMessageThree,
-  inputMessageFour, inputMessageSix
-} = require('../test-data/input-message-data')
-const {
-  outputMessageOne, outputMessageTwo,
-  outputMessageThree, outputMessageFour
-} = require('../test-data/output-message-data')
-const {
-  requestBodyOne, requestBodyTwo, requestBodyThree,
-  requestBodyFour, requestBodyFive
-} = require('../test-data/request-body-data')
-const {
-  threatEntryOne, threatEntryExistOne, threatEntryTwo,
-  threatEntryExistTwo, threatEntryThree, threatEntryExistThree,
-  threatEntryFour, threatEntryExistFour, threatEntryExistFive
-} = require('../test-data/threat-entries-data')
-const {
-  threatMatchOne, threatMatchTwo, threatMatchThree,
-  threatMatchFour, threatMatchFive, threatMatchSix
-} = require('../test-data/threat-matches-data')
-
-test.each([
-  [inputMessageOne, threatMatchOne],
-  [inputMessageTwo, threatMatchTwo],
-  [inputMessageThree, threatMatchThree],
-  [inputMessageFour, threatMatchFour],
-  [inputMessageSix, threatMatchSix]
-])('setSafeBrowseThreats() /* find suspected threats in safe browse API */',
-  (inputMessage, threatMatch) => {
-    return expect(setSafeBrowseThreats(inputMessage.links)).resolves.toEqual(threatMatch)
-  }
-)
-
-test.each([
-  [inputMessageOne, threatEntryOne],
-  [inputMessageTwo, threatEntryTwo],
-  [inputMessageThree, threatEntryThree],
-  [inputMessageFour, threatEntryFour]
-  // [inputMessageFive, threatEntryFive]
-])(
-  'setUncachedThreatEntries() /* urls have a specific format when placed into Lookup API body */',
-  (inputMessage, threatEntry) => {
-    expect(setUncachedThreatEntries(inputMessage.links)).toEqual(threatEntry)
+  beforeAll(() => {
+    requestPromise.post.mockResolvedValue(mockSafeBrowseResponse(threats))
+    safeBrowse = new SafeBrowse(urlDomainKeys)
   })
 
-test.each([
-  [threatEntryOne, threatEntryExistOne],
-  [threatEntryTwo, threatEntryExistTwo],
-  [threatEntryThree, threatEntryExistThree],
-  [threatEntryFour, threatEntryExistFour],
-  [threatEntryExistFive, threatEntryExistFive]
-])(
-  'setUncachedThreatEntriesExist() /* prevent unnecessary calls to the SafeBrowse API, where there are no uncached threat urls */',
-  (threatEntry, threatEntryExists) => {
-    expect(setUncachedThreatEntriesExist(threatEntry)).toEqual(threatEntryExists)
-  }
-)
-
-test.each([
-  [threatEntryOne, requestBodyOne],
-  [threatEntryTwo, requestBodyTwo],
-  [threatEntryThree, requestBodyThree],
-  [threatEntryFour, requestBodyFour]
-])(
-  'setRequestBody() /* place urls with uncached threats into a json template for the Safe Browse API */',
-  (threatEntry, requestBody) => {
-    expect(setRequestBody(threatEntry)).toEqual(requestBody)
+  afterAll(() => {
+    safeBrowse = undefined
   })
 
-test.each([
-  [inputMessageOne, threatMatchOne, outputMessageOne],
-  [inputMessageTwo, threatMatchTwo, outputMessageTwo],
-  [inputMessageThree, threatMatchThree, outputMessageThree],
-  [inputMessageFour, threatMatchFour, outputMessageFour]
-])(
-  'setSafeBrowseThreatTypes() /* add threat type to the original message */',
-  (inputMessage, threatMatch, outputMessage) => {
-    expect(setSafeBrowseThreatTypes(inputMessage, threatMatch)).toEqual(outputMessage)
+  it('should create threatEntries that are the same as one with duplicates', () => {
+    expect(safeBrowse._threatEntries).toEqual(mockThreatEntries(urlDomainKeys.concat(urlDomainKeys)))
   })
 
-describe.each([
-  [requestBodyOne, threatMatchOne],
-  [requestBodyTwo, threatMatchTwo],
-  [requestBodyThree, threatMatchThree],
-  [requestBodyFour, threatMatchFour],
-  [requestBodyFive, threatMatchFive]
-])('postThreatMatches() /* threats suspected by google safe-browse API */',
-  (requestBody, threatMatch) => {
-    test(
-      'postThreatMatches()',
-      async () => {
-        expect.assertions(1)
-        const threatMatchesResponse = await postThreatMatches(requestBody)
-        return expect(threatMatchesResponse).toEqual(threatMatch)
-      })
+  it('should create a json formatted body for http request', () => {
+    expect(safeBrowse._requestBody).toEqual(mockRequestBody(mockThreatEntries(urlDomainKeys)))
   })
+
+  it('should call safebrowse', async () => {
+    expect.assertions(1)
+    await safeBrowse.threatMatches
+    expect(requestPromise.post).toHaveBeenCalledTimes(1)
+  })
+
+  it('should recieve three matching threats', async () => {
+    var body = await safeBrowse.threatMatches
+    return expect(body.matches.length).toEqual(3)
+  })
+})
+
+describe('urldomiankeys only has a harmless url', () => {
+  var safeBrowse
+  var threats = ['NONE_FOUND']
+  var urlDomainKeys = mockUrlDomainKeys(threats)
+
+  beforeAll(() => {
+    requestPromise.post.mockResolvedValue(mockSafeBrowseResponse(threats))
+    safeBrowse = new SafeBrowse(urlDomainKeys)
+  })
+
+  afterAll(() => {
+    safeBrowse = undefined
+  })
+
+  it('should recieve a response void of matches to threats', async () => {
+    var body = await safeBrowse.threatMatches
+    return expect(body.matches).toEqual(undefined)
+  })
+
+  it('should call safebrowse', async () => {
+    await safeBrowse.threatMatches
+    return expect(requestPromise.post).toHaveBeenCalledTimes(1)
+  })
+})
+
+describe('urldomiankeys is empty', () => {
+  var safeBrowse
+  var threats = []
+  var urlDomainKeys = mockUrlDomainKeys(threats)
+
+  beforeAll(() => {
+    requestPromise.post.mockResolvedValue(mockSafeBrowseResponse(threats))
+    safeBrowse = new SafeBrowse(urlDomainKeys)
+  })
+
+  afterAll(() => {
+    safeBrowse = undefined
+  })
+
+  it('should abort calling safebrowse', async () => {
+    await safeBrowse.threatMatches
+    return expect(requestPromise.post).toHaveNotBeenCalled
+  })
+
+  it('should have a similar response to recieving no threat matches', async () => {
+    var body = await safeBrowse.threatMatches
+    return expect(body.matches).toEqual(undefined)
+  })
+})
+
+describe('safebrowse denies access', () => {
+  var safeBrowse
+  var threats = ['MALWARE']
+  var urlDomainKeys = mockUrlDomainKeys(threats)
+  var spyOnWarn
+  beforeAll(() => {
+    spyOnWarn = jest.spyOn(console, 'warn').mockImplementation()
+    requestPromise.post.mockResolvedValue(mockFailedSafeBrowseResponse)
+    safeBrowse = new SafeBrowse(urlDomainKeys)
+  })
+
+  afterAll(() => {
+    safeBrowse = undefined
+    spyOnWarn.mockRestore()
+  })
+
+  it('should recieve an error containing a 401 code', async () => {
+    return expect(safeBrowse.threatMatches).resolves.toThrow('safe browse response code: 401')
+  })
+
+  it('should receive a warning with 401 code error', async () => {
+    await safeBrowse.threatMatches
+    return expect(console.warn).toHaveBeenCalledWith(new Error('safe browse response code: 401'))
+  })
+})

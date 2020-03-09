@@ -8,7 +8,10 @@ const {
   setSharedAsHttpSecure, getRawMarkdownHyperTexts
 } = require('./content')
 const { getCacheThreats, setCacheThreatTypes, postCacheThreats } = require('../cache/threats')
-const { setSafeBrowseThreats, setSafeBrowseThreatTypes } = require('../safe-browse/safe-browse')
+
+const { setSafeBrowseThreatTypes } = require('../safe-browse/threat-types')
+const { SafeBrowse } = require('../safe-browse/safe-browse')
+const { setUncachedUrlDomainKeys } = require('../safe-browse/uncached-urls')
 
 const setMessage = async (text, userId) => {
   /* organize metadata and search for suspected threats from urls */
@@ -61,14 +64,14 @@ const getCache = (messageData) => {
 
 const setSafeBrowse = async (messageData) => {
   /* check whether url is a suspected threat by google safe browse api */
-  var safeBrowseThreats = await setSafeBrowseThreats(messageData.links)
-  if (safeBrowseThreats !== undefined) {
-    if (safeBrowseThreats === 'error') {
-      messageData.safeBrowseSuccess = false
-    } else {
-      messageData.safeBrowseSuccess = true
-      messageData = setSafeBrowseThreatTypes(messageData, safeBrowseThreats)
-    }
+  var uncachedUrlDomainKeys = setUncachedUrlDomainKeys(messageData.links)
+  var safeBrowse = new SafeBrowse(uncachedUrlDomainKeys)
+  var safeBrowseThreats = await safeBrowse.threatMatches
+  if (safeBrowseThreats.message !== undefined) {
+    messageData.safeBrowseSuccess = false
+  } else {
+    messageData.safeBrowseSuccess = true
+    messageData = setSafeBrowseThreatTypes(messageData, safeBrowseThreats)
   }
   return messageData
 }
