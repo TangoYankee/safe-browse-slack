@@ -14,7 +14,7 @@ const mockSafeBrowseResponse = (threatEntries) => {
   var response = {}
   var threatMatches = mockThreatMatches(threatEntries)
   if (threatMatches.length < 1) {
-    response =  {}
+    response = {}
   } else {
     response = { matches: threatMatches }
   }
