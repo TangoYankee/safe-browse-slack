@@ -7,19 +7,16 @@ const mockFailedSafeBrowseResponse = {
   },
   headers: { data: '...' },
   request: { data: '...' },
-  statusCode: 401
+  statusCodeError: 401
 }
 
 const mockSafeBrowseResponse = (threatEntries) => {
   var response = {}
-  response.statusCode = 200
-  response.headers = { data: '...' }
-  response.request = { data: '...' }
   var threatMatches = mockThreatMatches(threatEntries)
   if (threatMatches.length < 1) {
-    response.body = {}
+    response =  {}
   } else {
-    response.body = { matches: threatMatches }
+    response = { matches: threatMatches }
   }
   return response
 }

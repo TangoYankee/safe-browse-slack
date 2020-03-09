@@ -18,10 +18,10 @@ class SafeBrowse {
   get _callSafebrowse () {
     return requestPromise.post(this._options)
       .then(response => {
-        if (response.statusCode === 200) {
-          return response.body
+        if (response.statusCodeError) {
+          throw new Error(`safe browse response code: ${response.statusCodeError}`)
         } else {
-          throw new Error(`safe browse response code: ${response.statusCode}`)
+          return response
         }
       })
       .catch(error => {
