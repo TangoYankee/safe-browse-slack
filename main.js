@@ -29,7 +29,7 @@ app.get('/oauth', async (req, res) => {
   var oauth = new OAuth(req, res)
   var tokenInfo = await oauth.setTokenInfo()
   if (tokenInfo.team_id && tokenInfo.access_cipher) {
-    new Database('markdownlinksdb').connectStoreDisconnect(tokenInfo.team_id, tokenInfo.access_cipher)
+    new Database('markdownlinks-sandbox').connectStoreDisconnect(tokenInfo.team_id, tokenInfo.access_cipher)
   }
 })
 
