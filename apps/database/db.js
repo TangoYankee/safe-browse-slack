@@ -4,7 +4,7 @@ const MongoClient = require('mongodb').MongoClient
 
 class Database {
   constructor (dbName) {
-    this.clusterUri = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@ty-db-xadwv.mongodb.net/${dbName}?retryWrites=true&w=majority`
+    this.clusterUri = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0-i82sn.mongodb.net/{dbName}?retryWrites=true&w=majority`
     this.dbName = dbName
   }
 
