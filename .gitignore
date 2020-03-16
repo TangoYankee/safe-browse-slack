@@ -3,6 +3,7 @@
 
 #configuration
 config.sh
+config-dev.sh
 
 # Logs
 logs

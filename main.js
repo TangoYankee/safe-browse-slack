@@ -34,6 +34,12 @@ app.get('/oauth', async (req, res) => {
   }
 })
 
+app.post('/safebrowse', (req, res) => {
+  /* check urls for suspected threats with google safe browse api */
+  res.send()
+  console.log(req.body)
+})
+
 app.post('/publish', (req, res) => {
   /* send message in response to user input from slash command */
   if (new Signature(req).isValid) {
