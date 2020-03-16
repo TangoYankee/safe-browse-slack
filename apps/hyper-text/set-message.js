@@ -78,14 +78,13 @@ const setSafeBrowse = async (messageData) => {
 
 const setNoneFound = (messageData) => {
   /* identify if there are links that are not suspected of threats */
+  var theseThreatTypes = new Set(messageData.threatTypes)
   for (var link of messageData.links) {
     if (link.threatMatch === '') {
-      var noneFoundInThreatTypes = messageData.threatTypes.includes('NONE_FOUND')
-      if (!noneFoundInThreatTypes) {
-        messageData.threatTypes.push('NONE_FOUND')
-      }
+      theseThreatTypes.add('NONE_FOUND')
     }
   }
+  messageData.threatTypes = [...theseThreatTypes]
   return messageData
 }
 

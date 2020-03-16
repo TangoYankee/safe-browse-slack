@@ -7,19 +7,18 @@ const cache = cacheInstance()
 
 const setCacheThreatTypes = (messageData, threatMatches) => {
   /* save threat matches to message object */
+  var theseThreatTypes = new Set(messageData.threatTypes)
   for (var urlDomainKey in threatMatches) {
     var threatMatch = threatMatches[urlDomainKey].threatMatch
     for (var link of messageData.links) {
       if (link.urlDomainKey === urlDomainKey) {
         link.threatMatch = threatMatch
         link.inCache = true
-        var threatMatchInThreatTypes = messageData.threatTypes.includes(threatMatch)
-        if (!threatMatchInThreatTypes) {
-          messageData.threatTypes.push(threatMatch)
-        }
+        theseThreatTypes.add(threatMatch)
       }
     }
   }
+  messageData.threatTypes = [...theseThreatTypes]
   return messageData
 }
 
@@ -31,14 +30,11 @@ const getCacheThreats = (hyperTexts) => {
 
 const setUrlDomainKeys = (hyperTexts) => {
   /* list of urls to look for in cache */
-  var urlDomainKeys = []
+  var urlDomainKeys = new Set()
   for (var hyperText of hyperTexts) {
-    var urlDomainKeyInUrlDomainKeys = urlDomainKeys.includes(hyperText.urlDomainKey)
-    if (!urlDomainKeyInUrlDomainKeys) {
-      urlDomainKeys.push(hyperText.urlDomainKey)
-    }
+    urlDomainKeys.add(hyperText.urlDomainKey)
   }
-  return urlDomainKeys
+  return [...urlDomainKeys]
 }
 
 const postCacheThreats = (hyperTexts) => {
