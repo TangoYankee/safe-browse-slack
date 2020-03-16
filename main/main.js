@@ -2,10 +2,10 @@
 
 const bodyParser = require('body-parser')
 const express = require('express')
-const { publish, remove } = require('./apps/messages/methods')
-const { OAuth } = require('./apps/credential/oauth')
-const { Database } = require('./apps/database/db')
-const { Signature } = require('./apps/credential/signature')
+const { publish, remove } = require('../apps/messages/methods')
+const { OAuth } = require('../apps/credential/oauth')
+const { Database } = require('../apps/database/db')
+const { Signature } = require('../apps/credential/signature')
 
 var app = express()
 app.set('view engine', 'pug')
