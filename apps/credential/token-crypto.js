@@ -4,6 +4,7 @@ const crypto = require('crypto')
 const cryptoRandomString = require('crypto-random-string')
 
 class TokenCrypto {
+  /* manage encryption of tokens */
   constructor () {
     this.algorithm = 'aes-256-cbc'
     this.tokenKey = process.env.SLACK_OAUTH_TOKEN_SECRET

@@ -13,7 +13,7 @@ class OAuth extends TokenCrypto {
   }
 
   get _authCode () {
-    /* Authorization code recieved from target service */
+    /* authorization code recieved from target service */
     if (this.codeReq.query.code) {
       return this.codeReq.query.code
     } else {
