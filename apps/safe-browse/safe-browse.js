@@ -3,7 +3,7 @@
 const requestPromise = require('request-promise')
 
 class SafeBrowse {
-  /* find threat matches for shared urls*/
+  /* find threat matches for shared urls */
   constructor (urlDomainKeys) {
     this.urlDomainKeys = urlDomainKeys
   }

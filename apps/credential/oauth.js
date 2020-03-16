@@ -4,7 +4,7 @@ const requestPromise = require('request-promise')
 const { TokenCrypto } = require('./token-crypto')
 
 class OAuth extends TokenCrypto {
-  /* OAuth2 protocol with ability to encrypt/decrypt auth tokens*/
+  /* OAuth2 protocol with ability to encrypt/decrypt auth tokens */
   constructor (codeReq, res) {
     super(codeReq, res)
     this.res = res
