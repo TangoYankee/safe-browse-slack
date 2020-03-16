@@ -8,10 +8,10 @@
         "url": "github.com/tangoyankee/safe-browse-slack.git"
     },
     "license": "MIT",
-    "main": "main.js",
+    "main": "main/main.js",
     "scripts": {
         "lint": "eslint .",
-        "start": "node main.js",
+        "start": "node main/main.js",
         "test": "jest"
     },
     "dependencies": {
