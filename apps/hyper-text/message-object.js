@@ -1,4 +1,5 @@
 'use strict'
+// Heavily refactor, keeping elements to mark whether it's in the cache
 
 const setMessageData = (text, userId) => {
   /* message with meta data stored in an object */

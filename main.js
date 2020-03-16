@@ -28,6 +28,7 @@ app.get('/oauth', async (req, res) => {
   /* oauth with Slack */
   var oauth = new OAuth(req, res)
   var tokenInfo = await oauth.setTokenInfo()
+  // Remove step to save in database
   if (tokenInfo.team_id && tokenInfo.access_cipher) {
     new Database('markdownlinks-sandbox').connectStoreDisconnect(tokenInfo.team_id, tokenInfo.access_cipher)
   }
@@ -42,6 +43,7 @@ app.post('/publish', (req, res) => {
   }
 })
 
+// No longer necessary. Only sharing emphemeral messages
 app.post('/remove', (req, res) => {
   /* delete messages already posted */
   if (new Signature(req).isValid) {

@@ -1,4 +1,5 @@
 'use strict'
+// Heavily refactor
 
 const { setMessageData, setHyperTextData } = require('./message-object')
 const {
