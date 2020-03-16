@@ -3,11 +3,13 @@
 const requestPromise = require('request-promise')
 
 class SafeBrowse {
+  /* find threat matches for shared urls */
   constructor (urlDomainKeys) {
     this.urlDomainKeys = urlDomainKeys
   }
 
   get threatMatches () {
+    /* only call safe browse if there is at least one threat url */
     if (this.urlDomainKeys.length > 0) {
       return this._callSafebrowse
     } else {
@@ -16,6 +18,7 @@ class SafeBrowse {
   }
 
   get _callSafebrowse () {
+    /* recieve threat matches from safe browse */
     return requestPromise.post(this._options)
       .then(response => {
         if (response.statusCodeError) {
@@ -31,6 +34,7 @@ class SafeBrowse {
   }
 
   get _options () {
+    /* parameters for request to safe browse */
     return {
       url: 'https://safebrowsing.googleapis.com/v4/threatMatches:find',
       body: this._requestBody,
@@ -41,6 +45,7 @@ class SafeBrowse {
   }
 
   get _requestBody () {
+    /* threat entries added to standard safe browse request */
     return {
       client: {
         clientId: process.env.GOOGLE_SAFE_BROWSING_CLIENT_ID,
@@ -62,6 +67,7 @@ class SafeBrowse {
   }
 
   get _threatEntries () {
+    /* key value pairs of unique urls */
     var threatEntries = []
     for (var urlDomainKey of new Set(this.urlDomainKeys)) {
       threatEntries.push({ url: urlDomainKey })

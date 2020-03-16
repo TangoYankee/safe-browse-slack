@@ -4,6 +4,7 @@ const requestPromise = require('request-promise')
 const { TokenCrypto } = require('./token-crypto')
 
 class OAuth extends TokenCrypto {
+  /* OAuth2 protocol with ability to encrypt/decrypt auth tokens */
   constructor (codeReq, res) {
     super(codeReq, res)
     this.res = res
@@ -12,6 +13,7 @@ class OAuth extends TokenCrypto {
   }
 
   get _authCode () {
+    /* authorization code recieved from target service */
     if (this.codeReq.query.code) {
       return this.codeReq.query.code
     } else {
@@ -23,6 +25,7 @@ class OAuth extends TokenCrypto {
   }
 
   async setTokenInfo () {
+    /* provide current token or request one with code */
     if (this.tokenInfo) {
       return this.tokenInfo
     } else if (this.codeReq.query.code) {
@@ -35,6 +38,7 @@ class OAuth extends TokenCrypto {
   }
 
   get _tokenBody () {
+    /* exchange code for authorization token */
     return requestPromise.post(this._options)
       .then(response => {
         var responseBodyJSON = JSON.parse(response)
@@ -59,6 +63,7 @@ class OAuth extends TokenCrypto {
   }
 
   get _options () {
+    /* format request parameters specific to slack oauth2 version 2 */
     return {
       url: 'https://slack.com/api/oauth.v2.access',
       qs: {
