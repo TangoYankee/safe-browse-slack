@@ -1,4 +1,5 @@
 'use strict'
+// Most likely unnecessary
 
 const setSafeBrowseThreatTypes = (messageData, threatMatches) => {
   /* add threat type to the original message */

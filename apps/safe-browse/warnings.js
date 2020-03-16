@@ -1,5 +1,5 @@
 'use strict'
-
+// Refactor
 const sharedWithoutHttpsData = {
   emoji: 'small_orange_diamond',
   text: 'shared without <https://www.snopes.com/fact-check/http-vs-https/|https>'

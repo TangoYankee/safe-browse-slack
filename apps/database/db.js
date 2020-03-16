@@ -1,5 +1,5 @@
 'use strict'
-
+/* Delete entire module. No tokens will be stored in database */
 const MongoClient = require('mongodb').MongoClient
 
 class Database {

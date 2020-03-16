@@ -1,4 +1,5 @@
 'use strict'
+// Keep mostly intact
 
 const requestPromise = require('request-promise')
 
