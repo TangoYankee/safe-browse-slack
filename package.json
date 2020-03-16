@@ -1,11 +1,11 @@
 {
-    "name": "markdownlinks",
+    "name": "safe-browse-slack",
     "version": "0.0.1",
-    "description": "Markdown syntax for links in Slack messages",
+    "description": "Using Slack slash command, lookup urls in Google Safe Browse for suspected threats ",
     "author": "Timothy Miller miller.tim108@gmail.com",
     "repository": {
         "type": "git",
-        "url": "github.com/tangoyankee/markdownlinks.git"
+        "url": "github.com/tangoyankee/safe-browse-slack.git"
     },
     "license": "MIT",
     "main": "main.js",
