@@ -1,7 +1,7 @@
 'use strict'
 
 const HelpBlock = require('../help-block')
-const {helpWelcomeData, helpInputData} = require('../test-data/help-test-data')
+const { helpWelcomeData, helpInputData } = require('../test-data/help-test-data')
 
 describe('it should be formatted to fit slack blocks', () => {
   it('should explain how to use the application', () => {
