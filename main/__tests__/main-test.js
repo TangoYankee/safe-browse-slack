@@ -6,7 +6,6 @@ const Signature = require('../../apps/credential/signature')
 jest.mock('../../apps/credential/signature')
 
 describe('recieve a request for safebrowse command', () => {
-
   afterEach(() => {
     server.close()
     Signature.mockClear()

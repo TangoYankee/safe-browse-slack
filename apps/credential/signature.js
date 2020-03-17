@@ -40,4 +40,3 @@ class Signature {
 }
 
 module.exports = Signature
-
