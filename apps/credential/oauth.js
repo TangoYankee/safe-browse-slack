@@ -1,12 +1,10 @@
 'use strict'
 
 const requestPromise = require('request-promise')
-const { TokenCrypto } = require('./token-crypto')
 
-class OAuth extends TokenCrypto {
+class OAuth {
   /* OAuth2 protocol with ability to encrypt/decrypt auth tokens */
   constructor (codeReq, res) {
-    super(codeReq, res)
     this.res = res
     this.codeReq = codeReq
     this.authCode = this._authCode
@@ -26,6 +24,7 @@ class OAuth extends TokenCrypto {
 
   async setTokenInfo () {
     /* provide current token or request one with code */
+
     if (this.tokenInfo) {
       return this.tokenInfo
     } else if (this.codeReq.query.code) {
@@ -39,12 +38,14 @@ class OAuth extends TokenCrypto {
 
   get _tokenBody () {
     /* exchange code for authorization token */
+
     return requestPromise.post(this._options)
       .then(response => {
         var responseBodyJSON = JSON.parse(response)
+
         if (responseBodyJSON.ok) {
           var tokenInfo = {
-            access_cipher: this.encrypt(responseBodyJSON.access_token),
+            access_token: responseBodyJSON.access_token,
             team_id: responseBodyJSON.team.id
           }
           this.res.status(200)
@@ -75,6 +76,4 @@ class OAuth extends TokenCrypto {
   }
 }
 
-module.exports = {
-  OAuth
-}
+module.exports = OAuth
