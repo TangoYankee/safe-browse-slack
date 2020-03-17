@@ -3,18 +3,25 @@
 const request = require('supertest')
 const server = require('../main')
 
-describe('recieve request from slack to check a threat url', () => {
+describe('recieve a request for safebrowse command', () => {
   afterEach(() => {
     server.close()
   })
 
-  it('should respond with a 200 code', async () => {
-    const res = await request(server).post('/safebrowse').send({ name: 'john' })
-    return expect(res.status).toBe(200)
+  it('should be valid', async () => {
+    const res = await request(server).post('/safebrowse').send({ data: 'valid' })
+    expect(res.status).toBe(200)
   })
 
-  it('should respond with a 404', async () => {
-    const res = await request(server).get('/foo/bar')
-    return expect(res.status).toBe(404)
+  it('should be outdated', async () => {
+    const res = await request(server).post('/safebrowse').send({ data: 'old'})
+    expect(res.status).toBe(400)
+    expect(res.text).toBe('Ignore this request')
+  })
+
+  it('should be incorrect', async () => {
+    const res = await request(server).post('/safebrowse').send({ data: 'incorrect'})
+    expect(res.status).toBe(400)
+    expect(res.text).toBe('Ignore this request')
   })
 })

@@ -36,8 +36,15 @@ app.get('/oauth', async (req, res) => {
 
 app.post('/safebrowse', (req, res) => {
   /* check urls for suspected threats with google safe browse api */
-  res.send()
-  console.log(req.body)
+  if (new Signature(req).isValid) {
+    res.status(200).send()
+  } else {
+    res.status(400).send('Ignore this request')
+  }
+  // if (new Signature(req))
+  // res.status(200).send('See this request')
+  // res.send
+  // console.log(req.body)
 })
 
 app.post('/publish', (req, res) => {
