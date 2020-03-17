@@ -15,12 +15,15 @@ describe('recieve a request for safebrowse command', () => {
     Signature.mockClear()
   })
 
-  it('should be valid', async () => {
+  it('should be valid but recieve no text', async () => {
+    var spyOnLog = jest.spyOn(console, 'log').mockImplementation()
     Signature.mockImplementationOnce(() => {
       return { isValid: true }
     })
     const res = await request(server).post('/safebrowse').send({text: ''})
     expect(res.status).toBe(200)
+    expect(spyOnLog).toHaveBeenCalledWith([])
+    spyOnLog.mockRestore()
   })
 
   it('should not be valid', async () => {
@@ -32,8 +35,8 @@ describe('recieve a request for safebrowse command', () => {
     expect(res.text).toBe('Ignore this request')
   })
 
-  it('should send a request body to parse', async () => {
-    // var spyOnLog = jest.spyOn(console, 'log').mockImplementation()
+  it('should be valid and send urls to parse', async () => {
+    var spyOnLog = jest.spyOn(console, 'log').mockImplementation()
     Signature.mockImplementationOnce(() => {
       return { isValid: true }
     })
@@ -48,18 +51,17 @@ describe('recieve a request for safebrowse command', () => {
       user_id: 'dev',
       user_name: 'dev',
       command: '/safebrowse',
-      // text: '<http://dmv.ca.gov/> <https://www.google.com/maps/place/Emeril\'s+New+Orleans/@29.944616,-90.0694747,17z/data=!3m1!4b1!4m5!3m4!1s0x8620a6718f86a9a7:0x6ab2069a8e2a2d7d!8m2!3d29.944616!4d-90.067286>  <http://www.nasa.gov|www.nasa.gov> <http://www.dmv.ca.gov|www.dmv.ca.gov> <@UH00Z00Z0|dev.user>',
-      text:'',
+      text: '<http://dmv.ca.gov/> <https://www.google.com/maps/place/Emeril\'s+New+Orleans/@29.944616,-90.0694747,17z/data=!3m1!4b1!4m5!3m4!1s0x8620a6718f86a9a7:0x6ab2069a8e2a2d7d!8m2!3d29.944616!4d-90.067286>  <http://www.nasa.gov|www.nasa.gov> <http://www.dmv.ca.gov|www.dmv.ca.gov> <@UH00Z00Z0|dev.user>',
       response_url: 'https://hooks.slack.com/commands/',
       trigger_id: '0'
     })
     expect(res.status).toBe(200)
-    // expect(spyOnLog).toHaveBeenCalledWith([
-    //   'dmv.ca.gov',
-    //   'google.com/maps/place/Emeril\'s+New+Orleans/@29.944616,-90.0694747,17z/data=!3m1!4b1!4m5!3m4!1s0x8620a6718f86a9a7:0x6ab2069a8e2a2d7d!8m2!3d29.944616!4d-90.067286',
-    //   'nasa.gov'
-    // ])
-    // spyOnLog.mockRestore()
+    expect(spyOnLog).toHaveBeenCalledWith([
+      'dmv.ca.gov',
+      'google.com/maps/place/Emeril\'s+New+Orleans/@29.944616,-90.0694747,17z/data=!3m1!4b1!4m5!3m4!1s0x8620a6718f86a9a7:0x6ab2069a8e2a2d7d!8m2!3d29.944616!4d-90.067286',
+      'nasa.gov'
+    ])
+    spyOnLog.mockRestore()
   })
 })
 
@@ -83,7 +85,7 @@ describe('oauth flow', () => {
       .get('/oauth')
       .query({ code: '' })
       .expect('Location', '/?message=error')
-    expect(console.warn).toHaveBeenCalledWith('authorization code not received.')
+    expect(spyOnWarn).toHaveBeenCalledWith('authorization code not received.')
     spyOnWarn.mockRestore()
   })
 

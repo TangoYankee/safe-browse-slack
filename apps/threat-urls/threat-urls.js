@@ -1,7 +1,7 @@
 'use strict'
 
 class ThreatUrls {
-  constructor (text) {
+  constructor(text) {
     this.text = text
     this.escapedSections = this._escapedSections
     this.wholeUrls = this._wholeUrls
@@ -10,31 +10,36 @@ class ThreatUrls {
     this.threatUrls = this._threatUrls
   }
 
-  get _escapedSections () {
+  get _escapedSections() {
     /* portion of text that link somewhere */
     var escapeRegex = /<.*?(\||>)/gm
-    return this.text.match(escapeRegex)
+    var escapedSections = this.text.match(escapeRegex)
+    return (escapedSections ? escapedSections : [])
   }
 
-  get _wholeUrls () {
+  get _wholeUrls() {
     /* List of all submitted urls */
     var wholeUrlRegex = /(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-zA-Z0-9]+([-.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/.*)*?/gm
-    return this.escapedSections.filter(section => section.match(wholeUrlRegex))
+    if (this.escapedSections) {
+      return this.escapedSections.filter(section => section.match(wholeUrlRegex))
+    } else {
+      return []
+    }
   }
 
-  get _urlDomains () {
+  get _urlDomains() {
     /* Sumbitted URLS with http and www prefixes removed */
     var urlDomainRegex = /(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)/gm
     return this.wholeUrls.map(wholeUrl => wholeUrl.replace(urlDomainRegex, ''))
   }
 
-  get _bareUrls () {
+  get _bareUrls() {
     /* Urls with escape characters removed */
     var bareUrlsRegex = /[<(>||)]/gm
     return this.urlDomains.map(urlDomain => urlDomain.replace(bareUrlsRegex, ''))
   }
 
-  get _threatUrls () {
+  get _threatUrls() {
     /* eliminate duplicate entries */
     var trailingSlashRegex = /\/$/gm
     var removedTrailingUrls = this.bareUrls.map(bareUrl => bareUrl.replace(trailingSlashRegex, ''))
