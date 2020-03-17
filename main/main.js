@@ -5,7 +5,7 @@ const express = require('express')
 const { publish, remove } = require('../apps/messages/methods')
 const { OAuth } = require('../apps/credential/oauth')
 const { Database } = require('../apps/database/db')
-const { Signature } = require('../apps/credential/signature')
+const Signature = require('../apps/credential/signature')
 
 var app = express()
 app.set('view engine', 'pug')
@@ -36,8 +36,12 @@ app.get('/oauth', async (req, res) => {
 
 app.post('/safebrowse', (req, res) => {
   /* check urls for suspected threats with google safe browse api */
-  res.send()
   console.log(req.body)
+  if (new Signature(req).isValid) {
+    res.status(200).send()
+  } else {
+    res.status(400).send('Ignore this request')
+  }
 })
 
 app.post('/publish', (req, res) => {
@@ -65,5 +69,6 @@ app.use((req, res, next) => {
   res.status(404).render('index', { message: 'page-not-found' })
 })
 
-const port = 4390
-app.listen(port)
+var server = app.listen(4390)
+
+module.exports = server
