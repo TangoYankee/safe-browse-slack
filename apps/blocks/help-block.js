@@ -1,17 +1,18 @@
 'use strict'
 
 class HelpBlock {
-  constructor(userID) {
+  constructor (userID) {
     this.userID = userID
   }
-  get message() {
+
+  get message () {
     return {
       response_type: 'ephemeral',
       blocks: this._blocks
     }
   }
 
-  get _blocks() {
+  get _blocks () {
     return [{
       type: 'section',
       text: {

@@ -6,7 +6,7 @@ var helpTestData = {
     type: 'section',
     text: {
       type: 'mrkdwn',
-      text: `:confetti_ball: *welcome,* <@tangoyankee>!`
+      text: ':confetti_ball: *welcome,* <@tangoyankee>!'
     }
   },
   {

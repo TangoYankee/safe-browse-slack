@@ -36,8 +36,8 @@ app.post('/safebrowse', (req, res) => {
   if (new Signature(req).isValid) {
     var text = req.body.text
     var userID = req.body.user_id
-    if (text.toLowerCase() == 'help') {
-      /* user asks for help*/
+    if (text.toLowerCase() === 'help') {
+      /* user asks for help */
       var help = new HelpBlock(userID)
       res.status(200).json(help.message)
     } else if (text) {
