@@ -5,6 +5,7 @@ const express = require('express')
 const { publish, remove } = require('../apps/messages/methods')
 const OAuth = require('../apps/credential/oauth')
 const Signature = require('../apps/credential/signature')
+const ThreatUrls = require('../apps/threat-urls/threat-urls')
 
 var app = express()
 app.set('view engine', 'pug')
@@ -31,8 +32,11 @@ app.get('/oauth', async (req, res) => {
 
 app.post('/safebrowse', (req, res) => {
   /* check urls for suspected threats with google safe browse api */
-  console.log(req.body)
   if (new Signature(req).isValid) {
+    // console.log(req.body.text)
+    // threat
+    var urls = new ThreatUrls(req.body.text).threatUrls
+    console.log(urls)
     // Send text to process by regex. Have Regex return list of URLS
     // Create object that holds list of urls, status of chache check [unchecked, errorCheck, inCache, notInCache]
     // Lookup URLs in Cache, update object
