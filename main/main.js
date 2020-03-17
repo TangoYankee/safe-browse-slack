@@ -6,6 +6,7 @@ const { publish, remove } = require('../apps/messages/methods')
 const OAuth = require('../apps/credential/oauth')
 const Signature = require('../apps/credential/signature')
 const ThreatUrls = require('../apps/threat-urls/threat-urls')
+const HelpBlock = require('../apps/blocks/help-block')
 
 var app = express()
 app.set('view engine', 'pug')
@@ -33,14 +34,26 @@ app.get('/oauth', async (req, res) => {
 app.post('/safebrowse', (req, res) => {
   /* check urls for suspected threats with google safe browse api */
   if (new Signature(req).isValid) {
-    var urls = new ThreatUrls(req.body.text).threatUrls
-    console.log(urls)
+    var text = req.body.text
+    var userID = req.body.user_id
+    if (text.toLowerCase() === 'help') {
+      /* user asks for help */
+      var help = new HelpBlock(userID)
+      res.status(200).json(help.message)
+    } else if (text) {
+      /* user provides input */
+      var urls = new ThreatUrls(req.body.text).threatUrls
+      console.log(urls)
+      res.status(200).send()
+    } else {
+      res.status(200).send()
+      console.log([])
+    }
     // Send text to process by regex. Have Regex return list of URLS
     // Create object that holds list of urls, status of chache check [unchecked, errorCheck, inCache, notInCache]
     // Lookup URLs in Cache, update object
     // Lookup URLs in SafeBrowse
     // Construct Message
-    res.status(200).send()
   } else {
     res.status(400).send('Ignore this request')
   }
