@@ -36,18 +36,25 @@ app.post('/safebrowse', (req, res) => {
   if (new Signature(req).isValid) {
     var text = req.body.text
     var userID = req.body.user_id
+    var welcomeMessage = new HelpBlock(userID, 'type */safebrowse* followed by unformatted urls.\nWe will check them for suspected threats').message
+    var errorMessage = new HelpBlock(userID, 'we did not find any urls to check').message
+
     if (text.toLowerCase() === 'help') {
       /* user asks for help */
-      var help = new HelpBlock(userID)
-      res.status(200).json(help.message)
-    } else if (text) {
-      /* user provides input */
-      var urls = new ThreatUrls(req.body.text).threatUrls
-      console.log(urls)
-      res.status(200).send()
+      res.json(welcomeMessage)
+    } else if (text === '') {
+      /* user input is empty */
+      res.json(errorMessage)
     } else {
-      res.status(200).send()
-      console.log([])
+      var urls = new ThreatUrls(req.body.text).threatUrls
+      if (urls.length === 0) {
+        /* user urls are empty */
+        res.json(errorMessage)
+      } else {
+        /* user provides urls to check */
+        console.log(urls)
+        res.send()
+      }
     }
     // Send text to process by regex. Have Regex return list of URLS
     // Create object that holds list of urls, status of chache check [unchecked, errorCheck, inCache, notInCache]

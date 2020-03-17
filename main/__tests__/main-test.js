@@ -5,7 +5,7 @@ const server = require('../main')
 const Signature = require('../../apps/credential/signature')
 jest.mock('../../apps/credential/signature')
 
-const helpTestData = require('../../apps/blocks/test-data/help-test-data')
+const { helpWelcomeData, helpInputData } = require('../../apps/blocks/test-data/help-test-data')
 const requestPromise = require('request-promise')
 const { mockTokenRequest, mockFailedTokenRequest } = require('../../apps/credential/test-data/oauth-data')
 const cryptoRandomString = require('crypto-random-string')
@@ -26,11 +26,36 @@ describe('should receive valid requests to safebrowse command', () => {
   })
 
   it('should recieve no text', async () => {
-    const res = await request(server)
+    await request(server)
       .post('/safebrowse')
-      .send({ text: '' })
-    expect(res.status).toBe(200)
-    expect(spyOnLog).toHaveBeenCalledWith([])
+      .send({
+        user_id: 'tangoyankee',
+        text: ''
+      })
+      .expect('Content-Type', /json/)
+      .expect(200, helpInputData)
+  })
+
+  it('should request help', async () => {
+    await request(server)
+      .post('/safebrowse')
+      .send({
+        user_id: 'tangoyankee',
+        text: 'help'
+      })
+      .expect('Content-Type', /json/)
+      .expect(200, helpWelcomeData)
+  })
+
+  it('should recieve text but no urls', async () => {
+    await request(server)
+      .post('/safebrowse')
+      .send({
+        user_id: 'tangoyankee',
+        text: 'plain text'
+      })
+      .expect('Content-Type', /json/)
+      .expect(200, helpInputData)
   })
 
   it('should send urls to parse', async () => {
@@ -55,17 +80,6 @@ describe('should receive valid requests to safebrowse command', () => {
       'google.com/maps/place/Emeril\'s+New+Orleans/@29.944616,-90.0694747,17z/data=!3m1!4b1!4m5!3m4!1s0x8620a6718f86a9a7:0x6ab2069a8e2a2d7d!8m2!3d29.944616!4d-90.067286',
       'nasa.gov'
     ])
-  })
-
-  it('should request help', async () => {
-    await request(server)
-      .post('/safebrowse')
-      .send({
-        user_id: 'tangoyankee',
-        text: 'help'
-      })
-      .expect('Content-Type', /json/)
-      .expect(200, helpTestData)
   })
 })
 
