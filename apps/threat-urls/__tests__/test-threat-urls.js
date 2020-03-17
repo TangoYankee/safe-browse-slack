@@ -44,30 +44,30 @@ describe('it should identify the correct urls', () => {
   })
 })
 
-describe('it should handle blank urls', ()=>{
+describe('it should handle blank urls', () => {
   var threatUrls
-  beforeAll(()=>{
-    var text=''
+  beforeAll(() => {
+    var text = ''
     threatUrls = new ThreatUrls(text)
   })
 
-  it('should find no links', ()=>{
+  it('should find no links', () => {
     expect(threatUrls.escapedSections).toEqual([])
   })
 
-  it('should filter to no urls', ()=>{
+  it('should filter to no urls', () => {
     expect(threatUrls.wholeUrls).toEqual([])
   })
 
-  it('should have no urls to strip', ()=>{
+  it('should have no urls to strip', () => {
     expect(threatUrls.urlDomains).toEqual([])
   })
 
-  it('should have no escape characters to remove', ()=>{
+  it('should have no escape characters to remove', () => {
     expect(threatUrls.bareUrls).toEqual([])
   })
 
-  it('should return no threat urls', ()=>{
+  it('should return no threat urls', () => {
     expect(threatUrls.threatUrls).toEqual([])
   })
 })
