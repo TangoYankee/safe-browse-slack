@@ -1,39 +1,12 @@
 'use strict'
 
-const { OAuth } = require('../oauth')
-const { TestCrypto } = require('../test-data/token-crypto-data')
+const OAuth = require('../oauth')
 const {
   mockResponse, mockCodeRequest,
   mockTokenRequest, mockFailedTokenRequest
 } = require('../test-data/oauth-data')
 const requestPromise = require('request-promise')
 const cryptoRandomString = require('crypto-random-string')
-
-describe('oauth should inherit ability to cipher tokens', () => {
-  var res
-  var oauth
-  var codeReq
-  var code
-  var testCrypto
-  beforeAll(() => {
-    res = mockResponse()
-    code = cryptoRandomString({ length: 9 })
-    codeReq = mockCodeRequest(code)
-    oauth = new OAuth(codeReq, res)
-    testCrypto = new TestCrypto()
-    oauth.tokenKey = testCrypto.tokenKey
-  })
-
-  it('should have token encrypt function', () => {
-    testCrypto.tokenCipher = oauth.encrypt(testCrypto.tokenPlain)
-    expect(testCrypto.isValidCipher).toBe(true)
-  })
-
-  it('should successfully decrypt tokens', () => {
-    testCrypto.tokenCipher = oauth.encrypt(testCrypto.tokenPlain)
-    expect(oauth.decrypt(testCrypto.tokenCipher)).toEqual(testCrypto.tokenPlain)
-  })
-})
 
 describe('oauth fails to recieve an authorization code', () => {
   var res = mockResponse()
@@ -73,13 +46,10 @@ describe('oauth successfully recieves an authorization code and token', () => {
   var code = cryptoRandomString({ length: 9 })
   var codeReq = mockCodeRequest(code)
   var oauth
-  var testCrypto
 
   beforeAll(() => {
     requestPromise.post.mockResolvedValue(mockTokenRequest)
     oauth = new OAuth(codeReq, res)
-    testCrypto = new TestCrypto()
-    oauth.tokenKey = testCrypto.tokenKey
   })
 
   it('should not be missing an auth code', () => {
@@ -96,7 +66,7 @@ describe('oauth successfully recieves an authorization code and token', () => {
     expect.assertions(1)
     return expect(oauth._tokenBody).resolves.toEqual(
       expect.objectContaining({
-        access_cipher: expect.any(String),
+        access_token: expect.any(String),
         team_id: 'ZZZZ0Z0ZZ'
       }))
   })
@@ -105,7 +75,7 @@ describe('oauth successfully recieves an authorization code and token', () => {
     expect.assertions(1)
     return expect(oauth.setTokenInfo()).resolves.toEqual(
       expect.objectContaining({
-        access_cipher: expect.any(String),
+        access_token: expect.any(String),
         team_id: 'ZZZZ0Z0ZZ'
       }))
   })
