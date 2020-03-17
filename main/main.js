@@ -33,8 +33,6 @@ app.get('/oauth', async (req, res) => {
 app.post('/safebrowse', (req, res) => {
   /* check urls for suspected threats with google safe browse api */
   if (new Signature(req).isValid) {
-    // console.log(req.body.text)
-    // threat
     var urls = new ThreatUrls(req.body.text).threatUrls
     console.log(urls)
     // Send text to process by regex. Have Regex return list of URLS
