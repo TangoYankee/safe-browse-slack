@@ -1,6 +1,6 @@
 'use strict'
 
-const { Signature } = require('../signature')
+const Signature = require('../signature')
 const { slackRequest } = require('../test-data/signature-data')
 
 describe('the request is invalid, with a recent time but a wrong signature', () => {

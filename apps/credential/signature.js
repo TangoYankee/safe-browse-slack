@@ -39,6 +39,5 @@ class Signature {
   }
 }
 
-module.exports = {
-  Signature
-}
+module.exports = Signature
+
