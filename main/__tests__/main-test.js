@@ -5,7 +5,7 @@ const server = require('../main')
 const Signature = require('../../apps/credential/signature')
 jest.mock('../../apps/credential/signature')
 
-const helpTestData = require('../../apps/blocks/test-data/help-test-data')
+const { helpWelcomeData, helpInputData } = require('../../apps/blocks/test-data/help-test-data')
 const requestPromise = require('request-promise')
 const { mockTokenRequest, mockFailedTokenRequest } = require('../../apps/credential/test-data/oauth-data')
 const cryptoRandomString = require('crypto-random-string')
@@ -26,11 +26,14 @@ describe('should receive valid requests to safebrowse command', () => {
   })
 
   it('should recieve no text', async () => {
-    const res = await request(server)
+    await request(server)
       .post('/safebrowse')
-      .send({ text: '' })
-    expect(res.status).toBe(200)
-    expect(spyOnLog).toHaveBeenCalledWith([])
+      .send({
+        user_id: 'tangoyankee',
+        text: ''
+      })
+      .expect('Content-Type', /json/)
+      .expect(200, helpInputData)
   })
 
   it('should send urls to parse', async () => {
@@ -65,7 +68,7 @@ describe('should receive valid requests to safebrowse command', () => {
         text: 'help'
       })
       .expect('Content-Type', /json/)
-      .expect(200, helpTestData)
+      .expect(200, helpWelcomeData)
   })
 })
 

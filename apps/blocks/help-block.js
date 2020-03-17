@@ -1,8 +1,9 @@
 'use strict'
 
 class HelpBlock {
-  constructor (userID) {
+  constructor (userID, feedback) {
     this.userID = userID
+    this.feedback = feedback
   }
 
   get message () {
@@ -24,7 +25,7 @@ class HelpBlock {
       type: 'section',
       text: {
         type: 'mrkdwn',
-        text: 'type */safebrowse* followed by unformatted urls.\nWe will check them for suspected threats'
+        text: this.feedback
       }
     }]
   }
