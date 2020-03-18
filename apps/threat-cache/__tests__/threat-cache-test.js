@@ -1,7 +1,7 @@
 'use strict'
 
 const ThreatCache = require('../threat-cache')
-const ThreatReportData = require('../test-data/threat-report-data')
+const ThreatReportData = require('../../__test-data__/threat-report-data')
 
 describe('manage the threat cache', () => {
   var threatCache = new ThreatCache()
