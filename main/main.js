@@ -2,10 +2,12 @@
 
 const bodyParser = require('body-parser')
 const express = require('express')
-const { publish, remove } = require('../apps/messages/methods')
 const OAuth = require('../apps/credential/oauth')
 const Signature = require('../apps/credential/signature')
 const ThreatUrls = require('../apps/threat-urls/threat-urls')
+const ThreatReports = require('../apps/threat-reports/threat-reports')
+const ThreatCache = require('../apps/threat-cache/threat-cache')
+const { SafeBrowse } = require('../apps/safe-browse/safe-browse')
 const HelpBlock = require('../apps/blocks/help-block')
 
 var app = express()
@@ -31,7 +33,7 @@ app.get('/oauth', async (req, res) => {
   await oauth.setTokenInfo()
 })
 
-app.post('/safebrowse', (req, res) => {
+app.post('/safebrowse', async (req, res) => {
   /* check urls for suspected threats with google safe browse api */
   if (new Signature(req).isValid) {
     var text = req.body.text
@@ -46,43 +48,33 @@ app.post('/safebrowse', (req, res) => {
       /* user input is empty */
       res.json(errorMessage)
     } else {
+      // Send text to process by regex. Have Regex return list of URLS
       var urls = new ThreatUrls(req.body.text).threatUrls
       if (urls.length === 0) {
         /* user urls are empty */
         res.json(errorMessage)
       } else {
         /* user provides urls to check */
+        var threatReports = new ThreatReports(urls)
+        var threatCache = new ThreatCache()
+        threatReports.fromCache = threatCache.report(threatReports.allUrls)
+        // Refactor so that urls are sent with threat matches
+        var safeBrowse = new SafeBrowse(threatReports.notInCache)
+        // Refactor threatMatches to read 'report'
+        // May be error, empty object, or object with threat matches
+        threatReports.fromSafeBrowse = await safeBrowse.threatMatches
+
+        threatCache.store(threatReports.toCache)
         console.log(urls)
+        // Create object that holds list of urls, status of chache check [unchecked, errorCheck, inCache, notInCache]
+        // Lookup URLs in Cache, update object
+        // Lookup URLs in SafeBrowse
+        // Construct Message
         res.send()
       }
     }
-    // Send text to process by regex. Have Regex return list of URLS
-    // Create object that holds list of urls, status of chache check [unchecked, errorCheck, inCache, notInCache]
-    // Lookup URLs in Cache, update object
-    // Lookup URLs in SafeBrowse
-    // Construct Message
   } else {
     res.status(400).send('Ignore this request')
-  }
-})
-
-app.post('/publish', (req, res) => {
-  /* send message in response to user input from slash command */
-  if (new Signature(req).isValid) {
-    publish(req.body, res)
-  } else {
-    res.status(400).send('Ignore this request')
-  }
-})
-
-// No longer necessary. Only sharing emphemeral messages
-app.post('/remove', (req, res) => {
-  /* delete messages already posted */
-  if (new Signature(req).isValid) {
-    var requestBody = JSON.parse(req.body.payload)
-    remove(requestBody, res)
-  } else {
-    res.status(400).send('Ingore this request')
   }
 })
 

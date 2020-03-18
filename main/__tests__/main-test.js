@@ -2,17 +2,26 @@
 
 const request = require('supertest')
 const server = require('../main')
+const requestPromise = require('request-promise')
+const { mockSafeBrowseResponse } = require('../../apps/safe-browse/test-data/response-data')
+
 const Signature = require('../../apps/credential/signature')
 jest.mock('../../apps/credential/signature')
 
 const { helpWelcomeData, helpInputData } = require('../../apps/blocks/test-data/help-test-data')
-const requestPromise = require('request-promise')
 const { mockTokenRequest, mockFailedTokenRequest } = require('../../apps/credential/test-data/oauth-data')
 const cryptoRandomString = require('crypto-random-string')
 
 describe('should receive valid requests to safebrowse command', () => {
   var spyOnLog
+  var threats = [
+    'SOCIAL_ENGINEERING',
+    'UNWANTED_SOFTWARE',
+    'MALWARE',
+    'NONE_FOUND'
+  ]
   beforeEach(() => {
+    requestPromise.post.mockResolvedValue(mockSafeBrowseResponse(threats))
     spyOnLog = jest.spyOn(console, 'log').mockImplementation()
     Signature.mockImplementationOnce(() => {
       return { isValid: true }
@@ -84,7 +93,14 @@ describe('should receive valid requests to safebrowse command', () => {
 })
 
 describe('recieve a invalid request for safebrowse command', () => {
+  var threats = [
+    'SOCIAL_ENGINEERING',
+    'UNWANTED_SOFTWARE',
+    'MALWARE',
+    'NONE_FOUND'
+  ]
   beforeEach(() => {
+    requestPromise.post.mockResolvedValue(mockSafeBrowseResponse(threats))
     Signature.mockImplementationOnce(() => {
       return { isValid: false }
     })

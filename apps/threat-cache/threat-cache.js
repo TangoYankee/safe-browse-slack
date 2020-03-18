@@ -1,45 +1,41 @@
 'use strict'
 
-const { cacheStart, cacheInstance } = require('../cache/cache')
+const { cacheStart, cacheInstance } = require('./cache')
 
 cacheStart()
 const cache = cacheInstance()
 
 class ThreatCache {
   report (urls) {
-    return cache.mget(this._metaDataReport(urls))
+    // return cache.mget(this._metaDataReport(urls))
+    return cache.mget(urls)
   }
 
-  _metaDataReport (urls) {
-    return Object.keys(urls)
+  store (fromSafeBrowse) {
+    return cache.mset(this._metaDataStore(fromSafeBrowse))
   }
 
-  store (forCacheThreatReport) {
-    return cache.mset(this._metaDataStore(forCacheThreatReport))
+  _metaDataStore (fromSafeBrowse) {
+    /* cache-friendly data format */
+    var storeMetaData = []
+    for (var match of fromSafeBrowse) {
+      storeMetaData.push({
+        key: match.threat.url,
+        val: {
+          threatMatch: match.threatType
+        },
+        ttl: this._duration(match.cacheDuration)
+      })
+    }
+    return storeMetaData
   }
 
-  // Move to threat report object
   _duration (timeLetters) {
     /* convert time from text to number */
     var numberRegex = /[0-9]/g
     var numbers = timeLetters.match(numberRegex)
     var timeNumbers = numbers.join('')
     return parseInt(timeNumbers)
-  }
-
-  _metaDataStore (forCacheThreatReport) {
-    /* cache-friendly data format */
-    var storeMetaData = []
-    for (var [urlKey, value] of Object.entries(forCacheThreatReport)) {
-      storeMetaData.push({
-        key: urlKey,
-        val: {
-          threatMatch: value.threatMatch
-        },
-        ttl: value.cacheDuration
-      })
-    }
-    return storeMetaData
   }
 
   get clearData () {

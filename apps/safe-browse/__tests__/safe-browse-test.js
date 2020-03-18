@@ -2,8 +2,8 @@
 
 const requestPromise = require('request-promise')
 const { SafeBrowse } = require('../safe-browse')
-const { mockUrlDomainKeys, mockThreatEntries, mockRequestBody } = require('../class-test-data/request-body-data')
-const { mockFailedSafeBrowseResponse, mockSafeBrowseResponse } = require('../class-test-data/response-data')
+const { mockUrlDomainKeys, mockThreatEntries, mockRequestBody } = require('../test-data/request-body-data')
+const { mockFailedSafeBrowseResponse, mockSafeBrowseResponse } = require('../test-data/response-data')
 
 describe('urldomainkeys include three threats and one harmless', () => {
   var safeBrowse
