@@ -1,7 +1,8 @@
 'use strict'
 
 class threatReportData {
-  constructor () {
+  constructor (urls) {
+    this.urls = urls
     this.userSubmittedUrls = {
       'testsafebrowsing.appspot.com/s/phishing.html': {},
       'testsafebrowsing.appspot.com/s/unwanted.html': {},
