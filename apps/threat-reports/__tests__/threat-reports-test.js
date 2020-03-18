@@ -5,7 +5,7 @@ const ThreatReportData = require('../../__test-data__/threat-report-data')
 
 var urls = ['testsafebrowsing.appspot.com/s/phishing.html', 'testsafebrowsing.appspot.com/s/unwanted.html', 'testsafebrowsing.appspot.com/s/malware.html', 'nasa.gov']
 
-describe('threats found in cache and safebrowse', ()=> {
+describe('threats found in cache and safebrowse', () => {
   var threatReportData = new ThreatReportData(urls)
   var threatReports = new ThreatReports(urls)
 
@@ -20,5 +20,4 @@ describe('threats found in cache and safebrowse', ()=> {
       'nasa.gov'
     ])
   })
-
 })
