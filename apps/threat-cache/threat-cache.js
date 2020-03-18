@@ -11,36 +11,31 @@ class ThreatCache {
     return cache.mget(urls)
   }
 
-  // _metaDataReport (urls) {
-  //   return Object.keys(urls)
-  // }
-
-  store (forCacheThreatReport) {
-    return cache.mset(this._metaDataStore(forCacheThreatReport))
+  store (fromSafeBrowse) {
+    return cache.mset(this._metaDataStore(fromSafeBrowse))
   }
 
-  // Move to threat report object
+  _metaDataStore (fromSafeBrowse) {
+    /* cache-friendly data format */
+    var storeMetaData = []
+    for (var match of fromSafeBrowse){
+      storeMetaData.push({
+        key: match.threat.url,
+        val: {
+          threatMatch: match.threatType
+        },
+        ttl: this._duration(match.cacheDuration)
+      })
+    }
+    return storeMetaData
+  }
+
   _duration (timeLetters) {
     /* convert time from text to number */
     var numberRegex = /[0-9]/g
     var numbers = timeLetters.match(numberRegex)
     var timeNumbers = numbers.join('')
     return parseInt(timeNumbers)
-  }
-
-  _metaDataStore (forCacheThreatReport) {
-    /* cache-friendly data format */
-    var storeMetaData = []
-    for (var [urlKey, value] of Object.entries(forCacheThreatReport)) {
-      storeMetaData.push({
-        key: urlKey,
-        val: {
-          threatMatch: value.threatMatch
-        },
-        ttl: value.cacheDuration
-      })
-    }
-    return storeMetaData
   }
 
   get clearData () {

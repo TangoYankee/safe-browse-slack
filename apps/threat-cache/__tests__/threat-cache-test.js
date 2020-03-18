@@ -11,7 +11,7 @@ describe('manage the threat cache', () => {
   afterAll(() => {
     threatCache.terminate()
   })
-  // Move to Threat Report
+
   it('should parse time into an integer', () => {
     expect(threatCache._duration('300s')).toEqual(300)
   })

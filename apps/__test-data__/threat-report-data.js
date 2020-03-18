@@ -15,16 +15,37 @@ class threatReportData {
       'testsafebrowsing.appspot.com/s/phishing.html': { threatMatch: 'SOCIAL_ENGINEERING' }
     }
 
-    this.forCacheStore = {
-      'testsafebrowsing.appspot.com/s/phishing.html': {
-        threatMatch: 'SOCIAL_ENGINEERING',
-        cacheDuration: 300
+    // this.forCacheStore = {
+    //   'testsafebrowsing.appspot.com/s/phishing.html': {
+    //     threatMatch: 'SOCIAL_ENGINEERING',
+    //     cacheDuration: 300
+    //   },
+    //   'testsafebrowsing.appspot.com/s/malware.html': {
+    //     threatMatch: 'MALWARE',
+    //     cacheDuration: 300
+    //   }
+    // }
+
+    this.forCacheStore = [
+      {
+        threatType: 'SOCIAL_ENGINEERING',
+        platformType: 'ANY_PLATFORM',
+        threat: {
+          url: 'testsafebrowsing.appspot.com/s/phishing.html'
+        },
+        cacheDuration: '300s',
+        threatEntryType: 'URL'
       },
-      'testsafebrowsing.appspot.com/s/malware.html': {
-        threatMatch: 'MALWARE',
-        cacheDuration: 300
+      {
+        threatType: 'MALWARE',
+        platformType: 'ANY_PLATFORM',
+        threat: {
+          url: 'testsafebrowsing.appspot.com/s/malware.html'
+        },
+        cacheDuration: '300s',
+        threatEntryType: 'URL'
       }
-    }
+    ]
 
     this.cacheFriendly = [{
       key: 'testsafebrowsing.appspot.com/s/phishing.html',

@@ -59,14 +59,18 @@ app.post('/safebrowse', async (req, res) => {
         var threatReports = new ThreatReports(urls)
         var threatCache = new ThreatCache()
         threatReports.fromCache = threatCache.report(threatReports.allUrls)
+        // Refactor so that urls are sent with threat matches
         var safeBrowse = new SafeBrowse(threatReports.notInCache)
+        // Refactor threatMatches to read 'report'
         // May be error, empty object, or object with threat matches
         threatReports.fromSafeBrowse = await safeBrowse.threatMatches
+        
+        threatCache.store(threatReports.toCache)
         console.log(urls)
         // Create object that holds list of urls, status of chache check [unchecked, errorCheck, inCache, notInCache]
         // Lookup URLs in Cache, update object
         // Lookup URLs in SafeBrowse
-        // Construct Message 
+        // Construct Message
         res.send()
       }
     }
