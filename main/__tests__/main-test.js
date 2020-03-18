@@ -3,9 +3,9 @@
 const request = require('supertest')
 const server = require('../main')
 const requestPromise = require('request-promise')
-const { mockUrlDomainKeys, mockThreatEntries, mockRequestBody } = require('../../apps/safe-browse/class-test-data/request-body-data')
-// require('../class-test-data/request-body-data')
-const { mockFailedSafeBrowseResponse, mockSafeBrowseResponse } = require('../../apps/safe-browse/class-test-data/response-data')
+const { mockUrlDomainKeys, mockThreatEntries, mockRequestBody } = require('../../apps/safe-browse/test-data/request-body-data')
+// require('../test-data/request-body-data')
+const { mockFailedSafeBrowseResponse, mockSafeBrowseResponse } = require('../../apps/safe-browse/test-data/response-data')
 
 const Signature = require('../../apps/credential/signature')
 jest.mock('../../apps/credential/signature')

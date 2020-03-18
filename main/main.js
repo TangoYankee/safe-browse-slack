@@ -2,7 +2,6 @@
 
 const bodyParser = require('body-parser')
 const express = require('express')
-const { publish, remove } = require('../apps/messages/methods')
 const OAuth = require('../apps/credential/oauth')
 const Signature = require('../apps/credential/signature')
 const ThreatUrls = require('../apps/threat-urls/threat-urls')
@@ -64,7 +63,7 @@ app.post('/safebrowse', async (req, res) => {
         // Refactor threatMatches to read 'report'
         // May be error, empty object, or object with threat matches
         threatReports.fromSafeBrowse = await safeBrowse.threatMatches
-        
+
         threatCache.store(threatReports.toCache)
         console.log(urls)
         // Create object that holds list of urls, status of chache check [unchecked, errorCheck, inCache, notInCache]
@@ -76,26 +75,6 @@ app.post('/safebrowse', async (req, res) => {
     }
   } else {
     res.status(400).send('Ignore this request')
-  }
-})
-
-app.post('/publish', (req, res) => {
-  /* send message in response to user input from slash command */
-  if (new Signature(req).isValid) {
-    publish(req.body, res)
-  } else {
-    res.status(400).send('Ignore this request')
-  }
-})
-
-// No longer necessary. Only sharing emphemeral messages
-app.post('/remove', (req, res) => {
-  /* delete messages already posted */
-  if (new Signature(req).isValid) {
-    var requestBody = JSON.parse(req.body.payload)
-    remove(requestBody, res)
-  } else {
-    res.status(400).send('Ingore this request')
   }
 })
 

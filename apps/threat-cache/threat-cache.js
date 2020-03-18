@@ -1,6 +1,6 @@
 'use strict'
 
-const { cacheStart, cacheInstance } = require('../cache/cache')
+const { cacheStart, cacheInstance } = require('./cache')
 
 cacheStart()
 const cache = cacheInstance()
