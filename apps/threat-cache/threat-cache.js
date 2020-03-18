@@ -18,7 +18,7 @@ class ThreatCache {
   _metaDataStore (fromSafeBrowse) {
     /* cache-friendly data format */
     var storeMetaData = []
-    for (var match of fromSafeBrowse){
+    for (var match of fromSafeBrowse) {
       storeMetaData.push({
         key: match.threat.url,
         val: {
