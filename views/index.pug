@@ -1,99 +1,38 @@
-
 extends _base.pug
 
 append content
   div(class="content")
     h2 Install
       hr
-    p Click the button below to install the Markdownlinks application in your Slack Workspace
+    p Click the button below to install the Safe Browse for Slack application in your Workspace
     a(title="add to slack" href="https://slack.com/oauth/v2/authorize?client_id=588720890436.994223185825&scope=commands") 
       img(alt="Add to Slack" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" width="139" height="40")
 
-    h2 Status as of 06 March 2020
-      hr
-    p Slack recently added functionality to format hyperlinks within messages. 
-      | Consequently, there are no plans to publish Markdownlinks to the Slack application libary. 
-      | However, it is still be refactored and maintained to improve its architecture. 
-      | Additionally, it is still available for installation in Slack workspaces. 
-      | However, its availability is not continuously guaranteed. 
-
     h2 Background
       hr
-    p 
-      strike While Slack supports several ways to format messages, this does not include a way to cleanly format long web addresses.
-      strike For example, there is no built-in way to shorten the directions to Emeril's restaurant in New Orleans: 
-      | These are the directions to Emeril's restaurant in New Orleans
+    p Slack allows for urls to be formatted into hypertext. This greatly improves the readability of messages that contain several urls, especially unruly ones. 
+      | For example, below are directions to Emeril's restaurant in New Orleans.
     ul
-      li 
+      li We're going to Emeril's for dinner! Here are the directions: 
         a(title = "Emerl's New Orleans" href = "https://www.google.com/maps/place/Emeril's+New+Orleans/@29.944616,-90.0694747,17z/data=!3m1!4b1!4m5!3m4!1s0x8620a6718f86a9a7:0x6ab2069a8e2a2d7d!8m2!3d29.944616!4d-90.067286") 
           | https://www.google.com/maps/place/Emeril's+New+Orleans/@29.944616,-90.0694747,17z/data=!3m1!4b1!4m5!3m4!1s0x8620a6718f86a9a7:0x6ab2069a8e2a2d7d!8m2!3d29.944616!4d-90.067286
-    p Sharing multiple web addresses in a single message quickly makes it feel cluttered:
-    ul 
-      li  
-        | We're going to Emeril's for dinner! Here are the directions:
-        a(title = "Emerl's New Orleans" href = "https://www.google.com/maps/place/Emeril's+New+Orleans/@29.944616,-90.0694747,17z/data=!3m1!4b1!4m5!3m4!1s0x8620a6718f86a9a7:0x6ab2069a8e2a2d7d!8m2!3d29.944616!4d-90.067286") 
-          | https://www.google.com/maps/place/Emeril's+New+Orleans/@29.944616,-90.0694747,17z/data=!3m1!4b1!4m5!3m4!1s0x8620a6718f86a9a7:0x6ab2069a8e2a2d7d!8m2!3d29.944616!4d-90.067286
-        |  If you need to stop by the DMV to get your license renewed first, make an appointment at their website!
-        a(title = "Louisiana DMV" href="https://www.expresslane.org/Pages/default.aspx")
-          |  https://www.expresslane.org/Pages/default.aspx
-    p Rough, right?
-      br 
-      | Instead! Hide these long addresses behind text by using the the Markdownlinks slash command, inspired by
-      a(title = "Markdown Guide" href="https://markdownguide.org/") 
-        | Markdown syntax
-
-    h2 Steps
-      hr
-    ol
-      li Begin your message with '/markdownlinks' to activate the command
-      li Type in the message you want share
-      li When you get to the text you want to hide your link behind, place it between brackets []
-      li 
-        | Immediately follow the text with the web address you want to hide, placed in paretheses ()  
-        br 
-        i Make sure there are no spaces between the closing bracket and the opening parenthesis!
-      li Send your message and Markdownlinks will cleanly format the hyperlinks
-        br
-        i Other Slack formatting -such as emojis and strikethroughs- are preserved in the message
-
-    h2 Demo
-      hr
-    p Your input would read:
-    ul 
-      li
-        | We're going to Emeril's for dinner! 
-        | [Here are the directions.](https://www.google.com/maps/place/Emeril's+New+Orleans/@29.944616,-90.0694747,17z/data=!3m1!4b1!4m5!3m4!1s0x8620a6718f86a9a7:0x6ab2069a8e2a2d7d!8m2!3d29.944616!4d-90.067286)
-        |  If you need to stop by the DMV to get your license renewed first, make an appointment at
-        | [their website!](https://www.expresslane.org/Pages/default.aspx)
-    p The resulting message will read:
+    p Using hypertext for the url makes the message look much cleaner.
     ul
-      li
-        | We're going to Emeril's for dinner!
+      li We're going to Emeril's for dinner! 
         a(title = "Emerl's New Orleans" href = "https://www.google.com/maps/place/Emeril's+New+Orleans/@29.944616,-90.0694747,17z/data=!3m1!4b1!4m5!3m4!1s0x8620a6718f86a9a7:0x6ab2069a8e2a2d7d!8m2!3d29.944616!4d-90.067286") 
           | Here are the directions.
-        |  If you need to stop by the DMV to get your license renewed first, make an appointment at 
-        a(title = "Louisiana DMV" href="https://www.expresslane.org/Pages/default.aspx")
-          | their website!
-    div(class="demo")
-      img(class = "demo-gifs" src="img/demos/emeril-demo.gif" alt="demonstration of safe and successful web address formatting")
+    p Unfortunately, hiding the urls behind text means that malicious websites can be hidden in messages. 
+      | Some users may share resources without realizing they are potentially harmful.
 
-    h2 Help
+    h2 Slash Command
       hr
-    p
-      | If you forget the format for [Markdown](hyperlink.syntax), use the 
-      i /markdownlinks help 
-      | command to remember.
-    div(class="demo")
-      img(class = "demo-gifs" src="img/demos/help-demo.gif" alt="demonstration of help option")
+    p The 
+      i /safebrowse 
+      | slash command for Slack uses 
+      a(class="google-safe-browse" title="Google safe browse home" href="https://safebrowsing.google.com/") Google Safe Browse 
+      | to check whether a web address is potentially harmful. 
+      | Suspicious web addresses are marked with an emoji representing their threat types.
 
-    h2 Safety
-      hr
-    p 
-      | Markdownlinks uses 
-      a(class="google-safe-browse" title="Google safe browse home" href="https://safebrowsing.google.com/") Google Safe Browse
-      |  to check whether a web address is potentially harmful.
-      br
-      | Suspicious web addresses are exposed and marked with an emoji representing their threat types.
     ul
       li
         img(class="emoji" src="img/emojis/beetle.png" alt="beetle")
@@ -111,20 +50,20 @@ append content
       | A small blue diamond
       img(class="emoji" src="img/emojis/small_blue_diamond.png" alt="small blue diamond")
       | is earned by web addresses that are not suspected of being harmful.
-      br
-      | A small orange diamond 
-      img(class="emoji" src="img/emojis/small_orange_diamond.png" alt="small orange diamond")
-      | means the web address was
-      a(class="google-safe-browse" href="https://www.snopes.com/fact-check/http-vs-https/")  shared without https.
     div(class="demo")
       img(class = "demo-gifs" src="img/demos/harmful-demo.gif" alt="demonstration of harmful yet successful web address formatting")
-    p 
-      i Google Safe Browse and https checks are not performed on web addresses shared outside of Markdown syntax.
+    p
+      i Safe Browse for Slack is an independent project unaffiliated with Google or Slack
+    h2 Steps
+      hr
+    ol
+      li Begin your message with '/safebrowse' to activate the command
+      li Copy in the urls that you want to check
+        br
+        i - Multiple urls can be checked in a single message
+      li Send your message and Safe Browse will report whether any urls are suspected of being harmful
 
     h3 Failing Safe Browse Checks
-    p A warning indicates when Markdownlinks fails to contact Google Safe Browse.
-      br
-      | Web addresses keep their formatting but do not earn the small blue diamond.
-      img(class="emoji" src="img/emojis/small_blue_diamond.png" alt="small blue diamond")
+    p A warning indicates when the Safe Browse for Slack application fails to contact the Google Service.
     div(class="demo")
       img(class = "demo-gifs" src="img/demos/error-demo.gif" alt="demonstration of safe yet failed web address formatting")
