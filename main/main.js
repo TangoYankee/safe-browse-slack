@@ -56,10 +56,8 @@ app.post('/safebrowse', (req, res) => {
       } else {
         /* user provides urls to check */
         var threatReports = new ThreatReports(urls)
-        var allUrlsReport = threatReports.allUrls
         var threatCache = new ThreatCache()
-        allUrlsReport.fromCache = threatCache.report(allUrlsReport)
-
+        threatReports.fromCache = threatCache.report(threatReports.allUrls)
         console.log(urls)
         // Create object that holds list of urls, status of chache check [unchecked, errorCheck, inCache, notInCache]
         // Lookup URLs in Cache, update object

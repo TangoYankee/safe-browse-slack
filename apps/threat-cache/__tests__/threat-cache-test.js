@@ -5,7 +5,8 @@ const ThreatReportData = require('../../__test-data__/threat-report-data')
 
 describe('manage the threat cache', () => {
   var threatCache = new ThreatCache()
-  var threatReportData = new ThreatReportData()
+  var urls = ['testsafebrowsing.appspot.com/s/phishing.html', 'testsafebrowsing.appspot.com/s/unwanted.html', 'testsafebrowsing.appspot.com/s/malware.html', 'nasa.gov']
+  var threatReportData = new ThreatReportData(urls)
 
   afterAll(() => {
     threatCache.terminate()
@@ -24,7 +25,7 @@ describe('manage the threat cache', () => {
   })
 
   it('should recieve a threat report of urls already in the cache', () => {
-    expect(threatCache.report(threatReportData.userSubmittedUrls)).toEqual(threatReportData.urlsInCache)
+    expect(threatCache.report(urls)).toEqual(threatReportData.urlsInCache)
   })
 
   it('should flush the cache of all data', () => {

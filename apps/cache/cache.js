@@ -6,7 +6,7 @@ let cache = null
 const cacheStart = (done) => {
   /* initialize */
   if (cache) {
-    return done()
+    return done
   }
   cache = new NodeCache()
 }

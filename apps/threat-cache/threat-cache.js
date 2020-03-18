@@ -7,12 +7,13 @@ const cache = cacheInstance()
 
 class ThreatCache {
   report (urls) {
-    return cache.mget(this._metaDataReport(urls))
+    // return cache.mget(this._metaDataReport(urls))
+    return cache.mget(urls)
   }
 
-  _metaDataReport (urls) {
-    return Object.keys(urls)
-  }
+  // _metaDataReport (urls) {
+  //   return Object.keys(urls)
+  // }
 
   store (forCacheThreatReport) {
     return cache.mset(this._metaDataStore(forCacheThreatReport))
