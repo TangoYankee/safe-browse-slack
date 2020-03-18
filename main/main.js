@@ -6,6 +6,8 @@ const { publish, remove } = require('../apps/messages/methods')
 const OAuth = require('../apps/credential/oauth')
 const Signature = require('../apps/credential/signature')
 const ThreatUrls = require('../apps/threat-urls/threat-urls')
+const ThreatReports = require('../apps/threat-reports/threat-reports')
+const ThreatCache = require('../apps/threat-cache/threat-cache')
 const HelpBlock = require('../apps/blocks/help-block')
 
 var app = express()
@@ -46,21 +48,26 @@ app.post('/safebrowse', (req, res) => {
       /* user input is empty */
       res.json(errorMessage)
     } else {
+      // Send text to process by regex. Have Regex return list of URLS
       var urls = new ThreatUrls(req.body.text).threatUrls
       if (urls.length === 0) {
         /* user urls are empty */
         res.json(errorMessage)
       } else {
         /* user provides urls to check */
+        var threatReports = new ThreatReports(urls)
+        var allUrlsReport = threatReports.allUrls
+        var threatCache = new ThreatCache()
+        allUrlsReport.fromCache = threatCache.report(allUrlsReport)
+
         console.log(urls)
+        // Create object that holds list of urls, status of chache check [unchecked, errorCheck, inCache, notInCache]
+        // Lookup URLs in Cache, update object
+        // Lookup URLs in SafeBrowse
+        // Construct Message
         res.send()
       }
     }
-    // Send text to process by regex. Have Regex return list of URLS
-    // Create object that holds list of urls, status of chache check [unchecked, errorCheck, inCache, notInCache]
-    // Lookup URLs in Cache, update object
-    // Lookup URLs in SafeBrowse
-    // Construct Message
   } else {
     res.status(400).send('Ignore this request')
   }

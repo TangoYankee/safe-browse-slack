@@ -4,15 +4,23 @@ class ThreatReports {
   /* Stores data from user request, cache report, and safe browse report */
   constructor(urls) {
     this.urls = urls
+    this.fromCache = {}
   }
 
-  get allUrls () {
+  get allUrls() {
+    /* urls as keys for threat values */
     var allUrlsReport = {}
-    for (var url of this.urls){
+    for (var url of this.urls) {
       allUrlsReport[url] = {}
     }
     return allUrlsReport
   }
+
+  get notInCache() {
+    /* filter all urls into urls not in cache */
+    return this.urls.filter(url => !Object.keys(this.fromCache).includes(url))
+  }
+
 }
 
 module.exports = ThreatReports
