@@ -1,9 +1,18 @@
 html {
-    position: relative;
-    min-height: 100%;
-  }
+  padding: 0;
+}
 
 body {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+html, body {
+  position: relative;
+  min-height: 100%;
+  width: 100%;
+  margin: 0;
+  background-color: white;
   font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 }
 
@@ -17,21 +26,16 @@ header {
   justify-content: center;
 }
 
-header img {
-  height: 5rem;
-  width: 5rem;
-  margin: auto 1rem;
-}
-
 header a {
   text-decoration: none;
+  text-align: center;
   color: black;
   margin: auto 1rem;
 }
 
 div.message {
   font-size: 1.25rem;
-  color:white;
+  color: white;
   text-align: center;
   margin: auto;
   max-width: max-content;
@@ -43,9 +47,17 @@ div.message {
   transition: opacity 0.6s;
 }
 
-.alert.success {background-color: #4CAF50;}
-.alert.error {background-color: #b71c1c;}
-.alert.warning {background-color: orange;}
+.alert.success {
+  background-color: #4CAF50;
+}
+
+.alert.error {
+  background-color: #b71c1c;
+}
+
+.alert.warning {
+  background-color: orange;
+}
 
 .closebtn a {
   color: white;
@@ -61,7 +73,9 @@ div.content {
   display: flex;
   flex-direction: column;
   margin: auto;
-  max-width: 67rem;
+  max-width: 50rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 div.content h1 {
@@ -106,19 +120,19 @@ img.demo-gifs {
   border-radius: 0.25rem;
   border-width: 0.1rem;
 }
-  
+
 footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: auto;
-    width: 100%;
-    display: flex;
-    flex-flow: wrap;
-    justify-content: space-around;
-    align-items: center;
-    padding: .5rem .5rem .75rem;
-  }
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: auto;
+  width: 100%;
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.75rem 0;
+}
 
 footer a {
   color: black;
