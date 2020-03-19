@@ -26,5 +26,5 @@ jobs:
           name: lint
           command: npm run lint
       - coveralls/upload:
-          path_to_lcov: ../coverage/lcov.info
+          path_to_lcov: /coverage/lcov.info
           
