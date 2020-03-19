@@ -79,11 +79,14 @@ describe('consolidates reports to send to block builder', () => {
     )
   })
 
-  it.skip('should create deep copies of notInCache and toBlocksReport', () => {
+  it('should create deep copies of notInCache and threatCacheReport', () => {
     threatReports.threatCacheReport = threatReportData.urlsInCache
     threatReports.lookupAPIReport = threatReportData.lookupAPIReport
-    threatReports.toBlocks
-    expect(threatReports.notInCache).toEqual
-
+    threatReports.forBlocks = threatReports.toBlocks
+    expect(threatReports.threatCacheReport).toEqual(threatReportData.urlsInCache)
+    expect(threatReports.notInCache).toEqual([
+      'testsafebrowsing.appspot.com/s/unwanted.html',
+      'nasa.gov'
+    ])
   })
 })
