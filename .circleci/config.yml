@@ -25,4 +25,6 @@ jobs:
       - run:
           name: lint
           command: npm run lint
+      - codecov/upload:
+          file: {{ coverage/coverage-final.json }}    
           
