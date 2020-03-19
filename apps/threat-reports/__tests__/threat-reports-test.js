@@ -10,7 +10,7 @@ describe('threats found in cache and safebrowse', () => {
   var threatReports = new ThreatReports(urls)
 
   it('should return urls that are not in the cache', () => {
-    threatReports.fromCache = threatReportData.urlsInCache
+    threatReports.threatCacheReport = threatReportData.urlsInCache
     expect(threatReports.notInCache).toEqual([
       'testsafebrowsing.appspot.com/s/unwanted.html',
       'nasa.gov'
