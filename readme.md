@@ -1,6 +1,7 @@
 # Welcome to Safe Browse for Slack!  
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
-[![CircleCI](https://circleci.com/gh/TangoYankee/safe-browse-slack.svg?style=svg)](https://circleci.com/gh/TangoYankee/safe-browse-slack)  
+[![CircleCI](https://circleci.com/gh/TangoYankee/safe-browse-slack.svg?style=svg)](https://circleci.com/gh/TangoYankee/safe-browse-slack)
+[![Coverage Status](https://coveralls.io/repos/github/TangoYankee/safe-browse-slack/badge.svg?branch=master)](https://coveralls.io/github/TangoYankee/safe-browse-slack?branch=master)  
 
 ## Overview
 This Slack application allows users to check urls for threats reported through Google's Safe Browse API.

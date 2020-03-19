@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
- codecov: codecov/codecov@1.0.5
+ coveralls: coveralls/coveralls@1.0.4
 jobs:
  build:
     working_directory: ~/safe-browse-slack
@@ -25,6 +25,6 @@ jobs:
       - run:
           name: lint
           command: npm run lint
-      - codecov/upload:
-          file: coverage/coverage-final.json
+      - coveralls/upload:
+          path_to_lcov: ~/safe-browse-slack/coverage/lcov.info
           
