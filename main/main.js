@@ -59,10 +59,10 @@ if (new Signature(req).isValid) {
       var threatCache = new ThreatCache()
       threatReports.threatCacheReport = threatCache.report(threatReports.allUrls)
       // Refactor so that urls are sent with threat matches
-      var lookupAPI = new LookupAPI(threatReports.notInCache)
+      var lookupAPI = new LookupAPI()
       // Refactor threatMatches to read 'report'
       // May be error, empty object, or object with threat matches
-      threatReports.lookupAPIReport = await lookupAPI.threatMatches
+      threatReports.lookupAPIReport = await lookupAPI.threatMatches(threatReports.notInCache)
 
       threatCache.store(threatReports.toCache)
       console.log(urls)

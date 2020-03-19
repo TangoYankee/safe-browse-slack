@@ -4,13 +4,9 @@
 const requestPromise = require('request-promise')
 
 class LookupAPI {
-  /* find threat matches for shared urls */
-  constructor (urlDomainKeys) {
+  threatMatches (urlDomainKeys) {
+    /* find threat matches for shared urls */
     this.urlDomainKeys = urlDomainKeys
-  }
-
-  get threatMatches () {
-    /* only call safe browse if there is at least one threat url */
     if (this.urlDomainKeys.length > 0) {
       return this._callLookupAPI
     } else {
