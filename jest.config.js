@@ -28,8 +28,8 @@ module.exports = {
 
   // An array of regexp pattern strings used to skip coverage collection
   coveragePathIgnorePatterns: [
-    "/node_modules/",
-    "/test-data"
+    '/node_modules/',
+    '/test-data'
   ],
 
   // A list of reporter names that Jest uses when writing coverage reports
@@ -42,11 +42,11 @@ module.exports = {
 
   // An object that configures minimum threshold enforcement for coverage results
   coverageThreshold: {
-    "global": {
-      "branches": 90,
-      "functions": 90,
-      "lines": 90,
-      "statements": -10
+    global: {
+      branches: 90,
+      functions: 90,
+      lines: 90,
+      statements: -10
     }
   },
 
