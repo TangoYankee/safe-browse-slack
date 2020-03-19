@@ -1,6 +1,6 @@
 'use strict'
 
-const { threatMap } = require('../test-data/threat-map')
+const { threatMap } = require('./threat-map')
 
 const mockUrlDomainKeys = (threats) => {
   var urlDomainKeys = []

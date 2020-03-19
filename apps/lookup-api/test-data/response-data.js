@@ -1,8 +1,8 @@
 'use strict'
 
-const { threatMap } = require('../test-data/threat-map')
+const { threatMap } = require('./threat-map')
 
-const mockFailedSafeBrowseResponse = {
+const mockFailedLookupResponse = {
   body: {
   },
   headers: { data: '...' },
@@ -10,7 +10,7 @@ const mockFailedSafeBrowseResponse = {
   statusCodeError: 401
 }
 
-const mockSafeBrowseResponse = (threatEntries) => {
+const mockLookupResponse = (threatEntries) => {
   var response = {}
   var threatMatches = mockThreatMatches(threatEntries)
   if (threatMatches.length < 1) {
@@ -44,6 +44,6 @@ const mockThreat = (threatEntry) => {
 }
 
 module.exports = {
-  mockSafeBrowseResponse,
-  mockFailedSafeBrowseResponse
+  mockLookupResponse,
+  mockFailedLookupResponse
 }

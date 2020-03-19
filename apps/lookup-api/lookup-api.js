@@ -3,22 +3,18 @@
 
 const requestPromise = require('request-promise')
 
-class SafeBrowse {
-  /* find threat matches for shared urls */
-  constructor (urlDomainKeys) {
+class LookupAPI {
+  report (urlDomainKeys) {
+    /* find threat matches for shared urls */
     this.urlDomainKeys = urlDomainKeys
-  }
-
-  get threatMatches () {
-    /* only call safe browse if there is at least one threat url */
     if (this.urlDomainKeys.length > 0) {
-      return this._callSafebrowse
+      return this._callLookupAPI
     } else {
       return { body: {} }
     }
   }
 
-  get _callSafebrowse () {
+  get _callLookupAPI () {
     /* recieve threat matches from safe browse */
     return requestPromise.post(this._options)
       .then(response => {
@@ -77,6 +73,4 @@ class SafeBrowse {
   }
 }
 
-module.exports = {
-  SafeBrowse
-}
+module.exports = LookupAPI

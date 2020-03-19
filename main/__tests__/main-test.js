@@ -3,7 +3,7 @@
 const request = require('supertest')
 const server = require('../main')
 const requestPromise = require('request-promise')
-const { mockSafeBrowseResponse } = require('../../apps/safe-browse/test-data/response-data')
+const { mockLookupResponse } = require('../../apps/lookup-api/test-data/response-data')
 
 const Signature = require('../../apps/credential/signature')
 jest.mock('../../apps/credential/signature')
@@ -21,7 +21,7 @@ describe('should receive valid requests to safebrowse command', () => {
     'NONE_FOUND'
   ]
   beforeEach(() => {
-    requestPromise.post.mockResolvedValue(mockSafeBrowseResponse(threats))
+    requestPromise.post.mockResolvedValue(mockLookupResponse(threats))
     spyOnLog = jest.spyOn(console, 'log').mockImplementation()
     Signature.mockImplementationOnce(() => {
       return { isValid: true }
@@ -100,7 +100,7 @@ describe('recieve a invalid request for safebrowse command', () => {
     'NONE_FOUND'
   ]
   beforeEach(() => {
-    requestPromise.post.mockResolvedValue(mockSafeBrowseResponse(threats))
+    requestPromise.post.mockResolvedValue(mockLookupResponse(threats))
     Signature.mockImplementationOnce(() => {
       return { isValid: false }
     })

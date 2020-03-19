@@ -2,12 +2,13 @@
 
 const bodyParser = require('body-parser')
 const express = require('express')
+
 const OAuth = require('../apps/credential/oauth')
 const Signature = require('../apps/credential/signature')
 const ThreatUrls = require('../apps/threat-urls/threat-urls')
 const ThreatReports = require('../apps/threat-reports/threat-reports')
 const ThreatCache = require('../apps/threat-cache/threat-cache')
-const { SafeBrowse } = require('../apps/safe-browse/safe-browse')
+const LookupAPI = require('../apps/lookup-api/lookup-api')
 const HelpBlock = require('../apps/blocks/help-block')
 
 var app = express()
@@ -34,7 +35,7 @@ app.get('/oauth', async (req, res) => {
 })
 
 app.post('/safebrowse', async (req, res) => {
-  /* check urls for suspected threats with google safe browse api */
+  /* check urls for suspected threats with google safe browse lookup api */
   if (new Signature(req).isValid) {
     var text = req.body.text
     var userID = req.body.user_id
@@ -42,35 +43,23 @@ app.post('/safebrowse', async (req, res) => {
     var errorMessage = new HelpBlock(userID, 'we did not find any urls to check').message
 
     if (text.toLowerCase() === 'help') {
-      /* user asks for help */
       res.json(welcomeMessage)
     } else if (text === '') {
-      /* user input is empty */
       res.json(errorMessage)
     } else {
-      // Send text to process by regex. Have Regex return list of URLS
       var urls = new ThreatUrls(req.body.text).threatUrls
       if (urls.length === 0) {
-        /* user urls are empty */
         res.json(errorMessage)
       } else {
-        /* user provides urls to check */
         var threatReports = new ThreatReports(urls)
         var threatCache = new ThreatCache()
-        threatReports.fromCache = threatCache.report(threatReports.allUrls)
-        // Refactor so that urls are sent with threat matches
-        var safeBrowse = new SafeBrowse(threatReports.notInCache)
-        // Refactor threatMatches to read 'report'
-        // May be error, empty object, or object with threat matches
-        threatReports.fromSafeBrowse = await safeBrowse.threatMatches
-
-        threatCache.store(threatReports.toCache)
+        threatReports.threatCacheReport = threatCache.report(threatReports.allUrls)
+        var lookupAPI = new LookupAPI()
+        threatReports.lookupAPIReport = await lookupAPI.report(threatReports.notInCache)
         console.log(urls)
-        // Create object that holds list of urls, status of chache check [unchecked, errorCheck, inCache, notInCache]
-        // Lookup URLs in Cache, update object
-        // Lookup URLs in SafeBrowse
         // Construct Message
         res.send()
+        threatCache.store(threatReports.toCache)
       }
     }
   } else {
