@@ -1,12 +1,11 @@
 'use strict'
 
 const ThreatCache = require('../threat-cache')
-const ThreatReportData = require('../../__test-data__/threat-report-data')
+const ThreatCacheData = require('../test-data/threat-cache-data')
 
 describe('manage the threat cache', () => {
   var threatCache = new ThreatCache()
-  var urls = ['testsafebrowsing.appspot.com/s/phishing.html', 'testsafebrowsing.appspot.com/s/unwanted.html', 'testsafebrowsing.appspot.com/s/malware.html', 'nasa.gov']
-  var threatReportData = new ThreatReportData(urls)
+  var threatCacheData = new ThreatCacheData()
 
   afterAll(() => {
     threatCache.terminate()
@@ -17,15 +16,15 @@ describe('manage the threat cache', () => {
   })
 
   it('should make url objects cache friendly', () => {
-    expect(threatCache._metaDataStore(threatReportData.forCacheStore)).toEqual(threatReportData.cacheFriendly)
+    expect(threatCache._metaDataStore(threatCacheData.forCacheStore)).toEqual(threatCacheData.cacheFriendly)
   })
 
   it('should save the threat report to the cache', () => {
-    expect(threatCache.store(threatReportData.forCacheStore)).toBe(true)
+    expect(threatCache.store(threatCacheData.forCacheStore)).toBe(true)
   })
 
   it('should recieve a threat report of urls already in the cache', () => {
-    expect(threatCache.report(urls)).toEqual(threatReportData.urlsInCache)
+    expect(threatCache.report(threatCacheData.urls)).toEqual(threatCacheData.urlsInCache)
   })
 
   it('should flush the cache of all data', () => {
