@@ -1,5 +1,7 @@
 'use strict'
 
+const { threatMap } = require('./threat-map')
+
 class threatReportData {
   constructor (urls) {
     this.urls = urls
@@ -11,42 +13,23 @@ class threatReportData {
     // }
 
     this.urlsInCache = {
-      'testsafebrowsing.appspot.com/s/malware.html': { threatMatch: 'MALWARE' },
+      'testsafebrowsing.appspot.com/s/malware.html' : { threatMatch: 'MALWARE' },
       'testsafebrowsing.appspot.com/s/phishing.html': { threatMatch: 'SOCIAL_ENGINEERING' }
     }
 
-    // this.forCacheStore = {
-    //   'testsafebrowsing.appspot.com/s/phishing.html': {
-    //     threatMatch: 'SOCIAL_ENGINEERING',
-    //     cacheDuration: 300
-    //   },
-    //   'testsafebrowsing.appspot.com/s/malware.html': {
-    //     threatMatch: 'MALWARE',
-    //     cacheDuration: 300
-    //   }
-    // }
-
-    this.lookupAPIReport = {matches :[
-      {
-        threatType: 'SOCIAL_ENGINEERING',
-        platformType: 'ANY_PLATFORM',
-        threat: {
-          url: 'testsafebrowsing.appspot.com/s/phishing.html'
-        },
-        cacheDuration: '300s',
-        threatEntryType: 'URL'
-      },
-      {
-        threatType: 'MALWARE',
-        platformType: 'ANY_PLATFORM',
-        threat: {
-          url: 'testsafebrowsing.appspot.com/s/malware.html'
-        },
-        cacheDuration: '300s',
-        threatEntryType: 'URL'
-      }
-    ]
-  }
+    this.lookupAPIReport = {
+      matches: [
+        {
+          threatType: 'UNWANTED_SOFTWARE',
+          platformType: 'ANY_PLATFORM',
+          threat: {
+            url: 'testsafebrowsing.appspot.com/s/unwanted.html'
+          },
+          cacheDuration: '300s',
+          threatEntryType: 'URL'
+        }
+      ]
+    }
 
     this.cacheFriendly = [{
       key: 'testsafebrowsing.appspot.com/s/phishing.html',
@@ -62,6 +45,8 @@ class threatReportData {
       },
       ttl: 300
     }]
+
+    this.threatlessReports = []
   }
 }
 

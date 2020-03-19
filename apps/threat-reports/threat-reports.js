@@ -29,7 +29,7 @@ class ThreatReports {
       }
     } else if (this.lookupAPIReport.matches) {
       /* safe browse returned threat matches */
-      for (var match in this.lookupAPIReport.matches) {
+      for (var match of this.lookupAPIReport.matches) {
         toBlocksReport[match.threat.url] = { threatMatch: match.threatType }
         notInCacheOrSafeBrowse = notInCacheOrSafeBrowse.splice(notInCacheOrSafeBrowse.indexOf[match.threat.url], 1)
       }
@@ -45,6 +45,7 @@ class ThreatReports {
         toBlocksReport[url] = { threatMatch: 'NONE_FOUND' }
       }
     }
+    return toBlocksReport
   }
 }
 
