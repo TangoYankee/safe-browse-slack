@@ -3,7 +3,7 @@
 const requestPromise = require('request-promise')
 const LookupAPI = require('../lookup-api')
 const { mockUrlDomainKeys, mockThreatEntries, mockRequestBody } = require('../test-data/request-body-data')
-const { mockFailedSafeBrowseResponse, mockSafeBrowseResponse } = require('../test-data/response-data')
+const { mockFailedLookupResponse, mockLookupResponse } = require('../test-data/response-data')
 
 describe('urldomainkeys include three threats and one harmless', () => {
   var lookupAPI
@@ -16,7 +16,7 @@ describe('urldomainkeys include three threats and one harmless', () => {
   var urlDomainKeys = mockUrlDomainKeys(threats)
 
   beforeAll(() => {
-    requestPromise.post.mockResolvedValue(mockSafeBrowseResponse(threats))
+    requestPromise.post.mockResolvedValue(mockLookupResponse(threats))
     lookupAPI = new LookupAPI(urlDomainKeys)
   })
 
@@ -32,7 +32,7 @@ describe('urldomainkeys include three threats and one harmless', () => {
     expect(lookupAPI._requestBody).toEqual(mockRequestBody(mockThreatEntries(urlDomainKeys)))
   })
 
-  it('should call safebrowse', async () => {
+  it('should call lookup api', async () => {
     expect.assertions(1)
     await lookupAPI.threatMatches
     expect(requestPromise.post).toHaveBeenCalledTimes(1)
@@ -50,7 +50,7 @@ describe('urldomiankeys only has a harmless url', () => {
   var urlDomainKeys = mockUrlDomainKeys(threats)
 
   beforeAll(() => {
-    requestPromise.post.mockResolvedValue(mockSafeBrowseResponse(threats))
+    requestPromise.post.mockResolvedValue(mockLookupResponse(threats))
     lookupAPI = new LookupAPI(urlDomainKeys)
   })
 
@@ -63,7 +63,7 @@ describe('urldomiankeys only has a harmless url', () => {
     return expect(body.matches).toEqual(undefined)
   })
 
-  it('should call safebrowse', async () => {
+  it('should call lookup api', async () => {
     await lookupAPI.threatMatches
     return expect(requestPromise.post).toHaveBeenCalledTimes(1)
   })
@@ -75,7 +75,7 @@ describe('urldomiankeys is empty', () => {
   var urlDomainKeys = mockUrlDomainKeys(threats)
 
   beforeAll(() => {
-    requestPromise.post.mockResolvedValue(mockSafeBrowseResponse(threats))
+    requestPromise.post.mockResolvedValue(mockLookupResponse(threats))
     lookupAPI = new LookupAPI(urlDomainKeys)
   })
 
@@ -83,7 +83,7 @@ describe('urldomiankeys is empty', () => {
     lookupAPI = undefined
   })
 
-  it('should abort calling safebrowse', async () => {
+  it('should abort calling lookup api', async () => {
     await lookupAPI.threatMatches
     return expect(requestPromise.post).toHaveNotBeenCalled
   })
@@ -94,14 +94,14 @@ describe('urldomiankeys is empty', () => {
   })
 })
 
-describe('safebrowse denies access', () => {
+describe('lookup denies access', () => {
   var lookupAPI
   var threats = ['MALWARE']
   var urlDomainKeys = mockUrlDomainKeys(threats)
   var spyOnWarn
   beforeAll(() => {
     spyOnWarn = jest.spyOn(console, 'warn').mockImplementation()
-    requestPromise.post.mockResolvedValue(mockFailedSafeBrowseResponse)
+    requestPromise.post.mockResolvedValue(mockFailedLookupResponse)
     lookupAPI = new LookupAPI(urlDomainKeys)
   })
 
