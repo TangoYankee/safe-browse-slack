@@ -4,7 +4,7 @@
 const requestPromise = require('request-promise')
 
 class LookupAPI {
-  threatMatches (urlDomainKeys) {
+  report (urlDomainKeys) {
     /* find threat matches for shared urls */
     this.urlDomainKeys = urlDomainKeys
     if (this.urlDomainKeys.length > 0) {

@@ -36,12 +36,12 @@ describe('urldomainkeys include three threats and one harmless', () => {
 
   it('should call lookup api', async () => {
     expect.assertions(1)
-    await lookupAPI.threatMatches(urlDomainKeys)
+    await lookupAPI.report(urlDomainKeys)
     expect(requestPromise.post).toHaveBeenCalledTimes(1)
   })
 
   it('should recieve three matching threats', async () => {
-    var body = await lookupAPI.threatMatches(urlDomainKeys)
+    var body = await lookupAPI.report(urlDomainKeys)
     return expect(body.matches.length).toEqual(3)
   })
 })
@@ -61,12 +61,12 @@ describe('urldomiankeys only has a harmless url', () => {
   })
 
   it('should recieve a response void of matches to threats', async () => {
-    var body = await lookupAPI.threatMatches(urlDomainKeys)
+    var body = await lookupAPI.report(urlDomainKeys)
     return expect(body.matches).toEqual(undefined)
   })
 
   it('should call lookup api', async () => {
-    await lookupAPI.threatMatches(urlDomainKeys)
+    await lookupAPI.report(urlDomainKeys)
     return expect(requestPromise.post).toHaveBeenCalledTimes(1)
   })
 })
@@ -86,12 +86,12 @@ describe('urldomiankeys is empty', () => {
   })
 
   it('should abort calling lookup api', async () => {
-    await lookupAPI.threatMatches(urlDomainKeys)
+    await lookupAPI.report(urlDomainKeys)
     return expect(requestPromise.post).toHaveNotBeenCalled
   })
 
   it('should have a similar response to recieving no threat matches', async () => {
-    var body = await lookupAPI.threatMatches(urlDomainKeys)
+    var body = await lookupAPI.report(urlDomainKeys)
     return expect(body.matches).toEqual(undefined)
   })
 })
@@ -113,11 +113,11 @@ describe('lookup denies access', () => {
   })
 
   it('should recieve an error containing a 401 code', async () => {
-    return expect(lookupAPI.threatMatches(urlDomainKeys)).resolves.toThrow('safe browse response code: 401')
+    return expect(lookupAPI.report(urlDomainKeys)).resolves.toThrow('safe browse response code: 401')
   })
 
   it('should receive a warning with 401 code error', async () => {
-    await lookupAPI.threatMatches(urlDomainKeys)
+    await lookupAPI.report(urlDomainKeys)
     return expect(console.warn).toHaveBeenCalledWith(new Error('safe browse response code: 401'))
   })
 })
