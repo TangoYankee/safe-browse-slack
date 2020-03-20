@@ -19,9 +19,8 @@ describe('should make valid requests without urls', () => {
   })
 
   afterEach((done) => {
-    server.close()
+    server.close(done)
     Signature.mockClear()
-    done()
   })
 
   it('should recieve no text', async () => {
@@ -68,9 +67,8 @@ describe('should make an invalid request', () => {
     })
   })
   afterEach((done) => {
-    server.close()
+    server.close(done)
     Signature.mockClear()
-    done()
   })
 
   it('should not be valid', async () => {

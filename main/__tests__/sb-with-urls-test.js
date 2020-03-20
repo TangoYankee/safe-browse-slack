@@ -37,10 +37,9 @@ describe('successful call to lookup api', () => {
   })
 
   afterEach((done) => {
-    server.close()
+    server.close(done)
     Signature.mockClear()
     spyOnRequest.mockRestore()
-    done()
   })
 
   it('should send urls to parse', async () => {
@@ -78,11 +77,10 @@ describe('failed call to lookup api', () => {
   })
 
   afterEach((done) => {
-    server.close()
+    server.close(done)
     Signature.mockClear()
     spyOnRequest.mockRestore()
     spyOnWarn.mockRestore()
-    done()
   })
 
   it('have an error as the resulting match', async () => {
