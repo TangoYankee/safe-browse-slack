@@ -6,7 +6,7 @@ const server = require('../main')
 const Signature = require('../../apps/credential/signature')
 jest.mock('../../apps/credential/signature')
 
-const { helpWelcomeData, helpInputData } = require('../../apps/blocks/test-data/help-block-data')
+const { helpWelcomeData, helpInputData } = require('../test-data/sb-no-urls-data')
 
 describe('should make valid requests without urls', () => {
   beforeEach(() => {
