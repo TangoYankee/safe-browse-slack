@@ -18,12 +18,12 @@ describe('should make valid requests without urls', () => {
     })
   })
 
-  afterEach((done) => {
-    server.close(done)
+  afterEach(() => {
+    server.close()
     Signature.mockClear()
   })
 
-  it('should recieve no text', async () => {
+  it('should recieve no text', async (done) => {
     await request(server)
       .post('/safebrowse')
       .send({
@@ -32,9 +32,10 @@ describe('should make valid requests without urls', () => {
       })
       .expect('Content-Type', /json/)
       .expect(200, helpInputData)
+    done()
   })
 
-  it('should request help', async () => {
+  it('should request help', async (done) => {
     await request(server)
       .post('/safebrowse')
       .send({
@@ -43,9 +44,10 @@ describe('should make valid requests without urls', () => {
       })
       .expect('Content-Type', /json/)
       .expect(200, helpWelcomeData)
+    done()
   })
 
-  it('should recieve text but no urls', async () => {
+  it('should recieve text but no urls', async (done) => {
     await request(server)
       .post('/safebrowse')
       .send({
@@ -54,6 +56,7 @@ describe('should make valid requests without urls', () => {
       })
       .expect('Content-Type', /json/)
       .expect(200, helpInputData)
+    done()
   })
 })
 
@@ -66,14 +69,15 @@ describe('should make an invalid request', () => {
       return { isValid: false }
     })
   })
-  afterEach((done) => {
-    server.close(done)
+  afterEach(() => {
+    server.close()
     Signature.mockClear()
   })
 
-  it('should not be valid', async () => {
+  it('should not be valid', async (done) => {
     const res = await request(server).post('/safebrowse')
     expect(res.status).toBe(400)
     expect(res.text).toBe('Ignore this request')
+    done()
   })
 })

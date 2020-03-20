@@ -11,20 +11,21 @@ describe('oauth flow', () => {
     delete require.cache[require.resolve('../main')]
     server = require('../main')
   })
-  afterEach((done) => {
-    server.close(done)
+  afterEach(() => {
+    server.close()
   })
 
-  it('should have a successful oauth path', async () => {
+  it('should have a successful oauth path', async (done) => {
     var code = cryptoRandomString({ length: 9 })
     requestPromise.post.mockResolvedValue(mockTokenRequest)
-    return request(server)
+    await request(server)
       .get('/oauth')
       .query({ code: code })
       .expect('Location', '/?message=success')
+    done()
   })
 
-  it('should not recieve a code', async () => {
+  it('should not recieve a code', async (done) => {
     var spyOnWarn = jest.spyOn(console, 'warn').mockImplementation()
     await request(server)
       .get('/oauth')
@@ -32,9 +33,10 @@ describe('oauth flow', () => {
       .expect('Location', '/?message=error')
     expect(spyOnWarn).toHaveBeenCalledWith('authorization code not received.')
     spyOnWarn.mockRestore()
+    done()
   })
 
-  it('should recieve a code but fail to get a token', async () => {
+  it('should recieve a code but fail to get a token', async (done) => {
     var spyOnWarn = jest.spyOn(console, 'warn').mockImplementation()
     var code = cryptoRandomString({ length: 9 })
     requestPromise.post.mockResolvedValue(mockFailedTokenRequest)
@@ -44,5 +46,6 @@ describe('oauth flow', () => {
       .expect('Location', '/?message=error')
     expect(spyOnWarn).toHaveBeenCalledWith(new Error('oauth failed to recieve team ID and/or access token'))
     spyOnWarn.mockRestore()
+    done()
   })
 })

@@ -1,7 +1,6 @@
 'use strict'
 
 const request = require('supertest')
-// const server = require('../main')
 const requestPromise = require('request-promise')
 const {
   mockIncomingUrls,
@@ -36,13 +35,13 @@ describe('successful call to lookup api', () => {
     })
   })
 
-  afterEach((done) => {
-    server.close(done)
+  afterEach(() => {
+    server.close()
     Signature.mockClear()
     spyOnRequest.mockRestore()
   })
 
-  it('should send urls to parse', async () => {
+  it('should send urls to parse', async (done) => {
     var res = await request(server)
       .post('/safebrowse')
       .send({
@@ -52,6 +51,7 @@ describe('successful call to lookup api', () => {
     expect(res.status).toBe(200)
     expect(spyOnRequest).toHaveBeenCalledTimes(2)
     expect(spyOnRequest).toHaveBeenCalledWith(mockThreatReport(reportTextSuccess))
+    done()
   })
 })
 
@@ -76,14 +76,14 @@ describe('failed call to lookup api', () => {
     })
   })
 
-  afterEach((done) => {
-    server.close(done)
+  afterEach(() => {
+    server.close()
     Signature.mockClear()
     spyOnRequest.mockRestore()
     spyOnWarn.mockRestore()
   })
 
-  it('have an error as the resulting match', async () => {
+  it('have an error as the resulting match', async (done) => {
     var res = await request(server)
       .post('/safebrowse')
       .send({
@@ -94,5 +94,6 @@ describe('failed call to lookup api', () => {
     expect(spyOnRequest).toHaveBeenCalledTimes(2)
     expect(spyOnRequest).toHaveBeenCalledWith(mockThreatReport(reportTextError))
     expect(spyOnWarn).toHaveBeenCalledWith(new Error('safe browse response code: 401'))
+    done()
   })
 })
