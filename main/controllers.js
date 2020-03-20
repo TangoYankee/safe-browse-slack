@@ -61,7 +61,6 @@ const postSafeBrowse = async (req, res) => {
           .catch(error => {
             console.warn(error)
           })
-        console.log(urls)
         threatCache.store(threatReports.toCache)
       }
     }
