@@ -12,7 +12,7 @@
     "scripts": {
         "lint": "eslint .",
         "start": "node main/main.js",
-        "test": "jest --coverage"
+        "test": "jest --coverage --runInBand"
     },
     "dependencies": {
         "body-parser": "1.18.3",
