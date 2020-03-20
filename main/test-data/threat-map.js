@@ -28,7 +28,8 @@ const threatMap = {
   },
 
   NONE_FOUND: {
-    url: 'nasa.gov', threatType: ''
+    url: 'nasa.gov',
+    threatType: ''
   },
 }
 

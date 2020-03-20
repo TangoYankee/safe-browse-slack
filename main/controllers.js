@@ -42,11 +42,13 @@ const postSafeBrowse = async (req, res) => {
       res.json(errorMessage)
     } else {
       var urls = new ThreatUrls(text).threatUrls
+      console.warn(`urls : ${urls}`)
       if (urls.length === 0) {
         res.json(errorMessage)
       } else {
         res.send()
         var threatReports = new ThreatReports(urls)
+        console.warn(`threatReports ${threatReports.allUrls}`)
         var threatCache = new ThreatCache()
         threatReports.threatCacheReport = threatCache.report(threatReports.allUrls)
         var lookupAPI = new LookupAPI()
