@@ -35,6 +35,8 @@ class threatCacheData {
       }
     ]
 
+    this.forCacheStoreEmpty = []
+
     this.cacheFriendly = [{
       key: 'testsafebrowsing.appspot.com/s/phishing.html',
       val: {

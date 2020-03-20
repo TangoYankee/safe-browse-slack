@@ -23,6 +23,10 @@ describe('manage the threat cache', () => {
     expect(threatCache.store(threatCacheData.forCacheStore)).toBe(true)
   })
 
+  it('should handle an empty threat report from the lookup api', () => {
+    expect(threatCache.store(threatCacheData.forCacheStoreEmpty)).toBe(true)
+  })
+
   it('should recieve a threat report of urls already in the cache', () => {
     expect(threatCache.report(threatCacheData.urls)).toEqual(threatCacheData.urlsInCache)
   })
