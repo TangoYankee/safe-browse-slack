@@ -7,8 +7,11 @@ const { mockTokenRequest, mockFailedTokenRequest } = require('../test-data/oa-fl
 const cryptoRandomString = require('crypto-random-string')
 
 describe('oauth flow', () => {
-  afterEach(() => {
-    server.close()
+  beforeEach((done) => {
+    server.listen(done)
+  })
+  afterEach((done) => {
+    server.close(done)
   })
 
   it('should have a successful oauth path', async () => {

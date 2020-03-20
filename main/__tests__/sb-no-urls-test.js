@@ -9,14 +9,15 @@ jest.mock('../../apps/credential/signature')
 const { helpWelcomeData, helpInputData } = require('../test-data/sb-no-urls-data')
 
 describe('should make valid requests without urls', () => {
-  beforeEach(() => {
+  beforeEach((done) => {
+    server.listen(done)
     Signature.mockImplementationOnce(() => {
       return { isValid: true }
     })
   })
 
-  afterEach(() => {
-    server.close()
+  afterEach((done) => {
+    server.close(done)
     Signature.mockClear()
   })
 
@@ -55,13 +56,14 @@ describe('should make valid requests without urls', () => {
 })
 
 describe('should make an invalid request', () => {
-  beforeEach(() => {
+  beforeEach((done) => {
+    server.listen(done)
     Signature.mockImplementationOnce(() => {
       return { isValid: false }
     })
   })
-  afterEach(() => {
-    server.close()
+  afterEach((done) => {
+    server.close(done)
     Signature.mockClear()
   })
 
