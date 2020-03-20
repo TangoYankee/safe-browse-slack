@@ -3,7 +3,7 @@
 const request = require('supertest')
 const server = require('../main')
 const requestPromise = require('request-promise')
-const { mockTokenRequest, mockFailedTokenRequest } = require('../../apps/credential/test-data/oauth-data')
+const { mockTokenRequest, mockFailedTokenRequest } = require('../test-data/oa-flow-data')
 const cryptoRandomString = require('crypto-random-string')
 
 describe('oauth flow', () => {
