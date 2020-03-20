@@ -39,8 +39,9 @@ app.post('/safebrowse', async (req, res) => {
   if (new Signature(req).isValid) {
     var text = req.body.text
     var userID = req.body.user_id
-    var welcomeMessage = new HelpBlock(userID, 'type */safebrowse* followed by unformatted urls.\nWe will check them for suspected threats').message
-    var errorMessage = new HelpBlock(userID, 'we did not find any urls to check').message
+    var helpBlock = new HelpBlock()
+    var welcomeMessage = helpBlock.message(userID, 'type */safebrowse* followed by unformatted urls.\nWe will check them for suspected threats')
+    var errorMessage = helpBlock.message(userID, 'we did not find any urls to check')
 
     if (text.toLowerCase() === 'help') {
       res.json(welcomeMessage)
