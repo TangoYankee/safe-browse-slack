@@ -8,7 +8,7 @@ const { mockLookupResponse } = require('../../apps/lookup-api/test-data/response
 const Signature = require('../../apps/credential/signature')
 jest.mock('../../apps/credential/signature')
 
-const { helpWelcomeData, helpInputData } = require('../../apps/blocks/test-data/help-test-data')
+const { helpWelcomeData, helpInputData } = require('../../apps/blocks/test-data/help-block-data')
 const { mockTokenRequest, mockFailedTokenRequest } = require('../../apps/credential/test-data/oauth-data')
 const cryptoRandomString = require('crypto-random-string')
 
