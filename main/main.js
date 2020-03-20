@@ -2,6 +2,7 @@
 
 const bodyParser = require('body-parser')
 const express = require('express')
+const requestPromise = require('request-promise')
 
 const OAuth = require('../apps/credential/oauth')
 const Signature = require('../apps/credential/signature')
@@ -10,6 +11,7 @@ const ThreatReports = require('../apps/threat-reports/threat-reports')
 const ThreatCache = require('../apps/threat-cache/threat-cache')
 const LookupAPI = require('../apps/lookup-api/lookup-api')
 const HelpBlock = require('../apps/blocks/help-block')
+const ReportBlock = require('../apps/blocks/report-block')
 
 var app = express()
 app.set('view engine', 'pug')
@@ -48,18 +50,28 @@ app.post('/safebrowse', async (req, res) => {
     } else if (text === '') {
       res.json(errorMessage)
     } else {
-      var urls = new ThreatUrls(req.body.text).threatUrls
+      var urls = new ThreatUrls(text).threatUrls
       if (urls.length === 0) {
         res.json(errorMessage)
       } else {
+        res.send()
         var threatReports = new ThreatReports(urls)
         var threatCache = new ThreatCache()
         threatReports.threatCacheReport = threatCache.report(threatReports.allUrls)
         var lookupAPI = new LookupAPI()
         threatReports.lookupAPIReport = await lookupAPI.report(threatReports.notInCache)
+        var reportMessage = new ReportBlock().message(threatReports.toBlocks)
+        var requestOptions = {
+          url: req.body.response_url,
+          body: reportMessage,
+          json: true
+        }
+        requestPromise.post(requestOptions)
+          .catch(error => {
+            console.warn(error)
+          })
         console.log(urls)
         // Construct Message
-        res.send()
         threatCache.store(threatReports.toCache)
       }
     }
