@@ -1,12 +1,9 @@
 'use strict'
 
 class HelpBlock {
-  constructor (userID, feedback) {
+  message (userID, feedback) {
     this.userID = userID
     this.feedback = feedback
-  }
-
-  get message () {
     return {
       response_type: 'ephemeral',
       blocks: this._blocks
