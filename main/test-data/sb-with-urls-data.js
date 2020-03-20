@@ -2,7 +2,6 @@
 
 const { threatMap } = require('./threat-map')
 
-
 const mockIncomingUrls = (threatTypes) => {
   var text = ''
   for (var threatType of threatTypes) {
@@ -64,26 +63,26 @@ const mockThreat = (threatEntry) => {
 
 const mockThreatReport = (report) => {
   return {
-    "body": {
-      "blocks": [{
-        "text": {
-          "text": report,
-          "type": "mrkdwn"
+    body: {
+      blocks: [{
+        text: {
+          text: report,
+          type: 'mrkdwn'
         },
-        "type": "section"
+        type: 'section'
       }, {
-        "type": "divider"
+        type: 'divider'
       }, {
-        "elements": [{
-          "text": "For more info, explore <https://developers.google.com/safe-browsing/v4/advisory|Google Safe Browse>",
-          "type": "mrkdwn"
+        elements: [{
+          text: 'For more info, explore <https://developers.google.com/safe-browsing/v4/advisory|Google Safe Browse>',
+          type: 'mrkdwn'
         }],
-        "type": "context"
+        type: 'context'
       }],
-      "response_type": "ephemeral"
+      response_type: 'ephemeral'
     },
-    "json": true,
-    "url": "https://hooks.slack.com/commands/"
+    json: true,
+    url: 'https://hooks.slack.com/commands/'
   }
 }
 

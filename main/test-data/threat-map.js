@@ -30,7 +30,7 @@ const threatMap = {
   NONE_FOUND: {
     url: 'nasa.gov',
     threatType: ''
-  },
+  }
 }
 
 module.exports = {
