@@ -1,7 +1,7 @@
 'use strict'
 
 const request = require('supertest')
-const server = require('../main')
+// const server = require('../main')
 
 const Signature = require('../../apps/credential/signature')
 jest.mock('../../apps/credential/signature')
@@ -9,16 +9,19 @@ jest.mock('../../apps/credential/signature')
 const { helpWelcomeData, helpInputData } = require('../test-data/sb-no-urls-data')
 
 describe('should make valid requests without urls', () => {
-  beforeEach((done) => {
-    server.listen(done)
+  var server
+  beforeEach(() => {
+    delete require.cache[require.resolve('../main')]
+    server = require('../main')
     Signature.mockImplementationOnce(() => {
       return { isValid: true }
     })
   })
 
   afterEach((done) => {
-    server.close(done)
+    server.close()
     Signature.mockClear()
+    done()
   })
 
   it('should recieve no text', async () => {
@@ -56,15 +59,18 @@ describe('should make valid requests without urls', () => {
 })
 
 describe('should make an invalid request', () => {
-  beforeEach((done) => {
-    server.listen(done)
+  var server
+  beforeEach(() => {
+    delete require.cache[require.resolve('../main')]
+    server = require('../main')
     Signature.mockImplementationOnce(() => {
       return { isValid: false }
     })
   })
   afterEach((done) => {
-    server.close(done)
+    server.close()
     Signature.mockClear()
+    done()
   })
 
   it('should not be valid', async () => {

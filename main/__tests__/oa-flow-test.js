@@ -1,17 +1,19 @@
 'use strict'
 
 const request = require('supertest')
-const server = require('../main')
 const requestPromise = require('request-promise')
 const { mockTokenRequest, mockFailedTokenRequest } = require('../test-data/oa-flow-data')
 const cryptoRandomString = require('crypto-random-string')
 
 describe('oauth flow', () => {
-  beforeEach((done) => {
-    server.listen(done)
+  var server
+  beforeEach(() => {
+    delete require.cache[require.resolve('../main')]
+    server = require('../main')
   })
   afterEach((done) => {
-     server.close(done)
+     server.close()
+     done()
   })
 
   it('should have a successful oauth path', async () => {
