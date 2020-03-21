@@ -48,7 +48,7 @@ module.exports = {
       lines: 90,
       statements: -10
     }
-  },
+  }
 
   // A path to a custom dependency extractor
   // dependencyExtractor: null,
@@ -96,7 +96,7 @@ module.exports = {
   // notifyMode: "failure-change",
 
   // A preset that is used as a base for Jest's configuration
-  preset: '@shelf/jest-mongodb'
+  // preset: '@shelf/jest-mongodb'
 
   // Run tests from one or more projects
   // projects: null,
