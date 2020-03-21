@@ -10,7 +10,7 @@ const {
 const Signature = require('../../apps/credential/signature')
 jest.mock('../../apps/credential/signature')
 
-var server
+let server
 describe('successful call to lookup api', () => {
   var spyOnRequest
   var mockUrls
@@ -34,7 +34,7 @@ describe('successful call to lookup api', () => {
     })
   })
 
-  afterAll((done) => {
+  afterEach((done) => {
     server.close(done)
     Signature.mockClear()
     spyOnRequest.mockRestore()
@@ -73,7 +73,7 @@ describe('failed call to lookup api', () => {
     })
   })
 
-  afterAll((done) => {
+  afterEach((done) => {
     server.close(done)
     Signature.mockClear()
     spyOnRequest.mockRestore()

@@ -5,13 +5,13 @@ const requestPromise = require('request-promise')
 const { mockTokenRequest, mockFailedTokenRequest } = require('../test-data/oa-flow-data')
 const cryptoRandomString = require('crypto-random-string')
 
-var server
+let server
 describe('oauth flow', () => {
   beforeEach(() => {
     delete require.cache[require.resolve('../main')]
     server = require('../main')
   })
-  afterAll((done) => {
+  afterEach((done) => {
     server.close(done)
   })
 

@@ -7,9 +7,8 @@ jest.mock('../../apps/credential/signature')
 
 const { helpWelcomeData, helpInputData } = require('../test-data/sb-no-urls-data')
 
-var server
+let server
 describe('should make valid requests without urls', () => {
-
   beforeEach(() => {
     delete require.cache[require.resolve('../main')]
     server = require('../main')
