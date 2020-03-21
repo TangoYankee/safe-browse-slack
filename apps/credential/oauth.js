@@ -24,7 +24,6 @@ class OAuth {
 
   async setTokenInfo () {
     /* provide current token or request one with code */
-
     if (this.tokenInfo) {
       return this.tokenInfo
     } else if (this.codeReq.query.code) {
@@ -38,7 +37,6 @@ class OAuth {
 
   get _tokenBody () {
     /* exchange code for authorization token */
-
     return requestPromise.post(this._options)
       .then(response => {
         var responseBodyJSON = JSON.parse(response)
