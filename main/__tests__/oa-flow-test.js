@@ -8,7 +8,7 @@ const cryptoRandomString = require('crypto-random-string')
 
 describe('oauth flow', () => {
   afterAll((done) => {
-    server.close(done)    
+    server.close(done)
   })
 
   it('should have a successful oauth path', async () => {
