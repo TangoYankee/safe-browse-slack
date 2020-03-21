@@ -3,15 +3,13 @@
 const request = require('supertest')
 
 const Signature = require('../../apps/credential/signature')
+const server = require('../main')
 jest.mock('../../apps/credential/signature')
 
 const { helpWelcomeData, helpInputData } = require('../test-data/sb-no-urls-data')
 
 describe('should make valid requests without urls', () => {
-  var server
   beforeEach(() => {
-    delete require.cache[require.resolve('../main')]
-    server = require('../main')
     Signature.mockImplementationOnce(() => {
       return { isValid: true }
     })
@@ -60,10 +58,7 @@ describe('should make valid requests without urls', () => {
 })
 
 describe('should make an invalid request', () => {
-  var server
   beforeEach(() => {
-    delete require.cache[require.resolve('../main')]
-    server = require('../main')
     Signature.mockImplementationOnce(() => {
       return { isValid: false }
     })
