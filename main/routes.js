@@ -2,8 +2,10 @@
 
 const express = require('express')
 
-const { redirectToLanding, getLanding, getPrivacy,
-  getOAuth, postSafeBrowse } = require('./controllers')
+const {
+  redirectToLanding, getLanding, getPrivacy,
+  getOAuth, postSafeBrowse
+} = require('./controllers')
 
 const router = express.Router()
 router.get('/', redirectToLanding)

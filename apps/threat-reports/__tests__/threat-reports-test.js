@@ -70,18 +70,18 @@ describe('consolidates reports to send to block builder', () => {
     threatReports.threatCacheReport = threatReportData.urlsInCache
     threatReports.lookupAPIReport = threatReportData.lookupAPIReport
     expect(threatReports.toBlocks).toEqual({
-      "nasa.gov": {
-        "threatMatch": "NONE_FOUND",
+      'nasa.gov': {
+        threatMatch: 'NONE_FOUND'
       },
-      "testsafebrowsing.appspot.com/s/malware.html": {
-        "threatMatch": "MALWARE",
+      'testsafebrowsing.appspot.com/s/malware.html': {
+        threatMatch: 'MALWARE'
       },
-      "testsafebrowsing.appspot.com/s/phishing.html": {
-        "threatMatch": "SOCIAL_ENGINEERING",
+      'testsafebrowsing.appspot.com/s/phishing.html': {
+        threatMatch: 'SOCIAL_ENGINEERING'
       },
-      "testsafebrowsing.appspot.com/s/unwanted.html": {
-        "threatMatch": "UNWANTED_SOFTWARE",
-      },
+      'testsafebrowsing.appspot.com/s/unwanted.html': {
+        threatMatch: 'UNWANTED_SOFTWARE'
+      }
     })
   })
 
