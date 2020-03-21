@@ -31,7 +31,7 @@ class ThreatReports {
       /* safe browse returned threat matches */
       for (var match of this.lookupAPIReport.matches) {
         toBlocksReport[match.threat.url] = { threatMatch: match.threatType }
-        notInCacheOrSafeBrowse = notInCacheOrSafeBrowse.splice(notInCacheOrSafeBrowse.indexOf[match.threat.url], 1)
+        notInCacheOrSafeBrowse.splice(notInCacheOrSafeBrowse.indexOf(match.threat.url), 1)
       }
       /* remaining urls not in cache or matches will be added to block */
       for (const url of notInCacheOrSafeBrowse) {
