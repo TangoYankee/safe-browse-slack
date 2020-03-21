@@ -69,14 +69,20 @@ describe('consolidates reports to send to block builder', () => {
   it('should have uls in cache, lookup api, and with no threats found', () => {
     threatReports.threatCacheReport = threatReportData.urlsInCache
     threatReports.lookupAPIReport = threatReportData.lookupAPIReport
-    expect(threatReports.toBlocks).toEqual(expect
-      .objectContaining(
-        threatReportData.urlsInCache,
-        threatReportData.lookupAPIReport.matches,
-        {
-          'nasa.gov': { threatMatch: 'NONE_FOUND' }
-        })
-    )
+    expect(threatReports.toBlocks).toEqual({
+      'nasa.gov': {
+        threatMatch: 'NONE_FOUND'
+      },
+      'testsafebrowsing.appspot.com/s/malware.html': {
+        threatMatch: 'MALWARE'
+      },
+      'testsafebrowsing.appspot.com/s/phishing.html': {
+        threatMatch: 'SOCIAL_ENGINEERING'
+      },
+      'testsafebrowsing.appspot.com/s/unwanted.html': {
+        threatMatch: 'UNWANTED_SOFTWARE'
+      }
+    })
   })
 
   it('should create deep copies of notInCache and threatCacheReport', () => {
