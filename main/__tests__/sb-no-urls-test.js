@@ -25,7 +25,7 @@ describe('should make valid requests without urls', () => {
 
   it('should recieve no text', async () => {
     await request(server)
-      .post('/safebrowse')
+      .post('/sb-command')
       .send({
         user_id: 'tangoyankee',
         text: ''
@@ -36,7 +36,7 @@ describe('should make valid requests without urls', () => {
 
   it('should request help', async () => {
     await request(server)
-      .post('/safebrowse')
+      .post('/sb-command')
       .send({
         user_id: 'tangoyankee',
         text: 'help'
@@ -47,7 +47,7 @@ describe('should make valid requests without urls', () => {
 
   it('should recieve text but no urls', async () => {
     await request(server)
-      .post('/safebrowse')
+      .post('/sb-command')
       .send({
         user_id: 'tangoyankee',
         text: '<@UH00Z00Z0|dev.user>'
@@ -73,7 +73,7 @@ describe('should make an invalid request', () => {
   })
 
   it('should not be valid', async () => {
-    const res = await request(server).post('/safebrowse')
+    const res = await request(server).post('/sb-command')
     expect(res.status).toBe(400)
     expect(res.text).toBe('Ignore this request')
   })

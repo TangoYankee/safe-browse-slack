@@ -43,7 +43,7 @@ describe('successful call to lookup api', () => {
 
   it('should send urls to parse', async () => {
     var res = await request(server)
-      .post('/safebrowse')
+      .post('/sb-command')
       .send({
         text: `${mockUrls} <@UH00Z00Z0|dev.user>`,
         response_url: 'https://hooks.slack.com/commands/'
@@ -85,7 +85,7 @@ describe('failed call to lookup api', () => {
 
   it('have an error as the resulting match', async () => {
     var res = await request(server)
-      .post('/safebrowse')
+      .post('/sb-command')
       .send({
         text: `${mockUrls} <@UH00Z00Z0|dev.user>`,
         response_url: 'https://hooks.slack.com/commands/'
