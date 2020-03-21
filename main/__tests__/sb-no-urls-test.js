@@ -7,8 +7,9 @@ jest.mock('../../apps/credential/signature')
 
 const { helpWelcomeData, helpInputData } = require('../test-data/sb-no-urls-data')
 
+var server
 describe('should make valid requests without urls', () => {
-  var server
+
   beforeEach(() => {
     delete require.cache[require.resolve('../main')]
     server = require('../main')
@@ -18,9 +19,8 @@ describe('should make valid requests without urls', () => {
   })
 
   afterEach((done) => {
-    server.close()
+    server.close(done)
     Signature.mockClear()
-    done()
   })
 
   it('should recieve no text', async () => {
@@ -58,7 +58,7 @@ describe('should make valid requests without urls', () => {
 })
 
 describe('should make an invalid request', () => {
-  var server
+
   beforeEach(() => {
     delete require.cache[require.resolve('../main')]
     server = require('../main')
@@ -67,9 +67,8 @@ describe('should make an invalid request', () => {
     })
   })
   afterEach((done) => {
-    server.close()
+    server.close(done)
     Signature.mockClear()
-    done()
   })
 
   it('should not be valid', async () => {

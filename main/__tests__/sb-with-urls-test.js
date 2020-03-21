@@ -10,8 +10,8 @@ const {
 const Signature = require('../../apps/credential/signature')
 jest.mock('../../apps/credential/signature')
 
+var server
 describe('successful call to lookup api', () => {
-  var server
   var spyOnRequest
   var mockUrls
   var lookupThreats = [
@@ -34,11 +34,10 @@ describe('successful call to lookup api', () => {
     })
   })
 
-  afterEach((done) => {
-    server.close()
+  afterAll((done) => {
+    server.close(done)
     Signature.mockClear()
     spyOnRequest.mockRestore()
-    done()
   })
 
   it('should send urls to parse', async () => {
@@ -55,7 +54,6 @@ describe('successful call to lookup api', () => {
 })
 
 describe('failed call to lookup api', () => {
-  var server
   var mockUrls
   var spyOnWarn
   var spyOnRequest
@@ -75,12 +73,11 @@ describe('failed call to lookup api', () => {
     })
   })
 
-  afterEach((done) => {
-    server.close()
+  afterAll((done) => {
+    server.close(done)
     Signature.mockClear()
     spyOnRequest.mockRestore()
     spyOnWarn.mockRestore()
-    done()
   })
 
   it('have an error as the resulting match', async () => {
