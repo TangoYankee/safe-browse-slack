@@ -1,7 +1,6 @@
 'use strict'
 
 const request = require('supertest')
-// const server = require('../main')
 
 const Signature = require('../../apps/credential/signature')
 jest.mock('../../apps/credential/signature')
