@@ -17,10 +17,12 @@ describe('should make valid requests without urls', () => {
     })
   })
 
-  afterEach((done) => {
-    server.close()
+  afterEach(() => {
     Signature.mockClear()
-    done()
+  })
+
+  afterAll((done) => {
+    server.close(done)
   })
 
   it('should recieve no text', async () => {
@@ -66,10 +68,12 @@ describe('should make an invalid request', () => {
       return { isValid: false }
     })
   })
-  afterEach((done) => {
-    server.close()
+  afterEach(() => {
     Signature.mockClear()
-    done()
+  })
+
+  afterAll((done) => {
+    server.close(done)
   })
 
   it('should not be valid', async () => {

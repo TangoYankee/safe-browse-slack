@@ -2,18 +2,13 @@
 
 const request = require('supertest')
 const requestPromise = require('request-promise')
+const server = require('../main')
 const { mockTokenRequest, mockFailedTokenRequest } = require('../test-data/oa-flow-data')
 const cryptoRandomString = require('crypto-random-string')
 
 describe('oauth flow', () => {
-  var server
-  beforeEach(() => {
-    delete require.cache[require.resolve('../main')]
-    server = require('../main')
-  })
-  afterEach((done) => {
-    server.close()
-    done()
+  afterAll((done) => {
+    server.close(done)    
   })
 
   it('should have a successful oauth path', async () => {
