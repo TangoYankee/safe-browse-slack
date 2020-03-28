@@ -16,4 +16,4 @@ div(class="message")
             - alert_class = "warning"
         div(class = `alert ${alert_class}`) #{display_text}
             span(class = "closebtn") 
-                a(title = "close message" href = "/") &times;
+                a(title = "close message" href = process.env.SB_DIRECT_URI+"/") &times;
