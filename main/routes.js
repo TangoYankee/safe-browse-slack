@@ -3,7 +3,7 @@
 const express = require('express')
 
 const {
-  redirectToLanding, getLanding, getPrivacy,
+  getLanding, getPrivacy,
   getOAuth, postSafeBrowse
 } = require('./controllers')
 
