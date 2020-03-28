@@ -11,11 +11,6 @@ const LookupAPI = require('../apps/lookup-api/lookup-api')
 const HelpBlock = require('../apps/blocks/help-block')
 const ReportBlock = require('../apps/blocks/report-block')
 
-const redirectToLanding = (req, res) => {
-  res.status(200)
-  res.redirect('safebrowse')
-}
-
 const getLanding = (req, res) => {
   /* home page viewable from web browser */
   res.render('index', { message: req.query.message })
@@ -75,7 +70,6 @@ const postSafeBrowse = async (req, res) => {
 }
 
 module.exports = {
-  redirectToLanding,
   getLanding,
   getPrivacy,
   getOAuth,

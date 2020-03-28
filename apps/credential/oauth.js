@@ -17,7 +17,7 @@ class OAuth {
     } else {
       console.warn('authorization code not received.')
       this.res.status(500)
-      this.res.redirect('/?message=error')
+      this.res.redirect(`${process.env.SB_DIRECT_URI}?message=error`)
       return ''
     }
   }
@@ -47,7 +47,7 @@ class OAuth {
             team_id: responseBodyJSON.team.id
           }
           this.res.status(200)
-          this.res.redirect('/?message=success')
+          this.res.redirect(`${process.env.SB_DIRECT_URI}?message=success`)
           return (tokenInfo)
         } else {
           throw new Error('oauth failed to recieve team ID and/or access token')
@@ -56,7 +56,7 @@ class OAuth {
       .catch(error => {
         console.warn(error)
         this.res.status(400)
-        this.res.redirect('/?message=error')
+        this.res.redirect(`${process.env.SB_DIRECT_URI}?message=error`)
         return error
       })
   }
