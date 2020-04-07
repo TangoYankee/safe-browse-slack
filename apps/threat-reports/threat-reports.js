@@ -10,6 +10,7 @@ class ThreatReports {
 
   get notInCache () {
     /* filter all urls into urls not in cache */
+    // Should just be 'not in this.threatCacheReport
     return this.allUrls.filter(url => !Object.keys(this.threatCacheReport).includes(url))
   }
 
