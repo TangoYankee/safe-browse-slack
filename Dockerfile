@@ -2,9 +2,9 @@ FROM node:11
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY package.json package-lock.json ./
 
-RUN npm install --only=prod
+RUN npm ci --only=prod
 
 COPY . .
 
